@@ -1702,7 +1702,6 @@ loadGameData().then(() => {
 // Mobile touch controls for minigame - using DOMContentLoaded to avoid timing issues
 document.addEventListener('DOMContentLoaded', function() {
     const tapBtn = document.getElementById('tapBtn');
-    const holdBtn = document.getElementById('holdBtn');
     
     if (tapBtn) {
         tapBtn.addEventListener('touchstart', (e) => {
@@ -1735,29 +1734,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    if (holdBtn) {
-        holdBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            if (currentMinigame.gameActive) {
-                const notes = document.querySelectorAll('.rhythm-note');
-                if (notes.length > 0) {
-                    const marker = document.querySelector('.rhythm-marker');
-                    if (!marker) return;
-                    
-                    const markerRect = marker.getBoundingClientRect();
-                    
-                    notes.forEach(note => {
-                        const noteRect = note.getBoundingClientRect();
-                        const distance = Math.abs(noteRect.left + noteRect.width/2 - markerRect.left - markerRect.width/2);
-                        
-                        if (distance < 120) {
-                            hitNote(note);
-                        }
-                    });
-                }
-            }
-        });
-    }
+    
 });
 
 // Auto-update crop timers
