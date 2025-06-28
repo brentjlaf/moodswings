@@ -212,10 +212,10 @@ function renderShop() {
         const categoryHeader = document.createElement('div');
         categoryHeader.className = 'shop-category-header';
         categoryHeader.innerHTML = `
-            <h3 style="color: #4169E1; margin: 15px 0 10px 0; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800;">
+            <h3 class="shop-category-title">
                 ${category.name}
             </h3>
-            <p style="color: #666; font-size: 0.8em; margin-bottom: 10px;">${category.description}</p>
+            <p class="shop-category-desc">${category.description}</p>
         `;
         shopGrid.appendChild(categoryHeader);
         
@@ -233,7 +233,7 @@ function renderShop() {
                 <div class="item-icon">${item.icon}</div>
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
-                    <div class="item-description" style="font-size: 0.75em; color: #666; margin: 2px 0;">${item.description}</div>
+                    <div class="item-description">${item.description}</div>
                     <div class="item-price">ðŸ’° ${item.cost} coins</div>
                     ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
                 </div>
@@ -459,11 +459,12 @@ function renderCows() {
 
         const happinessColor = cow.isHappy ? '#32CD32' : '#FF6B6B';
         const heartIcon      = cow.isHappy ? 'ðŸ’š' : 'ðŸ’”';
+        const moodClass      = cow.isHappy ? 'cow-mood cow-mood-happy' : 'cow-mood cow-mood-sad';
 
         cowCard.innerHTML = `
             <div class="cow-icon">${cow.emoji}</div>
             <div class="cow-name">${cow.name}</div>
-            <div class="cow-mood" style="color: ${happinessColor};">
+            <div class="${moodClass}">
                 ${heartIcon} ${cow.currentMood} (${cow.moodValue})
             </div>
             <div class="cow-demand">"${cow.currentDemand}"</div>
@@ -484,7 +485,7 @@ function renderCows() {
         cowCard.innerHTML = `
             <div class="cow-icon">ðŸ”’</div>
             <div class="cow-name">${cow.name} - Locked</div>
-            <div style="font-size: 0.7em; color: #999; margin-top: 5px;">
+            <div class="locked-cow-text">
                 ${unlockText}
             </div>
         `;
@@ -533,7 +534,7 @@ function renderCrops() {
                 `;
             }
         } else {
-            cropSlot.innerHTML = '<div style="color: #8B4513; font-size: 1.5em;">âž•</div>';
+            cropSlot.innerHTML = '<div class="crop-slot-empty">âž•</div>';
         }
         
         grid.appendChild(cropSlot);
@@ -733,37 +734,37 @@ function updateBulletin() {
     const totalCows = gameState.cows.length;
     
     bulletin.innerHTML = `
-        <div style="margin-bottom: 12px;">
-            <h3 style="color: #8B4513; margin-bottom: 8px; font-family: 'Montserrat', sans-serif;  font-size: 1.1em; font-weight: 700;">
+        <div class="bulletin-container">
+            <h3 class="bulletin-title">
                 ðŸ“‹ DAILY FARM REPORT - DAY ${gameState.day}
             </h3>
-            <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Happy Cows:</strong> ${happyCows.length}/${totalCows}</p>
-            <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Milk Produced:</strong> ${gameState.dailyStats.milkProduced}</p>
-            <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Coins Earned:</strong> ${gameState.dailyStats.coinsEarned}</p>
-            <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Perfect Scores:</strong> ${gameState.dailyStats.perfectScores}</p>
-            <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Total Perfects:</strong> ${gameState.stats.totalPerfectScores}</p>
+            <p class="bulletin-stat"><strong>Happy Cows:</strong> ${happyCows.length}/${totalCows}</p>
+            <p class="bulletin-stat"><strong>Milk Produced:</strong> ${gameState.dailyStats.milkProduced}</p>
+            <p class="bulletin-stat"><strong>Coins Earned:</strong> ${gameState.dailyStats.coinsEarned}</p>
+            <p class="bulletin-stat"><strong>Perfect Scores:</strong> ${gameState.dailyStats.perfectScores}</p>
+            <p class="bulletin-stat"><strong>Total Perfects:</strong> ${gameState.stats.totalPerfectScores}</p>
         </div>
-        <div style="margin-bottom: 12px; padding: 8px; background: linear-gradient(145deg, #87CEEB, #ADD8E6); border-radius: 8px; border: 2px solid #4169E1;">
-            <h4 style="color: #191970; margin-bottom: 4px; font-weight: 800; font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
+        <div class="unlock-progress-box">
+            <h4 class="unlock-progress-title">
                 ðŸ”“ UNLOCK PROGRESS
             </h4>
-            <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Total Milk: ${gameState.stats.totalMilkProduced} | Total Coins: ${gameState.stats.totalCoinsEarned}</p>
-            <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Perfect Scores: ${gameState.stats.totalPerfectScores} | Day: ${gameState.day}</p>
-            <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Locked Cows: ${gameState.lockedCows.length}</p>
+            <p class="unlock-progress-stat">Total Milk: ${gameState.stats.totalMilkProduced} | Total Coins: ${gameState.stats.totalCoinsEarned}</p>
+            <p class="unlock-progress-stat">Perfect Scores: ${gameState.stats.totalPerfectScores} | Day: ${gameState.day}</p>
+            <p class="unlock-progress-stat">Locked Cows: ${gameState.lockedCows.length}</p>
         </div>
         ${gameState.dailyStats.happiest ? `
-        <div style="margin-bottom: 12px; padding: 8px; background: linear-gradient(145deg, #D4941E, #B8860B); border-radius: 8px; border: 2px solid #8B4513;">
-            <h4 style="color: #F5E6D3; margin-bottom: 4px; font-weight: 800;  font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
+        <div class="cow-of-day-box">
+            <h4 class="cow-of-day-title">
                 ðŸ‘‘ COW OF THE DAY
             </h4>
-            <p style="color: #F5E6D3; font-weight: 700; font-size: 0.8em;">${gameState.dailyStats.happiest} was the happiest cow today!</p>
+            <p class="cow-of-day-text">${gameState.dailyStats.happiest} was the happiest cow today!</p>
         </div>
         ` : ''}
-        <div style="padding: 8px; background: linear-gradient(145deg, #E6A853, #D4941E); border-radius: 8px; border: 2px solid #8B4513;">
-            <h4 style="color: #F5E6D3; margin-bottom: 4px; font-weight: 800;  font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
+        <div class="farm-tip-box">
+            <h4 class="farm-tip-title">
                 ðŸ’¡ FARM TIP
             </h4>
-            <p style="color: #F5E6D3; font-weight: 700; font-size: 0.8em;">${getFarmTip()}</p>
+            <p class="farm-tip-text">${getFarmTip()}</p>
         </div>
     `;
 }
@@ -995,38 +996,24 @@ function showAchievementUnlock(achievement) {
     const rarity = achievement.rarity || 'common';
     const rarityStyle = achievementsData.rarityStyles[rarity];
     
+    popup.className = `achievement-popup achievement-${rarity}`;
     popup.innerHTML = `
-        <div class="achievement-title" style="color: ${rarityStyle.border};">
-             Achievement Unlocked!
-        </div>
-        <div style="font-size: 1.2em; margin: 5px 0;">
+        <div class="achievement-title">Achievement Unlocked!</div>
+        <div class="achievement-icon-name">
             ${achievement.icon} ${achievement.name}
         </div>
-        <div style="font-size: 0.8em; color: #666; margin-bottom: 5px;">
+        <div class="achievement-desc">
             ${achievement.description}
         </div>
-        <div style="font-size: 0.9em; color: ${rarityStyle.border}; font-weight: bold;">
+        <div class="achievement-reward">
             ${achievement.reward?.message || 'Well done!'}
         </div>
     `;
     
-    // Apply rarity styling
-    popup.style.background = `linear-gradient(145deg, ${rarityStyle.color}, ${rarityStyle.border})`;
-    popup.style.border = `3px solid ${rarityStyle.border}`;
-    
-    if (rarityStyle.glow) {
-        popup.style.boxShadow = `0 0 20px ${rarityStyle.glowColor}, 0 10px 30px rgba(0,0,0,0.3)`;
-    }
-    
-    if (rarityStyle.animation) {
-        popup.style.animation = `${rarityStyle.animation} 2s infinite`;
-    }
-    
     popup.style.display = 'block';
-    
+
     setTimeout(() => {
         popup.style.display = 'none';
-        popup.style.animation = ''; // Reset animation
     }, 5000);
     
     if (navigator.vibrate) {
@@ -1048,7 +1035,7 @@ function updateAchievements() {
     
     if (gameState.achievements.length === 0) {
         achievementsList.innerHTML = `
-            <p style="color: #666; font-style: italic; text-align: center;">
+            <p class="no-achievements-text">
                 ðŸŽ¯ No achievements yet - keep playing to unlock them!
             </p>
         `;
@@ -1077,8 +1064,8 @@ function updateAchievements() {
         if (category.achievements.length === 0) return;
         
         html += `
-            <div style="margin-bottom: 15px;">
-                <h4 style="color: #4169E1; margin-bottom: 8px; font-size: 0.9em; font-weight: 800;">
+            <div class="achievement-category">
+                <h4 class="achievement-category-title">
                     ${category.info.name}
                 </h4>
         `;
@@ -1089,22 +1076,13 @@ function updateAchievements() {
                                { color: '#90EE90', border: '#32CD32' };
             
             html += `
-                <div style="display: flex; align-items: center; gap: 10px; margin: 6px 0; padding: 8px; 
-                           background: ${rarityStyle.color}; border-radius: 8px; 
-                           border: 2px solid ${rarityStyle.border};
-                           ${rarityStyle.glow ? `box-shadow: 0 0 10px ${rarityStyle.glowColor};` : ''}">
-                    <div style="font-size: 1.3em;">${achievement.icon}</div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: bold; color: ${rarityStyle.border}; font-size: 0.9em;">
-                            ${achievement.name}
-                        </div>
-                        <div style="font-size: 0.75em; color: #666;">
-                            ${achievement.description}
-                        </div>
+                <div class="achievement-item achievement-item-${rarity}">
+                    <div class="achievement-item-icon">${achievement.icon}</div>
+                    <div class="achievement-item-info">
+                        <div class="achievement-item-name">${achievement.name}</div>
+                        <div class="achievement-item-desc">${achievement.description}</div>
                     </div>
-                    <div style="font-size: 0.7em; color: ${rarityStyle.border}; font-weight: bold; text-transform: uppercase;">
-                        ${rarity}
-                    </div>
+                    <div class="achievement-item-rarity">${rarity}</div>
                 </div>
             `;
         });
@@ -1340,15 +1318,10 @@ function hitNote(note) {
 function showFloatingText(text, x, y) {
     const floatingText = document.createElement('div');
     floatingText.textContent = text;
+    floatingText.className = 'floating-text';
     floatingText.style.position = 'fixed';
     floatingText.style.left = x + 'px';
     floatingText.style.top = y + 'px';
-    floatingText.style.color = '#00FF00';
-    floatingText.style.fontWeight = 'bold';
-    floatingText.style.fontSize = '1.2em';
-    floatingText.style.pointerEvents = 'none';
-    floatingText.style.zIndex = '1003';
-    floatingText.style.animation = 'floatUp 1s ease-out forwards';
     
     document.body.appendChild(floatingText);
     
@@ -1518,15 +1491,13 @@ function showToast(text, type) {
     
     toast.textContent = text;
     
+    toast.classList.remove('toast-success', 'toast-failure', 'toast-info');
     if (type === 'success') {
-        toast.style.background = 'linear-gradient(145deg, #98FB98, #90EE90)';
-        toast.style.color = '#2F5F2F';
+        toast.classList.add('toast-success');
     } else if (type === 'failure') {
-        toast.style.background = 'linear-gradient(145deg, #FFB6C1, #FFA0B4)';
-        toast.style.color = '#8B0000';
+        toast.classList.add('toast-failure');
     } else {
-        toast.style.background = 'linear-gradient(145deg, #87CEEB, #ADD8E6)';
-        toast.style.color = '#191970';
+        toast.classList.add('toast-info');
     }
     
     toast.style.display = 'block';

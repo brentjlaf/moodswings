@@ -657,6 +657,42 @@ body {
     font-weight: 800;
 }
 
+/* Achievement popup rarity styles */
+.achievement-popup-common {
+    background: linear-gradient(145deg, #90EE90, #32CD32);
+    border: 3px solid #32CD32;
+}
+.achievement-popup-uncommon {
+    background: linear-gradient(145deg, #87CEEB, #4169E1);
+    border: 3px solid #4169E1;
+}
+.achievement-popup-rare {
+    background: linear-gradient(145deg, #DDA0DD, #8B008B);
+    border: 3px solid #8B008B;
+    box-shadow: 0 0 20px #8B008B, 0 10px 30px rgba(0,0,0,0.3);
+}
+.achievement-popup-epic {
+    background: linear-gradient(145deg, #FFD700, #FF8C00);
+    border: 3px solid #FF8C00;
+    box-shadow: 0 0 20px #FFD700, 0 10px 30px rgba(0,0,0,0.3);
+}
+.achievement-popup-legendary {
+    background: linear-gradient(145deg, #FF69B4, #FF1493);
+    border: 3px solid #FF1493;
+    box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
+    animation: legendary-pulse 2s infinite;
+}
+.achievement-popup-common .achievement-title,
+.achievement-popup-common .achievement-reward { color: #32CD32; }
+.achievement-popup-uncommon .achievement-title,
+.achievement-popup-uncommon .achievement-reward { color: #4169E1; }
+.achievement-popup-rare .achievement-title,
+.achievement-popup-rare .achievement-reward { color: #8B008B; }
+.achievement-popup-epic .achievement-title,
+.achievement-popup-epic .achievement-reward { color: #FF8C00; }
+.achievement-popup-legendary .achievement-title,
+.achievement-popup-legendary .achievement-reward { color: #FF1493; }
+
 @keyframes achievementPulse {
     0%, 100% {
         transform: translateX(-50%) scale(1);
