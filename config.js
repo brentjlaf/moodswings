@@ -88,8 +88,12 @@ const GAME_CONFIG = {
         level_min: 1,
         level_max: 100,
         success_bonus: 20,
-        failure_penalty: 10
+        failure_penalty: 10,
+        decay_rate_min: 5, // Mood loss per hour (min)
+        decay_rate_max: 7  // Mood loss per hour (max)
     },
+
+    HAPPINESS_UPDATE_INTERVAL: 3600000, // 1 hour
 
     // UI settings
     TOAST_DURATION: 3000, // 3 seconds
