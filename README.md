@@ -25,6 +25,20 @@ moo-d-swings/
 2. **Open `index.html`** in a web browser
 3. **Start playing!** The game works best on mobile devices but also runs on desktop
 
+## 💻 Development Setup
+
+Running a local server avoids browser restrictions when loading the JSON data used by the game.
+
+1. Clone this repository or download the project files.
+2. Start a simple static server in the project directory:
+
+```bash
+python3 -m http.server
+```
+
+3. Visit `http://localhost:8000` and start playing.
+4. Modify `cows.json`, `crops.json` and other files, then refresh to see changes.
+
 ## ? **NEW: Easy Content Addition**
 
 ### **Add New Crops** (No coding required!)
