@@ -116,6 +116,16 @@ function deductCoins(amount, context = 'purchase') {
     return true;
 }
 
+// NEW: Helper function to safely deduct milk
+function deductMilk(amount, context = 'purchase') {
+    if (gameState.milk < amount) {
+        showToast(`Not enough milk for ${context}!`, 'failure');
+        return false;
+    }
+    gameState.milk = Math.max(0, gameState.milk - amount);
+    return true;
+}
+
 // FIX: Clear all crop timers to prevent memory leaks
 function clearAllCropTimers() {
     gameState.activeCropTimers.forEach(timerId => {
@@ -225,7 +235,11 @@ function renderShop() {
             shopItem.className = 'shop-item';
             
             const isOwned = gameState.upgrades[item.id] >= (item.maxLevel || 1);
-            const canAfford = gameState.coins >= item.cost;
+            const currency = item.currency || 'coins';
+            const cost = item.cost;
+            const canAfford = currency === 'coins'
+                ? gameState.coins >= cost
+                : gameState.milk >= cost;
             const buttonText = isOwned ? 'OWNED' : (canAfford ? 'BUY' : 'TOO EXPENSIVE');
             const buttonClass = isOwned ? 'owned' : (canAfford ? 'available' : 'expensive');
             
@@ -234,7 +248,9 @@ function renderShop() {
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
                     <div class="item-description">${item.description}</div>
-                    <div class="item-price">💰 ${item.cost} coins</div>
+                    <div class="item-price">
+                        ${currency === 'coins' ? `💰 ${cost} coins` : `🥛 ${cost} milk`}
+                    </div>
                     ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
                 </div>
                 <button class="shop-btn ${buttonClass}" 
@@ -263,7 +279,11 @@ function buyUpgrade(itemId) {
         return;
     }
     
-    if (!deductCoins(item.cost, item.name)) {
+    const currency = item.currency || 'coins';
+    const paid = currency === 'coins'
+        ? deductCoins(item.cost, item.name)
+        : deductMilk(item.cost, item.name);
+    if (!paid) {
         return;
     }
     
