@@ -87,6 +87,7 @@ Edit `shop.json` and add:
 - **Keep cows happy** to earn milk and coins
 - **Plant crops** to generate additional income
 - **Buy upgrades** to make rhythm games easier
+- **Spend milk or coins** on special items in the shop
 
 ### Game Tabs
 - **?? COWS**: Interact with your cows and play rhythm games

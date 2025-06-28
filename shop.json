@@ -72,6 +72,7 @@
       "icon": "\uD83C\uDFE0",
       "category": "buildings",
       "cost": 300,
+      "currency": "milk",
       "maxLevel": 1,
       "effects": {
         "milk_multiplier": 2
@@ -85,6 +86,7 @@
       "icon": "\u2B50",
       "category": "buildings",
       "cost": 1000,
+      "currency": "milk",
       "maxLevel": 1,
       "effects": {
         "milk_multiplier": 3
@@ -101,6 +103,7 @@
       "icon": "\uD83D\uDD14",
       "category": "tools",
       "cost": 500,
+      "currency": "milk",
       "maxLevel": 1,
       "effects": {
         "happiness_boost": true
@@ -249,6 +252,7 @@
       "icon": "\uD83C\uDFED",
       "category": "buildings",
       "cost": 800,
+      "currency": "milk",
       "maxLevel": 1,
       "effects": {
         "auto_milk_conversion": true,
