@@ -122,31 +122,8 @@ const GAME_CONFIG = {
     }
 };
 
-// Rhythm game speeds by type (milliseconds between notes)
-const RHYTHM_SPEEDS = {
-    pitch: 1500,
-    rapid: 800,
-    smooth: 2000,
-    battle: 1000,
-    slow: 2500,
-    rock: 1200,
-    cosmic: 1800,
-    pop: 1100,
-    electronic: 900
-};
-
-// Game instructions for each rhythm type
-const RHYTHM_INSTRUCTIONS = {
-    pitch: "Tap when notes cross the center! Match the diva's perfect pitch!",
-    rapid: "Rapid TAP to rev the engine! Don't let it stall!",
-    smooth: "Gentle taps for a smooth serenade!",
-    battle: "TAP to parry grass attacks! Defend the pasture!",
-    slow: "Slow, deliberate taps for melancholy mood!",
-    rock: "Rock out with the rhythm! Feel the groove!",
-    cosmic: "TAP in cosmic harmony with the universe!",
-    pop: "Hit those pop beats with perfect timing!",
-    electronic: "Drop the bass with electronic beats!"
-};
+// Speeds and instructions were previously defined here but now come from
+// rhythm-patterns.json, so these constants have been removed.
 
 // Farm tips that appear in the bulletin
 const FARM_TIPS = [
@@ -168,5 +145,5 @@ const FARM_TIPS = [
 
 // Export config for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { GAME_CONFIG, RHYTHM_SPEEDS, RHYTHM_INSTRUCTIONS, FARM_TIPS };
+    module.exports = { GAME_CONFIG, FARM_TIPS };
 }

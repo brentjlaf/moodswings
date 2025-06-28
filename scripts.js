@@ -781,22 +781,7 @@ function updateBulletin() {
 }
 
 function getFarmTip() {
-    const tips = [
-        "Plant rainbow crops for maximum profit!",
-        "Keep all your cows happy for bonus rewards!",
-        "Upgrades make rhythm games easier to win!",
-        "Perfect scores unlock secret cows!",
-        "Harvest crops regularly to keep earning!",
-        "Each cow has their own rhythm style!",
-        "The neon pink barn doubles milk production!",
-        "Golden cowbell makes cows start happier each day!",
-        "Build combos in rhythm games for bonus points!",
-        "Secret cows have special unlock conditions!",
-        "Achievements give permanent bonuses!",
-        "Try different crops to unlock new achievements!",
-        "Play at midnight for a special achievement!"
-    ];
-    return tips[Math.floor(Math.random() * tips.length)];
+    return FARM_TIPS[Math.floor(Math.random() * FARM_TIPS.length)];
 }
 
 // FIXED: Combined unlock check function that handles both regular and secret cows
