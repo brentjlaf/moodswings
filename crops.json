@@ -1,0 +1,129 @@
+{
+  "crops": [
+    {
+      "id": "carrot",
+      "name": "Carrot",
+      "emoji": "🥕",
+      "cost": 10,
+      "value": 20,
+      "growTime": 30000,
+      "rarity": "common",
+      "unlockCondition": null,
+      "description": "Quick growing and reliable!"
+    },
+    {
+      "id": "corn",
+      "name": "Corn", 
+      "emoji": "🌽",
+      "cost": 25,
+      "value": 45,
+      "growTime": 45000,
+      "rarity": "common",
+      "unlockCondition": null,
+      "description": "Golden kernels of profit!"
+    },
+    {
+      "id": "rainbow",
+      "name": "Rainbow Crop",
+      "emoji": "🌈", 
+      "cost": 50,
+      "value": 100,
+      "growTime": 60000,
+      "rarity": "rare",
+      "unlockCondition": null,
+      "description": "Magical and very profitable!"
+    },
+    {
+      "id": "sunflower",
+      "name": "Sunflower",
+      "emoji": "🌻",
+      "cost": 35,
+      "value": 65,
+      "growTime": 50000,
+      "rarity": "uncommon",
+      "unlockCondition": {
+        "type": "day",
+        "target": 3
+      },
+      "description": "Bright and cheerful profit!"
+    },
+    {
+      "id": "pumpkin",
+      "name": "Pumpkin",
+      "emoji": "🎃",
+      "cost": 80,
+      "value": 150,
+      "growTime": 90000,
+      "rarity": "rare",
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 500
+      },
+      "description": "Big investment, bigger returns!"
+    },
+    {
+      "id": "strawberry",
+      "name": "Strawberry",
+      "emoji": "🍓",
+      "cost": 20,
+      "value": 35,
+      "growTime": 35000,
+      "rarity": "common",
+      "unlockCondition": {
+        "type": "day", 
+        "target": 2
+      },
+      "description": "Sweet and profitable!"
+    },
+    {
+      "id": "crystal_fruit",
+      "name": "Crystal Fruit",
+      "emoji": "💎",
+      "cost": 200,
+      "value": 400,
+      "growTime": 120000,
+      "rarity": "legendary",
+      "unlockCondition": {
+        "type": "perfectScores",
+        "target": 5
+      },
+      "description": "Crystallized perfection!"
+    },
+    {
+      "id": "star_flower",
+      "name": "Star Flower", 
+      "emoji": "⭐",
+      "cost": 150,
+      "value": 300,
+      "growTime": 100000,
+      "rarity": "epic",
+      "unlockCondition": {
+        "type": "totalMilk",
+        "target": 200
+      },
+      "description": "Blooms with cosmic energy!"
+    }
+  ],
+  "cropCategories": {
+    "common": {
+      "color": "#90EE90",
+      "borderColor": "#32CD32"
+    },
+    "uncommon": {
+      "color": "#87CEEB", 
+      "borderColor": "#4169E1"
+    },
+    "rare": {
+      "color": "#DDA0DD",
+      "borderColor": "#8B008B"
+    },
+    "epic": {
+      "color": "#FFD700",
+      "borderColor": "#FF8C00"
+    },
+    "legendary": {
+      "color": "#FF69B4",
+      "borderColor": "#FF1493"
+    }
+  }
+}

@@ -824,13 +824,151 @@ body {
 }
 
 .coin-icon::before {
-    content: '💰';
+    content: '??';
     margin-right: 4px;
 }
 
 .milk-icon::before {
-    content: '🥛';
+    content: '??';
     margin-right: 4px;
+}
+
+/* Crop rarity styling */
+.crop-common {
+    border: 2px solid #32CD32;
+    background: linear-gradient(145deg, #90EE90, #98FB98);
+}
+
+.crop-uncommon {
+    border: 2px solid #4169E1;
+    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+}
+
+.crop-rare {
+    border: 2px solid #8B008B;
+    background: linear-gradient(145deg, #DDA0DD, #E6E6FA);
+}
+
+.crop-epic {
+    border: 2px solid #FF8C00;
+    background: linear-gradient(145deg, #FFD700, #FFFF00);
+    box-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+.crop-legendary {
+    border: 2px solid #FF1493;
+    background: linear-gradient(145deg, #FF69B4, #FFB6C1);
+    box-shadow: 0 0 15px rgba(255,105,180,0.6);
+    animation: legendary-glow 2s infinite alternate;
+}
+
+@keyframes legendary-glow {
+    from { box-shadow: 0 0 15px rgba(255,105,180,0.6); }
+    to { box-shadow: 0 0 25px rgba(255,105,180,0.9); }
+}
+
+.crop-cost {
+    font-size: 0.7em;
+    color: #8B4513;
+    font-weight: bold;
+}
+
+.crop-rarity {
+    font-size: 0.6em;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 2px;
+    display: block;
+}
+
+/* Shop category styling */
+.shop-category-header {
+    grid-column: 1 / -1;
+    margin: 10px 0;
+}
+
+.shop-btn.owned {
+    background: linear-gradient(145deg, #32CD32, #228B22);
+    color: white;
+}
+
+.shop-btn.available {
+    background: linear-gradient(145deg, #4169E1, #0000CD);
+    color: white;
+}
+
+.shop-btn.expensive {
+    background: linear-gradient(145deg, #999, #777);
+    color: #ccc;
+}
+
+.item-level {
+    font-size: 0.7em;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* Achievement rarity animations */
+@keyframes legendary-pulse {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+        box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.05);
+        box-shadow: 0 0 30px #FF69B4, 0 15px 40px rgba(0,0,0,0.4);
+    }
+}
+
+/* Achievement category styling */
+.achievement-category {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+}
+
+.achievement-item {
+    transition: all 0.3s ease;
+}
+
+.achievement-item:hover {
+    transform: translateY(-2px);
+}
+
+.achievement-common {
+    background: linear-gradient(145deg, #90EE90, #98FB98);
+    border: 2px solid #32CD32;
+}
+
+.achievement-uncommon {
+    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+    border: 2px solid #4169E1;
+}
+
+.achievement-rare {
+    background: linear-gradient(145deg, #DDA0DD, #E6E6FA);
+    border: 2px solid #8B008B;
+    box-shadow: 0 0 10px #8B008B;
+}
+
+.achievement-epic {
+    background: linear-gradient(145deg, #FFD700, #FFFF00);
+    border: 2px solid #FF8C00;
+    box-shadow: 0 0 15px #FFD700;
+}
+
+.achievement-legendary {
+    background: linear-gradient(145deg, #FF69B4, #FFB6C1);
+    border: 2px solid #FF1493;
+    box-shadow: 0 0 20px #FF69B4;
+    animation: achievement-glow 2s infinite alternate;
+}
+
+@keyframes achievement-glow {
+    from { box-shadow: 0 0 20px #FF69B4; }
+    to { box-shadow: 0 0 30px #FF69B4, 0 0 40px #FF1493; }
 }
 
 /* Floating animation for hit feedback */

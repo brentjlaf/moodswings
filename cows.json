@@ -2,7 +2,7 @@
   "cowData": [
     {
       "name": "Bessie",
-      "emoji": "🐄",
+      "emoji": "??",
       "gameType": "smooth",
       "moodValue": 75,
       "moods": ["Content", "Peaceful", "Serene", "Calm"],
@@ -15,7 +15,7 @@
     },
     {
       "name": "Moobert",
-      "emoji": "🐮",
+      "emoji": "??",
       "gameType": "rock",
       "moodValue": 85,
       "unlockCondition": "day",
@@ -30,7 +30,7 @@
     },
     {
       "name": "Diva Belle",
-      "emoji": "💄",
+      "emoji": "??",
       "gameType": "pitch",
       "moodValue": 90,
       "unlockCondition": "totalMilk",
@@ -45,7 +45,7 @@
     },
     {
       "name": "Turbo",
-      "emoji": "🏎️",
+      "emoji": "???",
       "gameType": "rapid",
       "moodValue": 95,
       "unlockCondition": "totalCoins",
@@ -60,7 +60,7 @@
     },
     {
       "name": "Zen Master",
-      "emoji": "🧘",
+      "emoji": "??",
       "gameType": "slow",
       "moodValue": 80,
       "unlockCondition": "day",
@@ -75,7 +75,7 @@
     },
     {
       "name": "Sergeant Moo",
-      "emoji": "🪖",
+      "emoji": "??",
       "gameType": "battle",
       "moodValue": 88,
       "unlockCondition": "totalMilk",
@@ -90,7 +90,7 @@
     },
     {
       "name": "Stardust",
-      "emoji": "🌟",
+      "emoji": "??",
       "gameType": "cosmic",
       "moodValue": 92,
       "unlockCondition": "day",
@@ -105,7 +105,7 @@
     },
     {
       "name": "DJ MooMix",
-      "emoji": "🎧",
+      "emoji": "??",
       "gameType": "electronic",
       "moodValue": 87,
       "unlockCondition": "totalCoins",
@@ -120,7 +120,7 @@
     },
     {
       "name": "Poppy Princess",
-      "emoji": "👑",
+      "emoji": "??",
       "gameType": "pop",
       "moodValue": 89,
       "unlockCondition": "day",
@@ -137,7 +137,7 @@
   "secretCows": [
     {
       "name": "Golden Moo",
-      "emoji": "🌟🐄",
+      "emoji": "????",
       "gameType": "cosmic",
       "moodValue": 100,
       "unlockCondition": "perfectScores",
@@ -152,7 +152,7 @@
     },
     {
       "name": "Neon Cyber Cow",
-      "emoji": "🤖🐮",
+      "emoji": "????",
       "gameType": "electronic",
       "moodValue": 96,
       "unlockCondition": "totalCoins",
@@ -167,7 +167,7 @@
     },
     {
       "name": "Rainbow Unicow",
-      "emoji": "🦄🌈",
+      "emoji": "????",
       "gameType": "pop",
       "moodValue": 98,
       "unlockCondition": "totalMilk",
@@ -182,7 +182,7 @@
     },
     {
       "name": "Ghost Cow",
-      "emoji": "👻🐄",
+      "emoji": "????",
       "gameType": "slow",
       "moodValue": 85,
       "unlockCondition": "day",
@@ -197,7 +197,7 @@
     },
     {
       "name": "Time Traveler Moo",
-      "emoji": "⏰🐮",
+      "emoji": "???",
       "gameType": "rapid",
       "moodValue": 94,
       "unlockCondition": "perfectScores",
@@ -212,7 +212,7 @@
     },
     {
       "name": "Alien Cow",
-      "emoji": "👽🛸",
+      "emoji": "????",
       "gameType": "cosmic",
       "moodValue": 99,
       "unlockCondition": "totalMilk",

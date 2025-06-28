@@ -1,0 +1,178 @@
+{
+  "categories": [
+    {
+      "id": "tools",
+      "name": "🔧 Farm Tools",
+      "description": "Improve your farming efficiency!"
+    },
+    {
+      "id": "buildings", 
+      "name": "🏠 Buildings",
+      "description": "Upgrade your farm infrastructure!"
+    },
+    {
+      "id": "decorations",
+      "name": "🎨 Decorations", 
+      "description": "Make your farm look amazing!"
+    },
+    {
+      "id": "consumables",
+      "name": "🍎 Consumables",
+      "description": "Temporary boosts and effects!"
+    }
+  ],
+  "items": [
+    {
+      "id": "pitchfork_1",
+      "name": "Better Pitchfork",
+      "description": "Makes rhythm games easier!",
+      "icon": "🔱",
+      "category": "tools",
+      "cost": 100,
+      "maxLevel": 1,
+      "effects": {
+        "rhythm_tolerance": 0.6
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "pitchfork_2", 
+      "name": "Super Pitchfork",
+      "description": "Massive timing window!",
+      "icon": "⚡",
+      "category": "tools",
+      "cost": 400,
+      "maxLevel": 1,
+      "effects": {
+        "rhythm_tolerance": 1.2,
+        "coin_bonus": 15
+      },
+      "unlockCondition": {
+        "type": "upgrade",
+        "target": "pitchfork_1"
+      }
+    },
+    {
+      "id": "metronome_1",
+      "name": "Metronome", 
+      "description": "Perfect timing assistance!",
+      "icon": "🎵",
+      "category": "tools",
+      "cost": 150,
+      "maxLevel": 1,
+      "effects": {
+        "rhythm_speed_bonus": 0.3
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "barn_1",
+      "name": "Neon Pink Barn",
+      "description": "Double milk production!",
+      "icon": "🏠",
+      "category": "buildings", 
+      "cost": 300,
+      "maxLevel": 1,
+      "effects": {
+        "milk_multiplier": 2
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "barn_2",
+      "name": "Starlight Barn", 
+      "description": "Triple milk production!",
+      "icon": "⭐",
+      "category": "buildings",
+      "cost": 1000,
+      "maxLevel": 1,
+      "effects": {
+        "milk_multiplier": 3
+      },
+      "unlockCondition": {
+        "type": "upgrade",
+        "target": "barn_1"
+      }
+    },
+    {
+      "id": "cowbell",
+      "name": "Golden Cowbell",
+      "description": "Boost all cow happiness!",
+      "icon": "🔔",
+      "category": "tools",
+      "cost": 500,
+      "maxLevel": 1,
+      "effects": {
+        "happiness_boost": true
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "fertilizer",
+      "name": "Super Fertilizer",
+      "description": "Crops grow 50% faster for 1 hour!",
+      "icon": "🧪",
+      "category": "consumables",
+      "cost": 75,
+      "maxLevel": 99,
+      "effects": {
+        "crop_speed_boost": 0.5,
+        "duration": 3600000
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 3
+      }
+    },
+    {
+      "id": "rainbow_fence",
+      "name": "Rainbow Fence",
+      "description": "Increases farm happiness by 10%!",
+      "icon": "🌈",
+      "category": "decorations",
+      "cost": 250,
+      "maxLevel": 1,
+      "effects": {
+        "happiness_bonus": 0.1
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 1000
+      }
+    },
+    {
+      "id": "crop_sprinkler",
+      "name": "Auto Sprinkler",
+      "description": "Automatically waters crops!",
+      "icon": "💧", 
+      "category": "tools",
+      "cost": 600,
+      "maxLevel": 1,
+      "effects": {
+        "auto_water": true,
+        "crop_yield_bonus": 0.2
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 7
+      }
+    },
+    {
+      "id": "milk_processor",
+      "name": "Milk Processor",
+      "description": "Convert milk to bonus coins automatically!",
+      "icon": "🏭",
+      "category": "buildings",
+      "cost": 800,
+      "maxLevel": 1,
+      "effects": {
+        "auto_milk_conversion": true,
+        "conversion_rate": 2
+      },
+      "unlockCondition": {
+        "type": "totalMilk", 
+        "target": 300
+      }
+    }
+  ]
+}

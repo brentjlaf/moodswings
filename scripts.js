@@ -1,3 +1,69 @@
+// Game data containers
+let cropTypes = {};
+let shopData = {};
+let rhythmPatterns = {};
+let achievementsData = {};
+let cowData = [];
+let secretCows = [];
+
+// Data loading system
+async function loadGameData() {
+    try {
+        console.log('Loading game data...');
+        
+        // Load all JSON data files
+        const [cowsResponse, cropsResponse, shopResponse, rhythmResponse, achievementsResponse] = await Promise.all([
+            fetch('cows.json?v=moo3.5'),
+            fetch('crops.json?v=1.0'),
+            fetch('shop.json?v=1.0'), 
+            fetch('rhythm-patterns.json?v=1.0'),
+            fetch('achievements.json?v=1.0')
+        ]);
+
+        // Parse JSON data
+        const cowsData = await cowsResponse.json();
+        const cropsData = await cropsResponse.json();
+        shopData = await shopResponse.json();
+        rhythmPatterns = await rhythmResponse.json();
+        achievementsData = await achievementsResponse.json();
+
+        // Process cow data
+        cowData = cowsData.cowData;
+        secretCows = cowsData.secretCows;
+
+        // Convert crops array to lookup object for backward compatibility
+        cropTypes = {};
+        cropsData.crops.forEach(crop => {
+            cropTypes[crop.id] = {
+                emoji: crop.emoji,
+                icon: crop.id,
+                cost: crop.cost,
+                value: crop.value,
+                growTime: crop.growTime,
+                name: crop.name,
+                rarity: crop.rarity,
+                unlockCondition: crop.unlockCondition,
+                description: crop.description
+            };
+        });
+
+        console.log('Game data loaded successfully!');
+        return true;
+    } catch (error) {
+        console.error('Failed to load game data:', error);
+        showToast('Failed to load game data! Using defaults.', 'failure');
+        
+        // Fallback to minimal data
+        cropTypes = {
+            carrot: { emoji: '??', icon: 'carrot', cost: 10, value: 20, growTime: 30000, name: 'Carrot', rarity: 'common' }
+        };
+        shopData = { categories: [], items: [] };
+        rhythmPatterns = { rhythmTypes: {} };
+        achievementsData = { categories: [], achievements: [] };
+        return false;
+    }
+}
+
 let gameState = {
     coins: 100,
     milk: 0,
@@ -6,12 +72,8 @@ let gameState = {
     cows: [],
     lockedCows: [],
     crops: [],
-    upgrades: {
-        pitchfork: 0,
-        metronome: 0,
-        barn: 0,
-        cowbell: 0
-    },
+    upgrades: {},
+    effects: {}, // Effect system for upgrades
     dailyStats: {
         happiest: null,
         milkProduced: 0,
@@ -19,15 +81,28 @@ let gameState = {
         perfectScores: 0,
         totalGames: 0
     },
-    achievements: [],
-    totalMilkProduced: 0,
-    totalCoinsEarned: 0,
-    totalPerfectScores: 0, // FIX: Added persistent perfect score counter
+    achievements: [], // Array of earned achievement IDs
+    // Enhanced achievement tracking
+    stats: {
+        totalMilkProduced: 0,
+        totalCoinsEarned: 0,
+        totalPerfectScores: 0,
+        cropsHarvested: 0,
+        cropTypesHarvested: {}, // Track specific crop types
+        cowsHappy: 0,
+        maxCombo: 0,
+        perfectStreak: 0,
+        currentPerfectStreak: 0,
+        upgradesPurchased: 0,
+        secretCowsUnlocked: 0,
+        fastestWin: Infinity,
+        playedAtMidnight: false
+    },
     perfectStreakRecord: 0,
-    activeCropTimers: [], // FIX: Track crop timers to prevent memory leaks
-    playerID: null, // Unique device identifier
-    lastSaved: null, // Timestamp of last save
-    gameVersion: "1.0" // For future compatibility
+    activeCropTimers: [],
+    playerID: null,
+    lastSaved: null,
+    gameVersion: "2.1" // Updated version for achievement system
 };
 
 // Generate unique device fingerprint for save identification
@@ -221,12 +296,8 @@ function resetGameData() {
             cows: [],
             lockedCows: [],
             crops: [],
-            upgrades: {
-                pitchfork: 0,
-                metronome: 0,
-                barn: 0,
-                cowbell: 0
-            },
+            upgrades: {},
+            effects: {},
             dailyStats: {
                 happiest: null,
                 milkProduced: 0,
@@ -235,14 +306,26 @@ function resetGameData() {
                 totalGames: 0
             },
             achievements: [],
-            totalMilkProduced: 0,
-            totalCoinsEarned: 0,
-            totalPerfectScores: 0,
+            stats: {
+                totalMilkProduced: 0,
+                totalCoinsEarned: 0,
+                totalPerfectScores: 0,
+                cropsHarvested: 0,
+                cropTypesHarvested: {},
+                cowsHappy: 0,
+                maxCombo: 0,
+                perfectStreak: 0,
+                currentPerfectStreak: 0,
+                upgradesPurchased: 0,
+                secretCowsUnlocked: 0,
+                fastestWin: Infinity,
+                playedAtMidnight: false
+            },
             perfectStreakRecord: 0,
             activeCropTimers: [],
             playerID: generateDeviceID(),
             lastSaved: null,
-            gameVersion: "1.0"
+            gameVersion: "2.1"
         };
         
         // Clear localStorage
@@ -278,43 +361,6 @@ function setupAutoSave() {
     });
 }
 
-const cropTypes = {
-    carrot: { emoji: '🥕', icon: 'carrot', cost: 10, value: 20, growTime: 30000, name: 'Carrot' },
-    corn: { emoji: '🌽', icon: 'corn', cost: 25, value: 45, growTime: 45000, name: 'Corn' },
-    rainbow: { emoji: '🌈', icon: 'rainbow', cost: 50, value: 100, growTime: 60000, name: 'Rainbow Crop' }
-};
-
-const upgradeConfigs = {
-    pitchfork: [
-        { id: 'pitchforkBtn', cost: 100, name: 'Better Pitchfork - Easier rhythm games!' },
-        { id: 'pitchfork2Btn', cost: 400, name: 'Super Pitchfork - Huge timing window!' }
-    ],
-    metronome: [
-        { id: 'metronomeBtn', cost: 150, name: 'Metronome - Perfect timing assistance!' },
-        { id: 'metronome2Btn', cost: 600, name: 'AI Metronome - Auto-adjusting beats!' }
-    ],
-    barn: [
-        { id: 'barnBtn', cost: 300, name: 'Neon Pink Barn - Double milk production!' },
-        { id: 'barn2Btn', cost: 1000, name: 'Starlight Barn - Triple milk production!' }
-    ],
-    cowbell: [
-        { id: 'cowbellBtn', cost: 500, name: 'Golden Cowbell - All cows start happier!' }
-    ]
-};
-
-let cowData = [];
-let secretCows = [];
-
-// fetch and then bootstrap game
-fetch('cows.json?v=moo3.5')
-  .then(res => res.json())
-  .then(data => {
-    cowData     = data.cowData;
-    secretCows  = data.secretCows;
-    initializeGame();
-  })
-  .catch(err => console.error('Failed to load cows.json', err));
-
 // FIX: Helper function to safely deduct coins
 function deductCoins(amount, context = 'purchase') {
     if (gameState.coins < amount) {
@@ -333,50 +379,221 @@ function clearAllCropTimers() {
     gameState.activeCropTimers = [];
 }
 
-// Mobile-optimized game functions
-function initializeGame() {
-    // Try to load saved game first
-    const loadedSave = loadGameState();
+// Crop unlock condition checking
+function checkCropUnlockCondition(crop) {
+    if (!crop.unlockCondition) return true;
     
-    if (!loadedSave) {
-        // New game - initialize everything
-        generateCows();
-        initializeCrops();
-    } else {
-        // Loaded game - reinitialize display elements
-        generateCows(); // This will use existing cow data
-        renderCrops(); // This will use existing crop data
+    const condition = crop.unlockCondition;
+    switch (condition.type) {
+        case 'day':
+            return gameState.day >= condition.target;
+        case 'totalMilk':
+            return gameState.stats.totalMilkProduced >= condition.target;
+        case 'totalCoins':
+            return gameState.stats.totalCoinsEarned >= condition.target;
+        case 'perfectScores':
+            return gameState.stats.totalPerfectScores >= condition.target;
+        default:
+            return true;
+    }
+}
+
+// Get available crops based on unlock conditions
+function getAvailableCrops() {
+    return Object.keys(cropTypes).filter(cropId => {
+        const crop = cropTypes[cropId];
+        return checkCropUnlockCondition(crop);
+    });
+}
+
+// Dynamic crop button generation with rarity styling
+function generateCropButtons() {
+    const container = document.querySelector('.plant-controls');
+    if (!container) return;
+    
+    const availableCrops = getAvailableCrops();
+    
+    container.innerHTML = availableCrops.map(cropId => {
+        const crop = cropTypes[cropId];
+        const rarityClass = crop.rarity ? `crop-${crop.rarity}` : '';
         
-        // Restart any crop timers that should still be running
-        gameState.crops.forEach(crop => {
-            if (crop.type && !crop.isReady && crop.readyAt) {
-                const timeLeft = crop.readyAt - Date.now();
-                if (timeLeft > 0) {
-                    const cropData = cropTypes[crop.type];
-                    crop.timerId = setTimeout(() => {
-                        if (crop.type && !crop.isReady) {
-                            crop.isReady = true;
-                            renderCrops();
-                            showToast(`${cropData.name} is ready to harvest! 🌾`, 'success');
-                        }
-                    }, timeLeft);
-                    gameState.activeCropTimers.push(crop.timerId);
-                } else {
-                    // Crop should already be ready
-                    crop.isReady = true;
-                }
-            }
+        return `
+            <button class="plant-btn ${rarityClass}" onclick="plantCrop('${cropId}')" title="${crop.description || ''}">
+                ${crop.emoji} ${crop.name}<br>
+                <span class="crop-cost">${crop.cost} coins</span>
+                ${crop.rarity ? `<span class="crop-rarity">${crop.rarity}</span>` : ''}
+            </button>
+        `;
+    }).join('');
+}
+
+// Shop unlock condition checking
+function checkShopUnlockCondition(item) {
+    if (!item.unlockCondition) return true;
+    
+    const condition = item.unlockCondition;
+    switch (condition.type) {
+        case 'day':
+            return gameState.day >= condition.target;
+        case 'totalMilk':
+            return gameState.stats.totalMilkProduced >= condition.target;
+        case 'totalCoins':
+            return gameState.stats.totalCoinsEarned >= condition.target;
+        case 'perfectScores':
+            return gameState.stats.totalPerfectScores >= condition.target;
+        case 'upgrade':
+            return gameState.upgrades[condition.target] > 0;
+        default:
+            return true;
+    }
+}
+
+// Dynamic shop rendering with categories
+function renderShop() {
+    const shopGrid = document.querySelector('.shop-grid');
+    if (!shopGrid || !shopData.categories) return;
+    
+    shopGrid.innerHTML = '';
+    
+    shopData.categories.forEach(category => {
+        // Get items for this category that are unlocked
+        const categoryItems = shopData.items.filter(item => 
+            item.category === category.id && checkShopUnlockCondition(item)
+        );
+        
+        if (categoryItems.length === 0) return;
+        
+        // Add category header
+        const categoryHeader = document.createElement('div');
+        categoryHeader.className = 'shop-category-header';
+        categoryHeader.innerHTML = `
+            <h3 style="color: #4169E1; margin: 15px 0 10px 0; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800;">
+                ${category.name}
+            </h3>
+            <p style="color: #666; font-size: 0.8em; margin-bottom: 10px;">${category.description}</p>
+        `;
+        shopGrid.appendChild(categoryHeader);
+        
+        // Add items for this category
+        categoryItems.forEach(item => {
+            const shopItem = document.createElement('div');
+            shopItem.className = 'shop-item';
+            
+            const isOwned = gameState.upgrades[item.id] >= (item.maxLevel || 1);
+            const canAfford = gameState.coins >= item.cost;
+            const buttonText = isOwned ? 'OWNED' : (canAfford ? 'BUY' : 'TOO EXPENSIVE');
+            const buttonClass = isOwned ? 'owned' : (canAfford ? 'available' : 'expensive');
+            
+            shopItem.innerHTML = `
+                <div class="item-icon">${item.icon}</div>
+                <div class="item-info">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-description" style="font-size: 0.75em; color: #666; margin: 2px 0;">${item.description}</div>
+                    <div class="item-price">?? ${item.cost} coins</div>
+                    ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
+                </div>
+                <button class="shop-btn ${buttonClass}" 
+                        onclick="buyUpgrade('${item.id}')" 
+                        ${isOwned || !canAfford ? 'disabled' : ''}>
+                    ${buttonText}
+                </button>
+            `;
+            
+            shopGrid.appendChild(shopItem);
         });
+    });
+}
+
+// Flexible upgrade buying system
+function buyUpgrade(itemId) {
+    const item = shopData.items.find(i => i.id === itemId);
+    if (!item) {
+        showToast('Invalid item!', 'failure');
+        return;
     }
     
+    const currentLevel = gameState.upgrades[itemId] || 0;
+    if (currentLevel >= item.maxLevel) {
+        showToast('Already owned!', 'info');
+        return;
+    }
+    
+    if (!deductCoins(item.cost, item.name)) {
+        return;
+    }
+    
+    // Apply upgrade
+    gameState.upgrades[itemId] = currentLevel + 1;
+    
+    // Track purchase for achievements
+    gameState.stats.upgradesPurchased++;
+    
+    // Apply effects
+    applyUpgradeEffects(item);
+    
     updateDisplay();
-    updateBulletin();
-    updateAchievements();
-    updateShopButtons();
+    renderShop();
+    showToast(`Purchased: ${item.name}!`, 'success');
+    checkAchievements(); // Check for new achievements
+    
+    // Auto-save after purchase
+    saveGameState();
     updateSaveInfo();
     
-    // Setup auto-save system
-    setupAutoSave();
+    if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200]);
+    }
+}
+
+// Flexible effect application system
+function applyUpgradeEffects(item) {
+    if (!item.effects) return;
+    
+    Object.keys(item.effects).forEach(effectType => {
+        const effectValue = item.effects[effectType];
+        
+        switch (effectType) {
+            case 'rhythm_tolerance':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.rhythmTolerance = (gameState.effects.rhythmTolerance || 0) + effectValue;
+                break;
+                
+            case 'milk_multiplier':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.milkMultiplier = effectValue;
+                break;
+                
+            case 'coin_bonus':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.coinBonus = (gameState.effects.coinBonus || 0) + effectValue;
+                break;
+                
+            case 'happiness_boost':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.happinessBoost = effectValue;
+                break;
+                
+            case 'rhythm_speed_bonus':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.rhythmSpeedBonus = (gameState.effects.rhythmSpeedBonus || 0) + effectValue;
+                break;
+                
+            case 'crop_speed_boost':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.cropSpeedBoost = effectValue;
+                // Apply temporary effect if it has duration
+                if (item.effects.duration) {
+                    setTimeout(() => {
+                        gameState.effects.cropSpeedBoost = 0;
+                        showToast('Fertilizer effect has worn off!', 'info');
+                    }, item.effects.duration);
+                }
+                break;
+                
+            default:
+                console.log(`Unknown effect type: ${effectType}`);
+        }
+    });
 }
 
 function updateSaveInfo() {
@@ -449,13 +666,13 @@ function generateCows() {
 function getUnlockText(cow) {
     if (!cow.unlockCondition) return 'Unlock requirement unknown';
     if (cow.unlockCondition === 'perfectScores') {
-        return `Get ${cow.unlockTarget} perfect scores (${gameState.totalPerfectScores}/${cow.unlockTarget})`;
+        return `Get ${cow.unlockTarget} perfect scores (${gameState.stats.totalPerfectScores}/${cow.unlockTarget})`;
     }
     if (cow.unlockCondition === 'totalMilk') {
-        return `Produce ${cow.unlockTarget} milk (${gameState.totalMilkProduced}/${cow.unlockTarget})`;
+        return `Produce ${cow.unlockTarget} milk (${gameState.stats.totalMilkProduced}/${cow.unlockTarget})`;
     }
     if (cow.unlockCondition === 'totalCoins') {
-        return `Earn ${cow.unlockTarget} coins (${gameState.totalCoinsEarned}/${cow.unlockTarget})`;
+        return `Earn ${cow.unlockTarget} coins (${gameState.stats.totalCoinsEarned}/${cow.unlockTarget})`;
     }
     if (cow.unlockCondition === 'day') {
         return `Reach day ${cow.unlockTarget} (${gameState.day}/${cow.unlockTarget})`;
@@ -479,7 +696,7 @@ function renderCows() {
         }
 
         const happinessColor = cow.isHappy ? '#32CD32' : '#FF6B6B';
-        const heartIcon      = cow.isHappy ? '💚' : '💔';
+        const heartIcon      = cow.isHappy ? '??' : '??';
 
         cowCard.innerHTML = `
             <div class="cow-icon">${cow.emoji}</div>
@@ -503,7 +720,7 @@ function renderCows() {
 
         cowCard.title = unlockText;
         cowCard.innerHTML = `
-            <div class="cow-icon">🔒</div>
+            <div class="cow-icon">??</div>
             <div class="cow-name">${cow.name} - Locked</div>
             <div style="font-size: 0.7em; color: #999; margin-top: 5px;">
                 ${unlockText}
@@ -549,12 +766,12 @@ function renderCrops() {
                 const timeLeft = Math.max(0, crop.readyAt - Date.now());
                 const seconds = Math.ceil(timeLeft / 1000);
                 cropSlot.innerHTML = `
-                    <div class="crop-emoji">🌱</div>
+                    <div class="crop-emoji">??</div>
                     <div class="growth-timer">${seconds}s</div>
                 `;
             }
         } else {
-            cropSlot.innerHTML = '<div style="color: #8B4513; font-size: 1.5em;">➕</div>';
+            cropSlot.innerHTML = '<div style="color: #8B4513; font-size: 1.5em;">?</div>';
         }
         
         grid.appendChild(cropSlot);
@@ -599,7 +816,7 @@ function plantCrop(type) {
         if (emptySlot.type === type && !emptySlot.isReady) { // Safety check
             emptySlot.isReady = true;
             renderCrops();
-            showToast(`${cropData.name} is ready to harvest! 🌾`, 'success');
+            showToast(`${cropData.name} is ready to harvest! ??`, 'success');
             if (navigator.vibrate) {
                 navigator.vibrate([200, 100, 200]);
             }
@@ -624,7 +841,14 @@ function harvestCrop(index) {
     const cropData = cropTypes[crop.type];
     gameState.coins += cropData.value;
     gameState.dailyStats.coinsEarned += cropData.value;
-    gameState.totalCoinsEarned += cropData.value;
+    gameState.stats.totalCoinsEarned += cropData.value;
+    
+    // Track achievement stats
+    gameState.stats.cropsHarvested++;
+    if (!gameState.stats.cropTypesHarvested[crop.type]) {
+        gameState.stats.cropTypesHarvested[crop.type] = 0;
+    }
+    gameState.stats.cropTypesHarvested[crop.type]++;
     
     // FIX: Clear timer if it exists
     if (crop.timerId) {
@@ -641,9 +865,9 @@ function harvestCrop(index) {
     crop.isReady = false;
     crop.timerId = null;
     
-    updateDisplay(); // This now includes unlock check
+    updateDisplay();
     renderCrops();
-    checkAchievements();
+    checkAchievements(); // Check for new achievements
     showToast(`Harvested ${cropData.name}! +${cropData.value} coins!`, 'success');
 }
 
@@ -656,6 +880,13 @@ function harvestAll() {
             const cropData = cropTypes[crop.type];
             totalValue += cropData.value;
             harvested++;
+            
+            // Track achievement stats
+            gameState.stats.cropsHarvested++;
+            if (!gameState.stats.cropTypesHarvested[crop.type]) {
+                gameState.stats.cropTypesHarvested[crop.type] = 0;
+            }
+            gameState.stats.cropTypesHarvested[crop.type]++;
             
             // FIX: Clear timer if it exists
             if (crop.timerId) {
@@ -677,10 +908,10 @@ function harvestAll() {
     if (harvested > 0) {
         gameState.coins += totalValue;
         gameState.dailyStats.coinsEarned += totalValue;
-        gameState.totalCoinsEarned += totalValue;
-        updateDisplay(); // This now includes unlock check
+        gameState.stats.totalCoinsEarned += totalValue;
+        updateDisplay();
         renderCrops();
-        checkAchievements();
+        checkAchievements(); // Check for new achievements
         showToast(`Harvested ${harvested} crops! +${totalValue} coins!`, 'success');
         
         if (navigator.vibrate) {
@@ -688,75 +919,6 @@ function harvestAll() {
         }
     } else {
         showToast("No crops ready to harvest!", 'info');
-    }
-}
-
-function updateShopButtons() {
-    Object.keys(upgradeConfigs).forEach(type => {
-        upgradeConfigs[type].forEach((info, index) => {
-            const btn = document.getElementById(info.id);
-            if (!btn) return;
-            const levelOwned = gameState.upgrades[type];
-            const levelRequired = index + 1;
-
-            if (levelOwned >= levelRequired) {
-                btn.textContent = 'OWNED';
-                btn.disabled = true;
-                btn.style.background = 'linear-gradient(145deg, #32CD32, #228B22)';
-            } else if (levelRequired > levelOwned + 1) {
-                btn.textContent = 'LOCKED';
-                btn.disabled = true;
-                btn.style.background = 'linear-gradient(145deg, #999, #777)';
-            } else if (gameState.coins < info.cost) {
-                btn.textContent = 'BUY';
-                btn.disabled = true;
-                btn.style.background = 'linear-gradient(145deg, #999, #777)';
-            } else {
-                btn.textContent = 'BUY';
-                btn.disabled = false;
-                btn.style.background = 'linear-gradient(145deg, #32CD32, #228B22)';
-            }
-        });
-    });
-}
-
-function buyUpgrade(type, level) {
-    level = level || 1;
-    const info = upgradeConfigs[type][level - 1];
-
-    if (!info) {
-        showToast('Invalid upgrade!', 'failure');
-        return;
-    }
-
-    if (gameState.upgrades[type] >= level) {
-        showToast('You already own this upgrade!', 'info');
-        return;
-    }
-
-    if (level > gameState.upgrades[type] + 1) {
-        showToast('Purchase previous levels first!', 'failure');
-        return;
-    }
-
-    // FIX: Use safe coin deduction
-    if (!deductCoins(info.cost, info.name)) {
-        return;
-    }
-
-    gameState.upgrades[type] = level;
-
-    updateDisplay();
-    updateShopButtons();
-    showToast(`Purchased: ${info.name}`, 'success');
-    checkAchievements();
-    
-    // Auto-save after purchase
-    saveGameState();
-    updateSaveInfo();
-
-    if (navigator.vibrate) {
-        navigator.vibrate([200, 100, 200]);
     }
 }
 
@@ -772,25 +934,29 @@ function nextDay() {
     
     generateCows();
     
-    // Apply cowbell upgrade
-    if (gameState.upgrades.cowbell > 0) {
+    // Apply happiness boost effects instead of hardcoded cowbell
+    if (gameState.effects && gameState.effects.happinessBoost) {
         gameState.cows.forEach(cow => {
             cow.isHappy = Math.random() > 0.2; // Higher chance of happiness
             cow.happinessLevel = Math.floor(Math.random() * 50) + 51; // Start with higher happiness
         });
     }
     
+    // Update crop buttons for new unlocks
+    generateCropButtons();
+    
     // FIXED: Always check unlocks when day advances
     checkAllCowUnlocks();
     
     updateBulletin();
     updateDisplay();
+    renderShop(); // Update shop for new unlocks
     
     // Auto-save after advancing day
     saveGameState();
     updateSaveInfo();
     
-    showToast(`🌅 Day ${gameState.day} begins! Your cows have new moods!`, 'success');
+    showToast(`?? Day ${gameState.day} begins! Your cows have new moods!`, 'success');
     
     if (navigator.vibrate) {
         navigator.vibrate([300, 100, 300]);
@@ -807,33 +973,33 @@ function updateBulletin() {
     bulletin.innerHTML = `
         <div style="margin-bottom: 12px;">
             <h3 style="color: #8B4513; margin-bottom: 8px; font-family: 'Montserrat', sans-serif;  font-size: 1.1em; font-weight: 700;">
-                📋 DAILY FARM REPORT - DAY ${gameState.day}
+                ?? DAILY FARM REPORT - DAY ${gameState.day}
             </h3>
             <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Happy Cows:</strong> ${happyCows.length}/${totalCows}</p>
             <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Milk Produced:</strong> ${gameState.dailyStats.milkProduced}</p>
             <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Coins Earned:</strong> ${gameState.dailyStats.coinsEarned}</p>
             <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Perfect Scores:</strong> ${gameState.dailyStats.perfectScores}</p>
-            <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Total Perfects:</strong> ${gameState.totalPerfectScores}</p>
+            <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Total Perfects:</strong> ${gameState.stats.totalPerfectScores}</p>
         </div>
         <div style="margin-bottom: 12px; padding: 8px; background: linear-gradient(145deg, #87CEEB, #ADD8E6); border-radius: 8px; border: 2px solid #4169E1;">
             <h4 style="color: #191970; margin-bottom: 4px; font-weight: 800; font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
-                🔓 UNLOCK PROGRESS
+                ?? UNLOCK PROGRESS
             </h4>
-            <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Total Milk: ${gameState.totalMilkProduced} | Total Coins: ${gameState.totalCoinsEarned}</p>
-            <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Perfect Scores: ${gameState.totalPerfectScores} | Day: ${gameState.day}</p>
+            <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Total Milk: ${gameState.stats.totalMilkProduced} | Total Coins: ${gameState.stats.totalCoinsEarned}</p>
+            <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Perfect Scores: ${gameState.stats.totalPerfectScores} | Day: ${gameState.day}</p>
             <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Locked Cows: ${gameState.lockedCows.length}</p>
         </div>
         ${gameState.dailyStats.happiest ? `
         <div style="margin-bottom: 12px; padding: 8px; background: linear-gradient(145deg, #D4941E, #B8860B); border-radius: 8px; border: 2px solid #8B4513;">
             <h4 style="color: #F5E6D3; margin-bottom: 4px; font-weight: 800;  font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
-                👑 COW OF THE DAY
+                ?? COW OF THE DAY
             </h4>
             <p style="color: #F5E6D3; font-weight: 700; font-size: 0.8em;">${gameState.dailyStats.happiest} was the happiest cow today!</p>
         </div>
         ` : ''}
         <div style="padding: 8px; background: linear-gradient(145deg, #E6A853, #D4941E); border-radius: 8px; border: 2px solid #8B4513;">
             <h4 style="color: #F5E6D3; margin-bottom: 4px; font-weight: 800;  font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
-                💡 FARM TIP
+                ?? FARM TIP
             </h4>
             <p style="color: #F5E6D3; font-weight: 700; font-size: 0.8em;">${getFarmTip()}</p>
         </div>
@@ -851,7 +1017,10 @@ function getFarmTip() {
         "The neon pink barn doubles milk production!",
         "Golden cowbell makes cows start happier each day!",
         "Build combos in rhythm games for bonus points!",
-        "Secret cows have special unlock conditions!"
+        "Secret cows have special unlock conditions!",
+        "Achievements give permanent bonuses!",
+        "Try different crops to unlock new achievements!",
+        "Play at midnight for a special achievement!"
     ];
     return tips[Math.floor(Math.random() * tips.length)];
 }
@@ -866,13 +1035,13 @@ function checkAllCowUnlocks() {
         let unlocked = false;
         
         // Check unlock conditions
-        if (cow.unlockCondition === 'totalMilk' && gameState.totalMilkProduced >= cow.unlockTarget) {
+        if (cow.unlockCondition === 'totalMilk' && gameState.stats.totalMilkProduced >= cow.unlockTarget) {
             unlocked = true;
-        } else if (cow.unlockCondition === 'totalCoins' && gameState.totalCoinsEarned >= cow.unlockTarget) {
+        } else if (cow.unlockCondition === 'totalCoins' && gameState.stats.totalCoinsEarned >= cow.unlockTarget) {
             unlocked = true;
         } else if (cow.unlockCondition === 'day' && gameState.day >= cow.unlockTarget) {
             unlocked = true;
-        } else if (cow.unlockCondition === 'perfectScores' && gameState.totalPerfectScores >= cow.unlockTarget) {
+        } else if (cow.unlockCondition === 'perfectScores' && gameState.stats.totalPerfectScores >= cow.unlockTarget) {
             unlocked = true;
         }
 
@@ -884,11 +1053,12 @@ function checkAllCowUnlocks() {
             // Check if it's a secret cow
             const isSecret = secretCows.find(sc => sc.name === cow.name);
             if (isSecret) {
-                showAchievement(`🎉 Secret Cow Unlocked!`, `${cow.name} has joined your herd!`);
-                showToast(`🌟 SECRET COW UNLOCKED: ${cow.name}!`, 'success');
+                gameState.stats.secretCowsUnlocked++;
+                showAchievement(`?? Secret Cow Unlocked!`, `${cow.name} has joined your herd!`);
+                showToast(`?? SECRET COW UNLOCKED: ${cow.name}!`, 'success');
             } else {
-                showAchievement(`🐮 New Cow Unlocked!`, `${cow.name} has joined your herd!`);
-                showToast(`🐄 NEW COW: ${cow.name} joined your farm!`, 'success');
+                showAchievement(`?? New Cow Unlocked!`, `${cow.name} has joined your herd!`);
+                showToast(`?? NEW COW: ${cow.name} joined your farm!`, 'success');
             }
             
             anyUnlocked = true;
@@ -898,49 +1068,216 @@ function checkAllCowUnlocks() {
     if (anyUnlocked) {
         renderCows();
         updateBulletin();
+        checkAchievements(); // Check for cow-related achievements
     }
 }
 
-// Legacy functions for backward compatibility
-function checkCowUnlocks() {
-    checkAllCowUnlocks();
-}
-
-function checkSecretCowUnlocks() {
-    checkAllCowUnlocks();
+// Achievement system
+function checkAchievementCondition(achievement) {
+    const condition = achievement.condition;
+    const stats = gameState.stats;
+    
+    switch (condition.type) {
+        case 'totalMilk':
+            return stats.totalMilkProduced >= condition.target;
+            
+        case 'totalCoins':
+            return stats.totalCoinsEarned >= condition.target;
+            
+        case 'perfectScores':
+            return stats.totalPerfectScores >= condition.target;
+            
+        case 'cropsHarvested':
+            return stats.cropsHarvested >= condition.target;
+            
+        case 'cropTypeHarvested':
+            const cropCount = stats.cropTypesHarvested[condition.cropType] || 0;
+            return cropCount >= condition.target;
+            
+        case 'cowsHappy':
+            return stats.cowsHappy >= condition.target;
+            
+        case 'cowsUnlocked':
+            return gameState.cows.length >= condition.target;
+            
+        case 'allCowsHappy':
+            const allHappy = gameState.cows.length >= (condition.minimumCows || 1) && 
+                           gameState.cows.every(cow => cow.isHappy);
+            return allHappy;
+            
+        case 'secretCowsUnlocked':
+            return stats.secretCowsUnlocked >= condition.target;
+            
+        case 'day':
+            return gameState.day >= condition.target;
+            
+        case 'maxCombo':
+            return stats.maxCombo >= condition.target;
+            
+        case 'perfectStreak':
+            return stats.perfectStreak >= condition.target;
+            
+        case 'upgradesPurchased':
+            return stats.upgradesPurchased >= condition.target;
+            
+        case 'fastWin':
+            return stats.fastestWin <= condition.target;
+            
+        case 'timeOfDay':
+            if (condition.target === 'midnight') {
+                const hour = new Date().getHours();
+                return hour >= 0 && hour < 6;
+            }
+            return false;
+            
+        default:
+            console.warn(`Unknown achievement condition: ${condition.type}`);
+            return false;
+    }
 }
 
 function checkAchievements() {
+    if (!achievementsData.achievements) return;
+    
     const newAchievements = [];
     
-    if (gameState.totalMilkProduced >= 500 && !gameState.achievements.includes('milk_master')) {
-        gameState.achievements.push('milk_master');
-        newAchievements.push({title: '🥛 Milk Master!', desc: 'Produced 500+ total milk!'});
-    }
+    achievementsData.achievements.forEach(achievement => {
+        // Skip if already earned
+        if (gameState.achievements.includes(achievement.id)) return;
+        
+        // Check if condition is met
+        if (checkAchievementCondition(achievement)) {
+            gameState.achievements.push(achievement.id);
+            newAchievements.push(achievement);
+            awardAchievement(achievement);
+        }
+    });
     
-    if (gameState.totalCoinsEarned >= 2000 && !gameState.achievements.includes('coin_collector')) {
-        gameState.achievements.push('coin_collector');
-        newAchievements.push({title: '💰 Coin Collector!', desc: 'Earned 2000+ total coins!'});
-    }
-    
-    if (gameState.day >= 10 && !gameState.achievements.includes('veteran_farmer')) {
-        gameState.achievements.push('veteran_farmer');
-        newAchievements.push({title: '🌾 Veteran Farmer!', desc: 'Survived 10 days on the farm!'});
-    }
-    
-    // FIX: Add safety check to prevent division by zero
-    const allCowsHappy = gameState.cows.length > 0 && gameState.cows.every(cow => cow.isHappy);
-    if (allCowsHappy && gameState.cows.length >= 6 && !gameState.achievements.includes('happiness_guru')) {
-        gameState.achievements.push('happiness_guru');
-        newAchievements.push({title: '😊 Happiness Guru!', desc: 'Made all cows happy at once!'});
-    }
-    
+    // Display new achievements
     newAchievements.forEach(achievement => {
-        showAchievement(achievement.title, achievement.desc);
+        showAchievementUnlock(achievement);
     });
     
     updateAchievements();
-    updateShopButtons();
+}
+
+function awardAchievement(achievement) {
+    if (!achievement.reward) return;
+    
+    const reward = achievement.reward;
+    
+    // Award coins
+    if (reward.coins) {
+        gameState.coins += reward.coins;
+        console.log(`Achievement reward: +${reward.coins} coins`);
+    }
+    
+    // Award milk
+    if (reward.milk) {
+        gameState.milk += reward.milk;
+        gameState.stats.totalMilkProduced += reward.milk;
+        console.log(`Achievement reward: +${reward.milk} milk`);
+    }
+    
+    // Apply special effects
+    if (reward.special_effect) {
+        applyAchievementEffect(reward.special_effect);
+    }
+    
+    console.log(`Achievement unlocked: ${achievement.name}`);
+}
+
+function applyAchievementEffect(effectType) {
+    if (!gameState.effects.achievements) {
+        gameState.effects.achievements = {};
+    }
+    
+    switch (effectType) {
+        case 'milk_boost_permanent':
+            gameState.effects.achievements.milkBoost = 1.2;
+            break;
+            
+        case 'coin_boost_permanent':
+            gameState.effects.achievements.coinBoost = 1.15;
+            break;
+            
+        case 'crop_growth_boost':
+            gameState.effects.achievements.cropGrowthBoost = 1.25;
+            break;
+            
+        case 'rhythm_tolerance_boost':
+            gameState.effects.achievements.rhythmToleranceBoost = 0.3;
+            break;
+            
+        case 'happiness_aura':
+            gameState.effects.achievements.happinessAura = true;
+            break;
+            
+        case 'perfectionist_aura':
+            gameState.effects.achievements.perfectionistAura = true;
+            break;
+            
+        case 'legend_status':
+            gameState.effects.achievements.legendStatus = true;
+            break;
+            
+        default:
+            console.log(`Unknown achievement effect: ${effectType}`);
+    }
+}
+
+function showAchievementUnlock(achievement) {
+    const popup = document.getElementById('achievementPopup');
+    if (!popup) return;
+    
+    const rarity = achievement.rarity || 'common';
+    const rarityStyle = achievementsData.rarityStyles[rarity];
+    
+    popup.innerHTML = `
+        <div class="achievement-title" style="color: ${rarityStyle.border};">
+            ?? Achievement Unlocked!
+        </div>
+        <div style="font-size: 1.2em; margin: 5px 0;">
+            ${achievement.icon} ${achievement.name}
+        </div>
+        <div style="font-size: 0.8em; color: #666; margin-bottom: 5px;">
+            ${achievement.description}
+        </div>
+        <div style="font-size: 0.9em; color: ${rarityStyle.border}; font-weight: bold;">
+            ${achievement.reward?.message || 'Well done!'}
+        </div>
+    `;
+    
+    // Apply rarity styling
+    popup.style.background = `linear-gradient(145deg, ${rarityStyle.color}, ${rarityStyle.border})`;
+    popup.style.border = `3px solid ${rarityStyle.border}`;
+    
+    if (rarityStyle.glow) {
+        popup.style.boxShadow = `0 0 20px ${rarityStyle.glowColor}, 0 10px 30px rgba(0,0,0,0.3)`;
+    }
+    
+    if (rarityStyle.animation) {
+        popup.style.animation = `${rarityStyle.animation} 2s infinite`;
+    }
+    
+    popup.style.display = 'block';
+    
+    setTimeout(() => {
+        popup.style.display = 'none';
+        popup.style.animation = ''; // Reset animation
+    }, 5000);
+    
+    if (navigator.vibrate) {
+        // Different vibration patterns based on rarity
+        const vibrationPatterns = {
+            common: [100],
+            uncommon: [100, 50, 100],
+            rare: [200, 100, 200],
+            epic: [300, 100, 300, 100, 300],
+            legendary: [500, 200, 500, 200, 500, 200, 500]
+        };
+        navigator.vibrate(vibrationPatterns[rarity] || [100]);
+    }
 }
 
 function updateAchievements() {
@@ -950,78 +1287,80 @@ function updateAchievements() {
     if (gameState.achievements.length === 0) {
         achievementsList.innerHTML = `
             <p style="color: #666; font-style: italic; text-align: center;">
-                🎯 No achievements yet - keep playing to unlock them!
+                ?? No achievements yet - keep playing to unlock them!
             </p>
         `;
         return;
     }
     
-    const achievementData = {
-        all_upgrades: {icon: '🔧', name: 'Master Farmer', desc: 'Purchased all basic upgrades'},
-        milk_master: {icon: '🥛', name: 'Milk Master', desc: 'Produced 500+ total milk'},
-        coin_collector: {icon: '💰', name: 'Coin Collector', desc: 'Earned 2000+ total coins'},
-        veteran_farmer: {icon: '📅', name: 'Veteran Farmer', desc: 'Survived 10 days'},
-        happiness_guru: {icon: '💚', name: 'Happiness Guru', desc: 'Made all cows happy at once'}
-    };
+    // Group achievements by category
+    const categorizedAchievements = {};
+    achievementsData.categories?.forEach(category => {
+        categorizedAchievements[category.id] = {
+            info: category,
+            achievements: []
+        };
+    });
     
-    achievementsList.innerHTML = gameState.achievements.map(achievementId => {
-        const achievement = achievementData[achievementId];
-        return `
-            <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 8px; background: rgba(255,255,255,0.3); border-radius: 8px;">
-                <div style="font-size: 1.5em;">${achievement.icon}</div>
-                <div>
-                    <div style="font-weight: bold; color: #4169E1;">${achievement.name}</div>
-                    <div style="font-size: 0.8em; color: #666;">${achievement.desc}</div>
-                </div>
-            </div>
+    // Sort earned achievements into categories
+    gameState.achievements.forEach(achievementId => {
+        const achievement = achievementsData.achievements?.find(a => a.id === achievementId);
+        if (achievement && categorizedAchievements[achievement.category]) {
+            categorizedAchievements[achievement.category].achievements.push(achievement);
+        }
+    });
+    
+    let html = '';
+    Object.values(categorizedAchievements).forEach(category => {
+        if (category.achievements.length === 0) return;
+        
+        html += `
+            <div style="margin-bottom: 15px;">
+                <h4 style="color: #4169E1; margin-bottom: 8px; font-size: 0.9em; font-weight: 800;">
+                    ${category.info.name}
+                </h4>
         `;
-    }).join('');
+        
+        category.achievements.forEach(achievement => {
+            const rarity = achievement.rarity || 'common';
+            const rarityStyle = achievementsData.rarityStyles?.[rarity] || 
+                               { color: '#90EE90', border: '#32CD32' };
+            
+            html += `
+                <div style="display: flex; align-items: center; gap: 10px; margin: 6px 0; padding: 8px; 
+                           background: ${rarityStyle.color}; border-radius: 8px; 
+                           border: 2px solid ${rarityStyle.border};
+                           ${rarityStyle.glow ? `box-shadow: 0 0 10px ${rarityStyle.glowColor};` : ''}">
+                    <div style="font-size: 1.3em;">${achievement.icon}</div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: bold; color: ${rarityStyle.border}; font-size: 0.9em;">
+                            ${achievement.name}
+                        </div>
+                        <div style="font-size: 0.75em; color: #666;">
+                            ${achievement.description}
+                        </div>
+                    </div>
+                    <div style="font-size: 0.7em; color: ${rarityStyle.border}; font-weight: bold; text-transform: uppercase;">
+                        ${rarity}
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += '</div>';
+    });
+    
+    achievementsList.innerHTML = html;
 }
 
-function showAchievement(title, description) {
-    const achievement = document.getElementById('achievementPopup');
-    if (!achievement) return;
-    
-    achievement.innerHTML = `
-        <div class="achievement-title">${title}</div>
-        <div style="font-size: 0.9em;">${description}</div>
-    `;
-    
-    achievement.style.display = 'block';
-    
-    setTimeout(() => {
-        achievement.style.display = 'none';
-    }, 4000);
-    
-    if (navigator.vibrate) {
-        navigator.vibrate([500, 200, 500, 200, 500]);
-    }
-}
-
-// Mobile-optimized minigame functions
-function startMinigame(cowIndex) {
-    if (cowIndex >= gameState.cows.length) return; // FIX: Safety check
-    
-    const cow = gameState.cows[cowIndex];
-    const overlay = document.getElementById('minigameOverlay');
-    const title = document.getElementById('minigameTitle');
-    const instructions = document.getElementById('minigameInstructions');
-    
-    if (!overlay || !title || !instructions) return;
-    
-    title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.gameType.toUpperCase()} Challenge!`;
-    instructions.textContent = getGameInstructions(cow.gameType);
-    
-    overlay.style.display = 'block';
-    startRhythmGame(cowIndex);
-    
-    if (navigator.vibrate) {
-        navigator.vibrate(100);
-    }
-}
-
+// Enhanced rhythm game instructions using pattern data
 function getGameInstructions(gameType) {
-    const instructions = {
+    if (rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[gameType]) {
+        return rhythmPatterns.rhythmTypes[gameType].instructions;
+    }
+    
+    // Fallback to default instructions
+    const defaultInstructions = {
         pitch: "Tap when notes cross the center! Match the diva's perfect pitch!",
         rapid: "Rapid TAP to rev the engine! Don't let it stall!",
         smooth: "Gentle taps for a smooth serenade!",
@@ -1032,7 +1371,7 @@ function getGameInstructions(gameType) {
         pop: "Hit those pop beats with perfect timing!",
         electronic: "Drop the bass with electronic beats!"
     };
-    return instructions[gameType] || "Follow the rhythm and make your cow happy!";
+    return defaultInstructions[gameType] || "Follow the rhythm and make your cow happy!";
 }
 
 let currentMinigame = {
@@ -1075,28 +1414,31 @@ function startRhythmGame(cowIndex) {
     }, 15000);
 }
 
+// Enhanced speed calculation using pattern data and effects
 function getGameSpeed(gameType) {
-    const speeds = {
-        pitch: 1500,
-        rapid: 800,
-        smooth: 2000,
-        battle: 1000,
-        slow: 2500,
-        rock: 1200,
-        cosmic: 1800,
-        pop: 1100,
-        electronic: 900
-    };
+    let baseSpeed = 1200; // Default speed
     
-    let speed = speeds[gameType] || 1200;
-    
-    if (gameState.upgrades.metronome > 0) {
-        speed *= 1 + gameState.upgrades.metronome * 0.3;
+    // Use pattern data if available
+    if (rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[gameType]) {
+        baseSpeed = rhythmPatterns.rhythmTypes[gameType].baseSpeed;
+    } else {
+        // Fallback speeds
+        const fallbackSpeeds = {
+            pitch: 1500, rapid: 800, smooth: 2000, battle: 1000,
+            slow: 2500, rock: 1200, cosmic: 1800, pop: 1100, electronic: 900
+        };
+        baseSpeed = fallbackSpeeds[gameType] || 1200;
     }
     
-    return speed;
+    // Apply upgrade effects
+    if (gameState.effects && gameState.effects.rhythmSpeedBonus) {
+        baseSpeed *= (1 + gameState.effects.rhythmSpeedBonus);
+    }
+    
+    return baseSpeed;
 }
 
+// Enhanced note spawning with pattern support
 function spawnNote() {
     const rhythmBar = document.getElementById('rhythmBar');
     if (!rhythmBar) return;
@@ -1105,10 +1447,41 @@ function spawnNote() {
     note.className = 'rhythm-note';
     note.style.left = '-60px';
     
-    // Add special note types for variety
-    if (Math.random() < 0.2) {
-        note.style.background = '#FF69B4'; // Special pink note worth more points
-        note.classList.add('special-note');
+    // Determine note type based on pattern data
+    const cow = gameState.cows[currentMinigame.cowIndex];
+    let noteType = 'normal';
+    
+    if (rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[cow.gameType]) {
+        const patternData = rhythmPatterns.rhythmTypes[cow.gameType];
+        if (patternData.noteTypes && patternData.noteTypes.length > 0) {
+            noteType = patternData.noteTypes[Math.floor(Math.random() * patternData.noteTypes.length)];
+        }
+        
+        // Check for special notes
+        const specialChance = patternData.specialNoteChance || 0.2;
+        if (Math.random() < specialChance && patternData.noteTypes.includes('special')) {
+            noteType = 'special';
+        }
+    } else {
+        // Fallback to original special note logic
+        if (Math.random() < 0.2) {
+            noteType = 'special';
+        }
+    }
+    
+    // Apply note styling based on type
+    if (rhythmPatterns.noteStyles && rhythmPatterns.noteStyles[noteType]) {
+        const style = rhythmPatterns.noteStyles[noteType];
+        note.style.background = style.color;
+        note.style.borderColor = style.border;
+        note.setAttribute('data-note-type', noteType);
+        note.setAttribute('data-points', style.points);
+    } else {
+        // Fallback styling
+        if (noteType === 'special') {
+            note.style.background = '#FF69B4';
+            note.classList.add('special-note');
+        }
     }
     
     note.addEventListener('touchstart', (e) => {
@@ -1133,8 +1506,9 @@ function spawnNote() {
     }, 3000);
 }
 
+// Enhanced hit detection with new tolerance system
 function hitNote(note) {
-    if (!note) return; // FIX: Safety check
+    if (!note) return;
     
     const noteRect = note.getBoundingClientRect();
     const marker = document.querySelector('.rhythm-marker');
@@ -1143,35 +1517,49 @@ function hitNote(note) {
     const markerRect = marker.getBoundingClientRect();
     const distance = Math.abs(noteRect.left + noteRect.width/2 - markerRect.left - markerRect.width/2);
     
-    let points = 0;
-    const tolerance = 1.2 + gameState.upgrades.pitchfork * 0.6;
-    const isSpecialNote = note.classList.contains('special-note');
-    const bonusMultiplier = isSpecialNote ? 2 : 1;
-    
-    if (distance < 40 * tolerance) {
-        points = 25 * bonusMultiplier;
-        currentMinigame.combo++;
-        note.style.background = '#00FF00';
-        showFloatingText(`+${points}!`, noteRect.left, noteRect.top);
-        if (navigator.vibrate) navigator.vibrate(50);
-    } else if (distance < 80 * tolerance) {
-        points = 15 * bonusMultiplier;
-        currentMinigame.combo++;
-        note.style.background = '#FFFF00';
-        showFloatingText(`+${points}!`, noteRect.left, noteRect.top);
-        if (navigator.vibrate) navigator.vibrate(30);
-    } else if (distance < 120 * tolerance) {
-        points = 8 * bonusMultiplier;
-        currentMinigame.combo = Math.max(0, currentMinigame.combo - 1);
-        note.style.background = '#FF8C00';
-        showFloatingText(`+${points}!`, noteRect.left, noteRect.top);
-    } else {
-        currentMinigame.combo = 0;
+    // Get base tolerance and apply effects
+    let baseTolerance = 1.2;
+    if (gameState.effects && gameState.effects.rhythmTolerance) {
+        baseTolerance += gameState.effects.rhythmTolerance;
     }
     
-    // Combo bonus
+    // Get note-specific points
+    const noteType = note.getAttribute('data-note-type') || 'normal';
+    const basePoints = parseInt(note.getAttribute('data-points')) || 25;
+    
+    let points = 0;
+    let hitQuality = 'miss';
+    
+    if (distance < 40 * baseTolerance) {
+        points = basePoints;
+        hitQuality = 'perfect';
+        currentMinigame.combo++;
+        note.style.background = '#00FF00';
+        if (navigator.vibrate) navigator.vibrate(50);
+    } else if (distance < 80 * baseTolerance) {
+        points = Math.floor(basePoints * 0.7);
+        hitQuality = 'good';
+        currentMinigame.combo++;
+        note.style.background = '#FFFF00';
+        if (navigator.vibrate) navigator.vibrate(30);
+    } else if (distance < 120 * baseTolerance) {
+        points = Math.floor(basePoints * 0.4);
+        hitQuality = 'okay';
+        currentMinigame.combo = Math.max(0, currentMinigame.combo - 1);
+        note.style.background = '#FF8C00';
+    } else {
+        currentMinigame.combo = 0;
+        hitQuality = 'miss';
+    }
+    
+    // Apply combo bonus
     if (currentMinigame.combo > 5) {
         points += Math.floor(currentMinigame.combo / 5) * 5;
+    }
+    
+    // Apply coin bonus effects
+    if (gameState.effects && gameState.effects.coinBonus && hitQuality !== 'miss') {
+        points += gameState.effects.coinBonus;
     }
     
     currentMinigame.score += points;
@@ -1179,6 +1567,10 @@ function hitNote(note) {
     
     document.getElementById('currentScore').textContent = currentMinigame.score;
     document.getElementById('comboCount').textContent = currentMinigame.combo;
+    
+    if (points > 0) {
+        showFloatingText(`+${points}!`, noteRect.left, noteRect.top);
+    }
     
     note.remove();
 }
@@ -1214,13 +1606,35 @@ function endMinigame() {
     
     gameState.dailyStats.totalGames++;
     
+    // Track combo achievement
+    gameState.stats.maxCombo = Math.max(gameState.stats.maxCombo, currentMinigame.maxCombo);
+    
     if (success) {
         let milkReward = Math.floor(Math.random() * 20) + 15;
         let coinReward = Math.floor(Math.random() * 25) + 25;
         
-        // Apply upgrade bonuses
-        if (gameState.upgrades.barn > 0) milkReward *= 1 + gameState.upgrades.barn;
-        if (gameState.upgrades.pitchfork > 0) coinReward += 15 * gameState.upgrades.pitchfork;
+        // Track cow happiness for achievements
+        if (!cow.isHappy) {
+            gameState.stats.cowsHappy++;
+        }
+        
+        // Apply effect-based upgrade bonuses
+        if (gameState.effects.milkMultiplier) {
+            milkReward *= gameState.effects.milkMultiplier;
+        }
+        if (gameState.effects.coinBonus) {
+            coinReward += gameState.effects.coinBonus;
+        }
+        
+        // Apply achievement effect bonuses
+        if (gameState.effects.achievements) {
+            if (gameState.effects.achievements.milkBoost) {
+                milkReward = Math.floor(milkReward * gameState.effects.achievements.milkBoost);
+            }
+            if (gameState.effects.achievements.coinBoost) {
+                coinReward = Math.floor(coinReward * gameState.effects.achievements.coinBoost);
+            }
+        }
         
         // Combo bonus
         if (currentMinigame.maxCombo >= 10) {
@@ -1228,15 +1642,20 @@ function endMinigame() {
             coinReward += 15;
         }
         
-        if (currentMinigame.score >= currentMinigame.target * 1.4) {
+        const isPerfect = currentMinigame.score >= currentMinigame.target * 1.4;
+        if (isPerfect) {
             gameState.dailyStats.perfectScores++;
-            gameState.totalPerfectScores++; // FIX: Update persistent counter
+            gameState.stats.totalPerfectScores++;
+            gameState.stats.currentPerfectStreak++;
+            gameState.stats.perfectStreak = Math.max(gameState.stats.perfectStreak, gameState.stats.currentPerfectStreak);
+            
             milkReward += 25;
             coinReward += 35;
-            showToast(`🎉 PERFECT! ${cow.name} is ecstatic!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
+            showToast(`?? PERFECT! ${cow.name} is ecstatic!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
         } else {
-            showToast(`🎉 Success! ${cow.name} is happy!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
+            gameState.stats.currentPerfectStreak = 0; // Reset streak
+            showToast(`?? Success! ${cow.name} is happy!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
         
@@ -1245,27 +1664,35 @@ function endMinigame() {
         gameState.dailyStats.milkProduced += milkReward;
         gameState.dailyStats.coinsEarned += coinReward;
         gameState.dailyStats.happiest = cow.name;
-        gameState.totalMilkProduced += milkReward;
-        gameState.totalCoinsEarned += coinReward;
+        gameState.stats.totalMilkProduced += milkReward;
+        gameState.stats.totalCoinsEarned += coinReward;
         cow.isHappy = true;
         cow.happinessLevel = Math.min(100, cow.happinessLevel + 20);
+        
+        // Track fast win achievement (game completed in under target time)
+        const gameStartTime = Date.now() - 15000; // Game lasts 15 seconds
+        const actualGameTime = Date.now() - gameStartTime;
+        if (actualGameTime < gameState.stats.fastestWin) {
+            gameState.stats.fastestWin = actualGameTime;
+        }
     } else {
+        gameState.stats.currentPerfectStreak = 0; // Reset streak on failure
         const coinLoss = Math.floor(Math.random() * 8) + 3;
         gameState.coins = Math.max(0, gameState.coins - coinLoss);
         cow.isHappy = false;
         cow.happinessLevel = Math.max(1, cow.happinessLevel - 10);
         
-        showToast(`😤 ${cow.name} is not impressed! -${coinLoss} coins.\nMax Combo: ${currentMinigame.maxCombo}`, 'failure');
+        showToast(`?? ${cow.name} is not impressed! -${coinLoss} coins.\nMax Combo: ${currentMinigame.maxCombo}`, 'failure');
         if (navigator.vibrate) navigator.vibrate(300);
     }
     
-    updateDisplay(); // This now includes unlock check
+    updateDisplay();
     updateBulletin();
     renderCows();
-    checkAchievements();
+    checkAchievements(); // Check for new achievements
     
     // Auto-save after minigame
-    if (success || gameState.totalPerfectScores > 0) {
+    if (success || gameState.stats.totalPerfectScores > 0) {
         saveGameState();
         updateSaveInfo();
     }
@@ -1282,6 +1709,28 @@ function closeMinigame() {
     }
     const overlay = document.getElementById('minigameOverlay');
     if (overlay) overlay.style.display = 'none';
+}
+
+// Mobile-optimized minigame functions
+function startMinigame(cowIndex) {
+    if (cowIndex >= gameState.cows.length) return; // FIX: Safety check
+    
+    const cow = gameState.cows[cowIndex];
+    const overlay = document.getElementById('minigameOverlay');
+    const title = document.getElementById('minigameTitle');
+    const instructions = document.getElementById('minigameInstructions');
+    
+    if (!overlay || !title || !instructions) return;
+    
+    title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.gameType.toUpperCase()} Challenge!`;
+    instructions.textContent = getGameInstructions(cow.gameType);
+    
+    overlay.style.display = 'block';
+    startRhythmGame(cowIndex);
+    
+    if (navigator.vibrate) {
+        navigator.vibrate(100);
+    }
 }
 
 function showToast(text, type) {
@@ -1319,7 +1768,7 @@ function updateDisplay() {
     if (milkEl)  milkEl.textContent  = gameState.milk;
     if (dayEl)   dayEl.textContent   = gameState.day;
 
-    // → NEW: average happiness across all unlocked cows
+    // ? NEW: average happiness across all unlocked cows
     if (moodEl) {
         const herd = gameState.cows;
         if (herd.length > 0) {
@@ -1330,62 +1779,261 @@ function updateDisplay() {
         }
     }
 
-    // → NEW: auto-unlock cows whose conditions are now met
+    // ? NEW: auto-unlock cows whose conditions are now met
     checkAllCowUnlocks();
 
     // Refresh shop buttons, etc.
-    updateShopButtons();
+    renderShop();
 }
 
-// Mobile touch controls for minigame
-document.getElementById('tapBtn').addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    if (currentMinigame.gameActive) {
-        const notes = document.querySelectorAll('.rhythm-note');
-        if (notes.length > 0) {
-            const marker = document.querySelector('.rhythm-marker');
-            if (!marker) return;
-            
-            const markerRect = marker.getBoundingClientRect();
-            
-            let closestNote = null;
-            let closestDistance = Infinity;
-            
-            notes.forEach(note => {
-                const noteRect = note.getBoundingClientRect();
-                const distance = Math.abs(noteRect.left + noteRect.width/2 - markerRect.left - markerRect.width/2);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestNote = note;
-                }
-            });
-            
-            if (closestNote && closestDistance < 150) {
-                hitNote(closestNote);
-            }
-        }
+// Backward compatibility function to migrate old saves
+function migrateGameState() {
+    // Initialize stats object if it doesn't exist
+    if (!gameState.stats) {
+        gameState.stats = {
+            totalMilkProduced: gameState.totalMilkProduced || 0,
+            totalCoinsEarned: gameState.totalCoinsEarned || 0,
+            totalPerfectScores: gameState.totalPerfectScores || 0,
+            cropsHarvested: 0,
+            cropTypesHarvested: {},
+            cowsHappy: 0,
+            maxCombo: 0,
+            perfectStreak: 0,
+            currentPerfectStreak: 0,
+            upgradesPurchased: 0,
+            secretCowsUnlocked: 0,
+            fastestWin: Infinity,
+            playedAtMidnight: false
+        };
     }
+    
+    // Migrate old fields to new stats structure
+    if (gameState.totalMilkProduced !== undefined) {
+        gameState.stats.totalMilkProduced = gameState.totalMilkProduced;
+        delete gameState.totalMilkProduced;
+    }
+    
+    if (gameState.totalCoinsEarned !== undefined) {
+        gameState.stats.totalCoinsEarned = gameState.totalCoinsEarned;
+        delete gameState.totalCoinsEarned;
+    }
+    
+    if (gameState.totalPerfectScores !== undefined) {
+        gameState.stats.totalPerfectScores = gameState.totalPerfectScores;
+        delete gameState.totalPerfectScores;
+    }
+    
+    // Initialize effects object if it doesn't exist
+    if (!gameState.effects) {
+        gameState.effects = {};
+    }
+    
+    // Count existing upgrades for achievement tracking
+    if (gameState.upgrades && gameState.stats.upgradesPurchased === 0) {
+        gameState.stats.upgradesPurchased = Object.values(gameState.upgrades).reduce((total, level) => total + level, 0);
+    }
+    
+    // Check for midnight play
+    const hour = new Date().getHours();
+    if (hour >= 0 && hour < 6) {
+        gameState.stats.playedAtMidnight = true;
+    }
+    
+    console.log('Game state migrated to new achievement system');
+}
+
+// Mobile-optimized game functions
+function initializeGame() {
+    // Migrate old save data to new format
+    migrateGameState();
+    
+    // Try to load saved game first
+    const loadedSave = loadGameState();
+    
+    if (!loadedSave) {
+        // New game - initialize everything
+        generateCows();
+        initializeCrops();
+    } else {
+        // Loaded game - reinitialize display elements
+        generateCows(); // This will use existing cow data
+        renderCrops(); // This will use existing crop data
+        
+        // Restart any crop timers that should still be running
+        gameState.crops.forEach(crop => {
+            if (crop.type && !crop.isReady && crop.readyAt) {
+                const timeLeft = crop.readyAt - Date.now();
+                if (timeLeft > 0) {
+                    const cropData = cropTypes[crop.type];
+                    if (cropData) {
+                        crop.timerId = setTimeout(() => {
+                            if (crop.type && !crop.isReady) {
+                                crop.isReady = true;
+                                renderCrops();
+                                showToast(`${cropData.name} is ready to harvest! ??`, 'success');
+                            }
+                        }, timeLeft);
+                        gameState.activeCropTimers.push(crop.timerId);
+                    }
+                } else {
+                    // Crop should already be ready
+                    crop.isReady = true;
+                }
+            }
+        });
+    }
+    
+    // Initialize new data-driven systems
+    generateCropButtons();
+    renderShop();
+    
+    updateDisplay();
+    updateBulletin();
+    updateAchievements();
+    updateSaveInfo();
+    
+    // Check achievements on startup (for achievements that might already be earned)
+    checkAchievements();
+    
+    // Setup auto-save system
+    setupAutoSave();
+    
+    console.log('Game initialized with data-driven systems and achievements!');
+}
+
+// Backward compatibility: Old achievement function name
+function showAchievement(title, description) {
+    showAchievementUnlock({
+        name: title.replace(/??|??|??/g, '').trim(),
+        description: description,
+        icon: '??',
+        rarity: 'common',
+        reward: { message: description }
+    });
+}
+
+// Initialize game when data is loaded
+loadGameData().then(() => {
+    initializeGame();
 });
 
-document.getElementById('holdBtn').addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    if (currentMinigame.gameActive) {
-        const notes = document.querySelectorAll('.rhythm-note');
-        if (notes.length > 0) {
-            const marker = document.querySelector('.rhythm-marker');
-            if (!marker) return;
-            
-            const markerRect = marker.getBoundingClientRect();
-            
-            notes.forEach(note => {
-                const noteRect = note.getBoundingClientRect();
-                const distance = Math.abs(noteRect.left + noteRect.width/2 - markerRect.left - markerRect.width/2);
-                
-                if (distance < 120) {
-                    hitNote(note);
-                }
-            });
+// Export functions for debugging (browser console access)
+window.debugGame = {
+    gameState,
+    checkAchievements,
+    forceUnlockCheck: () => {
+        const beforeCount = gameState.cows.length;
+        checkAllCowUnlocks();
+        const afterCount = gameState.cows.length;
+        const unlocked = afterCount - beforeCount;
+        
+        if (unlocked > 0) {
+            showToast(`?? Unlocked ${unlocked} cow(s)!`, 'success');
+        } else {
+            showToast(`No cows ready to unlock yet.`, 'info');
         }
+    },
+    debugUnlockSystem: () => {
+        let debugInfo = `?? UNLOCK DEBUG INFO:\n\n`;
+        debugInfo += `?? Current Stats:\n`;
+        debugInfo += `� Day: ${gameState.day}\n`;
+        debugInfo += `� Total Milk: ${gameState.stats.totalMilkProduced}\n`;
+        debugInfo += `� Total Coins: ${gameState.stats.totalCoinsEarned}\n`;
+        debugInfo += `� Total Perfect Scores: ${gameState.stats.totalPerfectScores}\n\n`;
+        
+        debugInfo += `?? Cow Status:\n`;
+        debugInfo += `� Unlocked Cows: ${gameState.cows.length}\n`;
+        debugInfo += `� Locked Cows: ${gameState.lockedCows.length}\n\n`;
+        
+        debugInfo += `?? Locked Cow Requirements:\n`;
+        gameState.lockedCows.forEach(cow => {
+            debugInfo += `� ${cow.name}: ${cow.unlockCondition} ${cow.unlockTarget}\n`;
+            const currentValue = getCurrentStatValue(cow.unlockCondition);
+            debugInfo += `  Current: ${currentValue}/${cow.unlockTarget} ${currentValue >= cow.unlockTarget ? '?' : '?'}\n`;
+        });
+        
+        showToast(debugInfo, 'info');
+        console.log(debugInfo);
+    }
+};
+
+function getCurrentStatValue(condition) {
+    switch(condition) {
+        case 'day': return gameState.day;
+        case 'totalMilk': return gameState.stats.totalMilkProduced;
+        case 'totalCoins': return gameState.stats.totalCoinsEarned;
+        case 'perfectScores': return gameState.stats.totalPerfectScores;
+        default: return 0;
+    }
+}
+
+// Debug functions to help troubleshoot unlock system
+function debugUnlockSystem() {
+    window.debugGame.debugUnlockSystem();
+}
+
+function forceUnlockCheck() {
+    window.debugGame.forceUnlockCheck();
+}
+
+// Mobile touch controls for minigame - using DOMContentLoaded to avoid timing issues
+document.addEventListener('DOMContentLoaded', function() {
+    const tapBtn = document.getElementById('tapBtn');
+    const holdBtn = document.getElementById('holdBtn');
+    
+    if (tapBtn) {
+        tapBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (currentMinigame.gameActive) {
+                const notes = document.querySelectorAll('.rhythm-note');
+                if (notes.length > 0) {
+                    const marker = document.querySelector('.rhythm-marker');
+                    if (!marker) return;
+                    
+                    const markerRect = marker.getBoundingClientRect();
+                    
+                    let closestNote = null;
+                    let closestDistance = Infinity;
+                    
+                    notes.forEach(note => {
+                        const noteRect = note.getBoundingClientRect();
+                        const distance = Math.abs(noteRect.left + noteRect.width/2 - markerRect.left - markerRect.width/2);
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            closestNote = note;
+                        }
+                    });
+                    
+                    if (closestNote && closestDistance < 150) {
+                        hitNote(closestNote);
+                    }
+                }
+            }
+        });
+    }
+    
+    if (holdBtn) {
+        holdBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (currentMinigame.gameActive) {
+                const notes = document.querySelectorAll('.rhythm-note');
+                if (notes.length > 0) {
+                    const marker = document.querySelector('.rhythm-marker');
+                    if (!marker) return;
+                    
+                    const markerRect = marker.getBoundingClientRect();
+                    
+                    notes.forEach(note => {
+                        const noteRect = note.getBoundingClientRect();
+                        const distance = Math.abs(noteRect.left + noteRect.width/2 - markerRect.left - markerRect.width/2);
+                        
+                        if (distance < 120) {
+                            hitNote(note);
+                        }
+                    });
+                }
+            }
+        });
     }
 });
 
@@ -1403,53 +2051,3 @@ setInterval(() => {
         renderCrops();
     }
 }, 1000);
-
-// Debug functions to help troubleshoot unlock system
-function debugUnlockSystem() {
-    let debugInfo = `🔍 UNLOCK DEBUG INFO:\n\n`;
-    debugInfo += `📊 Current Stats:\n`;
-    debugInfo += `• Day: ${gameState.day}\n`;
-    debugInfo += `• Total Milk: ${gameState.totalMilkProduced}\n`;
-    debugInfo += `• Total Coins: ${gameState.totalCoinsEarned}\n`;
-    debugInfo += `• Total Perfect Scores: ${gameState.totalPerfectScores}\n\n`;
-    
-    debugInfo += `🐮 Cow Status:\n`;
-    debugInfo += `• Unlocked Cows: ${gameState.cows.length}\n`;
-    debugInfo += `• Locked Cows: ${gameState.lockedCows.length}\n\n`;
-    
-    debugInfo += `🔒 Locked Cow Requirements:\n`;
-    gameState.lockedCows.forEach(cow => {
-        debugInfo += `• ${cow.name}: ${cow.unlockCondition} ${cow.unlockTarget}\n`;
-        const currentValue = getCurrentStatValue(cow.unlockCondition);
-        debugInfo += `  Current: ${currentValue}/${cow.unlockTarget} ${currentValue >= cow.unlockTarget ? '✅' : '❌'}\n`;
-    });
-    
-    showToast(debugInfo, 'info');
-    console.log(debugInfo);
-}
-
-function getCurrentStatValue(condition) {
-    switch(condition) {
-        case 'day': return gameState.day;
-        case 'totalMilk': return gameState.totalMilkProduced;
-        case 'totalCoins': return gameState.totalCoinsEarned;
-        case 'perfectScores': return gameState.totalPerfectScores;
-        default: return 0;
-    }
-}
-
-function forceUnlockCheck() {
-    const beforeCount = gameState.cows.length;
-    checkAllCowUnlocks();
-    const afterCount = gameState.cows.length;
-    const unlocked = afterCount - beforeCount;
-    
-    if (unlocked > 0) {
-        showToast(`🎉 Unlocked ${unlocked} cow(s)!`, 'success');
-    } else {
-        showToast(`No cows ready to unlock yet.`, 'info');
-    }
-}
-
-// Initialize the mobile game
-initializeGame();

@@ -1,0 +1,116 @@
+{
+  "rhythmTypes": {
+    "smooth": {
+      "name": "Smooth Serenade",
+      "baseSpeed": 2000,
+      "patterns": [
+        { "timing": [1000, 2000, 1500], "repeat": true },
+        { "timing": [1800, 1600, 2200], "repeat": true }
+      ],
+      "noteTypes": ["normal", "long"],
+      "specialNoteChance": 0.15,
+      "instructions": "Gentle taps for a smooth serenade!"
+    },
+    "rapid": {
+      "name": "Rapid Fire",
+      "baseSpeed": 800,
+      "patterns": [
+        { "timing": [400, 600, 500, 700], "repeat": true },
+        { "timing": [300, 400, 300, 800], "repeat": true }
+      ],
+      "noteTypes": ["normal", "rapid"],
+      "specialNoteChance": 0.25,
+      "instructions": "Rapid TAP to rev the engine!"
+    },
+    "battle": {
+      "name": "Battle Rhythm",
+      "baseSpeed": 1000,
+      "patterns": [
+        { "timing": [800, 1200, 600, 1000], "repeat": true },
+        { "timing": [500, 500, 1500], "repeat": false }
+      ],
+      "noteTypes": ["normal", "shield", "attack"],
+      "specialNoteChance": 0.3,
+      "instructions": "TAP to parry grass attacks!"
+    },
+    "cosmic": {
+      "name": "Cosmic Harmony",
+      "baseSpeed": 1800,
+      "patterns": [
+        { "timing": [2000, 1000, 2500, 1500], "repeat": true },
+        { "timing": [1800, 1800, 900, 2700], "repeat": true }
+      ],
+      "noteTypes": ["normal", "star", "void"],
+      "specialNoteChance": 0.2,
+      "instructions": "TAP in cosmic harmony!"
+    },
+    "electronic": {
+      "name": "Electronic Beat",
+      "baseSpeed": 900,
+      "patterns": [
+        { "timing": [450, 450, 900, 600], "repeat": true },
+        { "timing": [300, 600, 300, 1200], "repeat": true }
+      ],
+      "noteTypes": ["normal", "bass", "synth"],
+      "specialNoteChance": 0.35,
+      "instructions": "Drop the bass!"
+    }
+  },
+  "noteStyles": {
+    "normal": {
+      "color": "#FFD700",
+      "border": "#FFA500",
+      "points": 25,
+      "effect": null
+    },
+    "long": {
+      "color": "#98FB98", 
+      "border": "#32CD32",
+      "points": 35,
+      "effect": "hold",
+      "duration": 1000
+    },
+    "rapid": {
+      "color": "#FF69B4",
+      "border": "#FF1493", 
+      "points": 15,
+      "effect": "multi_hit"
+    },
+    "shield": {
+      "color": "#87CEEB",
+      "border": "#4169E1",
+      "points": 30,
+      "effect": "defense"
+    },
+    "attack": {
+      "color": "#FF6347",
+      "border": "#DC143C",
+      "points": 40,
+      "effect": "offense"
+    },
+    "star": {
+      "color": "#DDA0DD",
+      "border": "#8B008B",
+      "points": 50,
+      "effect": "cosmic_bonus"
+    },
+    "void": {
+      "color": "#2F2F2F",
+      "border": "#000000", 
+      "points": -10,
+      "effect": "avoid"
+    },
+    "bass": {
+      "color": "#FF4500",
+      "border": "#8B0000",
+      "points": 30,
+      "effect": "bass_boost"
+    },
+    "synth": {
+      "color": "#00CED1",
+      "border": "#008B8B",
+      "points": 25,
+      "effect": "synth_wave"
+    }
+  }
+}
