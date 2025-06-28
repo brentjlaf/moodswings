@@ -2,10 +2,10 @@
   "cowData": [
     {
       "name": "Bessie",
-      "emoji": "??",
+      "emoji": "\uD83D\uDC04",
       "gameType": "smooth",
-      "moodValue": 75,
-      "moods": ["Content", "Peaceful", "Serene", "Calm"],
+      "moodValue": 50,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "I want some fresh hay!",
         "The grass looks tasty today!",
@@ -15,12 +15,12 @@
     },
     {
       "name": "Moobert",
-      "emoji": "??",
+      "emoji": "\uD83C\uDFB8",
       "gameType": "rock",
-      "moodValue": 85,
+      "moodValue": 50,
       "unlockCondition": "day",
-      "unlockTarget": 2,
-      "moods": ["Rockin'", "Energetic", "Pumped", "Ready to Rock"],
+      "unlockTarget": 4,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Turn up the music!",
         "Let's rock this barn!",
@@ -30,12 +30,12 @@
     },
     {
       "name": "Diva Belle",
-      "emoji": "??",
+      "emoji": "\uD83C\uDFA4",
       "gameType": "pitch",
-      "moodValue": 90,
+      "moodValue": 50,
       "unlockCondition": "totalMilk",
-      "unlockTarget": 100,
-      "moods": ["Dramatic", "Fabulous", "Prima Donna", "Center Stage"],
+      "unlockTarget": 200,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "I require only the finest feed!",
         "My stage lighting needs adjustment!",
@@ -45,12 +45,12 @@
     },
     {
       "name": "Turbo",
-      "emoji": "???",
+      "emoji": "\uD83C\uDFCE",
       "gameType": "rapid",
-      "moodValue": 95,
+      "moodValue": 50,
       "unlockCondition": "totalCoins",
-      "unlockTarget": 500,
-      "moods": ["Speedy", "Revved Up", "Fast & Furious", "Zoom Zoom"],
+      "unlockTarget": 1000,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Gotta go fast!",
         "Need more horsepower!",
@@ -60,12 +60,12 @@
     },
     {
       "name": "Zen Master",
-      "emoji": "??",
+      "emoji": "\uD83E\uDDD8",
       "gameType": "slow",
-      "moodValue": 80,
+      "moodValue": 50,
       "unlockCondition": "day",
-      "unlockTarget": 5,
-      "moods": ["Meditative", "Enlightened", "Peaceful", "Mindful"],
+      "unlockTarget": 10,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Inner peace comes from within...",
         "The grass whispers ancient wisdom...",
@@ -75,12 +75,12 @@
     },
     {
       "name": "Sergeant Moo",
-      "emoji": "??",
+      "emoji": "\uD83E\uDE96",
       "gameType": "battle",
-      "moodValue": 88,
+      "moodValue": 50,
       "unlockCondition": "totalMilk",
-      "unlockTarget": 250,
-      "moods": ["Battle Ready", "Tactical", "Strategic", "On Patrol"],
+      "unlockTarget": 500,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Defend the pasture at all costs!",
         "The grass needs protection!",
@@ -90,12 +90,12 @@
     },
     {
       "name": "Stardust",
-      "emoji": "??",
+      "emoji": "\u2728",
       "gameType": "cosmic",
-      "moodValue": 92,
+      "moodValue": 50,
       "unlockCondition": "day",
-      "unlockTarget": 7,
-      "moods": ["Cosmic", "Stellar", "Galactic", "Otherworldly"],
+      "unlockTarget": 14,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "The stars call to me...",
         "I sense disturbances in the cosmos...",
@@ -105,12 +105,12 @@
     },
     {
       "name": "DJ MooMix",
-      "emoji": "??",
+      "emoji": "\uD83C\uDFA7",
       "gameType": "electronic",
-      "moodValue": 87,
+      "moodValue": 50,
       "unlockCondition": "totalCoins",
-      "unlockTarget": 1000,
-      "moods": ["Dropping Beats", "In the Zone", "Mixing", "Bass Heavy"],
+      "unlockTarget": 2000,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Drop that sick beat!",
         "The bass needs more boom!",
@@ -120,29 +120,179 @@
     },
     {
       "name": "Poppy Princess",
-      "emoji": "??",
+      "emoji": "\uD83D\uDC51",
       "gameType": "pop",
-      "moodValue": 89,
+      "moodValue": 50,
       "unlockCondition": "day",
-      "unlockTarget": 10,
-      "moods": ["Bubbly", "Chart-Topping", "Catchy", "Radio Ready"],
+      "unlockTarget": 20,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "I want to be number one!",
         "Play my hit single!",
         "The fans are waiting!",
         "Pop perfection is my goal!"
       ]
+    },
+    {
+      "name": "Jazz Hands",
+      "emoji": "\uD83C\uDFB7",
+      "gameType": "smooth",
+      "moodValue": 50,
+      "unlockCondition": "day",
+      "unlockTarget": 24,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Feel the swing!",
+        "Lay down a smooth solo!",
+        "My sax is calling!",
+        "Let the rhythm flow!"
+      ]
+    },
+    {
+      "name": "Bluesy",
+      "emoji": "\uD83C\uDFB5",
+      "gameType": "slow",
+      "moodValue": 50,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 600,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Sing the blues!",
+        "Pour out the soul!",
+        "I need a heartache song!",
+        "Play that low note!"
+      ]
+    },
+    {
+      "name": "HipHop Moo",
+      "emoji": "\uD83C\uDFA7",
+      "gameType": "electronic",
+      "moodValue": 50,
+      "unlockCondition": "totalCoins",
+      "unlockTarget": 3000,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Drop the beat!",
+        "Spin that record!",
+        "I want tight bars!",
+        "Bring on the bass!"
+      ]
+    },
+    {
+      "name": "Reggae Rasta",
+      "emoji": "\uD83C\uDFB6",
+      "gameType": "pop",
+      "moodValue": 50,
+      "unlockCondition": "perfectScores",
+      "unlockTarget": 40,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "One love, one milk!",
+        "Good vibes only!",
+        "Pass me the reggae beat!",
+        "Feel irie!"
+      ]
+    },
+    {
+      "name": "Metal Moolica",
+      "emoji": "\uD83E\uDD18",
+      "gameType": "rock",
+      "moodValue": 50,
+      "unlockCondition": "day",
+      "unlockTarget": 30,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Crank it to 11!",
+        "Give me distorted riffs!",
+        "Headbang time!",
+        "Bring on the metal!"
+      ]
+    },
+    {
+      "name": "Classy",
+      "emoji": "\uD83C\uDFA9",
+      "gameType": "pitch",
+      "moodValue": 50,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 800,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Fine tuning only!",
+        "Play a perfect note!",
+        "Maestro, conduct!",
+        "Symphony starts now!"
+      ]
+    },
+    {
+      "name": "Folk Fiddler",
+      "emoji": "\uD83C\uDFBB",
+      "gameType": "battle",
+      "moodValue": 50,
+      "unlockCondition": "totalCoins",
+      "unlockTarget": 4000,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Strum that string!",
+        "Sing me a ballad!",
+        "Time for a folk tale!",
+        "Fiddle on, friend!"
+      ]
+    },
+    {
+      "name": "Soul Survivor",
+      "emoji": "\u2764\uFE0F",
+      "gameType": "cosmic",
+      "moodValue": 50,
+      "unlockCondition": "perfectScores",
+      "unlockTarget": 60,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Feel the spirit!",
+        "Sing with soul!",
+        "My heart needs depth!",
+        "Touch the cosmos!"
+      ]
+    },
+    {
+      "name": "Punkster",
+      "emoji": "\u26A1",
+      "gameType": "rapid",
+      "moodValue": 50,
+      "unlockCondition": "day",
+      "unlockTarget": 40,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Rebel rhythm!",
+        "Crash those drums!",
+        "Punk’s not dead!",
+        "Anarchy in my beat!"
+      ]
+    },
+    {
+      "name": "Disco Diva",
+      "emoji": "\uD83D\uDD7A",
+      "gameType": "electronic",
+      "moodValue": 50,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 1200,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
+      "demands": [
+        "Get down tonight!",
+        "Boogie all night!",
+        "Shine on the floor!",
+        "Glitter and grooves!"
+      ]
     }
   ],
   "secretCows": [
     {
       "name": "Golden Moo",
-      "emoji": "????",
+      "emoji": "\uD83C\uDFC6",
       "gameType": "cosmic",
-      "moodValue": 100,
+      "moodValue": 50,
       "unlockCondition": "perfectScores",
-      "unlockTarget": 10,
-      "moods": ["Legendary", "Divine", "Transcendent", "Perfect"],
+      "unlockTarget": 20,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "I am the chosen one!",
         "My milk is liquid gold!",
@@ -152,12 +302,12 @@
     },
     {
       "name": "Neon Cyber Cow",
-      "emoji": "????",
+      "emoji": "\uD83E\uDD16",
       "gameType": "electronic",
-      "moodValue": 96,
+      "moodValue": 50,
       "unlockCondition": "totalCoins",
-      "unlockTarget": 2000,
-      "moods": ["Digital", "Cyber", "Matrix Mode", "System Online"],
+      "unlockTarget": 4000,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Initiating milk.exe...",
         "System requires premium fuel...",
@@ -167,12 +317,12 @@
     },
     {
       "name": "Rainbow Unicow",
-      "emoji": "????",
+      "emoji": "\uD83E\uDD84",
       "gameType": "pop",
-      "moodValue": 98,
+      "moodValue": 50,
       "unlockCondition": "totalMilk",
-      "unlockTarget": 500,
-      "moods": ["Magical", "Enchanted", "Mystical", "Sparkly"],
+      "unlockTarget": 1000,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Sparkles and rainbows everywhere!",
         "My horn needs polishing!",
@@ -182,12 +332,12 @@
     },
     {
       "name": "Ghost Cow",
-      "emoji": "????",
+      "emoji": "\uD83D\uDC7B",
       "gameType": "slow",
-      "moodValue": 85,
+      "moodValue": 50,
       "unlockCondition": "day",
-      "unlockTarget": 15,
-      "moods": ["Spooky", "Ethereal", "Haunting", "Mysterious"],
+      "unlockTarget": 30,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Booooo... I mean, moooo...",
         "The afterlife needs more milk...",
@@ -197,12 +347,12 @@
     },
     {
       "name": "Time Traveler Moo",
-      "emoji": "???",
+      "emoji": "\u23F3",
       "gameType": "rapid",
-      "moodValue": 94,
+      "moodValue": 50,
       "unlockCondition": "perfectScores",
-      "unlockTarget": 25,
-      "moods": ["Temporal", "Chronological", "Past-Present-Future", "Time-Bent"],
+      "unlockTarget": 50,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "The timeline needs correction!",
         "I've seen the future of milk!",
@@ -212,12 +362,12 @@
     },
     {
       "name": "Alien Cow",
-      "emoji": "????",
+      "emoji": "\uD83D\uDC7D",
       "gameType": "cosmic",
-      "moodValue": 99,
+      "moodValue": 50,
       "unlockCondition": "totalMilk",
-      "unlockTarget": 1000,
-      "moods": ["Extraterrestrial", "Galactic", "UFO Mode", "Beam Me Up"],
+      "unlockTarget": 2000,
+      "moods": ["Happy", "Calm", "Sad", "Angry"],
       "demands": [
         "Greetings, Earth bovines!",
         "My spaceship needs milk fuel!",

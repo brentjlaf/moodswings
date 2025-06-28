@@ -7,25 +7,25 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Moo-d Swings: Farmyard Follies</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=moo3.5">
 </head>
 <body>
 <div class="mobile-container"> 
   <!-- Game Header -->
   <div class="game-header">
-    <h1 class="game-title">🐄 MOO-D SWINGS 🐄</h1>
+    <h1 class="game-title">&#x1F404; MOO-D SWINGS &#x1F404;</h1>
     <div class="stats-bar">
       <div class="stat"> <span class="stat-value" id="coins">100</span>
-        <div class="stat-label">💰 Coins</div>
+        <div class="stat-label">&#x1F4B0; Coins</div>
       </div>
       <div class="stat"> <span class="stat-value" id="milk">0</span>
-        <div class="stat-label">🥛 Milk</div>
+        <div class="stat-label">&#x1F95B; Milk</div>
       </div>
       <div class="stat"> <span class="stat-value" id="happiness"></span>
-        <div class="stat-label">😊 Mood</div>
+        <div class="stat-label">&#x1F60A; Mood</div>
       </div>
       <div class="stat"> <span class="stat-value" id="day">1</span>
-        <div class="stat-label">📅 Day</div>
+        <div class="stat-label">&#x1F4C5; Day</div>
       </div>
     </div>
   </div>
@@ -33,10 +33,10 @@
   <!-- Tab Navigation -->
   <div class="main-content">
     <div class="section-tabs">
-      <button class="tab-btn active" onclick="switchTab('cows')">🐮 COWS</button>
-      <button class="tab-btn" onclick="switchTab('farm')">🌱 FARM</button>
-      <button class="tab-btn" onclick="switchTab('shop')">🛒 SHOP</button>
-      <button class="tab-btn" onclick="switchTab('stats')">📊 STATS</button>
+      <button class="tab-btn active" onclick="switchTab('cows')">&#x1F42E; COWS</button>
+      <button class="tab-btn" onclick="switchTab('farm')">&#x1F331; FARM</button>
+      <button class="tab-btn" onclick="switchTab('shop')">&#x1F6D2; SHOP</button>
+      <button class="tab-btn" onclick="switchTab('stats')">&#x1F4CA; STATS</button>
     </div>
     <div class="tab-content-wrapper"> 
       <!-- Cows Tab -->
@@ -49,7 +49,7 @@
       <!-- Farm Tab -->
       <div id="farmTab" class="tab-content">
         <div class="crops-section">
-          <h3 style="text-align: center; color: #8B4513; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;  font-size: 1em; font-weight: 800;">🌾 CROP FIELDS 🌾</h3>
+          <h3 style="text-align: center; color: #8B4513; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;  font-size: 1em; font-weight: 800;">&#x1F33E; CROP FIELDS &#x1F33E;</h3>
           <div class="crops-grid" id="cropsGrid"> 
             <!-- Crops will be generated here --> 
           </div>
@@ -58,8 +58,8 @@
           </div>
         </div>
         <div class="action-buttons">
-          <button class="action-btn harvest" onclick="harvestAll()">🌾 HARVEST ALL</button>
-          <button class="action-btn" onclick="nextDay()">☀️ NEXT DAY</button>
+          <button class="action-btn harvest" onclick="harvestAll()">&#x1F33E; HARVEST ALL</button>
+          <button class="action-btn" onclick="nextDay()">&#x2600;&#xFE0F; NEXT DAY</button>
         </div>
       </div>
       
@@ -76,32 +76,24 @@
           <!-- Daily stats will be shown here --> 
         </div>
         <div style="background: linear-gradient(145deg, #E6F3FF, #F0F8FF); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #87CEEB; box-shadow: 0 4px 15px rgba(135,206,235,0.3);">
-          <h3 style="color: #4169E1; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">🏆 ACHIEVEMENTS 🏆</h3>
+          <h3 style="color: #4169E1; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">&#x1F3C6; ACHIEVEMENTS &#x1F3C6;</h3>
           <div id="achievementsList"> 
             <!-- Achievements will be displayed here --> 
           </div>
         </div>
         <div style="background: linear-gradient(145deg, #E8F5E8, #F0FFF0); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #32CD32; box-shadow: 0 4px 15px rgba(50,205,50,0.3);">
-          <h3 style="color: #228B22; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">💾 SAVE SYSTEM 💾</h3>
+          <h3 style="color: #228B22; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">&#x1F4BE; SAVE SYSTEM &#x1F4BE;</h3>
           <div style="margin-bottom: 10px; font-size: 0.8em; color: #666; text-align: center;">
             Player ID: <span id="playerID" style="font-weight: bold; color: #228B22;"></span><br>
             Last Saved: <span id="lastSaved" style="font-weight: bold; color: #228B22;">Never</span>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
-            <button onclick="saveGameState(); showToast('Game saved!', 'success'); updateSaveInfo();" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
-              💾 Save
-            </button>
-            <button onclick="exportGameData()" style="background: linear-gradient(145deg, #4169E1, #0000CD); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
-              📤 Export
-            </button>
+            <button onclick="saveGameState(); showToast('Game saved!', 'success'); updateSaveInfo();" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F4BE; Save</button>
+            <button onclick="exportGameData()" style="background: linear-gradient(145deg, #4169E1, #0000CD); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F4E4; Export</button>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-            <button onclick="importGameData()" style="background: linear-gradient(145deg, #FF8C00, #FF6347); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
-              📥 Import
-            </button>
-            <button onclick="resetGameData()" style="background: linear-gradient(145deg, #DC143C, #B22222); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
-              🗑️ Reset
-            </button>
+            <button onclick="importGameData()" style="background: linear-gradient(145deg, #FF8C00, #FF6347); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F4E5; Import</button>
+            <button onclick="resetGameData()" style="background: linear-gradient(145deg, #DC143C, #B22222); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F5D1;&#xFE0F; Reset</button>
           </div>
           <div style="margin-top: 8px; font-size: 0.7em; color: #666; text-align: center; line-height: 1.2;">
             Auto-saves every 2 minutes and when you leave.<br>
@@ -109,13 +101,9 @@
           </div>
         </div>
         <div style="background: linear-gradient(145deg, #FFE4E1, #FFF0F5); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #FF69B4; box-shadow: 0 4px 15px rgba(255,105,180,0.3);">
-          <h3 style="color: #8B008B; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">🔧 DEBUG TOOLS 🔧</h3>
-          <button onclick="debugUnlockSystem()" style="background: linear-gradient(145deg, #FF69B4, #FF1493); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%; margin-bottom: 10px;">
-            🔍 Check Unlock Status
-          </button>
-          <button onclick="forceUnlockCheck()" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%;">
-            🔓 Force Unlock Check
-          </button>
+          <h3 style="color: #8B008B; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">&#x1F527; DEBUG TOOLS &#x1F527;</h3>
+          <button onclick="debugUnlockSystem()" style="background: linear-gradient(145deg, #FF69B4, #FF1493); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%; margin-bottom: 10px;">&#x1F50D; Check Unlock Status</button>
+          <button onclick="forceUnlockCheck()" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%;">&#x1F513; Force Unlock Check</button>
         </div>
       </div>
     </div>
@@ -134,16 +122,16 @@
         <div class="rhythm-marker"></div>
       </div>
       <div class="score-area">
-        <div class="score-display">🎯 Score: <span id="currentScore">0</span></div>
-        <div class="score-display">🚩 Target: <span id="targetScore">100</span></div>
-        <div class="score-display">⚡ Combo: <span id="comboCount">0</span></div>
+        <div class="score-display">&#x1F3AF; Score: <span id="currentScore">0</span></div>
+        <div class="score-display">&#x1F6A9; Target: <span id="targetScore">100</span></div>
+        <div class="score-display">&#x26A1; Combo: <span id="comboCount">0</span></div>
       </div>
     </div>
     <div class="mobile-controls">
-      <button class="control-btn" id="tapBtn">👆<br>TAP</button>
-      <button class="control-btn" id="holdBtn">✊<br>HOLD</button>
+      <button class="control-btn" id="tapBtn">&#x1F446;<br>TAP</button>
+      <button class="control-btn" id="holdBtn">&#x270A;<br>HOLD</button>
     </div>
-    <button class="close-minigame" onclick="closeMinigame()">❌ CLOSE</button>
+    <button class="close-minigame" onclick="closeMinigame()">&#x274C; CLOSE</button>
   </div>
 </div>
 
@@ -151,7 +139,7 @@
 <div class="toast-message" id="toastMessage"></div>
 <div class="achievement-popup" id="achievementPopup"></div>
 
-<script src="config.js"></script>
-<script src="scripts.js"></script>
+<script src="config.js?v=moo3.8"></script>
+<script src="scripts.js?v=moo3.7"></script>
 </body>
 </html>

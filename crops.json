@@ -3,9 +3,9 @@
     {
       "id": "carrot",
       "name": "Carrot",
-      "emoji": "🥕",
-      "cost": 10,
-      "value": 20,
+      "emoji": "\uD83E\uDD55",
+      "cost": 1,
+      "value": 2,
       "growTime": 30000,
       "rarity": "common",
       "unlockCondition": null,
@@ -13,95 +13,179 @@
     },
     {
       "id": "corn",
-      "name": "Corn", 
-      "emoji": "🌽",
-      "cost": 25,
-      "value": 45,
-      "growTime": 45000,
+      "name": "Corn",
+      "emoji": "\uD83C\uDF3D",
+      "cost": 5,
+      "value": 10,
+      "growTime": 60000,
       "rarity": "common",
       "unlockCondition": null,
       "description": "Golden kernels of profit!"
     },
     {
-      "id": "rainbow",
-      "name": "Rainbow Crop",
-      "emoji": "🌈", 
-      "cost": 50,
-      "value": 100,
-      "growTime": 60000,
-      "rarity": "rare",
-      "unlockCondition": null,
-      "description": "Magical and very profitable!"
-    },
-    {
-      "id": "sunflower",
-      "name": "Sunflower",
-      "emoji": "🌻",
-      "cost": 35,
-      "value": 65,
-      "growTime": 50000,
-      "rarity": "uncommon",
-      "unlockCondition": {
-        "type": "day",
-        "target": 3
-      },
-      "description": "Bright and cheerful profit!"
-    },
-    {
-      "id": "pumpkin",
-      "name": "Pumpkin",
-      "emoji": "🎃",
-      "cost": 80,
-      "value": 150,
-      "growTime": 90000,
-      "rarity": "rare",
-      "unlockCondition": {
-        "type": "totalCoins",
-        "target": 500
-      },
-      "description": "Big investment, bigger returns!"
-    },
-    {
       "id": "strawberry",
       "name": "Strawberry",
-      "emoji": "🍓",
-      "cost": 20,
-      "value": 35,
-      "growTime": 35000,
+      "emoji": "\uD83C\uDF53",
+      "cost": 30,
+      "value": 50,
+      "growTime": 40000,
       "rarity": "common",
       "unlockCondition": {
-        "type": "day", 
+        "type": "day",
         "target": 2
       },
       "description": "Sweet and profitable!"
     },
     {
+      "id": "lettuce",
+      "name": "Lettuce",
+      "emoji": "\uD83E\uDD6C",
+      "cost": 20,
+      "value": 40,
+      "growTime": 20000,
+      "rarity": "common",
+      "unlockCondition": null,
+      "description": "Crisp and refreshing!"
+    },
+    {
+      "id": "tomato",
+      "name": "Tomato",
+      "emoji": "\uD83C\uDF45",
+      "cost": 25,
+      "value": 45,
+      "growTime": 35000,
+      "rarity": "common",
+      "unlockCondition": {
+        "type": "day",
+        "target": 3
+      },
+      "description": "Juicy and versatile!"
+    },
+    {
+      "id": "sunflower",
+      "name": "Sunflower",
+      "emoji": "\uD83C\uDF3B",
+      "cost": 60,
+      "value": 100,
+      "growTime": 60000,
+      "rarity": "uncommon",
+      "unlockCondition": {
+        "type": "day",
+        "target": 4
+      },
+      "description": "Bright and cheerful profit!"
+    },
+    {
+      "id": "blueberry",
+      "name": "Blueberry",
+      "emoji": "\uD83E\uDED0",
+      "cost": 50,
+      "value": 90,
+      "growTime": 50000,
+      "rarity": "uncommon",
+      "unlockCondition": {
+        "type": "day",
+        "target": 5
+      },
+      "description": "Small but packed with flavor!"
+    },
+    {
+      "id": "raspberry",
+      "name": "Raspberry",
+      "emoji": "\uD83C\uDF52",
+      "cost": 55,
+      "value": 100,
+      "growTime": 55000,
+      "rarity": "uncommon",
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 500
+      },
+      "description": "Tart and vibrant delight!"
+    },
+    {
+      "id": "pumpkin",
+      "name": "Pumpkin",
+      "emoji": "\uD83C\uDF83",
+      "cost": 150,
+      "value": 300,
+      "growTime": 120000,
+      "rarity": "rare",
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 1000
+      },
+      "description": "Big investment, bigger returns!"
+    },
+    {
+      "id": "watermelon",
+      "name": "Watermelon",
+      "emoji": "\uD83C\uDF49",
+      "cost": 120,
+      "value": 250,
+      "growTime": 100000,
+      "rarity": "rare",
+      "unlockCondition": {
+        "type": "totalMilk",
+        "target": 300
+      },
+      "description": "Juicy summer favorite!"
+    },
+    {
+      "id": "star_flower",
+      "name": "Star Flower",
+      "emoji": "\uD83C\uDF1F",
+      "cost": 350,
+      "value": 700,
+      "growTime": 180000,
+      "rarity": "epic",
+      "unlockCondition": {
+        "type": "totalMilk",
+        "target": 500
+      },
+      "description": "Blooms with cosmic energy!"
+    },
+    {
+      "id": "moonflower",
+      "name": "Moonflower",
+      "emoji": "\uD83C\uDF19",
+      "cost": 400,
+      "value": 800,
+      "growTime": 200000,
+      "rarity": "epic",
+      "unlockCondition": {
+        "type": "day",
+        "target": 10
+      },
+      "description": "Blooms under moonlight!"
+    },
+    {
       "id": "crystal_fruit",
       "name": "Crystal Fruit",
-      "emoji": "💎",
-      "cost": 200,
-      "value": 400,
-      "growTime": 120000,
+      "emoji": "\uD83D\uDD2E",
+      "cost": 600,
+      "value": 1200,
+      "growTime": 240000,
       "rarity": "legendary",
       "unlockCondition": {
         "type": "perfectScores",
-        "target": 5
+        "target": 10
       },
       "description": "Crystallized perfection!"
     },
     {
-      "id": "star_flower",
-      "name": "Star Flower", 
-      "emoji": "⭐",
-      "cost": 150,
-      "value": 300,
-      "growTime": 100000,
-      "rarity": "epic",
+      "id": "golden_apple",
+      "name": "Golden Apple",
+      "emoji": "\uD83C\uDF4F",
+      "cost": 1000,
+      "value": 2000,
+      "growTime": 300000,
+      "rarity": "legendary",
       "unlockCondition": {
-        "type": "totalMilk",
-        "target": 200
+        "type": "perfectScores",
+        "target": 20
       },
-      "description": "Blooms with cosmic energy!"
+      "description": "Legendary orchard treasure!"
     }
   ],
   "cropCategories": {
@@ -110,7 +194,7 @@
       "borderColor": "#32CD32"
     },
     "uncommon": {
-      "color": "#87CEEB", 
+      "color": "#87CEEB",
       "borderColor": "#4169E1"
     },
     "rare": {

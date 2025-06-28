@@ -14,10 +14,10 @@ async function loadGameData() {
         // Load all JSON data files
         const [cowsResponse, cropsResponse, shopResponse, rhythmResponse, achievementsResponse] = await Promise.all([
             fetch('cows.json?v=moo3.5'),
-            fetch('crops.json?v=1.0'),
-            fetch('shop.json?v=1.0'), 
-            fetch('rhythm-patterns.json?v=1.0'),
-            fetch('achievements.json?v=1.0')
+            fetch('crops.json?v=1.2'),
+            fetch('shop.json?v=1.2'), 
+            fetch('rhythm-patterns.json?v=1.2'),
+            fetch('achievements.json?v=1.2')
         ]);
 
         // Parse JSON data
@@ -55,7 +55,7 @@ async function loadGameData() {
         
         // Fallback to minimal data
         cropTypes = {
-            carrot: { emoji: '', icon: 'carrot', cost: 10, value: 20, growTime: 30000, name: 'Carrot', rarity: 'common' }
+            carrot: { emoji: '🥕', icon: 'carrot', cost: 10, value: 20, growTime: 30000, name: 'Carrot', rarity: 'common' }
         };
         shopData = { categories: [], items: [] };
         rhythmPatterns = { rhythmTypes: {} };
@@ -134,100 +134,69 @@ function generateDeviceID() {
 }
 
 // Save/Load System
+// key under which we�ll store everything in localStorage
+const SAVE_KEY = 'farmGameSave';
+
 function saveGameState() {
-    try {
-        gameState.playerID = gameState.playerID || generateDeviceID();
-        gameState.lastSaved = new Date().toISOString();
-        
-        // Create clean save data (remove active timers and runtime data)
-        const saveData = {
-            ...gameState,
-            activeCropTimers: [], // Don't save active timers
-            crops: gameState.crops.map(crop => ({
-                ...crop,
-                timerId: null // Don't save timer IDs
-            }))
-        };
-        
-        const saveString = JSON.stringify(saveData, null, 2);
-        
-        // Try to save to localStorage (won't work in Claude.ai but will work when deployed)
-        try {
-            localStorage.setItem(`moo_d_swings_${gameState.playerID}`, saveString);
-            console.log('Game saved to localStorage');
-        } catch (e) {
-            console.log('localStorage not available (normal in Claude.ai environment)');
-        }
-        
-        return saveData;
-    } catch (error) {
-        console.error('Error saving game:', error);
-        showToast('Error saving game!', 'failure');
-        return null;
-    }
+  try {
+    gameState.playerID = gameState.playerID || generateDeviceID();
+    gameState.lastSaved = new Date().toISOString();
+
+    // Strip out runtime-only props
+    const saveData = {
+      ...gameState,
+      activeCropTimers: [],
+      crops: gameState.crops.map(c => ({ ...c, timerId: null }))
+    };
+
+    localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
+    console.log('Game saved to localStorage');
+    updateSaveInfo();
+    return saveData;
+  } catch (err) {
+    console.error('Error saving game:', err);
+    showToast('Error saving game!', 'failure');
+    return null;
+  }
 }
 
 function loadGameState() {
-    try {
-        const playerID = generateDeviceID();
-        const savedData = localStorage.getItem(`moo_d_swings_${playerID}`);
-        
-        if (savedData) {
-            const loadedState = JSON.parse(savedData);
-            
-            // Validate the save data
-            if (loadedState.gameVersion && loadedState.playerID) {
-                // Merge loaded state with current state, preserving structure
-                Object.keys(gameState).forEach(key => {
-                    if (loadedState[key] !== undefined) {
-                        gameState[key] = loadedState[key];
-                    }
-                });
-                
-                // Ensure playerID is set
-                gameState.playerID = playerID;
-                
-                // Clear any active timers from the loaded state
-                gameState.activeCropTimers = [];
-                gameState.crops.forEach(crop => {
-                    crop.timerId = null;
-                });
-                
-                console.log('Game loaded from localStorage');
-                showToast(`Welcome back, ${playerID}! Game loaded.`, 'success');
-                return true;
-            }
-        }
-        
-        // No save found, initialize new game
-        gameState.playerID = playerID;
-        console.log(`New player: ${playerID}`);
-        return false;
-    } catch (error) {
-        console.error('Error loading game:', error);
-        gameState.playerID = generateDeviceID();
-        return false;
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) throw 'no save found';
+    const saved = JSON.parse(raw);
+
+    if (saved.gameVersion && saved.playerID) {
+      // Merge saved into current state
+      Object.keys(gameState).forEach(k => {
+        if (saved[k] !== undefined) gameState[k] = saved[k];
+      });
+      gameState.playerID = saved.playerID;
+      gameState.activeCropTimers = [];
+      gameState.crops.forEach(c => c.timerId = null);
+
+      console.log('Game loaded from localStorage');
+      showToast(`Welcome back, ${gameState.playerID}!`, 'success');
+      updateSaveInfo();
+      return true;
     }
+    throw 'invalid format';
+  } catch {
+    console.log('Starting new game (no valid save)');
+    return false;
+  }
 }
 
-function exportGameData() {
-    const saveData = saveGameState();
-    if (!saveData) return;
-    
-    const blob = new Blob([JSON.stringify(saveData, null, 2)], {
-        type: 'application/json'
-    });
-    
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `moo_d_swings_save_${saveData.playerID}_day${saveData.day}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    showToast('Game data exported!', 'success');
+function setupAutoSave() {
+  // every 2 minutes
+  setInterval(saveGameState, 120000);
+
+  // on page unload
+  window.addEventListener('beforeunload', saveGameState);
+  // when tab loses focus
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) saveGameState();
+  });
 }
 
 function importGameData() {
@@ -328,12 +297,8 @@ function resetGameData() {
             gameVersion: "2.1"
         };
         
-        // Clear localStorage
-        try {
-            localStorage.removeItem(`moo_d_swings_${gameState.playerID}`);
-        } catch (e) {
-            console.log('localStorage not available');
-        }
+        // Clear memory backup
+        delete window.gameDataBackup;
         
         // Restart the game
         initializeGame();
@@ -419,7 +384,7 @@ function generateCropButtons() {
         
         return `
             <button class="plant-btn ${rarityClass}" onclick="plantCrop('${cropId}')" title="${crop.description || ''}">
-                ${crop.emoji} ${crop.name}<br>
+                ${crop.emoji}<br />${crop.name}<br>
                 <span class="crop-cost">${crop.cost} coins</span>
                 ${crop.rarity ? `<span class="crop-rarity">${crop.rarity}</span>` : ''}
             </button>
@@ -489,7 +454,7 @@ function renderShop() {
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
                     <div class="item-description" style="font-size: 0.75em; color: #666; margin: 2px 0;">${item.description}</div>
-                    <div class="item-price"> ${item.cost} coins</div>
+                    <div class="item-price">💰 ${item.cost} coins</div>
                     ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
                 </div>
                 <button class="shop-btn ${buttonClass}" 
@@ -634,17 +599,34 @@ function switchTab(tabName) {
 }
 
 function buildCow(cow) {
-    const { locked, ...base } = cow;  // remove existing lock state
+    const { locked, ...base } = cow;  // drop any existing lock flag
+
+    // Split the 0�100 moodValue range into equal segments so each mood gets its own bucket
+    const segmentSize = 100 / base.moods.length;
+    const moodIndex = Math.min(
+        base.moods.length - 1,
+        Math.floor(base.moodValue / segmentSize)
+    );
+    const currentMood = base.moods[moodIndex];
+
+    // Pick a random demand
+    const currentDemand = base.demands[
+        Math.floor(Math.random() * base.demands.length)
+    ];
+
     return {
         ...base,
-        locked: false,                  // ensure unlocked
-        currentMood: base.moods[Math.floor(Math.random() * base.moods.length)],
-        currentDemand: base.demands[Math.floor(Math.random() * base.demands.length)],
-        isHappy: Math.random() > 0.3,
+        locked: false,               // always start unlocked
+        currentMood,  
+        currentDemand,
+        moodValue: base.moodValue,   // preserve the original value
+        isHappy: base.moodValue >= 70, // happy threshold at 70
         lastPlayed: null,
-        happinessLevel: Math.floor(Math.random() * 100) + 1
+        happinessLevel: base.moodValue, // mirror moodValue
+        lastHappinessUpdate: Date.now()
     };
 }
+
 
 function generateCows() {
     if (gameState.cows.length === 0 && gameState.lockedCows.length === 0) {
@@ -696,7 +678,7 @@ function renderCows() {
         }
 
         const happinessColor = cow.isHappy ? '#32CD32' : '#FF6B6B';
-        const heartIcon      = cow.isHappy ? '' : '';
+        const heartIcon      = cow.isHappy ? '💚' : '💔';
 
         cowCard.innerHTML = `
             <div class="cow-icon">${cow.emoji}</div>
@@ -720,7 +702,7 @@ function renderCows() {
 
         cowCard.title = unlockText;
         cowCard.innerHTML = `
-            <div class="cow-icon"></div>
+            <div class="cow-icon">🔒</div>
             <div class="cow-name">${cow.name} - Locked</div>
             <div style="font-size: 0.7em; color: #999; margin-top: 5px;">
                 ${unlockText}
@@ -766,12 +748,12 @@ function renderCrops() {
                 const timeLeft = Math.max(0, crop.readyAt - Date.now());
                 const seconds = Math.ceil(timeLeft / 1000);
                 cropSlot.innerHTML = `
-                    <div class="crop-emoji"></div>
+                    <div class="crop-emoji">🌱</div>
                     <div class="growth-timer">${seconds}s</div>
                 `;
             }
         } else {
-            cropSlot.innerHTML = '<div style="color: #8B4513; font-size: 1.5em;">?</div>';
+            cropSlot.innerHTML = '<div style="color: #8B4513; font-size: 1.5em;">➕</div>';
         }
         
         grid.appendChild(cropSlot);
@@ -816,7 +798,7 @@ function plantCrop(type) {
         if (emptySlot.type === type && !emptySlot.isReady) { // Safety check
             emptySlot.isReady = true;
             renderCrops();
-            showToast(`${cropData.name} is ready to harvest!`, 'success');
+            showToast(`${cropData.name} is ready to harvest! 🌾`, 'success');
             if (navigator.vibrate) {
                 navigator.vibrate([200, 100, 200]);
             }
@@ -956,7 +938,7 @@ function nextDay() {
     saveGameState();
     updateSaveInfo();
     
-    showToast(`Day ${gameState.day} begins! Your cows have new moods!`, 'success');
+    showToast(`🌅 Day ${gameState.day} begins! Your cows have new moods!`, 'success');
     
     if (navigator.vibrate) {
         navigator.vibrate([300, 100, 300]);
@@ -973,7 +955,7 @@ function updateBulletin() {
     bulletin.innerHTML = `
         <div style="margin-bottom: 12px;">
             <h3 style="color: #8B4513; margin-bottom: 8px; font-family: 'Montserrat', sans-serif;  font-size: 1.1em; font-weight: 700;">
-                DAILY FARM REPORT - DAY ${gameState.day}
+                📋 DAILY FARM REPORT - DAY ${gameState.day}
             </h3>
             <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Happy Cows:</strong> ${happyCows.length}/${totalCows}</p>
             <p style="font-weight: 800; color: #654321; margin: 4px 0;"><strong>Milk Produced:</strong> ${gameState.dailyStats.milkProduced}</p>
@@ -983,7 +965,7 @@ function updateBulletin() {
         </div>
         <div style="margin-bottom: 12px; padding: 8px; background: linear-gradient(145deg, #87CEEB, #ADD8E6); border-radius: 8px; border: 2px solid #4169E1;">
             <h4 style="color: #191970; margin-bottom: 4px; font-weight: 800; font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
-                 UNLOCK PROGRESS
+                🔓 UNLOCK PROGRESS
             </h4>
             <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Total Milk: ${gameState.stats.totalMilkProduced} | Total Coins: ${gameState.stats.totalCoinsEarned}</p>
             <p style="color: #191970; font-weight: 700; font-size: 0.7em;">Perfect Scores: ${gameState.stats.totalPerfectScores} | Day: ${gameState.day}</p>
@@ -992,14 +974,14 @@ function updateBulletin() {
         ${gameState.dailyStats.happiest ? `
         <div style="margin-bottom: 12px; padding: 8px; background: linear-gradient(145deg, #D4941E, #B8860B); border-radius: 8px; border: 2px solid #8B4513;">
             <h4 style="color: #F5E6D3; margin-bottom: 4px; font-weight: 800;  font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
-                 COW OF THE DAY
+                👑 COW OF THE DAY
             </h4>
             <p style="color: #F5E6D3; font-weight: 700; font-size: 0.8em;">${gameState.dailyStats.happiest} was the happiest cow today!</p>
         </div>
         ` : ''}
         <div style="padding: 8px; background: linear-gradient(145deg, #E6A853, #D4941E); border-radius: 8px; border: 2px solid #8B4513;">
             <h4 style="color: #F5E6D3; margin-bottom: 4px; font-weight: 800;  font-size: 0.9em; font-family: 'Montserrat', sans-serif;">
-                 FARM TIP
+                💡 FARM TIP
             </h4>
             <p style="color: #F5E6D3; font-weight: 700; font-size: 0.8em;">${getFarmTip()}</p>
         </div>
@@ -1054,11 +1036,11 @@ function checkAllCowUnlocks() {
             const isSecret = secretCows.find(sc => sc.name === cow.name);
             if (isSecret) {
                 gameState.stats.secretCowsUnlocked++;
-                showAchievement(`Secret Cow Unlocked!`, `${cow.name} has joined your herd!`);
-                showToast(`SECRET COW UNLOCKED: ${cow.name}!`, 'success');
+                showAchievement(`🎉 Secret Cow Unlocked!`, `${cow.name} has joined your herd!`);
+                showToast(`🌟 SECRET COW UNLOCKED: ${cow.name}!`, 'success');
             } else {
-                showAchievement(`New Cow Unlocked!`, `${cow.name} has joined your herd!`);
-                showToast(`NEW COW: ${cow.name} joined your farm!`, 'success');
+                showAchievement(`🐮 New Cow Unlocked!`, `${cow.name} has joined your herd!`);
+                showToast(`🐄 NEW COW: ${cow.name} joined your farm!`, 'success');
             }
             
             anyUnlocked = true;
@@ -1235,7 +1217,7 @@ function showAchievementUnlock(achievement) {
     
     popup.innerHTML = `
         <div class="achievement-title" style="color: ${rarityStyle.border};">
-            Achievement Unlocked!
+             Achievement Unlocked!
         </div>
         <div style="font-size: 1.2em; margin: 5px 0;">
             ${achievement.icon} ${achievement.name}
@@ -1287,7 +1269,7 @@ function updateAchievements() {
     if (gameState.achievements.length === 0) {
         achievementsList.innerHTML = `
             <p style="color: #666; font-style: italic; text-align: center;">
-                 No achievements yet - keep playing to unlock them!
+                🎯 No achievements yet - keep playing to unlock them!
             </p>
         `;
         return;
@@ -1604,6 +1586,23 @@ function endMinigame() {
     const cow = gameState.cows[currentMinigame.cowIndex];
     const success = currentMinigame.score >= currentMinigame.target;
     
+// --- INSERT MOOD-BUMP HERE -------------------------------
+  // Decide how much to adjust moodValue
+  const moodDelta = success ? 10 : -10;
+  // Clamp between 0 and 100
+  cow.moodValue = Math.max(0, Math.min(100, cow.moodValue + moodDelta));
+
+  // Recompute currentMood & happiness flags
+  const segmentSize = 100 / cow.moods.length;
+  const moodIndex   = Math.min(
+    cow.moods.length - 1,
+    Math.floor(cow.moodValue / segmentSize)
+  );
+  cow.currentMood    = cow.moods[moodIndex];
+  cow.happinessLevel = cow.moodValue;
+  cow.isHappy        = cow.moodValue >= 70;
+  // ---------------------------------------------------------
+
     gameState.dailyStats.totalGames++;
     
     // Track combo achievement
@@ -1651,11 +1650,11 @@ function endMinigame() {
             
             milkReward += 25;
             coinReward += 35;
-            showToast(`PERFECT! ${cow.name} is ecstatic!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
+            showToast(`🎉 PERFECT! ${cow.name} is ecstatic!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
         } else {
             gameState.stats.currentPerfectStreak = 0; // Reset streak
-            showToast(`Success! ${cow.name} is happy!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
+            showToast(`🎉 Success! ${cow.name} is happy!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
         
@@ -1682,7 +1681,7 @@ function endMinigame() {
         cow.isHappy = false;
         cow.happinessLevel = Math.max(1, cow.happinessLevel - 10);
         
-        showToast(`${cow.name} is not impressed! -${coinLoss} coins.\nMax Combo: ${currentMinigame.maxCombo}`, 'failure');
+        showToast(`😤 ${cow.name} is not impressed! -${coinLoss} coins.\nMax Combo: ${currentMinigame.maxCombo}`, 'failure');
         if (navigator.vibrate) navigator.vibrate(300);
     }
     
@@ -1768,7 +1767,7 @@ function updateDisplay() {
     if (milkEl)  milkEl.textContent  = gameState.milk;
     if (dayEl)   dayEl.textContent   = gameState.day;
 
-    // ? NEW: average happiness across all unlocked cows
+    // → NEW: average happiness across all unlocked cows
     if (moodEl) {
         const herd = gameState.cows;
         if (herd.length > 0) {
@@ -1779,7 +1778,7 @@ function updateDisplay() {
         }
     }
 
-    // ? NEW: auto-unlock cows whose conditions are now met
+    // → NEW: auto-unlock cows whose conditions are now met
     checkAllCowUnlocks();
 
     // Refresh shop buttons, etc.
@@ -1870,7 +1869,7 @@ function initializeGame() {
                             if (crop.type && !crop.isReady) {
                                 crop.isReady = true;
                                 renderCrops();
-                                showToast(`${cropData.name} is ready to harvest!`, 'success');
+                                showToast(`${cropData.name} is ready to harvest! 🌾`, 'success');
                             }
                         }, timeLeft);
                         gameState.activeCropTimers.push(crop.timerId);
@@ -1901,10 +1900,13 @@ function initializeGame() {
     console.log('Game initialized with data-driven systems and achievements!');
 }
 
-// Backward compatibility: Old achievement function name
+// FIXED: Backward compatibility achievement function with safe emoji removal
 function showAchievement(title, description) {
+    // Safely remove emoji characters by replacing them with empty string
+    const cleanTitle = title.replace(/[\u{1F300}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+    
     showAchievementUnlock({
-        name: title.trim(),
+        name: cleanTitle,
         description: description,
         icon: '',
         rarity: 'common',
@@ -1928,28 +1930,28 @@ window.debugGame = {
         const unlocked = afterCount - beforeCount;
         
         if (unlocked > 0) {
-            showToast(`Unlocked ${unlocked} cow(s)!`, 'success');
+            showToast(`🎉 Unlocked ${unlocked} cow(s)!`, 'success');
         } else {
             showToast(`No cows ready to unlock yet.`, 'info');
         }
     },
     debugUnlockSystem: () => {
-        let debugInfo = `UNLOCK DEBUG INFO:\n\n`;
-        debugInfo += `Current Stats:\n`;
-        debugInfo += `Day: ${gameState.day}\n`;
-        debugInfo += `Total Milk: ${gameState.stats.totalMilkProduced}\n`;
-        debugInfo += `Total Coins: ${gameState.stats.totalCoinsEarned}\n`;
-        debugInfo += `Total Perfect Scores: ${gameState.stats.totalPerfectScores}\n\n`;
+        let debugInfo = `🔍 UNLOCK DEBUG INFO:\n\n`;
+        debugInfo += `📊 Current Stats:\n`;
+        debugInfo += `• Day: ${gameState.day}\n`;
+        debugInfo += `• Total Milk: ${gameState.stats.totalMilkProduced}\n`;
+        debugInfo += `• Total Coins: ${gameState.stats.totalCoinsEarned}\n`;
+        debugInfo += `• Total Perfect Scores: ${gameState.stats.totalPerfectScores}\n\n`;
         
-        debugInfo += `Cow Status:\n`;
-        debugInfo += `Unlocked Cows: ${gameState.cows.length}\n`;
-        debugInfo += `Locked Cows: ${gameState.lockedCows.length}\n\n`;
+        debugInfo += `🐮 Cow Status:\n`;
+        debugInfo += `• Unlocked Cows: ${gameState.cows.length}\n`;
+        debugInfo += `• Locked Cows: ${gameState.lockedCows.length}\n\n`;
         
-        debugInfo += `Locked Cow Requirements:\n`;
+        debugInfo += `🔒 Locked Cow Requirements:\n`;
         gameState.lockedCows.forEach(cow => {
-            debugInfo += `${cow.name}: ${cow.unlockCondition} ${cow.unlockTarget}\n`;
+            debugInfo += `• ${cow.name}: ${cow.unlockCondition} ${cow.unlockTarget}\n`;
             const currentValue = getCurrentStatValue(cow.unlockCondition);
-            debugInfo += `  Current: ${currentValue}/${cow.unlockTarget} ${currentValue >= cow.unlockTarget ? '?' : '?'}\n`;
+            debugInfo += `  Current: ${currentValue}/${cow.unlockTarget} ${currentValue >= cow.unlockTarget ? '✅' : '❌'}\n`;
         });
         
         showToast(debugInfo, 'info');

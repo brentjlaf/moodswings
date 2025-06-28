@@ -1,33 +1,12 @@
 {
   "rhythmTypes": {
-    "smooth": {
-      "name": "Smooth Serenade",
-      "baseSpeed": 2000,
-      "patterns": [
-        { "timing": [1000, 2000, 1500], "repeat": true },
-        { "timing": [1800, 1600, 2200], "repeat": true }
-      ],
-      "noteTypes": ["normal", "long"],
-      "specialNoteChance": 0.15,
-      "instructions": "Gentle taps for a smooth serenade!"
-    },
-    "rapid": {
-      "name": "Rapid Fire",
-      "baseSpeed": 800,
-      "patterns": [
-        { "timing": [400, 600, 500, 700], "repeat": true },
-        { "timing": [300, 400, 300, 800], "repeat": true }
-      ],
-      "noteTypes": ["normal", "rapid"],
-      "specialNoteChance": 0.25,
-      "instructions": "Rapid TAP to rev the engine!"
-    },
     "battle": {
       "name": "Battle Rhythm",
       "baseSpeed": 1000,
       "patterns": [
-        { "timing": [800, 1200, 600, 1000], "repeat": true },
-        { "timing": [500, 500, 1500], "repeat": false }
+        { "timing": [900, 700, 1200, 800], "repeat": true },
+        { "timing": [600, 500, 600, 1500, 600], "repeat": false },
+        { "timing": [400, 800, 400, 800, 400, 800], "repeat": false }
       ],
       "noteTypes": ["normal", "shield", "attack"],
       "specialNoteChance": 0.3,
@@ -37,8 +16,9 @@
       "name": "Cosmic Harmony",
       "baseSpeed": 1800,
       "patterns": [
-        { "timing": [2000, 1000, 2500, 1500], "repeat": true },
-        { "timing": [1800, 1800, 900, 2700], "repeat": true }
+        { "timing": [2200, 1400, 2600, 1600], "repeat": true },
+        { "timing": [1600, 900, 1800, 900, 2100], "repeat": true },
+        { "timing": [1200, 2400, 1200, 2400, 1200, 2400], "repeat": true }
       ],
       "noteTypes": ["normal", "star", "void"],
       "specialNoteChance": 0.2,
@@ -48,12 +28,97 @@
       "name": "Electronic Beat",
       "baseSpeed": 900,
       "patterns": [
-        { "timing": [450, 450, 900, 600], "repeat": true },
-        { "timing": [300, 600, 300, 1200], "repeat": true }
+        { "timing": [600, 300, 600, 300, 900], "repeat": true },
+        { "timing": [400, 800, 400, 1200, 400], "repeat": true },
+        { "timing": [300, 600, 300, 600, 300, 600], "repeat": true }
       ],
       "noteTypes": ["normal", "bass", "synth"],
       "specialNoteChance": 0.35,
       "instructions": "Drop the bass!"
+    },
+    "hiphop": {
+      "name": "HipHop Flow",
+      "baseSpeed": 900,
+      "patterns": [
+        { "timing": [400, 800, 400, 800, 1200], "repeat": true },
+        { "timing": [300, 700, 300, 700, 300, 700], "repeat": true },
+        { "timing": [500, 500, 500, 1500], "repeat": false }
+      ],
+      "noteTypes": ["normal", "scratch"],
+      "specialNoteChance": 0.3,
+      "instructions": "Drop those beats with tight hip-hop rhythm!"
+    },
+    "jazz": {
+      "name": "Jazz Improv",
+      "baseSpeed": 1400,
+      "patterns": [
+        { "timing": [1000, 800, 1200, 900, 1100], "repeat": true },
+        { "timing": [700, 1300, 700, 1500], "repeat": true },
+        { "timing": [900, 900, 900, 900, 900, 900], "repeat": false }
+      ],
+      "noteTypes": ["normal", "swing"],
+      "specialNoteChance": 0.2,
+      "instructions": "Lay down a smooth jazz groove!"
+    },
+    "metal": {
+      "name": "Metal Mayhem",
+      "baseSpeed": 700,
+      "patterns": [
+        { "timing": [300, 300, 600, 300, 300, 600], "repeat": true },
+        { "timing": [250, 250, 250, 250, 500], "repeat": true },
+        { "timing": [200, 400, 200, 400, 200, 400], "repeat": false }
+      ],
+      "noteTypes": ["normal", "double_kick"],
+      "specialNoteChance": 0.35,
+      "instructions": "Unleash a barrage of metal riffs!"
+    },
+    "pop": {
+      "name": "Pop Hit",
+      "baseSpeed": 1000,
+      "patterns": [
+        { "timing": [600, 600, 600, 1200], "repeat": true },
+        { "timing": [800, 400, 800, 400, 800], "repeat": true },
+        { "timing": [500, 500, 1000, 500, 500, 1000], "repeat": false }
+      ],
+      "noteTypes": ["normal", "hook"],
+      "specialNoteChance": 0.25,
+      "instructions": "Hit the pop hooks on beat!"
+    },
+    "rapid": {
+      "name": "Rapid Fire",
+      "baseSpeed": 800,
+      "patterns": [
+        { "timing": [500, 400, 600, 400, 700], "repeat": true },
+        { "timing": [300, 500, 300, 500, 300, 500], "repeat": true },
+        { "timing": [250, 350, 250, 350, 250, 350, 250], "repeat": true }
+      ],
+      "noteTypes": ["normal", "rapid"],
+      "specialNoteChance": 0.25,
+      "instructions": "Rapid TAP to rev the engine!"
+    },
+    "reggae": {
+      "name": "Reggae Groove",
+      "baseSpeed": 1600,
+      "patterns": [
+        { "timing": [1200, 400, 1200, 400], "repeat": true },
+        { "timing": [1000, 600, 1000, 600, 1000], "repeat": true },
+        { "timing": [800, 800, 800, 800, 800, 800], "repeat": false }
+      ],
+      "noteTypes": ["normal", "offbeat"],
+      "specialNoteChance": 0.15,
+      "instructions": "Feel the offbeats in this reggae jam!"
+    },
+    "smooth": {
+      "name": "Smooth Serenade",
+      "baseSpeed": 2000,
+      "patterns": [
+        { "timing": [1200, 1800, 1000], "repeat": true },
+        { "timing": [1000, 1500, 800, 1600], "repeat": true },
+        { "timing": [900, 1100, 1300, 900, 1400], "repeat": true }
+      ],
+      "noteTypes": ["normal", "long"],
+      "specialNoteChance": 0.15,
+      "instructions": "Gentle taps for a smooth serenade!"
     }
   },
   "noteStyles": {
@@ -64,15 +129,15 @@
       "effect": null
     },
     "long": {
-      "color": "#98FB98", 
+      "color": "#98FB98",
       "border": "#32CD32",
       "points": 35,
       "effect": "hold",
-      "duration": 1000
+      "duration": 1200
     },
     "rapid": {
       "color": "#FF69B4",
-      "border": "#FF1493", 
+      "border": "#FF1493",
       "points": 15,
       "effect": "multi_hit"
     },
@@ -96,7 +161,7 @@
     },
     "void": {
       "color": "#2F2F2F",
-      "border": "#000000", 
+      "border": "#000000",
       "points": -10,
       "effect": "avoid"
     },
