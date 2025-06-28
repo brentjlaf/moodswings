@@ -389,16 +389,10 @@ function buildCow(cow) {
     );
     const currentMood = base.moods[moodIndex];
 
-    // Pick a random demand
-    const currentDemand = base.demands[
-        Math.floor(Math.random() * base.demands.length)
-    ];
-
     return {
         ...base,
         locked: false,               // always start unlocked
-        currentMood,  
-        currentDemand,
+        currentMood,
         moodValue: base.moodValue,   // preserve the original value
         isHappy: base.moodValue >= 70, // happy threshold at 70
         lastPlayed: null,
@@ -467,7 +461,6 @@ function renderCows() {
             <div class="${moodClass}">
                 ${heartIcon} ${cow.currentMood} (${cow.moodValue})
             </div>
-            <div class="cow-demand">"${cow.currentDemand}"</div>
             <button class="mood-button" onclick="startMinigame(${idx})">
                 ${cow.isHappy ? 'Keep Happy!' : 'Cheer Up!'}
             </button>
