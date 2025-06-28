@@ -49,7 +49,7 @@
       <!-- Farm Tab -->
       <div id="farmTab" class="tab-content">
         <div class="crops-section">
-          <h3 style="text-align: center; color: #8B4513; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;  font-size: 1em; font-weight: 800;">&#x1F33E; CROP FIELDS &#x1F33E;</h3>
+          <h3 class="section-title section-title-brown">&#x1F33E; CROP FIELDS &#x1F33E;</h3>
           <div class="crops-grid" id="cropsGrid"> 
             <!-- Crops will be generated here --> 
           </div>
@@ -72,38 +72,38 @@
       
       <!-- Stats Tab -->
       <div id="statsTab" class="tab-content">
-        <div id="bulletinBoard" style="background: linear-gradient(145deg, #F5E6D3, #E8D5B7); border-radius: 12px; padding: 15px; border: 2px solid #8B4513; box-shadow: 0 4px 15px rgba(139,69,19,0.3);"> 
+        <div id="bulletinBoard" class="bulletin-board">
           <!-- Daily stats will be shown here --> 
         </div>
-        <div style="background: linear-gradient(145deg, #E6F3FF, #F0F8FF); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #87CEEB; box-shadow: 0 4px 15px rgba(135,206,235,0.3);">
-          <h3 style="color: #4169E1; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">&#x1F3C6; ACHIEVEMENTS &#x1F3C6;</h3>
+        <div class="achievements-container">
+          <h3 class="section-title section-title-blue">&#x1F3C6; ACHIEVEMENTS &#x1F3C6;</h3>
           <div id="achievementsList"> 
             <!-- Achievements will be displayed here --> 
           </div>
         </div>
-        <div style="background: linear-gradient(145deg, #E8F5E8, #F0FFF0); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #32CD32; box-shadow: 0 4px 15px rgba(50,205,50,0.3);">
-          <h3 style="color: #228B22; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">&#x1F4BE; SAVE SYSTEM &#x1F4BE;</h3>
-          <div style="margin-bottom: 10px; font-size: 0.8em; color: #666; text-align: center;">
-            Player ID: <span id="playerID" style="font-weight: bold; color: #228B22;"></span><br>
-            Last Saved: <span id="lastSaved" style="font-weight: bold; color: #228B22;">Never</span>
+        <div class="save-system-container">
+          <h3 class="section-title section-title-green">&#x1F4BE; SAVE SYSTEM &#x1F4BE;</h3>
+          <div class="save-info-text">
+            Player ID: <span id="playerID" class="save-info-label"></span><br>
+            Last Saved: <span id="lastSaved" class="save-info-label">Never</span>
           </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
-            <button onclick="saveGameState(); showToast('Game saved!', 'success'); updateSaveInfo();" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F4BE; Save</button>
-            <button onclick="exportGameData()" style="background: linear-gradient(145deg, #4169E1, #0000CD); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F4E4; Export</button>
+          <div class="save-button-grid">
+            <button onclick="saveGameState(); showToast('Game saved!', 'success'); updateSaveInfo();" class="save-button save-button-save">&#x1F4BE; Save</button>
+            <button onclick="exportGameData()" class="save-button save-button-export">&#x1F4E4; Export</button>
           </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-            <button onclick="importGameData()" style="background: linear-gradient(145deg, #FF8C00, #FF6347); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F4E5; Import</button>
-            <button onclick="resetGameData()" style="background: linear-gradient(145deg, #DC143C, #B22222); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">&#x1F5D1;&#xFE0F; Reset</button>
+          <div class="save-button-grid save-button-grid-no-margin">
+            <button onclick="importGameData()" class="save-button save-button-import">&#x1F4E5; Import</button>
+            <button onclick="resetGameData()" class="save-button save-button-reset">&#x1F5D1;&#xFE0F; Reset</button>
           </div>
-          <div style="margin-top: 8px; font-size: 0.7em; color: #666; text-align: center; line-height: 1.2;">
+          <div class="save-help-text">
             Auto-saves every 2 minutes and when you leave.<br>
             Export creates a downloadable backup file.
           </div>
         </div>
-        <div style="background: linear-gradient(145deg, #FFE4E1, #FFF0F5); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #FF69B4; box-shadow: 0 4px 15px rgba(255,105,180,0.3);">
-          <h3 style="color: #8B008B; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">&#x1F527; DEBUG TOOLS &#x1F527;</h3>
-          <button onclick="debugUnlockSystem()" style="background: linear-gradient(145deg, #FF69B4, #FF1493); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%; margin-bottom: 10px;">&#x1F50D; Check Unlock Status</button>
-          <button onclick="forceUnlockCheck()" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%;">&#x1F513; Force Unlock Check</button>
+        <div class="debug-container">
+          <h3 class="section-title section-title-purple">&#x1F527; DEBUG TOOLS &#x1F527;</h3>
+          <button onclick="debugUnlockSystem()" class="debug-button debug-button-pink">&#x1F50D; Check Unlock Status</button>
+          <button onclick="forceUnlockCheck()" class="debug-button debug-button-green">&#x1F513; Force Unlock Check</button>
         </div>
       </div>
     </div>

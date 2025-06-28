@@ -1396,3 +1396,78 @@ body {
     text-align: center;
     line-height: 1.2;
 }
+
+/* Section Heading Styles */
+.section-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    font-weight: 800;
+}
+
+.section-title-brown { color: #8B4513; }
+.section-title-blue { color: #4169E1; }
+.section-title-green { color: #228B22; }
+.section-title-purple { color: #8B008B; }
+
+/* Stats Tab Containers */
+.bulletin-board {
+    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    border-radius: 12px;
+    padding: 15px;
+    border: 2px solid #8B4513;
+    box-shadow: 0 4px 15px rgba(139,69,19,0.3);
+}
+
+.achievements-container {
+    background: linear-gradient(145deg, #E6F3FF, #F0F8FF);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    border: 2px solid #87CEEB;
+    box-shadow: 0 4px 15px rgba(135,206,235,0.3);
+}
+
+.save-system-container {
+    background: linear-gradient(145deg, #E8F5E8, #F0FFF0);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    border: 2px solid #32CD32;
+    box-shadow: 0 4px 15px rgba(50,205,50,0.3);
+}
+
+.save-button-grid-no-margin {
+    margin-bottom: 0;
+}
+
+.debug-container {
+    background: linear-gradient(145deg, #FFE4E1, #FFF0F5);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    border: 2px solid #FF69B4;
+    box-shadow: 0 4px 15px rgba(255,105,180,0.3);
+}
+
+.debug-button {
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    width: 100%;
+}
+
+.debug-button-pink {
+    background: linear-gradient(145deg, #FF69B4, #FF1493);
+    margin-bottom: 10px;
+}
+
+.debug-button-green {
+    background: linear-gradient(145deg, #32CD32, #228B22);
+}
