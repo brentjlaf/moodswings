@@ -419,8 +419,8 @@ function generateCows() {
         // Immediately check for any that should be unlocked based on starting conditions
         checkAllCowUnlocks();
     } else {
-        // Regenerate mood for existing cows
-        gameState.cows = gameState.cows.map(buildCow);
+        // Preserve existing cow state between days
+        gameState.cows = gameState.cows.map(cow => ({ ...cow }));
     }
     renderCows();
 }
@@ -491,6 +491,31 @@ function renderCows() {
         `;
         grid.appendChild(cowCard);
     });
+}
+
+// Reduce each cow's happiness over time
+function updateCowHappiness(cow) {
+    const now = Date.now();
+    const hours = (now - (cow.lastHappinessUpdate || now)) / 3600000;
+    if (hours <= 0) return;
+    const min = GAME_CONFIG.HAPPINESS.decay_rate_min;
+    const max = GAME_CONFIG.HAPPINESS.decay_rate_max;
+    const decayPerHour = Math.random() * (max - min) + min;
+    const decayAmount = decayPerHour * hours;
+    cow.happinessLevel = Math.max(GAME_CONFIG.HAPPINESS.level_min,
+        cow.happinessLevel - decayAmount);
+    cow.moodValue = cow.happinessLevel;
+    const segmentSize = 100 / cow.moods.length;
+    const moodIndex = Math.min(cow.moods.length - 1,
+        Math.floor(cow.moodValue / segmentSize));
+    cow.currentMood = cow.moods[moodIndex];
+    cow.isHappy = cow.moodValue >= 70;
+    cow.lastHappinessUpdate = now;
+}
+
+function updateAllCowHappiness() {
+    gameState.cows.forEach(updateCowHappiness);
+    renderCows();
 }
 
 function initializeCrops() {
@@ -694,16 +719,9 @@ function nextDay() {
         perfectScores: 0,
         totalGames: 0
     };
-    
+
+    updateAllCowHappiness();
     generateCows();
-    
-    // Apply happiness boost effects instead of hardcoded cowbell
-    if (gameState.effects && gameState.effects.happinessBoost) {
-        gameState.cows.forEach(cow => {
-            cow.isHappy = Math.random() > 0.2; // Higher chance of happiness
-            cow.happinessLevel = Math.floor(Math.random() * 50) + 51; // Start with higher happiness
-        });
-    }
     
     // Update crop buttons for new unlocks
     generateCropButtons();
@@ -1632,6 +1650,9 @@ function initializeGame() {
             }
         });
     }
+
+    // Apply any happiness decay since last session
+    updateAllCowHappiness();
     
     // Initialize new data-driven systems
     generateCropButtons();
@@ -1647,6 +1668,12 @@ function initializeGame() {
     
     // Setup auto-save system
     setupAutoSave();
+
+    // Periodically decay cow happiness
+    setInterval(() => {
+        updateAllCowHappiness();
+        updateDisplay();
+    }, GAME_CONFIG.HAPPINESS_UPDATE_INTERVAL);
     
     console.log('Game initialized with data-driven systems and achievements!');
 }
