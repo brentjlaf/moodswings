@@ -1,0 +1,229 @@
+{
+  "cowData": [
+    {
+      "name": "Bessie",
+      "emoji": "🐄",
+      "gameType": "smooth",
+      "moodValue": 75,
+      "moods": ["Content", "Peaceful", "Serene", "Calm"],
+      "demands": [
+        "I want some fresh hay!",
+        "The grass looks tasty today!",
+        "Could use a good brushing!",
+        "Time for my afternoon nap!"
+      ]
+    },
+    {
+      "name": "Moobert",
+      "emoji": "🐮",
+      "gameType": "rock",
+      "moodValue": 85,
+      "unlockCondition": "day",
+      "unlockTarget": 2,
+      "moods": ["Rockin'", "Energetic", "Pumped", "Ready to Rock"],
+      "demands": [
+        "Turn up the music!",
+        "Let's rock this barn!",
+        "I need some headbanging time!",
+        "Rock and roll all night!"
+      ]
+    },
+    {
+      "name": "Diva Belle",
+      "emoji": "💄",
+      "gameType": "pitch",
+      "moodValue": 90,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 100,
+      "moods": ["Dramatic", "Fabulous", "Prima Donna", "Center Stage"],
+      "demands": [
+        "I require only the finest feed!",
+        "My stage lighting needs adjustment!",
+        "Where are my adoring fans?",
+        "This barn isn't fancy enough!"
+      ]
+    },
+    {
+      "name": "Turbo",
+      "emoji": "🏎️",
+      "gameType": "rapid",
+      "moodValue": 95,
+      "unlockCondition": "totalCoins",
+      "unlockTarget": 500,
+      "moods": ["Speedy", "Revved Up", "Fast & Furious", "Zoom Zoom"],
+      "demands": [
+        "Gotta go fast!",
+        "Need more horsepower!",
+        "Let's burn rubber!",
+        "Speed is life!"
+      ]
+    },
+    {
+      "name": "Zen Master",
+      "emoji": "🧘",
+      "gameType": "slow",
+      "moodValue": 80,
+      "unlockCondition": "day",
+      "unlockTarget": 5,
+      "moods": ["Meditative", "Enlightened", "Peaceful", "Mindful"],
+      "demands": [
+        "Inner peace comes from within...",
+        "The grass whispers ancient wisdom...",
+        "Breathe in... breathe out...",
+        "Balance is the key to happiness..."
+      ]
+    },
+    {
+      "name": "Sergeant Moo",
+      "emoji": "🪖",
+      "gameType": "battle",
+      "moodValue": 88,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 250,
+      "moods": ["Battle Ready", "Tactical", "Strategic", "On Patrol"],
+      "demands": [
+        "Defend the pasture at all costs!",
+        "The grass needs protection!",
+        "Stay alert, soldier!",
+        "Mission briefing at 0600 hours!"
+      ]
+    },
+    {
+      "name": "Stardust",
+      "emoji": "🌟",
+      "gameType": "cosmic",
+      "moodValue": 92,
+      "unlockCondition": "day",
+      "unlockTarget": 7,
+      "moods": ["Cosmic", "Stellar", "Galactic", "Otherworldly"],
+      "demands": [
+        "The stars call to me...",
+        "I sense disturbances in the cosmos...",
+        "Universal harmony must be maintained...",
+        "The galaxy needs our milk energy..."
+      ]
+    },
+    {
+      "name": "DJ MooMix",
+      "emoji": "🎧",
+      "gameType": "electronic",
+      "moodValue": 87,
+      "unlockCondition": "totalCoins",
+      "unlockTarget": 1000,
+      "moods": ["Dropping Beats", "In the Zone", "Mixing", "Bass Heavy"],
+      "demands": [
+        "Drop that sick beat!",
+        "The bass needs more boom!",
+        "Time to remix this barn!",
+        "Electronic vibes only!"
+      ]
+    },
+    {
+      "name": "Poppy Princess",
+      "emoji": "👑",
+      "gameType": "pop",
+      "moodValue": 89,
+      "unlockCondition": "day",
+      "unlockTarget": 10,
+      "moods": ["Bubbly", "Chart-Topping", "Catchy", "Radio Ready"],
+      "demands": [
+        "I want to be number one!",
+        "Play my hit single!",
+        "The fans are waiting!",
+        "Pop perfection is my goal!"
+      ]
+    }
+  ],
+  "secretCows": [
+    {
+      "name": "Golden Moo",
+      "emoji": "🌟🐄",
+      "gameType": "cosmic",
+      "moodValue": 100,
+      "unlockCondition": "perfectScores",
+      "unlockTarget": 10,
+      "moods": ["Legendary", "Divine", "Transcendent", "Perfect"],
+      "demands": [
+        "I am the chosen one!",
+        "My milk is liquid gold!",
+        "Perfection flows through me!",
+        "The barn is blessed by my presence!"
+      ]
+    },
+    {
+      "name": "Neon Cyber Cow",
+      "emoji": "🤖🐮",
+      "gameType": "electronic",
+      "moodValue": 96,
+      "unlockCondition": "totalCoins",
+      "unlockTarget": 2000,
+      "moods": ["Digital", "Cyber", "Matrix Mode", "System Online"],
+      "demands": [
+        "Initiating milk.exe...",
+        "System requires premium fuel...",
+        "Downloading happiness protocols...",
+        "Error 404: Sadness not found!"
+      ]
+    },
+    {
+      "name": "Rainbow Unicow",
+      "emoji": "🦄🌈",
+      "gameType": "pop",
+      "moodValue": 98,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 500,
+      "moods": ["Magical", "Enchanted", "Mystical", "Sparkly"],
+      "demands": [
+        "Sparkles and rainbows everywhere!",
+        "My horn needs polishing!",
+        "Magic milk for everyone!",
+        "Believe in the power of unicows!"
+      ]
+    },
+    {
+      "name": "Ghost Cow",
+      "emoji": "👻🐄",
+      "gameType": "slow",
+      "moodValue": 85,
+      "unlockCondition": "day",
+      "unlockTarget": 15,
+      "moods": ["Spooky", "Ethereal", "Haunting", "Mysterious"],
+      "demands": [
+        "Booooo... I mean, moooo...",
+        "The afterlife needs more milk...",
+        "I haunt this barn with love...",
+        "Spectral sustenance is required..."
+      ]
+    },
+    {
+      "name": "Time Traveler Moo",
+      "emoji": "⏰🐮",
+      "gameType": "rapid",
+      "moodValue": 94,
+      "unlockCondition": "perfectScores",
+      "unlockTarget": 25,
+      "moods": ["Temporal", "Chronological", "Past-Present-Future", "Time-Bent"],
+      "demands": [
+        "The timeline needs correction!",
+        "I've seen the future of milk!",
+        "Past, present, and moo-ture collide!",
+        "Time travel makes me hungry!"
+      ]
+    },
+    {
+      "name": "Alien Cow",
+      "emoji": "👽🛸",
+      "gameType": "cosmic",
+      "moodValue": 99,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 1000,
+      "moods": ["Extraterrestrial", "Galactic", "UFO Mode", "Beam Me Up"],
+      "demands": [
+        "Greetings, Earth bovines!",
+        "My spaceship needs milk fuel!",
+        "The mothership awaits my return!",
+        "Take me to your cheese leader!"
+      ]
+    }
+  ]
+}

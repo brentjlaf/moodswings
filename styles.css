@@ -1,0 +1,840 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #E6A853 0%, #D4941E 100%);
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    touch-action: manipulation;
+}
+
+.mobile-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    max-width: 300px;
+    margin: 0 auto
+}
+
+.game-header {
+    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    padding: 15px 10px 10px 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(139,69,19,0.3);
+    z-index: 100;
+    border-radius: 0 0 20px 20px;
+    border-bottom: 4px solid #8B4513;
+}
+
+.game-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    color: #8B4513;
+    margin-bottom: 5px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    padding: 10px 0;
+}
+
+.stat {
+    text-align: center;
+    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    border-radius: 12px;
+    padding: 8px 4px;
+    font-size: 0.85em;
+    font-weight: 800;
+    border: 2px solid #8B4513;
+    box-shadow: 0 2px 8px rgba(139,69,19,0.2);
+    transition: transform 0.2s ease;
+}
+
+.stat:hover {
+    transform: scale(1.05);
+}
+
+.stat-value {
+    font-size: 1.2em;
+    color: #8B4513;
+    display: block;
+    font-weight: 900;
+}
+
+.stat-label {
+    font-size: 0.7em;
+    color: #654321;
+    font-weight: 700;
+}
+
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.section-tabs {
+    display: flex;
+    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    border-radius: 18px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(139,69,19,0.3);
+    border: 3px solid #8B4513;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 14px 8px;
+    background: transparent;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #8B4513;
+    position: relative;
+}
+
+.tab-btn:hover {
+    background: rgba(139,69,19,0.1);
+}
+
+.tab-btn.active {
+    background: linear-gradient(145deg, #8B4513, #654321);
+    color: #F5E6D3;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cows-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.cow-card {
+    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 3px solid #D2B48C;
+    position: relative;
+    touch-action: manipulation;
+}
+
+.cow-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.cow-card:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.cow-icon {
+    font-size: 2.5em;
+    margin-bottom: 8px;
+    color: #8B4513;
+}
+
+.cow-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: #8B4513;
+    margin-bottom: 5px;
+    font-weight: 800;
+}
+
+.cow-mood {
+    font-size: 0.85em;
+    color: #2F5F2F;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.cow-demand {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 12px;
+    font-size: 0.75em;
+    line-height: 1.2;
+}
+
+.mood-button {
+    background: linear-gradient(145deg, #FF6B6B, #FF8E8E);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+    width: 100%;
+}
+
+.mood-button:hover {
+    background: linear-gradient(145deg, #FF5252, #FF7979);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+}
+
+.mood-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(255,107,107,0.4);
+}
+
+.crops-section {
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.crops-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+    background: linear-gradient(145deg, #8FBC8F, #90EE90);
+    border-radius: 15px;
+    padding: 15px;
+    border: 2px dashed #228B22;
+    box-shadow: inset 0 2px 8px rgba(34,139,34,0.2);
+}
+
+.crop-slot {
+    aspect-ratio: 1;
+    background: #654321;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #8B4513;
+    position: relative;
+    touch-action: manipulation;
+}
+
+.crop-slot:hover {
+    transform: scale(1.05);
+}
+
+.crop-slot:active {
+    transform: scale(0.9);
+}
+
+.crop-planted {
+    background: linear-gradient(145deg, #90EE90, #98FB98);
+}
+
+.crop-ready {
+    background: linear-gradient(145deg, #FFD700, #FFA500);
+    animation: pulse 1s infinite;
+}
+
+.crop-emoji {
+    font-size: 1.5em;
+    color: #8B4513;
+}
+
+.growth-timer {
+    font-size: 0.6em;
+    color: #2F5F2F;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.plant-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.plant-btn {
+    background: linear-gradient(145deg, #32CD32, #228B22);
+    color: white;
+    border: none;
+    padding: 10px 8px;
+    border-radius: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    box-shadow: 0 4px 12px rgba(50,205,50,0.3);
+}
+
+.plant-btn:hover {
+    background: linear-gradient(145deg, #228B22, #006400);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(50,205,50,0.4);
+}
+
+.plant-btn:active {
+    transform: scale(0.95);
+}
+
+.shop-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.shop-item {
+    background: linear-gradient(145deg, #F0F8FF, #E6F3FF);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(135,206,235,0.3);
+}
+
+.shop-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.item-icon {
+    font-size: 2em;
+    min-width: 50px;
+    text-align: center;
+    color: #4169E1;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-name {
+    font-weight: bold;
+    color: #2F5F2F;
+    margin-bottom: 2px;
+    font-size: 0.9em;
+}
+
+.item-price {
+    color: #8B4513;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.shop-btn {
+    background: linear-gradient(145deg, #32CD32, #228B22);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    box-shadow: 0 3px 10px rgba(50,205,50,0.3);
+}
+
+.shop-btn:hover {
+    background: linear-gradient(145deg, #228B22, #006400);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(50,205,50,0.4);
+}
+
+.shop-btn:active {
+    transform: scale(0.95);
+}
+
+.shop-btn:disabled {
+    background: linear-gradient(145deg, #999, #777);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.action-btn {
+    background: linear-gradient(145deg, #FF6B6B, #FF8E8E);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+}
+
+.action-btn.harvest {
+    background: linear-gradient(145deg, #FFA500, #FFD700);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+/* Mobile Minigame Overlay */
+.minigame-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    z-index: 1000;
+    touch-action: manipulation;
+}
+
+.minigame-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    padding: 20px 15px;
+}
+
+.minigame-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.minigame-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3em;
+    color: #8B4513;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.minigame-instructions {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.3;
+}
+
+.rhythm-game {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.rhythm-bar {
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FECA57);
+    border-radius: 15px;
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+    touch-action: manipulation;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.rhythm-marker {
+    width: 8px;
+    height: 100%;
+    background: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px rgba(255,255,255,0.8);
+    z-index: 10;
+}
+
+.rhythm-note {
+    width: 50px;
+    height: 50px;
+    background: #FFD700;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    border: 4px solid #FFA500;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+    animation: moveNote 3s linear infinite;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background 0.2s ease;
+}
+
+.rhythm-note:hover {
+    background: #FFFF00;
+}
+
+@keyframes moveNote {
+    from {
+        left: -60px;
+    }
+    to {
+        left: calc(100% + 60px);
+    }
+}
+
+.score-area {
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.score-display {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2F5F2F;
+    margin: 5px 0;
+}
+
+.mobile-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: auto;
+}
+
+.control-btn {
+    background: linear-gradient(145deg, #4ECDC4, #45B7D1);
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(78,205,196,0.3);
+    touch-action: manipulation;
+    min-height: 70px;
+}
+
+.control-btn:hover {
+    background: linear-gradient(145deg, #45B7D1, #3498DB);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(78,205,196,0.4);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 10px rgba(78,205,196,0.4);
+}
+
+.close-minigame {
+    background: linear-gradient(145deg, #FF6B6B, #FF8E8E);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    touch-action: manipulation;
+    box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+    transition: all 0.3s ease;
+}
+
+.close-minigame:hover {
+    background: linear-gradient(145deg, #FF5252, #FF7979);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+}
+
+.close-minigame:active {
+    transform: scale(0.95);
+}
+
+/* Mobile Toast Messages */
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(145deg, #98FB98, #90EE90);
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #2F5F2F;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 1001;
+    display: none;
+    text-align: center;
+    max-width: 80%;
+    touch-action: none;
+    transition: all 0.3s ease;
+}
+
+.achievement-popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(145deg, #FFD700, #FFA500);
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 1002;
+    max-width: 80%;
+    text-align: center;
+    display: none;
+    touch-action: none;
+    border: 3px solid #FF6B6B;
+    animation: achievementPulse 2s infinite;
+}
+
+.achievement-title {
+    font-family: 'Montserrat', sans-serif;
+    color: #8B4513;
+    margin-bottom: 5px;
+    font-size: 1em;
+    font-weight: 800;
+}
+
+@keyframes achievementPulse {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px);
+    }
+    60% {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.secret-cow-unlock {
+    background: linear-gradient(145deg, #FFD700, #FFA500);
+    border: 3px solid #FF6B6B;
+    animation: rainbow 2s infinite;
+}
+
+.locked-cow {
+    background: #ddd;
+    border: 3px dashed #999;
+    color: #999;
+    pointer-events: none;
+}
+
+@keyframes rainbow {
+    0% {
+        border-color: #FF6B6B;
+    }
+    25% {
+        border-color: #4ECDC4;
+    }
+    50% {
+        border-color: #45B7D1;
+    }
+    75% {
+        border-color: #96CEB4;
+    }
+    100% {
+        border-color: #FF6B6B;
+    }
+}
+
+/* Floating clouds for atmosphere */
+.cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.6;
+    animation: float 25s infinite linear;
+    pointer-events: none;
+}
+
+.cloud:before, .cloud:after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+}
+
+.cloud1 {
+    width: 60px;
+    height: 25px;
+    top: 15%;
+    animation-duration: 30s;
+}
+
+.cloud1:before {
+    width: 40px;
+    height: 30px;
+    top: -15px;
+    left: 8px;
+}
+
+.cloud1:after {
+    width: 30px;
+    height: 25px;
+    top: -8px;
+    right: 10px;
+}
+
+@keyframes float {
+    from {
+        left: -80px;
+    }
+    to {
+        left: calc(100% + 80px);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.2em;
+    }
+    .cows-grid {
+        grid-template-columns: 1fr;
+    }
+    .crops-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .cows-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .crops-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* Prevent iOS bounce scrolling but allow vertical scroll */
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: fixed;
+    touch-action: pan-y;
+}
+
+/* Make sure content areas can scroll */
+.main-content {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.tab-content {
+    touch-action: pan-y;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    padding-bottom: 70px;
+}
+
+/* Enhanced visual effects */
+.glow {
+    box-shadow: 0 0 20px rgba(255,215,0,0.6);
+}
+
+.coin-icon::before {
+    content: '💰';
+    margin-right: 4px;
+}
+
+.milk-icon::before {
+    content: '🥛';
+    margin-right: 4px;
+}
+
+/* Floating animation for hit feedback */
+@keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0px); }
+    100% { opacity: 0; transform: translateY(-40px); }
+}

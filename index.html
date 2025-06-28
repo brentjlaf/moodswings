@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Moo-d Swings: Farmyard Follies</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="mobile-container"> 
+  <!-- Game Header -->
+  <div class="game-header">
+    <h1 class="game-title">🐄 MOO-D SWINGS 🐄</h1>
+    <div class="stats-bar">
+      <div class="stat"> <span class="stat-value" id="coins">100</span>
+        <div class="stat-label">💰 Coins</div>
+      </div>
+      <div class="stat"> <span class="stat-value" id="milk">0</span>
+        <div class="stat-label">🥛 Milk</div>
+      </div>
+      <div class="stat"> <span class="stat-value" id="happiness"></span>
+        <div class="stat-label">😊 Mood</div>
+      </div>
+      <div class="stat"> <span class="stat-value" id="day">1</span>
+        <div class="stat-label">📅 Day</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tab Navigation -->
+  <div class="main-content">
+    <div class="section-tabs">
+      <button class="tab-btn active" onclick="switchTab('cows')">🐮 COWS</button>
+      <button class="tab-btn" onclick="switchTab('farm')">🌱 FARM</button>
+      <button class="tab-btn" onclick="switchTab('shop')">🛒 SHOP</button>
+      <button class="tab-btn" onclick="switchTab('stats')">📊 STATS</button>
+    </div>
+    <div class="tab-content-wrapper"> 
+      <!-- Cows Tab -->
+      <div id="cowsTab" class="tab-content active">
+        <div class="cows-grid" id="cowsGrid"> 
+          <!-- Cows will be generated here --> 
+        </div>
+      </div>
+      
+      <!-- Farm Tab -->
+      <div id="farmTab" class="tab-content">
+        <div class="crops-section">
+          <h3 style="text-align: center; color: #8B4513; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;  font-size: 1em; font-weight: 800;">🌾 CROP FIELDS 🌾</h3>
+          <div class="crops-grid" id="cropsGrid"> 
+            <!-- Crops will be generated here --> 
+          </div>
+          <div class="plant-controls">
+            <button class="plant-btn" onclick="plantCrop('carrot')">🥕 CARROT<br>10 coins</button>
+            <button class="plant-btn" onclick="plantCrop('corn')">🌽 CORN<br>25 coins</button>
+            <button class="plant-btn" onclick="plantCrop('rainbow')">🌈 RAINBOW<br>50 coins</button>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="action-btn harvest" onclick="harvestAll()">🌾 HARVEST ALL</button>
+          <button class="action-btn" onclick="nextDay()">☀️ NEXT DAY</button>
+        </div>
+      </div>
+      
+      <!-- Shop Tab -->
+      <div id="shopTab" class="tab-content">
+        <div class="shop-grid">
+          <div class="shop-item">
+            <div class="item-icon">🔱</div>
+            <div class="item-info">
+              <div class="item-name">Better Pitchfork</div>
+              <div class="item-description">Makes rhythm games easier!</div>
+              <div class="item-price">💰 100 coins</div>
+            </div>
+            <button class="shop-btn" id="pitchforkBtn" onclick="buyUpgrade('pitchfork',1)">BUY</button>
+          </div>
+          <div class="shop-item">
+            <div class="item-icon">🎵</div>
+            <div class="item-info">
+              <div class="item-name">Metronome</div>
+              <div class="item-description">Perfect timing assistance!</div>
+              <div class="item-price">💰 150 coins</div>
+            </div>
+            <button class="shop-btn" id="metronomeBtn" onclick="buyUpgrade('metronome',1)">BUY</button>
+          </div>
+          <div class="shop-item">
+            <div class="item-icon">🏠</div>
+            <div class="item-info">
+              <div class="item-name">Neon Pink Barn</div>
+              <div class="item-description">Double milk production!</div>
+              <div class="item-price">💰 300 coins</div>
+            </div>
+            <button class="shop-btn" id="barnBtn" onclick="buyUpgrade('barn',1)">BUY</button>
+          </div>
+          <div class="shop-item">
+            <div class="item-icon">🔔</div>
+            <div class="item-info">
+              <div class="item-name">Golden Cowbell</div>
+              <div class="item-description">Boost all cow happiness!</div>
+              <div class="item-price">💰 500 coins</div>
+            </div>
+            <button class="shop-btn" id="cowbellBtn" onclick="buyUpgrade('cowbell',1)">BUY</button>
+          </div>
+          <div class="shop-item">
+            <div class="item-icon">⚡</div>
+            <div class="item-info">
+              <div class="item-name">Super Pitchfork</div>
+              <div class="item-description">Massive timing window!</div>
+              <div class="item-price">💰 400 coins</div>
+            </div>
+            <button class="shop-btn" id="pitchfork2Btn" onclick="buyUpgrade('pitchfork',2)">BUY</button>
+          </div>
+          <div class="shop-item">
+            <div class="item-icon">🤖</div>
+            <div class="item-info">
+              <div class="item-name">AI Metronome</div>
+              <div class="item-description">Auto-adjusting rhythms!</div>
+              <div class="item-price">💰 600 coins</div>
+            </div>
+            <button class="shop-btn" id="metronome2Btn" onclick="buyUpgrade('metronome',2)">BUY</button>
+          </div>
+          <div class="shop-item">
+            <div class="item-icon">⭐</div>
+            <div class="item-info">
+              <div class="item-name">Starlight Barn</div>
+              <div class="item-description">Triple milk production!</div>
+              <div class="item-price">💰 1000 coins</div>
+            </div>
+            <button class="shop-btn" id="barn2Btn" onclick="buyUpgrade('barn',2)">BUY</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats Tab -->
+      <div id="statsTab" class="tab-content">
+        <div id="bulletinBoard" style="background: linear-gradient(145deg, #F5E6D3, #E8D5B7); border-radius: 12px; padding: 15px; border: 2px solid #8B4513; box-shadow: 0 4px 15px rgba(139,69,19,0.3);"> 
+          <!-- Daily stats will be shown here --> 
+        </div>
+        <div style="background: linear-gradient(145deg, #E6F3FF, #F0F8FF); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #87CEEB; box-shadow: 0 4px 15px rgba(135,206,235,0.3);">
+          <h3 style="color: #4169E1; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">🏆 ACHIEVEMENTS 🏆</h3>
+          <div id="achievementsList"> 
+            <!-- Achievements will be displayed here --> 
+          </div>
+        </div>
+        <div style="background: linear-gradient(145deg, #E8F5E8, #F0FFF0); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #32CD32; box-shadow: 0 4px 15px rgba(50,205,50,0.3);">
+          <h3 style="color: #228B22; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">💾 SAVE SYSTEM 💾</h3>
+          <div style="margin-bottom: 10px; font-size: 0.8em; color: #666; text-align: center;">
+            Player ID: <span id="playerID" style="font-weight: bold; color: #228B22;"></span><br>
+            Last Saved: <span id="lastSaved" style="font-weight: bold; color: #228B22;">Never</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+            <button onclick="saveGameState(); showToast('Game saved!', 'success'); updateSaveInfo();" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
+              💾 Save
+            </button>
+            <button onclick="exportGameData()" style="background: linear-gradient(145deg, #4169E1, #0000CD); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
+              📤 Export
+            </button>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button onclick="importGameData()" style="background: linear-gradient(145deg, #FF8C00, #FF6347); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
+              📥 Import
+            </button>
+            <button onclick="resetGameData()" style="background: linear-gradient(145deg, #DC143C, #B22222); color: white; border: none; padding: 8px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.8em; cursor: pointer;">
+              🗑️ Reset
+            </button>
+          </div>
+          <div style="margin-top: 8px; font-size: 0.7em; color: #666; text-align: center; line-height: 1.2;">
+            Auto-saves every 2 minutes and when you leave.<br>
+            Export creates a downloadable backup file.
+          </div>
+        </div>
+        <div style="background: linear-gradient(145deg, #FFE4E1, #FFF0F5); border-radius: 12px; padding: 15px; margin-top: 15px; border: 2px solid #FF69B4; box-shadow: 0 4px 15px rgba(255,105,180,0.3);">
+          <h3 style="color: #8B008B; margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 1em; font-weight: 800; text-align: center;">🔧 DEBUG TOOLS 🔧</h3>
+          <button onclick="debugUnlockSystem()" style="background: linear-gradient(145deg, #FF69B4, #FF1493); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%; margin-bottom: 10px;">
+            🔍 Check Unlock Status
+          </button>
+          <button onclick="forceUnlockCheck()" style="background: linear-gradient(145deg, #32CD32, #228B22); color: white; border: none; padding: 10px; border-radius: 15px; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 0.9em; cursor: pointer; width: 100%;">
+            🔓 Force Unlock Check
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Minigame Overlay -->
+<div class="minigame-overlay" id="minigameOverlay">
+  <div class="minigame-container">
+    <div class="minigame-header">
+      <h2 class="minigame-title" id="minigameTitle">Cow Challenge</h2>
+      <p class="minigame-instructions" id="minigameInstructions">Get ready to play!</p>
+    </div>
+    <div class="rhythm-game">
+      <div class="rhythm-bar" id="rhythmBar">
+        <div class="rhythm-marker"></div>
+      </div>
+      <div class="score-area">
+        <div class="score-display">🎯 Score: <span id="currentScore">0</span></div>
+        <div class="score-display">🚩 Target: <span id="targetScore">100</span></div>
+        <div class="score-display">⚡ Combo: <span id="comboCount">0</span></div>
+      </div>
+    </div>
+    <div class="mobile-controls">
+      <button class="control-btn" id="tapBtn">👆<br>TAP</button>
+      <button class="control-btn" id="holdBtn">✊<br>HOLD</button>
+    </div>
+    <button class="close-minigame" onclick="closeMinigame()">❌ CLOSE</button>
+  </div>
+</div>
+
+<!-- Mobile Toast Messages -->
+<div class="toast-message" id="toastMessage"></div>
+<div class="achievement-popup" id="achievementPopup"></div>
+
+<script src="config.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>
