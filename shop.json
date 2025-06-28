@@ -6,13 +6,13 @@
       "description": "Improve your farming efficiency!"
     },
     {
-      "id": "buildings", 
+      "id": "buildings",
       "name": "\uD83C\uDFE0 Buildings",
       "description": "Upgrade your farm infrastructure!"
     },
     {
       "id": "decorations",
-      "name": "\uD83C\uDFA8 Decorations", 
+      "name": "\uD83C\uDFA8 Decorations",
       "description": "Make your farm look amazing!"
     },
     {
@@ -36,7 +36,7 @@
       "unlockCondition": null
     },
     {
-      "id": "pitchfork_2", 
+      "id": "pitchfork_2",
       "name": "Super Pitchfork",
       "description": "Massive timing window!",
       "icon": "\u26A1",
@@ -54,7 +54,7 @@
     },
     {
       "id": "metronome_1",
-      "name": "Metronome", 
+      "name": "Metronome",
       "description": "Perfect timing assistance!",
       "icon": "\uD83C\uDFB5",
       "category": "tools",
@@ -70,7 +70,7 @@
       "name": "Neon Pink Barn",
       "description": "Double milk production!",
       "icon": "\uD83C\uDFE0",
-      "category": "buildings", 
+      "category": "buildings",
       "cost": 300,
       "maxLevel": 1,
       "effects": {
@@ -80,7 +80,7 @@
     },
     {
       "id": "barn_2",
-      "name": "Starlight Barn", 
+      "name": "Starlight Barn",
       "description": "Triple milk production!",
       "icon": "\u2B50",
       "category": "buildings",
@@ -122,6 +122,91 @@
       "unlockCondition": {
         "type": "day",
         "target": 3
+      }
+    },
+    {
+      "id": "energy_drink",
+      "name": "Energy Drink",
+      "description": "Farm actions 20% faster for 30 minutes!",
+      "icon": "\uD83E\uDD64",
+      "category": "consumables",
+      "cost": 50,
+      "maxLevel": 99,
+      "effects": {
+        "action_speed_boost": 0.2,
+        "duration": 1800000
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 1
+      }
+    },
+    {
+      "id": "lucky_horseshoe",
+      "name": "Lucky Horseshoe",
+      "description": "Coin gain +10% for 2 hours!",
+      "icon": "\uD83E\uDD51",
+      "category": "consumables",
+      "cost": 120,
+      "maxLevel": 10,
+      "effects": {
+        "coin_bonus": 0.1,
+        "duration": 7200000
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 500
+      }
+    },
+    {
+      "id": "cow_treats",
+      "name": "Cow Treats",
+      "description": "Milk production +1 per click for 1 hour!",
+      "icon": "\uD83C\uDF56",
+      "category": "consumables",
+      "cost": 80,
+      "maxLevel": 99,
+      "effects": {
+        "extra_milk_per_click": 1,
+        "duration": 3600000
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 2
+      }
+    },
+    {
+      "id": "strawberry_snack",
+      "name": "Strawberry Snack",
+      "description": "Happiness +5% for 45 minutes!",
+      "icon": "\uD83C\uDF53",
+      "category": "consumables",
+      "cost": 60,
+      "maxLevel": 50,
+      "effects": {
+        "happiness_boost": 0.05,
+        "duration": 2700000
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 200
+      }
+    },
+    {
+      "id": "honey_potion",
+      "name": "Honey Potion",
+      "description": "Crop yield +25% for 2 hours!",
+      "icon": "\uD83C\uDF6F",
+      "category": "consumables",
+      "cost": 150,
+      "maxLevel": 20,
+      "effects": {
+        "crop_yield_boost": 0.25,
+        "duration": 7200000
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 5
       }
     },
     {
@@ -170,7 +255,7 @@
         "conversion_rate": 2
       },
       "unlockCondition": {
-        "type": "totalMilk", 
+        "type": "totalMilk",
         "target": 300
       }
     }

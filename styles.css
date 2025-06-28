@@ -987,3 +987,376 @@ body {
     0% { opacity: 1; transform: translateY(0px); }
     100% { opacity: 0; transform: translateY(-40px); }
 }
+
+
+
+/* Shop Category Styles */
+.shop-category-title {
+    color: #4169E1;
+    margin: 15px 0 10px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    font-weight: 800;
+}
+
+.shop-category-desc {
+    color: #666;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+/* Item Description Styles */
+.item-description {
+    font-size: 0.75em;
+    color: #666;
+    margin: 2px 0;
+}
+
+/* Cow Mood Styles */
+.cow-mood-happy {
+    color: #32CD32;
+}
+
+.cow-mood-sad {
+    color: #FF6B6B;
+}
+
+.locked-cow-text {
+    font-size: 0.7em;
+    color: #999;
+    margin-top: 5px;
+}
+
+/* Crop Slot Empty Plus Sign */
+.crop-slot-empty {
+    color: #8B4513;
+    font-size: 1.5em;
+}
+
+/* Bulletin Board Styles */
+.bulletin-container {
+    margin-bottom: 12px;
+}
+
+.bulletin-title {
+    color: #8B4513;
+    margin-bottom: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.bulletin-stat {
+    font-weight: 800;
+    color: #654321;
+    margin: 4px 0;
+}
+
+/* Unlock Progress Box */
+.unlock-progress-box {
+    margin-bottom: 12px;
+    padding: 8px;
+    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+    border-radius: 8px;
+    border: 2px solid #4169E1;
+}
+
+.unlock-progress-title {
+    color: #191970;
+    margin-bottom: 4px;
+    font-weight: 800;
+    font-size: 0.9em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.unlock-progress-stat {
+    color: #191970;
+    font-weight: 700;
+    font-size: 0.7em;
+}
+
+/* Cow of the Day Box */
+.cow-of-day-box {
+    margin-bottom: 12px;
+    padding: 8px;
+    background: linear-gradient(145deg, #D4941E, #B8860B);
+    border-radius: 8px;
+    border: 2px solid #8B4513;
+}
+
+.cow-of-day-title {
+    color: #F5E6D3;
+    margin-bottom: 4px;
+    font-weight: 800;
+    font-size: 0.9em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cow-of-day-text {
+    color: #F5E6D3;
+    font-weight: 700;
+    font-size: 0.8em;
+}
+
+/* Farm Tip Box */
+.farm-tip-box {
+    padding: 8px;
+    background: linear-gradient(145deg, #E6A853, #D4941E);
+    border-radius: 8px;
+    border: 2px solid #8B4513;
+}
+
+.farm-tip-title {
+    color: #F5E6D3;
+    margin-bottom: 4px;
+    font-weight: 800;
+    font-size: 0.9em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.farm-tip-text {
+    color: #F5E6D3;
+    font-weight: 700;
+    font-size: 0.8em;
+}
+
+/* Achievement Popup Rarity Styles */
+.achievement-common {
+    background: linear-gradient(145deg, #90EE90, #32CD32);
+    border: 3px solid #32CD32;
+}
+
+.achievement-uncommon {
+    background: linear-gradient(145deg, #87CEEB, #4169E1);
+    border: 3px solid #4169E1;
+}
+
+.achievement-rare {
+    background: linear-gradient(145deg, #DDA0DD, #8B008B);
+    border: 3px solid #8B008B;
+    box-shadow: 0 0 20px #8B008B, 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.achievement-epic {
+    background: linear-gradient(145deg, #FFD700, #FF8C00);
+    border: 3px solid #FF8C00;
+    box-shadow: 0 0 20px #FFD700, 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.achievement-legendary {
+    background: linear-gradient(145deg, #FF69B4, #FF1493);
+    border: 3px solid #FF1493;
+    box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
+    animation: legendary-pulse 2s infinite;
+}
+
+/* Achievement Popup Content Styles */
+.achievement-title {
+    color: #8B4513;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.achievement-icon-name {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+.achievement-desc {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.achievement-reward {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Achievement List Styles */
+.no-achievements-text {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}
+
+.achievement-category {
+    margin-bottom: 15px;
+}
+
+.achievement-category-title {
+    color: #4169E1;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    font-weight: 800;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.achievement-item-common {
+    background: #90EE90;
+    border: 2px solid #32CD32;
+}
+
+.achievement-item-uncommon {
+    background: #87CEEB;
+    border: 2px solid #4169E1;
+}
+
+.achievement-item-rare {
+    background: #DDA0DD;
+    border: 2px solid #8B008B;
+    box-shadow: 0 0 10px #8B008B;
+}
+
+.achievement-item-epic {
+    background: #FFD700;
+    border: 2px solid #FF8C00;
+    box-shadow: 0 0 10px #FFD700;
+}
+
+.achievement-item-legendary {
+    background: #FF69B4;
+    border: 2px solid #FF1493;
+    box-shadow: 0 0 10px #FF69B4;
+}
+
+.achievement-item-icon {
+    font-size: 1.3em;
+}
+
+.achievement-item-info {
+    flex: 1;
+}
+
+.achievement-item-name {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.achievement-item-desc {
+    font-size: 0.75em;
+    color: #666;
+}
+
+.achievement-item-rarity {
+    font-size: 0.7em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Dynamic rarity colors for achievement items */
+.achievement-item-common .achievement-item-name,
+.achievement-item-common .achievement-item-rarity {
+    color: #32CD32;
+}
+
+.achievement-item-uncommon .achievement-item-name,
+.achievement-item-uncommon .achievement-item-rarity {
+    color: #4169E1;
+}
+
+.achievement-item-rare .achievement-item-name,
+.achievement-item-rare .achievement-item-rarity {
+    color: #8B008B;
+}
+
+.achievement-item-epic .achievement-item-name,
+.achievement-item-epic .achievement-item-rarity {
+    color: #FF8C00;
+}
+
+.achievement-item-legendary .achievement-item-name,
+.achievement-item-legendary .achievement-item-rarity {
+    color: #FF1493;
+}
+
+/* Floating Text Styles */
+.floating-text {
+    position: fixed;
+    color: #00FF00;
+    font-weight: bold;
+    font-size: 1.2em;
+    pointer-events: none;
+    z-index: 1003;
+    animation: floatUp 1s ease-out forwards;
+}
+
+/* Toast Message Type Styles */
+.toast-success {
+    background: linear-gradient(145deg, #98FB98, #90EE90);
+    color: #2F5F2F;
+}
+
+.toast-failure {
+    background: linear-gradient(145deg, #FFB6C1, #FFA0B4);
+    color: #8B0000;
+}
+
+.toast-info {
+    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+    color: #191970;
+}
+
+/* Save System Section Styles */
+.save-info-text {
+    margin-bottom: 10px;
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+}
+
+.save-info-label {
+    font-weight: bold;
+    color: #228B22;
+}
+
+.save-button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.save-button {
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: white;
+}
+
+.save-button-save {
+    background: linear-gradient(145deg, #32CD32, #228B22);
+}
+
+.save-button-export {
+    background: linear-gradient(145deg, #4169E1, #0000CD);
+}
+
+.save-button-import {
+    background: linear-gradient(145deg, #FF8C00, #FF6347);
+}
+
+.save-button-reset {
+    background: linear-gradient(145deg, #DC143C, #B22222);
+}
+
+.save-help-text {
+    margin-top: 8px;
+    font-size: 0.7em;
+    color: #666;
+    text-align: center;
+    line-height: 1.2;
+}
