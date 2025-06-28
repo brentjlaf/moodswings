@@ -1362,8 +1362,16 @@ function endMinigame() {
     gameState.stats.maxCombo = Math.max(gameState.stats.maxCombo, currentMinigame.maxCombo);
     
     if (success) {
-        let milkReward = Math.floor(Math.random() * 20) + 15;
-        let coinReward = Math.floor(Math.random() * 25) + 25;
+        // Reward amounts scale with the cow's current mood rather than random ranges
+        const moodFactor = cow.moodValue / 100;
+        let milkReward = Math.floor(
+            GAME_CONFIG.MILK_REWARD_MIN +
+            moodFactor * (GAME_CONFIG.MILK_REWARD_MAX - GAME_CONFIG.MILK_REWARD_MIN)
+        );
+        let coinReward = Math.floor(
+            GAME_CONFIG.COIN_REWARD_MIN +
+            moodFactor * (GAME_CONFIG.COIN_REWARD_MAX - GAME_CONFIG.COIN_REWARD_MIN)
+        );
         
         // Track cow happiness for achievements
         if (!cow.isHappy) {
