@@ -437,9 +437,11 @@ function buildCow(cow) {
 
     // Split the 0–100 moodValue range into equal segments so each mood gets its own bucket
     const segmentSize = 100 / base.moods.length;
-    const moodIndex = Math.min(
-        base.moods.length - 1,
-        Math.floor(base.moodValue / segmentSize)
+    const reversedIndex = base.moods.length - 1 -
+        Math.floor(base.moodValue / segmentSize);
+    const moodIndex = Math.max(
+        0,
+        Math.min(base.moods.length - 1, reversedIndex)
     );
     const currentMood = base.moods[moodIndex];
 
@@ -562,8 +564,12 @@ function renderCows() {
 function refreshCowMood(cow) {
     cow.moodValue = cow.happinessLevel;
     const segmentSize = 100 / cow.moods.length;
-    const moodIndex = Math.min(cow.moods.length - 1,
-        Math.floor(cow.moodValue / segmentSize));
+    const reversedIndex = cow.moods.length - 1 -
+        Math.floor(cow.moodValue / segmentSize);
+    const moodIndex = Math.max(
+        0,
+        Math.min(cow.moods.length - 1, reversedIndex)
+    );
     cow.currentMood = cow.moods[moodIndex];
     cow.isHappy = cow.moodValue >= 70;
     cow.lastHappinessUpdate = Date.now();
