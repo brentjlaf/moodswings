@@ -95,7 +95,6 @@ let gameState = {
         currentPerfectStreak: 0,
         upgradesPurchased: 0,
         secretCowsUnlocked: 0,
-        fastestWin: Infinity,
         playedAtMidnight: false
     },
     perfectStreakRecord: 0,
@@ -963,9 +962,6 @@ function checkAchievementCondition(achievement) {
         case 'upgradesPurchased':
             return stats.upgradesPurchased >= condition.target;
             
-        case 'fastWin':
-            return stats.fastestWin <= condition.target;
-            
         case 'timeOfDay':
             if (condition.target === 'midnight') {
                 const hour = new Date().getHours();
@@ -1297,7 +1293,6 @@ function migrateGameState() {
             currentPerfectStreak: 0,
             upgradesPurchased: 0,
             secretCowsUnlocked: 0,
-            fastestWin: Infinity,
             playedAtMidnight: false
         };
     }

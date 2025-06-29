@@ -175,7 +175,6 @@ function resetGameData() {
                 currentPerfectStreak: 0,
                 upgradesPurchased: 0,
                 secretCowsUnlocked: 0,
-                fastestWin: Infinity,
                 playedAtMidnight: false
             },
             perfectStreakRecord: 0,
