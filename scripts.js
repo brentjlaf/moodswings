@@ -1357,9 +1357,11 @@ function endMinigame() {
     const success = currentMinigame.score >= currentMinigame.target;
     
 // --- INSERT MOOD-BUMP HERE -------------------------------
-  // Decide how much to adjust moodValue
-  const moodDelta = success ? 10 : -10;
-  // Clamp between 0 and 100
+  // Adjust mood based on how well or poorly the minigame went
+  const resultDelta = currentMinigame.score - currentMinigame.target;
+  // Translate score difference into a mood change, capped to keep swings reasonable
+  let moodDelta = Math.round(resultDelta / 5);
+  moodDelta = Math.max(-20, Math.min(20, moodDelta));
   cow.moodValue = Math.max(0, Math.min(100, cow.moodValue + moodDelta));
 
   // Recompute currentMood & happiness flags
