@@ -1,7 +1,7 @@
 {
   "cowData": [
     {
-      "name": "Bessie",
+      "name": "Moozart",
       "emoji": "\ud83d\udc04",
       "gameType": "smooth",
       "moodValue": 50,
@@ -13,7 +13,7 @@
       ]
     },
     {
-      "name": "Moobert",
+      "name": "Beethooven",
       "emoji": "\ud83c\udfb8",
       "gameType": "rock",
       "moodValue": 50,
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "name": "Diva Belle",
+      "name": "Taylor Swiss",
       "emoji": "\ud83c\udfa4",
       "gameType": "pitch",
       "moodValue": 50,
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "name": "Turbo",
+      "name": "EminMoo",
       "emoji": "\ud83c\udfce",
       "gameType": "rapid",
       "moodValue": 50,
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "name": "Zen Master",
+      "name": "Cowba Marley",
       "emoji": "\ud83e\uddd8",
       "gameType": "slow",
       "moodValue": 50,
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "name": "Sergeant Moo",
+      "name": "Moolly Parton",
       "emoji": "\ud83e\ude96",
       "gameType": "battle",
       "moodValue": 50,
@@ -83,7 +83,7 @@
       ]
     },
     {
-      "name": "Stardust",
+      "name": "Moo Jovi",
       "emoji": "\u2728",
       "gameType": "cosmic",
       "moodValue": 50,
@@ -97,7 +97,7 @@
       ]
     },
     {
-      "name": "DJ MooMix",
+      "name": "DJ Cowled",
       "emoji": "\ud83c\udfa7",
       "gameType": "electronic",
       "moodValue": 50,
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "name": "Poppy Princess",
+      "name": "Lady MooMoo",
       "emoji": "\ud83d\udc51",
       "gameType": "pop",
       "moodValue": 50,
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "name": "Jazz Hands",
+      "name": "Bruno Moomars",
       "emoji": "\ud83c\udfb7",
       "gameType": "smooth",
       "moodValue": 50,
@@ -139,7 +139,7 @@
       ]
     },
     {
-      "name": "Bluesy",
+      "name": "B.B. Moo",
       "emoji": "\ud83c\udfb5",
       "gameType": "slow",
       "moodValue": 50,
@@ -153,7 +153,7 @@
       ]
     },
     {
-      "name": "HipHop Moo",
+      "name": "Moo-Tang Clan",
       "emoji": "\ud83c\udfa7",
       "gameType": "electronic",
       "moodValue": 50,
@@ -167,7 +167,7 @@
       ]
     },
     {
-      "name": "Reggae Rasta",
+      "name": "Moo Jammin",
       "emoji": "\ud83c\udfb6",
       "gameType": "pop",
       "moodValue": 50,
@@ -181,7 +181,7 @@
       ]
     },
     {
-      "name": "Metal Moolica",
+      "name": "Mootallica",
       "emoji": "\ud83e\udd18",
       "gameType": "rock",
       "moodValue": 50,
@@ -195,7 +195,7 @@
       ]
     },
     {
-      "name": "Classy",
+      "name": "Johann Sebas-calf",
       "emoji": "\ud83c\udfa9",
       "gameType": "pitch",
       "moodValue": 50,
@@ -209,7 +209,7 @@
       ]
     },
     {
-      "name": "Folk Fiddler",
+      "name": "Moo Dylan",
       "emoji": "\ud83c\udfbb",
       "gameType": "battle",
       "moodValue": 50,
@@ -223,7 +223,7 @@
       ]
     },
     {
-      "name": "Soul Survivor",
+      "name": "Arethmoo Franklin",
       "emoji": "\u2764\ufe0f",
       "gameType": "cosmic",
       "moodValue": 50,
@@ -237,7 +237,7 @@
       ]
     },
     {
-      "name": "Punkster",
+      "name": "Moo Vicious",
       "emoji": "\u26a1",
       "gameType": "rapid",
       "moodValue": 50,
@@ -251,7 +251,7 @@
       ]
     },
     {
-      "name": "Disco Diva",
+      "name": "Cowrey Gibb",
       "emoji": "\ud83d\udd7a",
       "gameType": "electronic",
       "moodValue": 50,
@@ -267,7 +267,7 @@
   ],
   "secretCows": [
     {
-      "name": "Golden Moo",
+      "name": "Mooldplay",
       "emoji": "\ud83c\udfc6",
       "gameType": "cosmic",
       "moodValue": 50,
@@ -281,7 +281,7 @@
       ]
     },
     {
-      "name": "Neon Cyber Cow",
+      "name": "Daft Mook",
       "emoji": "\ud83e\udd16",
       "gameType": "electronic",
       "moodValue": 50,
@@ -295,7 +295,7 @@
       ]
     },
     {
-      "name": "Rainbow Unicow",
+      "name": "Prince Moo-sic",
       "emoji": "\ud83e\udd84",
       "gameType": "pop",
       "moodValue": 50,
@@ -309,7 +309,7 @@
       ]
     },
     {
-      "name": "Ghost Cow",
+      "name": "Boo-vine Mercury",
       "emoji": "\ud83d\udc7b",
       "gameType": "slow",
       "moodValue": 50,
@@ -323,7 +323,7 @@
       ]
     },
     {
-      "name": "Time Traveler Moo",
+      "name": "Mootina Turner",
       "emoji": "\u23f3",
       "gameType": "rapid",
       "moodValue": 50,
@@ -337,7 +337,7 @@
       ]
     },
     {
-      "name": "Alien Cow",
+      "name": "Moo Bowie",
       "emoji": "\ud83d\udc7d",
       "gameType": "cosmic",
       "moodValue": 50,
