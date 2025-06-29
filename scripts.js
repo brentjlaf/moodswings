@@ -520,12 +520,12 @@ function updateCowHappiness(cow) {
     const now = Date.now();
     const hours = (now - (cow.lastHappinessUpdate || now)) / 3600000;
     if (hours <= 0) return;
-    const min = GAME_CONFIG.HAPPINESS.decay_rate_min;
-    const max = GAME_CONFIG.HAPPINESS.decay_rate_max;
-    const decayPerHour = Math.random() * (max - min) + min;
-    const decayAmount = decayPerHour * hours;
-    cow.happinessLevel = Math.max(GAME_CONFIG.HAPPINESS.level_min,
-        cow.happinessLevel - decayAmount);
+    const rate = GAME_CONFIG.HAPPINESS.decay_rate_percent;
+    const decayAmount = cow.happinessLevel * rate * hours;
+    cow.happinessLevel = Math.max(
+        GAME_CONFIG.HAPPINESS.level_min,
+        cow.happinessLevel - decayAmount
+    );
     cow.moodValue = cow.happinessLevel;
     const segmentSize = 100 / cow.moods.length;
     const moodIndex = Math.min(cow.moods.length - 1,
@@ -1158,10 +1158,8 @@ function startRhythmGame(cowIndex) {
     currentMinigame.maxCombo = 0;
 
     const cow = gameState.cows[cowIndex];
-    const baseTarget = GAME_CONFIG.BASE_TARGET_SCORE +
-        (gameState.day * GAME_CONFIG.TARGET_SCORE_INCREASE_PER_DAY);
-    const moodAdjustment = Math.round(((cow.moodValue || cow.happinessLevel) - 50) / 2);
-    currentMinigame.target = Math.max(20, baseTarget + moodAdjustment);
+    const mood = cow.moodValue || cow.happinessLevel;
+    currentMinigame.target = Math.max(20, Math.round(mood * 2));
 
     currentMinigame.gameActive = true;
     currentMinigame.timeLeft = 15;
