@@ -584,21 +584,23 @@ body {
 }
 
 .score-area {
-    background: rgba(255,255,255,0.9);
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
+    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    border: 2px solid #DEB887;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     text-align: center;
 }
 
 .score-display {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: bold;
     color: #2F5F2F;
-    margin: 5px 0;
+    margin: 0 5px;
 }
 
 .mobile-controls {
