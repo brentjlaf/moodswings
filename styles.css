@@ -26,7 +26,7 @@ body {
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto
 }
 
@@ -36,8 +36,8 @@ body {
     text-align: center;
     box-shadow: 0 4px 15px rgba(139,69,19,0.3);
     z-index: 100;
-    border-radius: 0 0 20px 20px;
-    border-bottom: 4px solid #8B4513;
+    /* border-radius: 0 0 20px 20px; */
+    /* border-bottom: 4px solid #8B4513; */
 }
 
 .game-title {
@@ -88,18 +88,18 @@ body {
 .main-content {
     flex: 1;
     overflow-y: auto;
-    padding: 15px 10px;
+    padding: 0px;
     -webkit-overflow-scrolling: touch;
 }
 
 .section-tabs {
     display: flex;
     background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
-    border-radius: 18px;
+    /* border-radius: 18px; */
     margin-bottom: 15px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(139,69,19,0.3);
-    border: 3px solid #8B4513;
+    /* box-shadow: 0 6px 20px rgba(139,69,19,0.3); */
+    /* border: 3px solid #8B4513; */
 }
 
 .tab-btn {
@@ -109,7 +109,7 @@ body {
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-size: 0.9em;
+    font-size: 0.8em;
     cursor: pointer;
     transition: all 0.3s ease;
     color: #8B4513;
@@ -131,6 +131,7 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
+.tab-content-wrapper { width:96%; margin:0 auto;}
 .tab-content.active {
     display: block;
 }
