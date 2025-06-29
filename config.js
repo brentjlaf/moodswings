@@ -57,7 +57,7 @@ const GAME_CONFIG = {
     // Point values for rhythm hits
     RHYTHM_POINTS: {
         perfect: 25,
-        good: 15,
+        good: 12,
         okay: 8,
         special_note_multiplier: 2
     },
