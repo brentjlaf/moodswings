@@ -177,7 +177,7 @@
       "id": "golden_apple",
       "name": "Golden Apple",
       "emoji": "\uD83C\uDF4F",
-      "cost": 1000,
+      "cost": 1500,
       "value": 2000,
       "growTime": 300000,
       "rarity": "legendary",
