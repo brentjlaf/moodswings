@@ -31,7 +31,6 @@ function startRhythmGame(cowIndex) {
 
     document.getElementById('currentScore').textContent = '0';
     document.getElementById('targetScore').textContent = currentMinigame.target;
-    document.getElementById('comboCount').textContent = '0';
     const countdownEl = document.getElementById('countdownClock');
     if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
 
@@ -157,7 +156,6 @@ function spawnNote() {
             note.parentNode.removeChild(note);
             // Miss penalty
             currentMinigame.combo = 0;
-            document.getElementById('comboCount').textContent = currentMinigame.combo;
         }
     }, duration);
 }
@@ -222,12 +220,15 @@ function hitNote(note) {
     currentMinigame.maxCombo = Math.max(currentMinigame.maxCombo, currentMinigame.combo);
     
     document.getElementById('currentScore').textContent = currentMinigame.score;
-    document.getElementById('comboCount').textContent = currentMinigame.combo;
     
     if (points > 0) {
         showFloatingText(`+${points}!`, noteRect.left, noteRect.top);
     }
-    
+
+    if (currentMinigame.combo >= 3 && hitQuality !== 'miss') {
+        showComboPopup(currentMinigame.combo);
+    }
+
     note.remove();
 }
 
@@ -238,10 +239,21 @@ function showFloatingText(text, x, y) {
     floatingText.style.position = 'fixed';
     floatingText.style.left = x + 'px';
     floatingText.style.top = y + 'px';
-    
+
     document.body.appendChild(floatingText);
-    
+
     setTimeout(() => floatingText.remove(), 1000);
+}
+
+function showComboPopup(combo) {
+    const popup = document.createElement('div');
+    popup.textContent = `Combo x${combo}!`;
+    popup.className = 'floating-text';
+    popup.style.left = '50%';
+    popup.style.top = '80px';
+    popup.style.transform = 'translateX(-50%)';
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 1000);
 }
 
 function endMinigame() {
