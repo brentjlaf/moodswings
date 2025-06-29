@@ -84,7 +84,7 @@ const GAME_CONFIG = {
 
     // Happiness system
     HAPPINESS: {
-        default_chance: 0.3, // 30% chance to start happy
+        default_chance: 0.25, // 25% chance to start happy
         level_min: 1,
         level_max: 100,
         success_bonus: 20,
