@@ -428,6 +428,11 @@ function switchTab(tabName) {
 }
 
 function buildCow(cow) {
+    if (!cow) {
+        console.error('buildCow called with invalid cow:', cow);
+        return null;
+    }
+
     const { locked, ...base } = cow;  // drop any existing lock flag
 
     // Split the 0–100 moodValue range into equal segments so each mood gets its own bucket
@@ -454,8 +459,16 @@ function buildCow(cow) {
 function generateCows() {
     if (gameState.cows.length === 0 && gameState.lockedCows.length === 0) {
         // Initialize with first cow unlocked and rest locked
+        if (cowData.length === 0) {
+            console.error('No cow data loaded');
+            return;
+        }
+
         const [firstCow, ...others] = cowData;
-        gameState.cows = [buildCow(firstCow)];
+        const starterCow = buildCow(firstCow);
+        if (starterCow) {
+            gameState.cows = [starterCow];
+        }
         gameState.lockedCows = others.map(cow => ({ ...cow, locked: true }));
         gameState.lockedCows.push(...secretCows.map(c => ({ ...c, locked: true })));
         
