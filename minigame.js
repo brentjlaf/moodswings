@@ -352,8 +352,8 @@ function endMinigame() {
             gameState.stats.currentPerfectStreak++;
             gameState.stats.perfectStreak = Math.max(gameState.stats.perfectStreak, gameState.stats.currentPerfectStreak);
 
-            milkReward += 25;
-            coinReward += 35;
+            milkReward += 20;
+            coinReward += 25;
             resultMessage = `🎉 PERFECT! ${cow.name} is ecstatic!<br>+${milkReward} milk, +${coinReward} coins!<br>Max Combo: ${currentMinigame.maxCombo}`;
             showToast(`🎉 PERFECT! ${cow.name} is ecstatic!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
