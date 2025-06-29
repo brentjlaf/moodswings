@@ -1148,7 +1148,13 @@ function startRhythmGame(cowIndex) {
     currentMinigame.score = 0;
     currentMinigame.combo = 0;
     currentMinigame.maxCombo = 0;
-    currentMinigame.target = 80 + (gameState.day * 15);
+
+    const cow = gameState.cows[cowIndex];
+    const baseTarget = GAME_CONFIG.BASE_TARGET_SCORE +
+        (gameState.day * GAME_CONFIG.TARGET_SCORE_INCREASE_PER_DAY);
+    const moodAdjustment = Math.round(((cow.moodValue || cow.happinessLevel) - 50) / 2);
+    currentMinigame.target = Math.max(20, baseTarget + moodAdjustment);
+
     currentMinigame.gameActive = true;
     currentMinigame.timeLeft = 15;
 
@@ -1158,7 +1164,6 @@ function startRhythmGame(cowIndex) {
     const countdownEl = document.getElementById('countdownClock');
     if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
 
-    const cow = gameState.cows[cowIndex];
     const speed = getGameSpeed(cow.gameType);
 
     clearNotes();
