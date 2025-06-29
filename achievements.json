@@ -364,22 +364,6 @@
       "rarity": "rare"
     },
     {
-      "id": "speed_demon",
-      "name": "Speed Demon",
-      "description": "Win a rhythm game in under 10 seconds",
-      "icon": "\u26a1",
-      "category": "special",
-      "condition": {
-        "type": "fastWin",
-        "target": 10000
-      },
-      "reward": {
-        "coins": 200,
-        "message": "Lightning fast reflexes!"
-      },
-      "rarity": "rare"
-    },
-    {
       "id": "perfectionist",
       "name": "Perfectionist",
       "description": "Get 20 perfect scores in a row",
@@ -1124,54 +1108,6 @@
         "message": "Supreme upgrade master!"
       },
       "rarity": "legendary"
-    },
-    {
-      "id": "speed_runner",
-      "name": "Speed Runner",
-      "description": "Win a rhythm game in under 5 seconds",
-      "icon": "\u26a1",
-      "category": "special",
-      "condition": {
-        "type": "fastWin",
-        "target": 5000
-      },
-      "reward": {
-        "coins": 400,
-        "message": "Blazing fast!"
-      },
-      "rarity": "epic"
-    },
-    {
-      "id": "ultra_runner",
-      "name": "Ultra Runner",
-      "description": "Win a rhythm game in under 3 seconds",
-      "icon": "\ud83d\ude80",
-      "category": "special",
-      "condition": {
-        "type": "fastWin",
-        "target": 3000
-      },
-      "reward": {
-        "coins": 1000,
-        "message": "Speed of light victory!"
-      },
-      "rarity": "legendary"
-    },
-    {
-      "id": "perfection_hunter",
-      "name": "Perfection Hunter",
-      "description": "Get a perfect streak of 30",
-      "icon": "\ud83c\udfaf",
-      "category": "special",
-      "condition": {
-        "type": "perfectStreak",
-        "target": 30
-      },
-      "reward": {
-        "coins": 600,
-        "message": "Hunting perfection!"
-      },
-      "rarity": "rare"
     },
     {
       "id": "night_owl",

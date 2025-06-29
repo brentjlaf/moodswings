@@ -374,12 +374,6 @@ function endMinigame() {
         cow.isHappy = true;
         cow.happinessLevel = Math.min(100, cow.happinessLevel + 20);
         
-        // Track fast win achievement (game completed in under target time)
-        const gameStartTime = Date.now() - 15000; // Game lasts 15 seconds
-        const actualGameTime = Date.now() - gameStartTime;
-        if (actualGameTime < gameState.stats.fastestWin) {
-            gameState.stats.fastestWin = actualGameTime;
-        }
     } else {
         gameState.stats.currentPerfectStreak = 0; // Reset streak on failure
         const coinLoss = Math.floor(Math.random() * 8) + 3;
