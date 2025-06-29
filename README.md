@@ -206,7 +206,7 @@ Access debug features in the Stats tab:
 
 ## ?? Game Balance
 
-- **Progressive difficulty**: Target scores increase with each day
+- **Progressive difficulty**: Target scores increase with each day and scale with cow happiness
 - **Upgrade benefits**: Meaningful improvements to gameplay
 - **Risk/reward**: Balance between coin investment and returns
 - **Achievement progression**: Satisfying unlock conditions
