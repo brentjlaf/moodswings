@@ -1556,6 +1556,11 @@ function closeMinigame() {
     }
     const overlay = document.getElementById('minigameOverlay');
     if (overlay) overlay.style.display = 'none';
+
+    // Ensure any mood changes are reflected once the overlay closes
+    updateDisplay();
+    updateBulletin();
+    renderCows();
 }
 
 // Mobile-optimized minigame functions
