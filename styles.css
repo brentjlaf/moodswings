@@ -883,7 +883,8 @@ body {
     touch-action: pan-y;
     max-height: calc(100vh - 200px);
     overflow-y: auto;
-    padding-bottom: 70px;
+    /* Extra space so the fixed Next Day button doesn't cover the last items */
+    padding-bottom: 120px;
 }
 
 /* Enhanced visual effects */
