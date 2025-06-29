@@ -249,6 +249,10 @@ function endMinigame() {
     clearInterval(currentMinigame.noteInterval);
     clearInterval(currentMinigame.countdownInterval);
     clearNotes();
+
+    // Reveal the close button now that the game has ended
+    const closeBtn = document.querySelector('.close-minigame');
+    if (closeBtn) closeBtn.style.display = 'block';
     
     // FIX: Safety check
     if (currentMinigame.cowIndex >= gameState.cows.length) return;
@@ -400,7 +404,7 @@ function closeMinigame() {
 // Mobile-optimized minigame functions
 function startMinigame(cowIndex) {
     if (cowIndex >= gameState.cows.length) return; // FIX: Safety check
-    
+
     const cow = gameState.cows[cowIndex];
     cow.currentGameType = getRandomGameType();
     const overlay = document.getElementById('minigameOverlay');
@@ -411,7 +415,11 @@ function startMinigame(cowIndex) {
     
     title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.currentGameType.toUpperCase()} Challenge!`;
     instructions.textContent = getGameInstructions(cow.currentGameType);
-    
+
+    // Hide the close button until the game is finished
+    const closeBtn = document.querySelector('.close-minigame');
+    if (closeBtn) closeBtn.style.display = 'none';
+
     overlay.style.display = 'block';
     startRhythmGame(cowIndex);
     
