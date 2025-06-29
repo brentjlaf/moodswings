@@ -1558,6 +1558,52 @@ function closeMinigame() {
     if (overlay) overlay.style.display = 'none';
 }
 
+function showLegend() {
+    const legend = document.getElementById('minigameLegend');
+    if (!legend) return;
+
+    if (!legend.dataset.built && rhythmPatterns.noteStyles) {
+        legend.innerHTML = '';
+        Object.entries(rhythmPatterns.noteStyles).forEach(([type, style]) => {
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+
+            const icon = document.createElement('div');
+            icon.className = 'legend-note';
+            icon.style.background = style.color;
+            icon.style.borderColor = style.border;
+
+            const desc = document.createElement('div');
+            const effect = style.effect ? style.effect : 'normal';
+            desc.className = 'legend-desc';
+            desc.textContent = `+${style.points} pts • ${effect}`;
+
+            item.appendChild(icon);
+            item.appendChild(desc);
+            legend.appendChild(item);
+        });
+
+        legend.dataset.built = 'true';
+    }
+
+    legend.style.display = 'grid';
+}
+
+function hideLegend() {
+    const legend = document.getElementById('minigameLegend');
+    if (legend) legend.style.display = 'none';
+}
+
+function toggleLegend() {
+    const legend = document.getElementById('minigameLegend');
+    if (!legend) return;
+    if (legend.style.display === 'none' || legend.style.display === '') {
+        showLegend();
+    } else {
+        hideLegend();
+    }
+}
+
 // Mobile-optimized minigame functions
 function startMinigame(cowIndex) {
     if (cowIndex >= gameState.cows.length) return; // FIX: Safety check
