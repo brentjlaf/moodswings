@@ -500,6 +500,18 @@ body {
     margin-bottom: 10px;
 }
 
+.countdown-clock {
+    font-size: 1.2em;
+    font-weight: 800;
+    color: #8B4513;
+    background: #FFF8DC;
+    border: 2px solid #8B4513;
+    border-radius: 10px;
+    padding: 5px 10px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
 .rhythm-game {
     /* flex: 1; */
     display: flex;
