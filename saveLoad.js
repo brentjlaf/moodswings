@@ -141,8 +141,11 @@ function resetGameData() {
         // Remove any saved data so a fresh game starts on reload
         localStorage.removeItem(SAVE_KEY);
 
-        // Reset to initial state
-        gameState = {
+        // Reset properties of existing gameState object instead of reassigning
+        Object.keys(gameState).forEach(key => delete gameState[key]);
+        
+        // Set the initial values
+        Object.assign(gameState, {
             coins: 100,
             milk: 0,
             day: 1,
@@ -180,7 +183,7 @@ function resetGameData() {
             playerID: generateDeviceID(),
             lastSaved: null,
             gameVersion: "2.1"
-        };
+        });
         
         // Clear memory backup
         delete window.gameDataBackup;
