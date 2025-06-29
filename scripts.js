@@ -345,6 +345,26 @@ function applyUpgradeEffects(item) {
             case 'happiness_boost':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.happinessBoost = effectValue;
+                const boost = typeof effectValue === 'number' ? effectValue : 20;
+                gameState.cows.forEach(cow => {
+                    cow.happinessLevel = Math.min(
+                        GAME_CONFIG.HAPPINESS.level_max,
+                        cow.happinessLevel + boost
+                    );
+                    refreshCowMood(cow);
+                });
+                break;
+
+            case 'happiness_bonus':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.happinessBonus = effectValue;
+                gameState.cows.forEach(cow => {
+                    cow.happinessLevel = Math.min(
+                        GAME_CONFIG.HAPPINESS.level_max,
+                        cow.happinessLevel * (1 + effectValue)
+                    );
+                    refreshCowMood(cow);
+                });
                 break;
                 
             case 'rhythm_speed_bonus':
@@ -525,6 +545,17 @@ function renderCows() {
 }
 
 // Reduce each cow's happiness over time
+// Helper to sync mood-related fields after changing happiness
+function refreshCowMood(cow) {
+    cow.moodValue = cow.happinessLevel;
+    const segmentSize = 100 / cow.moods.length;
+    const moodIndex = Math.min(cow.moods.length - 1,
+        Math.floor(cow.moodValue / segmentSize));
+    cow.currentMood = cow.moods[moodIndex];
+    cow.isHappy = cow.moodValue >= 70;
+    cow.lastHappinessUpdate = Date.now();
+}
+
 function updateCowHappiness(cow) {
     const now = Date.now();
     const hours = (now - (cow.lastHappinessUpdate || now)) / 3600000;
@@ -535,13 +566,7 @@ function updateCowHappiness(cow) {
         GAME_CONFIG.HAPPINESS.level_min,
         cow.happinessLevel - decayAmount
     );
-    cow.moodValue = cow.happinessLevel;
-    const segmentSize = 100 / cow.moods.length;
-    const moodIndex = Math.min(cow.moods.length - 1,
-        Math.floor(cow.moodValue / segmentSize));
-    cow.currentMood = cow.moods[moodIndex];
-    cow.isHappy = cow.moodValue >= 70;
-    cow.lastHappinessUpdate = now;
+    refreshCowMood(cow);
 }
 
 function updateAllCowHappiness() {
@@ -1604,6 +1629,9 @@ function updateDisplay() {
 
     // Refresh shop buttons, etc.
     renderShop();
+
+    // Ensure cow grid reflects latest mood values
+    renderCows();
 }
 
 // Backward compatibility function to migrate old saves
