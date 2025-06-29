@@ -89,8 +89,8 @@ const GAME_CONFIG = {
         level_max: 100,
         success_bonus: 20,
         failure_penalty: 10,
-        // Mood decreases by 5% of the current value every hour
-        decay_rate_percent: 0.05
+        // Mood decreases by about 3% of the current value every hour
+        decay_rate_percent: 0.03
     },
 
     HAPPINESS_UPDATE_INTERVAL: 3600000, // 1 hour
