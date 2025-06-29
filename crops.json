@@ -109,7 +109,7 @@
       "emoji": "\uD83C\uDF83",
       "cost": 150,
       "value": 300,
-      "growTime": 120000,
+      "growTime": 150000,
       "rarity": "rare",
       "unlockCondition": {
         "type": "totalCoins",
