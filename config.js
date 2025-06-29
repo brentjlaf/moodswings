@@ -43,7 +43,7 @@ const GAME_CONFIG = {
         },
         cowbell: {
             happiness_threshold: 0.2, // Higher chance of starting happy
-            happiness_bonus: 51 // Starting happiness level minimum
+            happiness_bonus: 40 // Starting happiness level minimum
         }
     },
 
