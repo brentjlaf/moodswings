@@ -137,7 +137,7 @@
       "maxLevel": 99,
       "effects": {
         "action_speed_boost": 0.2,
-        "duration": 1800000
+        "duration": 1200000
       },
       "unlockCondition": {
         "type": "day",
