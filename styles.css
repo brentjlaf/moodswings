@@ -335,6 +335,21 @@ body {
     gap: 12px;
 }
 
+/* Shop tab layout */
+.shop-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.shop-category-section {
+    background: linear-gradient(145deg, #F0F8FF, #E6F3FF);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
 .shop-item {
     background: linear-gradient(145deg, #F0F8FF, #E6F3FF);
     border-radius: 15px;

@@ -205,19 +205,22 @@ function checkShopUnlockCondition(item) {
 
 // Dynamic shop rendering with categories
 function renderShop() {
-    const shopGrid = document.querySelector('.shop-grid');
-    if (!shopGrid || !shopData.categories) return;
-    
-    shopGrid.innerHTML = '';
-    
+    const categoriesContainer = document.querySelector('#shopCategories');
+    if (!categoriesContainer || !shopData.categories) return;
+
+    categoriesContainer.innerHTML = '';
+
     shopData.categories.forEach(category => {
         // Get items for this category that are unlocked
-        const categoryItems = shopData.items.filter(item => 
+        const categoryItems = shopData.items.filter(item =>
             item.category === category.id && checkShopUnlockCondition(item)
         );
-        
+
         if (categoryItems.length === 0) return;
-        
+
+        const section = document.createElement('div');
+        section.className = 'shop-category-section';
+
         // Add category header
         const categoryHeader = document.createElement('div');
         categoryHeader.className = 'shop-category-header';
@@ -227,8 +230,11 @@ function renderShop() {
             </h3>
             <p class="shop-category-desc">${category.description}</p>
         `;
-        shopGrid.appendChild(categoryHeader);
-        
+        section.appendChild(categoryHeader);
+
+        const itemGrid = document.createElement('div');
+        itemGrid.className = 'shop-grid';
+
         // Add items for this category
         categoryItems.forEach(item => {
             const shopItem = document.createElement('div');
@@ -260,8 +266,11 @@ function renderShop() {
                 </button>
             `;
             
-            shopGrid.appendChild(shopItem);
+            itemGrid.appendChild(shopItem);
         });
+
+        section.appendChild(itemGrid);
+        categoriesContainer.appendChild(section);
     });
 }
 
