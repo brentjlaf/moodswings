@@ -10,6 +10,12 @@ let currentMinigame = {
     maxCombo: 0
 };
 
+function getRandomGameType() {
+    const types = rhythmPatterns.rhythmTypes ? Object.keys(rhythmPatterns.rhythmTypes) : [];
+    if (types.length === 0) return 'smooth';
+    return types[Math.floor(Math.random() * types.length)];
+}
+
 function startRhythmGame(cowIndex) {
     currentMinigame.cowIndex = cowIndex;
     currentMinigame.score = 0;
@@ -29,7 +35,7 @@ function startRhythmGame(cowIndex) {
     const countdownEl = document.getElementById('countdownClock');
     if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
 
-    const speed = getGameSpeed(cow.gameType);
+    const speed = getGameSpeed(cow.currentGameType || cow.gameType);
 
     clearNotes();
 
@@ -100,8 +106,9 @@ function spawnNote() {
     const cow = gameState.cows[currentMinigame.cowIndex];
     let noteType = 'normal';
     
-    if (rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[cow.gameType]) {
-        const patternData = rhythmPatterns.rhythmTypes[cow.gameType];
+    const type = cow.currentGameType || cow.gameType;
+    if (rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[type]) {
+        const patternData = rhythmPatterns.rhythmTypes[type];
         if (patternData.noteTypes && patternData.noteTypes.length > 0) {
             noteType = patternData.noteTypes[Math.floor(Math.random() * patternData.noteTypes.length)];
         }
@@ -395,14 +402,15 @@ function startMinigame(cowIndex) {
     if (cowIndex >= gameState.cows.length) return; // FIX: Safety check
     
     const cow = gameState.cows[cowIndex];
+    cow.currentGameType = getRandomGameType();
     const overlay = document.getElementById('minigameOverlay');
     const title = document.getElementById('minigameTitle');
     const instructions = document.getElementById('minigameInstructions');
     
     if (!overlay || !title || !instructions) return;
     
-    title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.gameType.toUpperCase()} Challenge!`;
-    instructions.textContent = getGameInstructions(cow.gameType);
+    title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.currentGameType.toUpperCase()} Challenge!`;
+    instructions.textContent = getGameInstructions(cow.currentGameType);
     
     overlay.style.display = 'block';
     startRhythmGame(cowIndex);

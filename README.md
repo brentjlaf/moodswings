@@ -24,9 +24,8 @@ rhythm-patterns.json  Rhythm game patterns
 
 ## Editing Content
 Modify the JSON files to add new cows, crops, shop items or rhythm patterns. Refresh the page to load your changes.
-
 ## Basic Gameplay
-- Tap a cow to play its rhythm game and earn rewards.
+- Tap a cow to play a randomly selected rhythm game and earn rewards.
 - Plant and harvest crops for additional income.
 - Spend coins or milk on upgrades in the shop.
 - Unlock more content as you progress through the days.
