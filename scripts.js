@@ -476,14 +476,22 @@ function renderCows() {
         const moodClass         = cow.isHappy ? 'cow-mood cow-mood-happy' : 'cow-mood cow-mood-sad';
         const moodValueDisplay  = Math.round(cow.moodValue);
 
+        const isMaxHappy = cow.happinessLevel >= 100;
+        const buttonText = !cow.isHappy
+            ? 'Cheer Up!'
+            : isMaxHappy
+                ? 'Max Happy!'
+                : 'Keep Happy!';
+        const disabledAttr = isMaxHappy ? 'disabled' : '';
+
         cowCard.innerHTML = `
             <div class="cow-icon">${cow.emoji}</div>
             <div class="cow-name">${cow.name}</div>
             <div class="${moodClass}">
                 ${heartIcon} ${cow.currentMood} (${moodValueDisplay})
             </div>
-            <button class="mood-button" onclick="startMinigame(${idx})">
-                ${cow.isHappy ? 'Keep Happy!' : 'Cheer Up!'}
+            <button class="mood-button" onclick="startMinigame(${idx})" ${disabledAttr}>
+                ${buttonText}
             </button>
         `;
         grid.appendChild(cowCard);
