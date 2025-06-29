@@ -137,7 +137,7 @@ const FARM_TIPS = [
     "Golden cowbell makes cows start happier each day!",
     "Build combos in rhythm games for bonus points!",
     "Secret cows have special unlock conditions!",
-    "Export your save file as backup!",
+    "Auto-save keeps your progress safe!",
     "Watch the unlock progress in the stats tab!",
     "Try different rhythm strategies for each cow!",
     "Timing gets easier with pitchfork upgrades!"

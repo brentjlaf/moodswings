@@ -1425,13 +1425,6 @@ body {
     background: linear-gradient(145deg, #32CD32, #228B22);
 }
 
-.save-button-export {
-    background: linear-gradient(145deg, #4169E1, #0000CD);
-}
-
-.save-button-import {
-    background: linear-gradient(145deg, #FF8C00, #FF6347);
-}
 
 .save-button-reset {
     background: linear-gradient(145deg, #DC143C, #B22222);
@@ -1486,9 +1479,6 @@ body {
     box-shadow: 0 4px 15px rgba(50,205,50,0.3);
 }
 
-.save-button-grid-no-margin {
-    margin-bottom: 0;
-}
 
 .debug-container {
     background: linear-gradient(145deg, #FFE4E1, #FFF0F5);
