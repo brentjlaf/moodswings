@@ -234,7 +234,7 @@
       "description": "Automatically waters crops!",
       "icon": "\uD83D\uDCA7",
       "category": "tools",
-      "cost": 600,
+      "cost": 800,
       "maxLevel": 1,
       "effects": {
         "auto_water": true,
