@@ -149,7 +149,7 @@ body {
 .cows-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 2px;
 }
 
 .cow-card {
@@ -833,7 +833,7 @@ body {
         font-size: 1.2em;
     }
     .cows-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
     .crops-grid {
         grid-template-columns: repeat(3, 1fr);
