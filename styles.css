@@ -1338,31 +1338,29 @@ body {
 }
 
 .achievement-item-common {
-    background: #90EE90;
+     background: #fff; 
     border: 2px solid #32CD32;
 }
 
 .achievement-item-uncommon {
-    background: #87CEEB;
+     background: #fff; 
     border: 2px solid #4169E1;
 }
 
 .achievement-item-rare {
-    background: #DDA0DD;
+     background: #fff; 
     border: 2px solid #8B008B;
-    box-shadow: 0 0 10px #8B008B;
+    /* box-shadow: 0 0 10px #8B008B; */
 }
 
 .achievement-item-epic {
-    background: #FFD700;
+     background: #fff; 
     border: 2px solid #FF8C00;
-    box-shadow: 0 0 10px #FFD700;
 }
 
 .achievement-item-legendary {
-    background: #FF69B4;
+     background: #fff; 
     border: 2px solid #FF1493;
-    box-shadow: 0 0 10px #FF69B4;
 }
 
 .achievement-item-icon {
