@@ -1146,14 +1146,17 @@ function startRhythmGame(cowIndex) {
     currentMinigame.score = 0;
     currentMinigame.combo = 0;
     currentMinigame.maxCombo = 0;
-    currentMinigame.target = 80 + (gameState.day * 15);
+    const cow = gameState.cows[cowIndex];
+    currentMinigame.target =
+        GAME_CONFIG.BASE_TARGET_SCORE +
+        (gameState.day * GAME_CONFIG.TARGET_SCORE_INCREASE_PER_DAY) +
+        Math.floor(cow.happinessLevel * GAME_CONFIG.TARGET_SCORE_HAPPINESS_FACTOR);
     currentMinigame.gameActive = true;
-    
+
     document.getElementById('currentScore').textContent = '0';
     document.getElementById('targetScore').textContent = currentMinigame.target;
     document.getElementById('comboCount').textContent = '0';
-    
-    const cow = gameState.cows[cowIndex];
+
     const speed = getGameSpeed(cow.gameType);
     
     clearNotes();
