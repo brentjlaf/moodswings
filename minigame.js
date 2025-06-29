@@ -271,6 +271,7 @@ function endMinigame() {
     
     const cow = gameState.cows[currentMinigame.cowIndex];
     const success = currentMinigame.score >= currentMinigame.target;
+    let resultMessage = '';
     
 // --- INSERT MOOD-BUMP HERE -------------------------------
   // Adjust mood based on how well or poorly the minigame went
@@ -345,13 +346,15 @@ function endMinigame() {
             gameState.stats.totalPerfectScores++;
             gameState.stats.currentPerfectStreak++;
             gameState.stats.perfectStreak = Math.max(gameState.stats.perfectStreak, gameState.stats.currentPerfectStreak);
-            
+
             milkReward += 25;
             coinReward += 35;
+            resultMessage = `🎉 PERFECT! ${cow.name} is ecstatic!<br>+${milkReward} milk, +${coinReward} coins!<br>Max Combo: ${currentMinigame.maxCombo}`;
             showToast(`🎉 PERFECT! ${cow.name} is ecstatic!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
         } else {
             gameState.stats.currentPerfectStreak = 0; // Reset streak
+            resultMessage = `🎉 Success! ${cow.name} is happy!<br>+${milkReward} milk, +${coinReward} coins!<br>Max Combo: ${currentMinigame.maxCombo}`;
             showToast(`🎉 Success! ${cow.name} is happy!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
@@ -378,7 +381,8 @@ function endMinigame() {
         gameState.coins = Math.max(0, gameState.coins - coinLoss);
         cow.isHappy = false;
         cow.happinessLevel = Math.max(1, cow.happinessLevel - 10);
-        
+
+        resultMessage = `😤 ${cow.name} is not impressed!<br>-${coinLoss} coins.<br>Max Combo: ${currentMinigame.maxCombo}`;
         showToast(`😤 ${cow.name} is not impressed! -${coinLoss} coins.\nMax Combo: ${currentMinigame.maxCombo}`, 'failure');
         if (navigator.vibrate) navigator.vibrate(300);
     }
@@ -387,17 +391,35 @@ function endMinigame() {
     updateBulletin();
     renderCows();
     checkAchievements(); // Check for new achievements
-    
+
     // Auto-save after minigame
     if (success || gameState.stats.totalPerfectScores > 0) {
         saveGameState();
         updateSaveInfo();
     }
+
+    showMinigameResult(resultMessage);
 }
 
 function clearNotes() {
     const notes = document.querySelectorAll('.rhythm-note');
     notes.forEach(note => note.remove());
+}
+
+function showMinigameResult(message) {
+    const popup = document.getElementById('minigameResultPopup');
+    if (!popup) return;
+
+    popup.innerHTML = `
+        <button class="close-result" onclick="closeResultPopup()">&#x274C;</button>
+        <div class="result-text">${message}</div>
+    `;
+    popup.style.display = 'block';
+}
+
+function closeResultPopup() {
+    const popup = document.getElementById('minigameResultPopup');
+    if (popup) popup.style.display = 'none';
 }
 
 function closeMinigame() {
@@ -406,6 +428,7 @@ function closeMinigame() {
     }
     const overlay = document.getElementById('minigameOverlay');
     if (overlay) overlay.style.display = 'none';
+    closeResultPopup();
 
     // Ensure any mood changes are reflected once the overlay closes
     updateDisplay();
