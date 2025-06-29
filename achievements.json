@@ -91,7 +91,7 @@
     {
       "id": "crop_master",
       "name": "Harvest King",
-      "description": "Harvest 200 crops",4 sec
+      "description": "Harvest 200 crops",
       "icon": "\uD83C\uDF3E",
       "category": "farming",
       "condition": { "type": "cropsHarvested", "target": 200 },
