@@ -71,7 +71,7 @@
       "description": "Double milk production!",
       "icon": "\uD83C\uDFE0",
       "category": "buildings",
-      "cost": 300,
+      "cost": 450,
       "currency": "milk",
       "maxLevel": 1,
       "effects": {
