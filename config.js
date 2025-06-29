@@ -49,7 +49,7 @@ const GAME_CONFIG = {
 
     // Timing tolerances for rhythm game
     RHYTHM_TOLERANCES: {
-        perfect: 40, // pixels
+        perfect: 30, // pixels
         good: 80,
         okay: 120
     },
