@@ -58,7 +58,7 @@
       "description": "Perfect timing assistance!",
       "icon": "\uD83C\uDFB5",
       "category": "tools",
-      "cost": 150,
+      "cost": 200,
       "maxLevel": 1,
       "effects": {
         "rhythm_speed_bonus": 0.3
