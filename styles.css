@@ -746,6 +746,35 @@ body {
     animation: achievementPulse 2s infinite;
 }
 
+.result-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 1003;
+    max-width: 85%;
+    text-align: center;
+    display: none;
+    touch-action: none;
+    border: 3px solid #8B4513;
+}
+
+.close-result {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    color: #8B4513;
+    font-size: 1.2em;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .close-achievement {
     position: absolute;
     top: 5px;
