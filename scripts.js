@@ -1078,6 +1078,7 @@ function showAchievementUnlock(achievement) {
     
     popup.className = `achievement-popup achievement-${rarity}`;
     popup.innerHTML = `
+        <button class="close-achievement" onclick="closeAchievementPopup()">&#x274C;</button>
         <div class="achievement-title">Achievement Unlocked!</div>
         <div class="achievement-icon-name">
             ${achievement.icon} ${achievement.name}
@@ -1106,6 +1107,13 @@ function showAchievementUnlock(achievement) {
             legendary: [500, 200, 500, 200, 500, 200, 500]
         };
         navigator.vibrate(vibrationPatterns[rarity] || [100]);
+    }
+}
+
+function closeAchievementPopup() {
+    const popup = document.getElementById('achievementPopup');
+    if (popup) {
+        popup.style.display = 'none';
     }
 }
 

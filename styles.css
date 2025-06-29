@@ -738,6 +738,18 @@ body {
     animation: achievementPulse 2s infinite;
 }
 
+.close-achievement {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .achievement-title {
     font-family: 'Montserrat', sans-serif;
     color: #8B4513;
