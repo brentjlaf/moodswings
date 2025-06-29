@@ -91,7 +91,7 @@
     {
       "id": "crop_master",
       "name": "Harvest King",
-      "description": "Harvest 200 crops",
+      "description": "Harvest 200 crops",4 sec
       "icon": "\uD83C\uDF3E",
       "category": "farming",
       "condition": { "type": "cropsHarvested", "target": 200 },
@@ -211,10 +211,10 @@
     {
       "id": "speed_demon",
       "name": "Speed Demon",
-      "description": "Win a rhythm game in under 4 seconds",
+      "description": "Win a rhythm game in under 10 seconds",
       "icon": "\u26A1",
       "category": "special",
-      "condition": { "type": "fastWin", "target": 4000 },
+      "condition": { "type": "fastWin", "target": 10000 },
       "reward": { "coins": 200, "message": "Lightning fast reflexes!" },
       "rarity": "rare"
     },
