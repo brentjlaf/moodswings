@@ -1,249 +1,1256 @@
 {
   "categories": [
-    { "id": "production", "name": "Production Master", "description": "Achievements for milk and coin production" },
-    { "id": "farming", "name": "Farming Expert", "description": "Achievements for crop growing and harvesting" },
-    { "id": "rhythm", "name": "Rhythm Virtuoso", "description": "Achievements for rhythm game mastery" },
-    { "id": "collection", "name": "Cow Collector", "description": "Achievements for unlocking and managing cows" },
-    { "id": "progression", "name": "Farm Progression", "description": "Achievements for general game progress" },
-    { "id": "special", "name": "Special Events", "description": "Rare and challenging achievements" }
+    {
+      "id": "production",
+      "name": "Production Master",
+      "description": "Achievements for milk and coin production"
+    },
+    {
+      "id": "farming",
+      "name": "Farming Expert",
+      "description": "Achievements for crop growing and harvesting"
+    },
+    {
+      "id": "rhythm",
+      "name": "Rhythm Virtuoso",
+      "description": "Achievements for rhythm game mastery"
+    },
+    {
+      "id": "collection",
+      "name": "Cow Collector",
+      "description": "Achievements for unlocking and managing cows"
+    },
+    {
+      "id": "progression",
+      "name": "Farm Progression",
+      "description": "Achievements for general game progress"
+    },
+    {
+      "id": "special",
+      "name": "Special Events",
+      "description": "Rare and challenging achievements"
+    }
   ],
   "achievements": [
     {
       "id": "first_milk",
       "name": "First Drop",
       "description": "Produce your first milk!",
-      "icon": "\uD83E\uDD5B",
+      "icon": "\ud83e\udd5b",
       "category": "production",
-      "condition": { "type": "totalMilk", "target": 1 },
-      "reward": { "coins": 25, "message": "Welcome to dairy farming!" },
+      "condition": {
+        "type": "totalMilk",
+        "target": 1
+      },
+      "reward": {
+        "coins": 25,
+        "message": "Welcome to dairy farming!"
+      },
       "rarity": "common"
     },
     {
       "id": "milk_master",
       "name": "Milk Master",
       "description": "Produce 1,000 total milk",
-      "icon": "\uD83D\uDC04",
+      "icon": "\ud83d\udc04",
       "category": "production",
-      "condition": { "type": "totalMilk", "target": 1000 },
-      "reward": { "coins": 200, "milk": 50, "message": "You're a true dairy expert!" },
+      "condition": {
+        "type": "totalMilk",
+        "target": 1000
+      },
+      "reward": {
+        "coins": 200,
+        "milk": 50,
+        "message": "You're a true dairy expert!"
+      },
       "rarity": "uncommon"
     },
     {
       "id": "milk_champion",
       "name": "Milk Champion",
       "description": "Produce 5,000 total milk",
-      "icon": "\uD83C\uDFC6",
+      "icon": "\ud83c\udfc6",
       "category": "production",
-      "condition": { "type": "totalMilk", "target": 5000 },
-      "reward": { "coins": 350, "milk": 75, "message": "Champion of the dairy!" },
+      "condition": {
+        "type": "totalMilk",
+        "target": 5000
+      },
+      "reward": {
+        "coins": 350,
+        "milk": 75,
+        "message": "Champion of the dairy!"
+      },
       "rarity": "rare"
     },
     {
       "id": "milk_legend",
       "name": "Dairy Legend",
       "description": "Produce 20,000 total milk",
-      "icon": "\uD83D\uDC51",
+      "icon": "\ud83d\udc51",
       "category": "production",
-      "condition": { "type": "totalMilk", "target": 20000 },
-      "reward": { "coins": 500, "milk": 100, "special_effect": "milk_boost_permanent", "message": "Legendary dairy mastery achieved!" },
+      "condition": {
+        "type": "totalMilk",
+        "target": 20000
+      },
+      "reward": {
+        "coins": 500,
+        "milk": 100,
+        "special_effect": "milk_boost_permanent",
+        "message": "Legendary dairy mastery achieved!"
+      },
       "rarity": "legendary"
     },
     {
       "id": "coin_collector",
       "name": "Coin Collector",
       "description": "Earn 2,000 total coins",
-      "icon": "\uD83D\uDCB0",
+      "icon": "\ud83d\udcb0",
       "category": "production",
-      "condition": { "type": "totalCoins", "target": 2000 },
-      "reward": { "coins": 300, "message": "Your wallet is getting heavy!" },
+      "condition": {
+        "type": "totalCoins",
+        "target": 2000
+      },
+      "reward": {
+        "coins": 300,
+        "message": "Your wallet is getting heavy!"
+      },
       "rarity": "common"
     },
     {
       "id": "wealthy_farmer",
       "name": "Wealthy Farmer",
       "description": "Earn 10,000 total coins",
-      "icon": "\uD83E\uDD11",
+      "icon": "\ud83e\udd11",
       "category": "production",
-      "condition": { "type": "totalCoins", "target": 10000 },
-      "reward": { "coins": 600, "special_effect": "coin_boost_permanent", "message": "You're swimming in coins!" },
+      "condition": {
+        "type": "totalCoins",
+        "target": 10000
+      },
+      "reward": {
+        "coins": 600,
+        "special_effect": "coin_boost_permanent",
+        "message": "You're swimming in coins!"
+      },
       "rarity": "rare"
     },
     {
       "id": "coin_tycoon",
       "name": "Coin Tycoon",
       "description": "Earn 50,000 total coins",
-      "icon": "\uD83C\uDFE6",
+      "icon": "\ud83c\udfe6",
       "category": "production",
-      "condition": { "type": "totalCoins", "target": 50000 },
-      "reward": { "coins": 1000, "message": "Tycoon status!" },
+      "condition": {
+        "type": "totalCoins",
+        "target": 50000
+      },
+      "reward": {
+        "coins": 1000,
+        "message": "Tycoon status!"
+      },
       "rarity": "legendary"
     },
     {
       "id": "first_harvest",
       "name": "Green Thumb",
       "description": "Harvest your first crop",
-      "icon": "\uD83C\uDF31",
+      "icon": "\ud83c\udf31",
       "category": "farming",
-      "condition": { "type": "cropsHarvested", "target": 1 },
-      "reward": { "coins": 20, "message": "Your farming journey begins!" },
+      "condition": {
+        "type": "cropsHarvested",
+        "target": 1
+      },
+      "reward": {
+        "coins": 20,
+        "message": "Your farming journey begins!"
+      },
       "rarity": "common"
     },
     {
       "id": "crop_master",
       "name": "Harvest King",
       "description": "Harvest 200 crops",
-      "icon": "\uD83C\uDF3E",
+      "icon": "\ud83c\udf3e",
       "category": "farming",
-      "condition": { "type": "cropsHarvested", "target": 200 },
-      "reward": { "coins": 300, "special_effect": "crop_growth_boost", "message": "The crops bow to your expertise!" },
+      "condition": {
+        "type": "cropsHarvested",
+        "target": 200
+      },
+      "reward": {
+        "coins": 300,
+        "special_effect": "crop_growth_boost",
+        "message": "The crops bow to your expertise!"
+      },
       "rarity": "rare"
     },
     {
       "id": "rainbow_farmer",
       "name": "Rainbow Farmer",
       "description": "Harvest 20 rainbow crops",
-      "icon": "\uD83C\uDF08",
+      "icon": "\ud83c\udf08",
       "category": "farming",
-      "condition": { "type": "cropTypeHarvested", "target": 20, "cropType": "rainbow" },
-      "reward": { "coins": 500, "message": "You've mastered the magical harvest!" },
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 20,
+        "cropType": "rainbow"
+      },
+      "reward": {
+        "coins": 500,
+        "message": "You've mastered the magical harvest!"
+      },
       "rarity": "epic"
     },
     {
       "id": "perfect_score",
       "name": "Perfect Pitch",
       "description": "Get your first perfect score!",
-      "icon": "\uD83C\uDFAF",
+      "icon": "\ud83c\udfaf",
       "category": "rhythm",
-      "condition": { "type": "perfectScores", "target": 1 },
-      "reward": { "coins": 50, "message": "Flawless rhythm!" },
+      "condition": {
+        "type": "perfectScores",
+        "target": 1
+      },
+      "reward": {
+        "coins": 50,
+        "message": "Flawless rhythm!"
+      },
       "rarity": "common"
     },
     {
       "id": "rhythm_master",
       "name": "Rhythm Master",
       "description": "Get 50 perfect scores",
-      "icon": "\uD83E\uDD41",
+      "icon": "\ud83e\udd41",
       "category": "rhythm",
-      "condition": { "type": "perfectScores", "target": 50 },
-      "reward": { "coins": 500, "special_effect": "rhythm_tolerance_boost", "message": "Your timing is legendary!" },
+      "condition": {
+        "type": "perfectScores",
+        "target": 50
+      },
+      "reward": {
+        "coins": 500,
+        "special_effect": "rhythm_tolerance_boost",
+        "message": "Your timing is legendary!"
+      },
       "rarity": "epic"
     },
     {
       "id": "combo_king",
       "name": "Combo King",
       "description": "Achieve a 100-hit combo",
-      "icon": "\uD83C\uDFAE",
+      "icon": "\ud83c\udfae",
       "category": "rhythm",
-      "condition": { "type": "maxCombo", "target": 100 },
-      "reward": { "coins": 300, "message": "Unstoppable rhythm chain!" },
+      "condition": {
+        "type": "maxCombo",
+        "target": 100
+      },
+      "reward": {
+        "coins": 300,
+        "message": "Unstoppable rhythm chain!"
+      },
       "rarity": "rare"
     },
     {
       "id": "first_cow",
       "name": "Cow Whisperer",
       "description": "Make your first cow happy",
-      "icon": "\uD83D\uDC2E",
+      "icon": "\ud83d\udc2e",
       "category": "collection",
-      "condition": { "type": "cowsHappy", "target": 1 },
-      "reward": { "coins": 30, "message": "The cows love you!" },
+      "condition": {
+        "type": "cowsHappy",
+        "target": 1
+      },
+      "reward": {
+        "coins": 30,
+        "message": "The cows love you!"
+      },
       "rarity": "common"
     },
     {
       "id": "cow_collector",
       "name": "Cow Collector",
       "description": "Unlock 10 different cows",
-      "icon": "\uD83D\uDC04",
+      "icon": "\ud83d\udc04",
       "category": "collection",
-      "condition": { "type": "cowsUnlocked", "target": 10 },
-      "reward": { "coins": 400, "message": "Your herd is growing!" },
+      "condition": {
+        "type": "cowsUnlocked",
+        "target": 10
+      },
+      "reward": {
+        "coins": 400,
+        "message": "Your herd is growing!"
+      },
       "rarity": "uncommon"
     },
     {
       "id": "happiness_guru",
       "name": "Happiness Guru",
       "description": "Make all cows happy at once",
-      "icon": "\uD83D\uDE04",
+      "icon": "\ud83d\ude04",
       "category": "collection",
-      "condition": { "type": "allCowsHappy", "target": 1, "minimumCows": 10 },
-      "reward": { "coins": 800, "special_effect": "happiness_aura", "message": "Pure bovine bliss achieved!" },
+      "condition": {
+        "type": "allCowsHappy",
+        "target": 1,
+        "minimumCows": 10
+      },
+      "reward": {
+        "coins": 800,
+        "special_effect": "happiness_aura",
+        "message": "Pure bovine bliss achieved!"
+      },
       "rarity": "legendary"
     },
     {
       "id": "secret_finder",
       "name": "Secret Finder",
       "description": "Unlock 3 secret cows",
-      "icon": "\uD83D\uDD75\uFE0F",
+      "icon": "\ud83d\udd75\ufe0f",
       "category": "collection",
-      "condition": { "type": "secretCowsUnlocked", "target": 3 },
-      "reward": { "coins": 600, "message": "You found the hidden treasures!" },
+      "condition": {
+        "type": "secretCowsUnlocked",
+        "target": 3
+      },
+      "reward": {
+        "coins": 600,
+        "message": "You found the hidden treasures!"
+      },
       "rarity": "epic"
     },
     {
       "id": "veteran_farmer",
       "name": "Veteran Farmer",
       "description": "Survive 20 days on the farm",
-      "icon": "\uD83C\uDF96\uFE0F",
+      "icon": "\ud83c\udf96\ufe0f",
       "category": "progression",
-      "condition": { "type": "day", "target": 20 },
-      "reward": { "coins": 600, "message": "You're a farming veteran!" },
+      "condition": {
+        "type": "day",
+        "target": 20
+      },
+      "reward": {
+        "coins": 600,
+        "message": "You're a farming veteran!"
+      },
       "rarity": "uncommon"
     },
     {
       "id": "farm_legend",
       "name": "Farm Legend",
       "description": "Reach day 60",
-      "icon": "\uD83C\uDF1F",
+      "icon": "\ud83c\udf1f",
       "category": "progression",
-      "condition": { "type": "day", "target": 60 },
-      "reward": { "coins": 1200, "special_effect": "legend_status", "message": "You are a true farm legend!" },
+      "condition": {
+        "type": "day",
+        "target": 60
+      },
+      "reward": {
+        "coins": 1200,
+        "special_effect": "legend_status",
+        "message": "You are a true farm legend!"
+      },
       "rarity": "legendary"
     },
     {
       "id": "shopaholic",
       "name": "Shopaholic",
       "description": "Purchase 20 different upgrades",
-      "icon": "\uD83D\uDECD\uFE0F",
+      "icon": "\ud83d\udecd\ufe0f",
       "category": "progression",
-      "condition": { "type": "upgradesPurchased", "target": 20 },
-      "reward": { "coins": 400, "message": "You love to shop!" },
+      "condition": {
+        "type": "upgradesPurchased",
+        "target": 20
+      },
+      "reward": {
+        "coins": 400,
+        "message": "You love to shop!"
+      },
       "rarity": "rare"
     },
     {
       "id": "speed_demon",
       "name": "Speed Demon",
       "description": "Win a rhythm game in under 10 seconds",
-      "icon": "\u26A1",
+      "icon": "\u26a1",
       "category": "special",
-      "condition": { "type": "fastWin", "target": 10000 },
-      "reward": { "coins": 200, "message": "Lightning fast reflexes!" },
+      "condition": {
+        "type": "fastWin",
+        "target": 10000
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Lightning fast reflexes!"
+      },
       "rarity": "rare"
     },
     {
       "id": "perfectionist",
       "name": "Perfectionist",
       "description": "Get 20 perfect scores in a row",
-      "icon": "\uD83D\uDCAF",
+      "icon": "\ud83d\udcaf",
       "category": "special",
-      "condition": { "type": "perfectStreak", "target": 20 },
-      "reward": { "coins": 1000, "special_effect": "perfectionist_aura", "message": "Absolute perfection achieved!" },
+      "condition": {
+        "type": "perfectStreak",
+        "target": 20
+      },
+      "reward": {
+        "coins": 1000,
+        "special_effect": "perfectionist_aura",
+        "message": "Absolute perfection achieved!"
+      },
       "rarity": "legendary"
     },
     {
       "id": "midnight_farmer",
       "name": "Midnight Farmer",
       "description": "Play between 12 AM and 6 AM",
-      "icon": "\uD83C\uDF19",
+      "icon": "\ud83c\udf19",
       "category": "special",
-      "condition": { "type": "timeOfDay", "target": "midnight" },
-      "reward": { "coins": 150, "message": "The night shift farmer!" },
+      "condition": {
+        "type": "timeOfDay",
+        "target": "midnight"
+      },
+      "reward": {
+        "coins": 150,
+        "message": "The night shift farmer!"
+      },
       "rarity": "uncommon"
+    },
+    {
+      "id": "milk_prodigy",
+      "name": "Milk Prodigy",
+      "description": "Produce 50,000 total milk",
+      "icon": "\ud83e\udd5b",
+      "category": "production",
+      "condition": {
+        "type": "totalMilk",
+        "target": 50000
+      },
+      "reward": {
+        "coins": 700,
+        "message": "You've become a milk prodigy!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "milk_mogul",
+      "name": "Milk Mogul",
+      "description": "Produce 100,000 total milk",
+      "icon": "\ud83c\udfc5",
+      "category": "production",
+      "condition": {
+        "type": "totalMilk",
+        "target": 100000
+      },
+      "reward": {
+        "coins": 1000,
+        "message": "You're a milk mogul!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "milk_magnate",
+      "name": "Milk Magnate",
+      "description": "Produce 250,000 total milk",
+      "icon": "\ud83c\udfed",
+      "category": "production",
+      "condition": {
+        "type": "totalMilk",
+        "target": 250000
+      },
+      "reward": {
+        "coins": 1500,
+        "message": "Dairy empire grows!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "milk_overlord",
+      "name": "Milk Overlord",
+      "description": "Produce 500,000 total milk",
+      "icon": "\ud83d\udc51",
+      "category": "production",
+      "condition": {
+        "type": "totalMilk",
+        "target": 500000
+      },
+      "reward": {
+        "coins": 2500,
+        "message": "Absolute dairy domination!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "milk_tycoon",
+      "name": "Milk Tycoon",
+      "description": "Produce 1,000,000 total milk",
+      "icon": "\ud83c\udfc6",
+      "category": "production",
+      "condition": {
+        "type": "totalMilk",
+        "target": 1000000
+      },
+      "reward": {
+        "coins": 5000,
+        "message": "Unparalleled milk tycoon!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "coin_specialist",
+      "name": "Coin Specialist",
+      "description": "Earn 25,000 total coins",
+      "icon": "\ud83d\udcb0",
+      "category": "production",
+      "condition": {
+        "type": "totalCoins",
+        "target": 25000
+      },
+      "reward": {
+        "coins": 500,
+        "message": "Specialist of savings!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "rich_farmer",
+      "name": "Rich Farmer",
+      "description": "Earn 100,000 total coins",
+      "icon": "\ud83d\udcb5",
+      "category": "production",
+      "condition": {
+        "type": "totalCoins",
+        "target": 100000
+      },
+      "reward": {
+        "coins": 1500,
+        "message": "You're rolling in riches!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "coin_mogul",
+      "name": "Coin Mogul",
+      "description": "Earn 250,000 total coins",
+      "icon": "\ud83c\udfe6",
+      "category": "production",
+      "condition": {
+        "type": "totalCoins",
+        "target": 250000
+      },
+      "reward": {
+        "coins": 3000,
+        "message": "Coins pour in endlessly!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "coin_king",
+      "name": "Coin King",
+      "description": "Earn 500,000 total coins",
+      "icon": "\ud83d\udc51",
+      "category": "production",
+      "condition": {
+        "type": "totalCoins",
+        "target": 500000
+      },
+      "reward": {
+        "coins": 5000,
+        "message": "Crowned with coinage!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "coin_overlord",
+      "name": "Coin Overlord",
+      "description": "Earn 1,000,000 total coins",
+      "icon": "\ud83e\udd11",
+      "category": "production",
+      "condition": {
+        "type": "totalCoins",
+        "target": 1000000
+      },
+      "reward": {
+        "coins": 10000,
+        "message": "Wealth beyond dreams!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "harvest_hero",
+      "name": "Harvest Hero",
+      "description": "Harvest 1,000 crops",
+      "icon": "\ud83c\udf3e",
+      "category": "farming",
+      "condition": {
+        "type": "cropsHarvested",
+        "target": 1000
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Hero of the harvest!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "bumper_cropper",
+      "name": "Bumper Cropper",
+      "description": "Harvest 5,000 crops",
+      "icon": "\ud83c\udf3d",
+      "category": "farming",
+      "condition": {
+        "type": "cropsHarvested",
+        "target": 5000
+      },
+      "reward": {
+        "coins": 600,
+        "message": "Bumper yields achieved!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "mega_harvester",
+      "name": "Mega Harvester",
+      "description": "Harvest 10,000 crops",
+      "icon": "\ud83d\ude9c",
+      "category": "farming",
+      "condition": {
+        "type": "cropsHarvested",
+        "target": 10000
+      },
+      "reward": {
+        "coins": 1200,
+        "message": "Mega harvest complete!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "crop_god",
+      "name": "Crop God",
+      "description": "Harvest 25,000 crops",
+      "icon": "\ud83c\udfc6",
+      "category": "farming",
+      "condition": {
+        "type": "cropsHarvested",
+        "target": 25000
+      },
+      "reward": {
+        "coins": 2500,
+        "message": "You rule the fields!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "carrot_champion",
+      "name": "Carrot Champion",
+      "description": "Harvest 200 carrots",
+      "icon": "\ud83e\udd55",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 200,
+        "cropType": "carrot"
+      },
+      "reward": {
+        "coins": 150,
+        "message": "Carrot patch superstar!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "corn_commander",
+      "name": "Corn Commander",
+      "description": "Harvest 500 corn",
+      "icon": "\ud83c\udf3d",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 500,
+        "cropType": "corn"
+      },
+      "reward": {
+        "coins": 300,
+        "message": "Commanding the cornfields!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "berry_master",
+      "name": "Berry Master",
+      "description": "Harvest 300 strawberries",
+      "icon": "\ud83c\udf53",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 300,
+        "cropType": "strawberry"
+      },
+      "reward": {
+        "coins": 450,
+        "message": "Berry bounty gathered!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "pumpkin_pro",
+      "name": "Pumpkin Pro",
+      "description": "Harvest 200 pumpkins",
+      "icon": "\ud83c\udf83",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 200,
+        "cropType": "pumpkin"
+      },
+      "reward": {
+        "coins": 600,
+        "message": "Pumpkin patches perfected!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "golden_orchard",
+      "name": "Golden Orchard",
+      "description": "Harvest 50 golden apples",
+      "icon": "\ud83c\udf4f",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 50,
+        "cropType": "golden_apple"
+      },
+      "reward": {
+        "coins": 1200,
+        "message": "Legendary orchard yields!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "rainbow_legend",
+      "name": "Rainbow Legend",
+      "description": "Harvest 200 rainbow crops",
+      "icon": "\ud83c\udf08",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 200,
+        "cropType": "rainbow"
+      },
+      "reward": {
+        "coins": 1500,
+        "message": "Double rainbow greatness!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "beat_beginner",
+      "name": "Beat Beginner",
+      "description": "Get 10 perfect scores",
+      "icon": "\ud83e\udd41",
+      "category": "rhythm",
+      "condition": {
+        "type": "perfectScores",
+        "target": 10
+      },
+      "reward": {
+        "coins": 50,
+        "message": "The rhythm starts flowing!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "beat_veteran",
+      "name": "Beat Veteran",
+      "description": "Get 100 perfect scores",
+      "icon": "\ud83e\udd41",
+      "category": "rhythm",
+      "condition": {
+        "type": "perfectScores",
+        "target": 100
+      },
+      "reward": {
+        "coins": 300,
+        "message": "Veteran of the beat!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "beat_champion",
+      "name": "Beat Champion",
+      "description": "Get 200 perfect scores",
+      "icon": "\ud83e\udd41",
+      "category": "rhythm",
+      "condition": {
+        "type": "perfectScores",
+        "target": 200
+      },
+      "reward": {
+        "coins": 700,
+        "message": "Champion of rhythms!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "beat_legend",
+      "name": "Beat Legend",
+      "description": "Get 500 perfect scores",
+      "icon": "\ud83e\udd41",
+      "category": "rhythm",
+      "condition": {
+        "type": "perfectScores",
+        "target": 500
+      },
+      "reward": {
+        "coins": 1500,
+        "message": "Legendary rhythm skills!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "combo_cadet",
+      "name": "Combo Cadet",
+      "description": "Achieve a 150-hit combo",
+      "icon": "\ud83c\udfb6",
+      "category": "rhythm",
+      "condition": {
+        "type": "maxCombo",
+        "target": 150
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Cadet of combos!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "combo_pro",
+      "name": "Combo Pro",
+      "description": "Achieve a 200-hit combo",
+      "icon": "\ud83c\udfb6",
+      "category": "rhythm",
+      "condition": {
+        "type": "maxCombo",
+        "target": 200
+      },
+      "reward": {
+        "coins": 400,
+        "message": "Combo skills sharpened!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "combo_extreme",
+      "name": "Combo Extreme",
+      "description": "Achieve a 300-hit combo",
+      "icon": "\ud83c\udfb6",
+      "category": "rhythm",
+      "condition": {
+        "type": "maxCombo",
+        "target": 300
+      },
+      "reward": {
+        "coins": 800,
+        "message": "Extreme combo prowess!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "combo_ultimate",
+      "name": "Combo Ultimate",
+      "description": "Achieve a 500-hit combo",
+      "icon": "\ud83c\udfb6",
+      "category": "rhythm",
+      "condition": {
+        "type": "maxCombo",
+        "target": 500
+      },
+      "reward": {
+        "coins": 1500,
+        "message": "Ultimate combo legend!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "streak_fanatic",
+      "name": "Streak Fanatic",
+      "description": "Get a perfect streak of 50",
+      "icon": "\ud83c\udfb5",
+      "category": "rhythm",
+      "condition": {
+        "type": "perfectStreak",
+        "target": 50
+      },
+      "reward": {
+        "coins": 900,
+        "message": "Fanatic level perfection!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "streak_master",
+      "name": "Streak Master",
+      "description": "Get a perfect streak of 100",
+      "icon": "\ud83c\udfb5",
+      "category": "rhythm",
+      "condition": {
+        "type": "perfectStreak",
+        "target": 100
+      },
+      "reward": {
+        "coins": 1800,
+        "message": "Master of perfect streaks!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "big_herd",
+      "name": "Big Herd",
+      "description": "Unlock 20 cows",
+      "icon": "\ud83d\udc04",
+      "category": "collection",
+      "condition": {
+        "type": "cowsUnlocked",
+        "target": 20
+      },
+      "reward": {
+        "coins": 400,
+        "message": "Your herd keeps growing!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "massive_herd",
+      "name": "Massive Herd",
+      "description": "Unlock 40 cows",
+      "icon": "\ud83d\udc2e",
+      "category": "collection",
+      "condition": {
+        "type": "cowsUnlocked",
+        "target": 40
+      },
+      "reward": {
+        "coins": 800,
+        "message": "A truly massive herd!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "cow_overlord",
+      "name": "Cow Overlord",
+      "description": "Unlock 60 cows",
+      "icon": "\ud83d\udc51",
+      "category": "collection",
+      "condition": {
+        "type": "cowsUnlocked",
+        "target": 60
+      },
+      "reward": {
+        "coins": 2000,
+        "message": "The cows worship you!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "secret_explorer",
+      "name": "Secret Explorer",
+      "description": "Unlock 5 secret cows",
+      "icon": "\ud83d\udd75",
+      "category": "collection",
+      "condition": {
+        "type": "secretCowsUnlocked",
+        "target": 5
+      },
+      "reward": {
+        "coins": 1000,
+        "message": "Secrets uncovered!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "secret_master",
+      "name": "Secret Master",
+      "description": "Unlock 10 secret cows",
+      "icon": "\ud83d\udd75",
+      "category": "collection",
+      "condition": {
+        "type": "secretCowsUnlocked",
+        "target": 10
+      },
+      "reward": {
+        "coins": 2000,
+        "message": "Master of mysteries!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "herd_happiness",
+      "name": "Herd Happiness",
+      "description": "Make 20 cows happy at once",
+      "icon": "\ud83d\ude00",
+      "category": "collection",
+      "condition": {
+        "type": "allCowsHappy",
+        "target": 1,
+        "minimumCows": 20
+      },
+      "reward": {
+        "coins": 1500,
+        "message": "So many smiles!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "herd_harmony",
+      "name": "Herd Harmony",
+      "description": "Make 50 cows happy at once",
+      "icon": "\ud83d\ude0a",
+      "category": "collection",
+      "condition": {
+        "type": "allCowsHappy",
+        "target": 1,
+        "minimumCows": 50
+      },
+      "reward": {
+        "coins": 4000,
+        "message": "Ultimate bovine bliss!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "friend_of_cows",
+      "name": "Friend of Cows",
+      "description": "Make cows happy 50 times",
+      "icon": "\u2764\ufe0f",
+      "category": "collection",
+      "condition": {
+        "type": "cowsHappy",
+        "target": 50
+      },
+      "reward": {
+        "coins": 500,
+        "message": "The cows adore you!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "seasoned_farmer",
+      "name": "Seasoned Farmer",
+      "description": "Reach day 40",
+      "icon": "\ud83c\udf96",
+      "category": "progression",
+      "condition": {
+        "type": "day",
+        "target": 40
+      },
+      "reward": {
+        "coins": 600,
+        "message": "Seasoned farming skills!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "centennial_farmer",
+      "name": "Centennial Farmer",
+      "description": "Reach day 100",
+      "icon": "\ud83c\udfc5",
+      "category": "progression",
+      "condition": {
+        "type": "day",
+        "target": 100
+      },
+      "reward": {
+        "coins": 1500,
+        "message": "100 days of dedication!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "millennium_farmer",
+      "name": "Millennium Farmer",
+      "description": "Reach day 200",
+      "icon": "\ud83c\udfc6",
+      "category": "progression",
+      "condition": {
+        "type": "day",
+        "target": 200
+      },
+      "reward": {
+        "coins": 3000,
+        "message": "200 days on the farm!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "immortal_farmer",
+      "name": "Immortal Farmer",
+      "description": "Reach day 365",
+      "icon": "\ud83d\udc51",
+      "category": "progression",
+      "condition": {
+        "type": "day",
+        "target": 365
+      },
+      "reward": {
+        "coins": 10000,
+        "special_effect": "legend_status",
+        "message": "A year of farming legend!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "upgrade_addict",
+      "name": "Upgrade Addict",
+      "description": "Purchase 50 upgrades",
+      "icon": "\ud83d\udd28",
+      "category": "progression",
+      "condition": {
+        "type": "upgradesPurchased",
+        "target": 50
+      },
+      "reward": {
+        "coins": 2000,
+        "message": "Addicted to improvements!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "upgrade_overlord",
+      "name": "Upgrade Overlord",
+      "description": "Purchase 100 upgrades",
+      "icon": "\ud83d\udee0",
+      "category": "progression",
+      "condition": {
+        "type": "upgradesPurchased",
+        "target": 100
+      },
+      "reward": {
+        "coins": 5000,
+        "message": "Supreme upgrade master!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "speed_runner",
+      "name": "Speed Runner",
+      "description": "Win a rhythm game in under 5 seconds",
+      "icon": "\u26a1",
+      "category": "special",
+      "condition": {
+        "type": "fastWin",
+        "target": 5000
+      },
+      "reward": {
+        "coins": 400,
+        "message": "Blazing fast!"
+      },
+      "rarity": "epic"
+    },
+    {
+      "id": "ultra_runner",
+      "name": "Ultra Runner",
+      "description": "Win a rhythm game in under 3 seconds",
+      "icon": "\ud83d\ude80",
+      "category": "special",
+      "condition": {
+        "type": "fastWin",
+        "target": 3000
+      },
+      "reward": {
+        "coins": 1000,
+        "message": "Speed of light victory!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "perfection_hunter",
+      "name": "Perfection Hunter",
+      "description": "Get a perfect streak of 30",
+      "icon": "\ud83c\udfaf",
+      "category": "special",
+      "condition": {
+        "type": "perfectStreak",
+        "target": 30
+      },
+      "reward": {
+        "coins": 600,
+        "message": "Hunting perfection!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "night_owl",
+      "name": "Night Owl",
+      "description": "Play at midnight",
+      "icon": "\ud83c\udf19",
+      "category": "special",
+      "condition": {
+        "type": "timeOfDay",
+        "target": "midnight"
+      },
+      "reward": {
+        "coins": 300,
+        "message": "Owls approve your dedication!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "unstoppable_timing",
+      "name": "Unstoppable Timing",
+      "description": "Get 1,000 perfect scores",
+      "icon": "\ud83c\udff9",
+      "category": "special",
+      "condition": {
+        "type": "perfectScores",
+        "target": 1000
+      },
+      "reward": {
+        "coins": 5000,
+        "message": "Truly unstoppable!"
+      },
+      "rarity": "legendary"
+    },
+    {
+      "id": "cow_lover",
+      "name": "Cow Lover",
+      "description": "Make cows happy 100 times",
+      "icon": "\ud83d\udc95",
+      "category": "special",
+      "condition": {
+        "type": "cowsHappy",
+        "target": 100
+      },
+      "reward": {
+        "coins": 800,
+        "message": "You love your cows!"
+      },
+      "rarity": "epic"
     }
   ],
   "rarityStyles": {
-    "common":    { "color": "#90EE90", "border": "#32CD32", "glow": false },
-    "uncommon":  { "color": "#87CEEB", "border": "#4169E1", "glow": false },
-    "rare":      { "color": "#DDA0DD", "border": "#8B008B", "glow": true,  "glowColor": "#8B008B" },
-    "epic":      { "color": "#FFD700", "border": "#FF8C00", "glow": true,  "glowColor": "#FFD700" },
-    "legendary": { "color": "#FF69B4", "border": "#FF1493", "glow": true,  "glowColor": "#FF69B4", "animation": "legendary-pulse" }
+    "common": {
+      "color": "#90EE90",
+      "border": "#32CD32",
+      "glow": false
+    },
+    "uncommon": {
+      "color": "#87CEEB",
+      "border": "#4169E1",
+      "glow": false
+    },
+    "rare": {
+      "color": "#DDA0DD",
+      "border": "#8B008B",
+      "glow": true,
+      "glowColor": "#8B008B"
+    },
+    "epic": {
+      "color": "#FFD700",
+      "border": "#FF8C00",
+      "glow": true,
+      "glowColor": "#FFD700"
+    },
+    "legendary": {
+      "color": "#FF69B4",
+      "border": "#FF1493",
+      "glow": true,
+      "glowColor": "#FF69B4",
+      "animation": "legendary-pulse"
+    }
   }
 }
