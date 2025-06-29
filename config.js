@@ -65,7 +65,7 @@ const GAME_CONFIG = {
     // Combo system
     COMBO: {
         bonus_threshold: 5, // Combo hits needed for bonus
-        bonus_points_per_threshold: 5
+        bonus_points_per_threshold: 3
     },
 
     // Auto-save settings
