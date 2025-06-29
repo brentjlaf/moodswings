@@ -28,10 +28,10 @@
       "description": "Makes rhythm games easier!",
       "icon": "\uD83D\uDD31",
       "category": "tools",
-      "cost": 100,
+      "cost": 120,
       "maxLevel": 1,
       "effects": {
-        "rhythm_tolerance": 0.6
+        "rhythm_tolerance": 0.3
       },
       "unlockCondition": null
     },
@@ -41,11 +41,11 @@
       "description": "Massive timing window!",
       "icon": "\u26A1",
       "category": "tools",
-      "cost": 400,
+      "cost": 500,
       "maxLevel": 1,
       "effects": {
-        "rhythm_tolerance": 1.2,
-        "coin_bonus": 15
+        "rhythm_tolerance": 0.6,
+        "coin_bonus": 10
       },
       "unlockCondition": {
         "type": "upgrade",

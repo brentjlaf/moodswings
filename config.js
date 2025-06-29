@@ -32,8 +32,8 @@ const GAME_CONFIG = {
     // Upgrade settings
     UPGRADES: {
         pitchfork: {
-            tolerance_bonus_per_level: 0.6,
-            coin_bonus_per_level: 15
+            tolerance_bonus_per_level: 0.3,
+            coin_bonus_per_level: 10
         },
         metronome: {
             speed_bonus_per_level: 0.3
