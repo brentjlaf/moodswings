@@ -4,7 +4,7 @@
       "id": "carrot",
       "name": "Carrot",
       "emoji": "\uD83E\uDD55",
-      "cost": 1,
+      "cost": 2,
       "value": 2,
       "growTime": 30000,
       "rarity": "common",
