@@ -10,6 +10,28 @@ let currentMinigame = {
     maxCombo: 0
 };
 
+// Colors for hit feedback. Also used to color the legend dynamically
+const HIT_COLORS = {
+    perfect: '#00FF00',
+    good: '#FFFF00',
+    okay: '#FF8C00',
+    miss: '#FF0000'
+};
+
+function updateMinigameLegend() {
+    const legendMap = {
+        perfect: document.querySelector('.legend-perfect'),
+        good: document.querySelector('.legend-good'),
+        okay: document.querySelector('.legend-okay'),
+        miss: document.querySelector('.legend-miss')
+    };
+    for (const key in legendMap) {
+        if (legendMap[key]) {
+            legendMap[key].style.background = HIT_COLORS[key];
+        }
+    }
+}
+
 function getRandomGameType() {
     const types = rhythmPatterns.rhythmTypes ? Object.keys(rhythmPatterns.rhythmTypes) : [];
     if (types.length === 0) return 'smooth';
@@ -154,7 +176,7 @@ function spawnNote() {
     setTimeout(() => {
         if (note.parentNode) {
             // Visual feedback for missing a note
-            note.style.background = '#FF0000';
+            note.style.background = HIT_COLORS.miss;
             setTimeout(() => {
                 if (note.parentNode) note.parentNode.removeChild(note);
             }, 200);
@@ -192,23 +214,23 @@ function hitNote(note) {
         points = basePoints;
         hitQuality = 'perfect';
         currentMinigame.combo++;
-        note.style.background = '#00FF00';
+        note.style.background = HIT_COLORS.perfect;
         if (navigator.vibrate) navigator.vibrate(50);
     } else if (distance < 80 * baseTolerance) {
         points = Math.floor(basePoints * 0.7);
         hitQuality = 'good';
         currentMinigame.combo++;
-        note.style.background = '#FFFF00';
+        note.style.background = HIT_COLORS.good;
         if (navigator.vibrate) navigator.vibrate(30);
     } else if (distance < 120 * baseTolerance) {
         points = Math.floor(basePoints * 0.4);
         hitQuality = 'okay';
         currentMinigame.combo = Math.max(0, currentMinigame.combo - 1);
-        note.style.background = '#FF8C00';
+        note.style.background = HIT_COLORS.okay;
     } else {
         currentMinigame.combo = 0;
         hitQuality = 'miss';
-        note.style.background = '#FF0000';
+        note.style.background = HIT_COLORS.miss;
     }
     
     // Apply combo bonus
@@ -446,9 +468,11 @@ function startMinigame(cowIndex) {
     const instructions = document.getElementById('minigameInstructions');
     
     if (!overlay || !title || !instructions) return;
-    
+
     title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.currentGameType.toUpperCase()} Challenge!`;
     instructions.textContent = getGameInstructions(cow.currentGameType);
+
+    updateMinigameLegend();
 
     // Hide the close button until the game is finished
     const closeBtn = document.querySelector('.close-minigame');
@@ -464,6 +488,9 @@ function startMinigame(cowIndex) {
 // Mobile touch controls for minigame - using DOMContentLoaded to avoid timing issues
 document.addEventListener('DOMContentLoaded', function() {
     const tapBtn = document.getElementById('tapBtn');
+
+    // Ensure legend colors match the hit feedback colors
+    updateMinigameLegend();
     
     if (tapBtn) {
         tapBtn.addEventListener('touchstart', (e) => {
