@@ -1117,6 +1117,29 @@ function closeAchievementPopup() {
     }
 }
 
+function formatAchievementReward(reward) {
+    if (!reward) return '';
+    const parts = [];
+    if (reward.coins) parts.push(`+${reward.coins} coins`);
+    if (reward.milk) parts.push(`+${reward.milk} milk`);
+    if (reward.special_effect) {
+        const effectNames = {
+            milk_boost_permanent: 'Permanent milk boost',
+            coin_boost_permanent: 'Permanent coin boost',
+            crop_growth_boost: 'Faster crop growth',
+            rhythm_tolerance_boost: 'Easier rhythm timing',
+            happiness_aura: 'Happiness aura',
+            perfectionist_aura: 'Perfectionist aura',
+            legend_status: 'Legend status'
+        };
+        parts.push(effectNames[reward.special_effect] || reward.special_effect.replace(/_/g, ' '));
+    }
+    if (parts.length === 0 && reward.message) {
+        parts.push(reward.message);
+    }
+    return parts.join(', ');
+}
+
 function updateAchievements() {
     const achievementsList = document.getElementById('achievementsList');
     if (!achievementsList) return;
@@ -1169,6 +1192,7 @@ function updateAchievements() {
                     <div class="achievement-item-info">
                         <div class="achievement-item-name">${achievement.name}</div>
                         <div class="achievement-item-desc">${achievement.description}</div>
+                        <div class="achievement-item-reward">${formatAchievementReward(achievement.reward)}</div>
                     </div>
                     <div class="achievement-item-rarity">${rarity}</div>
                 </div>
