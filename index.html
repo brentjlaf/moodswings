@@ -116,19 +116,21 @@
       <div class="countdown-clock" id="countdownClock">15</div>
     </div>
     <div class="rhythm-game">
-      <div class="rhythm-bar" id="rhythmBar">
-        <div class="rhythm-marker"></div>
-      </div>
-      <div class="score-area">
+      <div class="score-area container">
         <div class="score-display">&#x1F3AF; Score: <span id="currentScore">0</span></div>
         <div class="score-display">&#x1F6A9; Target: <span id="targetScore">100</span></div>
         <div class="score-display">&#x26A1; Combo: <span id="comboCount">0</span></div>
       </div>
+      <div class="rhythm-bar" id="rhythmBar">
+        <div class="rhythm-marker"></div>
+      </div>
     </div>
-    <div class="mobile-controls">
-      <button class="control-btn" id="tapBtn">&#x1F446;<br>TAP</button>
+    <div class="minigame-footer">
+      <div class="mobile-controls">
+        <button class="control-btn" id="tapBtn">&#x1F446;<br>TAP</button>
+      </div>
+      <button class="close-minigame" onclick="closeMinigame()">&#x274C; CLOSE</button>
     </div>
-    <button class="close-minigame" onclick="closeMinigame()">&#x274C; CLOSE</button>
   </div>
 </div>
 
