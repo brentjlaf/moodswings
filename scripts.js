@@ -1136,6 +1136,8 @@ let currentMinigame = {
     score: 0,
     target: 100,
     noteInterval: null,
+    countdownInterval: null,
+    timeLeft: 15,
     gameActive: false,
     combo: 0,
     maxCombo: 0
@@ -1148,16 +1150,28 @@ function startRhythmGame(cowIndex) {
     currentMinigame.maxCombo = 0;
     currentMinigame.target = 80 + (gameState.day * 15);
     currentMinigame.gameActive = true;
-    
+    currentMinigame.timeLeft = 15;
+
     document.getElementById('currentScore').textContent = '0';
     document.getElementById('targetScore').textContent = currentMinigame.target;
     document.getElementById('comboCount').textContent = '0';
-    
+    const countdownEl = document.getElementById('countdownClock');
+    if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
+
     const cow = gameState.cows[cowIndex];
     const speed = getGameSpeed(cow.gameType);
-    
+
     clearNotes();
-    
+
+    clearInterval(currentMinigame.countdownInterval);
+    currentMinigame.countdownInterval = setInterval(() => {
+        currentMinigame.timeLeft--;
+        if (countdownEl) countdownEl.textContent = Math.max(0, currentMinigame.timeLeft);
+        if (currentMinigame.timeLeft <= 0) {
+            clearInterval(currentMinigame.countdownInterval);
+        }
+    }, 1000);
+
     currentMinigame.noteInterval = setInterval(() => {
         if (currentMinigame.gameActive) {
             spawnNote();
@@ -1203,6 +1217,14 @@ function spawnNote() {
     const note = document.createElement('div');
     note.className = 'rhythm-note';
     note.style.left = '-60px';
+
+    // Randomize note size and speed
+    const size = Math.floor(Math.random() * 30) + 30; // 30-60px
+    const duration = 2000 + Math.random() * 2000; // 2-4 seconds
+    note.style.width = size + 'px';
+    note.style.height = size + 'px';
+    note.style.top = (80 - size) / 2 + 'px';
+    note.style.animation = `moveNote ${duration}ms linear`;
     
     // Determine note type based on pattern data
     const cow = gameState.cows[currentMinigame.cowIndex];
@@ -1260,7 +1282,7 @@ function spawnNote() {
             currentMinigame.combo = 0;
             document.getElementById('comboCount').textContent = currentMinigame.combo;
         }
-    }, 3000);
+    }, duration);
 }
 
 // Enhanced hit detection with new tolerance system
@@ -1348,6 +1370,7 @@ function showFloatingText(text, x, y) {
 function endMinigame() {
     currentMinigame.gameActive = false;
     clearInterval(currentMinigame.noteInterval);
+    clearInterval(currentMinigame.countdownInterval);
     clearNotes();
     
     // FIX: Safety check
