@@ -403,7 +403,7 @@ body {
 
 .action-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
     gap: 10px;
     margin-top: 15px;
 }
@@ -579,7 +579,6 @@ body {
 
 .mobile-controls {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 15px;
     /* margin-top: auto; */
 }
