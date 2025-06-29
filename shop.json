@@ -201,7 +201,7 @@
       "description": "Crop yield +25% for 2 hours!",
       "icon": "\uD83C\uDF6F",
       "category": "consumables",
-      "cost": 150,
+      "cost": 200,
       "maxLevel": 20,
       "effects": {
         "crop_yield_boost": 0.25,
