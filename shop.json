@@ -116,7 +116,7 @@
       "description": "Crops grow 50% faster for 1 hour!",
       "icon": "\uD83E\uDDEA",
       "category": "consumables",
-      "cost": 75,
+      "cost": 100,
       "maxLevel": 99,
       "effects": {
         "crop_speed_boost": 0.5,
