@@ -259,9 +259,11 @@ function endMinigame() {
 
   // Recompute currentMood & happiness flags
   const segmentSize = 100 / cow.moods.length;
-  const moodIndex   = Math.min(
-    cow.moods.length - 1,
-    Math.floor(cow.moodValue / segmentSize)
+  const reversedIndex = cow.moods.length - 1 -
+    Math.floor(cow.moodValue / segmentSize);
+  const moodIndex = Math.max(
+    0,
+    Math.min(cow.moods.length - 1, reversedIndex)
   );
   cow.currentMood    = cow.moods[moodIndex];
   cow.happinessLevel = cow.moodValue;
