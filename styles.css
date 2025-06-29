@@ -611,6 +611,14 @@ body {
     font-size: 0.8em;
     font-weight: bold;
     color: #2F5F2F;
+    flex-wrap: wrap;
+}
+
+.legend-caption {
+    flex-basis: 100%;
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 4px;
 }
 
 .legend-item {

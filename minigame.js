@@ -153,7 +153,11 @@ function spawnNote() {
     
     setTimeout(() => {
         if (note.parentNode) {
-            note.parentNode.removeChild(note);
+            // Visual feedback for missing a note
+            note.style.background = '#FF0000';
+            setTimeout(() => {
+                if (note.parentNode) note.parentNode.removeChild(note);
+            }, 200);
             // Miss penalty
             currentMinigame.combo = 0;
         }
@@ -204,6 +208,7 @@ function hitNote(note) {
     } else {
         currentMinigame.combo = 0;
         hitQuality = 'miss';
+        note.style.background = '#FF0000';
     }
     
     // Apply combo bonus
