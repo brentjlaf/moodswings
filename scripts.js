@@ -823,13 +823,15 @@ function updateBulletin() {
     bulletin.innerHTML = `
         <div class="bulletin-container">
             <h3 class="bulletin-title">
-                📋 DAILY FARM REPORT - DAY ${gameState.day}
+                📋 FARM BULLETIN - DAY ${gameState.day}
             </h3>
-            <p class="bulletin-stat"><strong>Happy Cows:</strong> ${happyCows.length}/${totalCows}</p>
-            <p class="bulletin-stat"><strong>Milk Produced:</strong> ${gameState.dailyStats.milkProduced}</p>
-            <p class="bulletin-stat"><strong>Coins Earned:</strong> ${gameState.dailyStats.coinsEarned}</p>
-            <p class="bulletin-stat"><strong>Perfect Scores:</strong> ${gameState.dailyStats.perfectScores}</p>
-            <p class="bulletin-stat"><strong>Total Perfects:</strong> ${gameState.stats.totalPerfectScores}</p>
+            <div class="bulletin-stats-grid">
+                <p class="bulletin-stat">😀 Happy Cows: ${happyCows.length}/${totalCows}</p>
+                <p class="bulletin-stat">🥛 Milk: ${gameState.dailyStats.milkProduced}</p>
+                <p class="bulletin-stat">💰 Coins: ${gameState.dailyStats.coinsEarned}</p>
+                <p class="bulletin-stat">🎯 Perfect Scores: ${gameState.dailyStats.perfectScores}</p>
+                <p class="bulletin-stat">🏆 Total Perfects: ${gameState.stats.totalPerfectScores}</p>
+            </div>
         </div>
         <div class="unlock-progress-box">
             <h4 class="unlock-progress-title">

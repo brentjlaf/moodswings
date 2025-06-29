@@ -1139,16 +1139,26 @@ body {
 
 .bulletin-title {
     color: #8B4513;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.1em;
     font-weight: 700;
+    text-align: center;
+}
+
+.bulletin-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
 }
 
 .bulletin-stat {
     font-weight: 800;
     color: #654321;
-    margin: 4px 0;
+    background: rgba(245, 230, 211, 0.7);
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 0.85em;
 }
 
 /* Unlock Progress Box */
@@ -1469,11 +1479,14 @@ body {
 
 /* Stats Tab Containers */
 .bulletin-board {
-    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    background: linear-gradient(145deg, #FBE8B6, #EBCFA2);
     border-radius: 12px;
     padding: 15px;
     border: 2px solid #8B4513;
     box-shadow: 0 4px 15px rgba(139,69,19,0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .achievements-container {
