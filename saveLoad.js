@@ -137,7 +137,10 @@ function importGameData() {
 function resetGameData() {
     if (confirm('Are you sure you want to reset all game data? This cannot be undone!')) {
         clearAllCropTimers();
-        
+
+        // Remove any saved data so a fresh game starts on reload
+        localStorage.removeItem(SAVE_KEY);
+
         // Reset to initial state
         gameState = {
             coins: 100,
