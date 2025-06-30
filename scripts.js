@@ -16,7 +16,7 @@ async function loadGameData() {
             fetch('cows.json?v=moo3.5'),
             fetch('crops.json?v=1.2'),
             fetch('shop.json?v=1.2'), 
-            fetch('rhythm-patterns.json?v=1.2'),
+            fetch('rhythm-patterns.json?v=1.3'),
             fetch('achievements.json?v=1.2')
         ]);
 
