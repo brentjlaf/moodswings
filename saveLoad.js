@@ -181,6 +181,7 @@ function resetGameData() {
             },
             perfectStreakRecord: 0,
             activeCropTimers: [],
+            currentSeasonIndex: 0,
             playerID: generateDeviceID(),
             lastSaved: null,
             gameVersion: "2.1"
