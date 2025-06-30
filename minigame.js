@@ -502,6 +502,9 @@ function startMinigame(cowIndex) {
         navigator.vibrate(100);
     }
 }
+
+// Ensure the minigame function is available globally for inline event handlers
+window.startMinigame = startMinigame;
 // Mobile touch controls for minigame - using DOMContentLoaded to avoid timing issues
 document.addEventListener('DOMContentLoaded', function() {
     const tapBtn = document.getElementById('tapBtn');
