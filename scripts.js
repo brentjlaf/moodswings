@@ -1136,20 +1136,76 @@ function formatAchievementReward(reward) {
     return parts.join(', ');
 }
 
+// Calculate progress towards an achievement condition
+function getAchievementProgress(achievement) {
+    const condition = achievement.condition || {};
+    const stats = gameState.stats;
+    let current = 0;
+    let target = condition.target || 1;
+
+    switch (condition.type) {
+        case 'totalMilk':
+            current = stats.totalMilkProduced;
+            break;
+        case 'totalCoins':
+            current = stats.totalCoinsEarned;
+            break;
+        case 'perfectScores':
+            current = stats.totalPerfectScores;
+            break;
+        case 'cropsHarvested':
+            current = stats.cropsHarvested;
+            break;
+        case 'cropTypeHarvested':
+            current = stats.cropTypesHarvested[condition.cropType] || 0;
+            break;
+        case 'cowsHappy':
+            current = stats.cowsHappy;
+            break;
+        case 'cowsUnlocked':
+            current = gameState.cows.length;
+            break;
+        case 'allCowsHappy':
+            current = (gameState.cows.length >= (condition.minimumCows || 1) &&
+                       gameState.cows.every(cow => cow.isHappy)) ? target : 0;
+            break;
+        case 'secretCowsUnlocked':
+            current = stats.secretCowsUnlocked;
+            break;
+        case 'day':
+            current = gameState.day;
+            break;
+        case 'maxCombo':
+            current = stats.maxCombo;
+            break;
+        case 'perfectStreak':
+            current = stats.perfectStreak;
+            break;
+        case 'upgradesPurchased':
+            current = stats.upgradesPurchased;
+            break;
+        case 'timeOfDay':
+            current = stats.playedAtMidnight ? 1 : 0;
+            target = 1;
+            break;
+        default:
+            current = 0;
+    }
+
+    const percent = Math.min(100, Math.round((current / target) * 100));
+    return { current, target, percent };
+}
+
 function updateAchievements() {
     const achievementsList = document.getElementById('achievementsList');
     if (!achievementsList) return;
-    
-    if (gameState.achievements.length === 0) {
-        achievementsList.innerHTML = `
-            <p class="no-achievements-text">
-                🎯 No achievements yet - keep playing to unlock them!
-            </p>
-        `;
+
+    if (!achievementsData.achievements) {
+        achievementsList.innerHTML = '';
         return;
     }
-    
-    // Group achievements by category
+
+    // Group all achievements by category
     const categorizedAchievements = {};
     achievementsData.categories?.forEach(category => {
         categorizedAchievements[category.id] = {
@@ -1157,47 +1213,50 @@ function updateAchievements() {
             achievements: []
         };
     });
-    
-    // Sort earned achievements into categories
-    gameState.achievements.forEach(achievementId => {
-        const achievement = achievementsData.achievements?.find(a => a.id === achievementId);
-        if (achievement && categorizedAchievements[achievement.category]) {
+
+    // Place achievements into their categories
+    achievementsData.achievements.forEach(achievement => {
+        if (categorizedAchievements[achievement.category]) {
             categorizedAchievements[achievement.category].achievements.push(achievement);
         }
     });
-    
+
     let html = '';
     Object.values(categorizedAchievements).forEach(category => {
         if (category.achievements.length === 0) return;
-        
+
         html += `
             <div class="achievement-category">
                 <h4 class="achievement-category-title">
                     ${category.info.name}
                 </h4>
         `;
-        
+
         category.achievements.forEach(achievement => {
             const rarity = achievement.rarity || 'common';
-            const rarityStyle = achievementsData.rarityStyles?.[rarity] || 
-                               { color: '#90EE90', border: '#32CD32' };
-            
+            const progress = getAchievementProgress(achievement);
+            const earned = gameState.achievements.includes(achievement.id);
+
             html += `
-                <div class="achievement-item achievement-item-${rarity}">
+                <div class="achievement-item achievement-item-${rarity}${earned ? '' : ' achievement-item-locked'}">
                     <div class="achievement-item-icon">${achievement.icon}</div>
                     <div class="achievement-item-info">
                         <div class="achievement-item-name">${achievement.name}</div>
                         <div class="achievement-item-desc">${achievement.description}</div>
                         <div class="achievement-item-reward">${formatAchievementReward(achievement.reward)}</div>
+                        <div class="achievement-item-progress">
+                            <div class="achievement-progress-bar" style="width:${progress.percent}%"></div>
+                        </div>
+                        <div class="achievement-progress-text">${progress.current}/${progress.target} (${progress.percent}%)</div>
                     </div>
-                    <div class="achievement-item-rarity">${rarity}</div>
+                    <div class="achievement-item-rarity">${rarity}${earned ? '' : ' (Locked)'}</div>
                 </div>
             `;
         });
-        
+
         html += '</div>';
     });
-    
+
     achievementsList.innerHTML = html;
 }
 
