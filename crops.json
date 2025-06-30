@@ -9,7 +9,8 @@
       "growTime": 30000,
       "rarity": "common",
       "unlockCondition": null,
-      "description": "Quick growing and reliable!"
+      "description": "Quick growing and reliable!",
+      "seasons": ["spring", "fall"]
     },
     {
       "id": "corn",
@@ -20,7 +21,8 @@
       "growTime": 60000,
       "rarity": "common",
       "unlockCondition": null,
-      "description": "Golden kernels of profit!"
+      "description": "Golden kernels of profit!",
+      "seasons": ["summer", "fall"]
     },
     {
       "id": "strawberry",
@@ -34,7 +36,8 @@
         "type": "day",
         "target": 2
       },
-      "description": "Sweet and profitable!"
+      "description": "Sweet and profitable!",
+      "seasons": ["spring"]
     },
     {
       "id": "lettuce",
@@ -45,7 +48,8 @@
       "growTime": 20000,
       "rarity": "common",
       "unlockCondition": null,
-      "description": "Crisp and refreshing!"
+      "description": "Crisp and refreshing!",
+      "seasons": ["spring", "summer"]
     },
     {
       "id": "tomato",
@@ -59,7 +63,8 @@
         "type": "day",
         "target": 3
       },
-      "description": "Juicy and versatile!"
+      "description": "Juicy and versatile!",
+      "seasons": ["summer"]
     },
     {
       "id": "sunflower",
@@ -73,7 +78,8 @@
         "type": "day",
         "target": 4
       },
-      "description": "Bright and cheerful profit!"
+      "description": "Bright and cheerful profit!",
+      "seasons": ["summer"]
     },
     {
       "id": "blueberry",
@@ -87,7 +93,8 @@
         "type": "day",
         "target": 5
       },
-      "description": "Small but packed with flavor!"
+      "description": "Small but packed with flavor!",
+      "seasons": ["summer"]
     },
     {
       "id": "raspberry",
@@ -101,7 +108,8 @@
         "type": "totalCoins",
         "target": 500
       },
-      "description": "Tart and vibrant delight!"
+      "description": "Tart and vibrant delight!",
+      "seasons": ["summer"]
     },
     {
       "id": "pumpkin",
@@ -115,7 +123,8 @@
         "type": "totalCoins",
         "target": 1000
       },
-      "description": "Big investment, bigger returns!"
+      "description": "Big investment, bigger returns!",
+      "seasons": ["fall"]
     },
     {
       "id": "watermelon",
@@ -129,7 +138,8 @@
         "type": "totalMilk",
         "target": 300
       },
-      "description": "Juicy summer favorite!"
+      "description": "Juicy summer favorite!",
+      "seasons": ["summer"]
     },
     {
       "id": "star_flower",
@@ -143,7 +153,8 @@
         "type": "totalMilk",
         "target": 500
       },
-      "description": "Blooms with cosmic energy!"
+      "description": "Blooms with cosmic energy!",
+      "seasons": ["winter"]
     },
     {
       "id": "moonflower",
@@ -157,7 +168,8 @@
         "type": "day",
         "target": 10
       },
-      "description": "Blooms under moonlight!"
+      "description": "Blooms under moonlight!",
+      "seasons": ["fall", "winter"]
     },
     {
       "id": "crystal_fruit",
@@ -171,7 +183,8 @@
         "type": "perfectScores",
         "target": 10
       },
-      "description": "Crystallized perfection!"
+      "description": "Crystallized perfection!",
+      "seasons": ["winter"]
     },
     {
       "id": "golden_apple",
@@ -185,7 +198,8 @@
         "type": "perfectScores",
         "target": 20
       },
-      "description": "Legendary orchard treasure!"
+      "description": "Legendary orchard treasure!",
+      "seasons": ["fall"]
     }
   ],
   "cropCategories": {

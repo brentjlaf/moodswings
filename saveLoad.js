@@ -149,6 +149,7 @@ function resetGameData() {
             coins: 100,
             milk: 0,
             day: 1,
+            season: GAME_CONFIG.STARTING_SEASON,
             totalScore: 0,
             cows: [],
             lockedCows: [],

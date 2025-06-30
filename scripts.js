@@ -43,7 +43,8 @@ async function loadGameData() {
                 name: crop.name,
                 rarity: crop.rarity,
                 unlockCondition: crop.unlockCondition,
-                description: crop.description
+                description: crop.description,
+                seasons: crop.seasons || GAME_CONFIG.SEASONS
             };
         });
 
@@ -68,6 +69,7 @@ let gameState = {
     coins: 100,
     milk: 0,
     day: 1,
+    season: GAME_CONFIG.STARTING_SEASON,
     totalScore: 0,
     cows: [],
     lockedCows: [],
@@ -125,12 +127,25 @@ function deductMilk(amount, context = 'purchase') {
     return true;
 }
 
+function capitalize(str) {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 // FIX: Clear all crop timers to prevent memory leaks
 function clearAllCropTimers() {
     gameState.activeCropTimers.forEach(timerId => {
         clearTimeout(timerId);
     });
     gameState.activeCropTimers = [];
+}
+
+function advanceSeason() {
+    const index = GAME_CONFIG.SEASONS.indexOf(gameState.season);
+    const nextIndex = (index + 1) % GAME_CONFIG.SEASONS.length;
+    gameState.season = GAME_CONFIG.SEASONS[nextIndex];
+    generateCropButtons();
+    showToast(`Season changed to ${capitalize(gameState.season)}!`, 'info');
 }
 
 // Crop unlock condition checking
@@ -156,7 +171,9 @@ function checkCropUnlockCondition(crop) {
 function getAvailableCrops() {
     return Object.keys(cropTypes).filter(cropId => {
         const crop = cropTypes[cropId];
-        return checkCropUnlockCondition(crop);
+        if (!checkCropUnlockCondition(crop)) return false;
+        if (crop.seasons && !crop.seasons.includes(gameState.season)) return false;
+        return true;
     });
 }
 
@@ -381,6 +398,10 @@ function applyUpgradeEffects(item) {
                         showToast('Fertilizer effect has worn off!', 'info');
                     }, item.effects.duration);
                 }
+                break;
+
+            case 'advance_season':
+                advanceSeason();
                 break;
                 
             default:
@@ -786,6 +807,9 @@ function harvestAll() {
 
 function nextDay() {
     gameState.day++;
+    if ((gameState.day - 1) % GAME_CONFIG.DAYS_PER_SEASON === 0 && gameState.day > 1) {
+        advanceSeason();
+    }
     gameState.dailyStats = {
         happiest: null,
         milkProduced: 0,
@@ -828,7 +852,7 @@ function updateBulletin() {
     bulletin.innerHTML = `
         <div class="bulletin-container">
             <h3 class="bulletin-title">
-                📋 FARM BULLETIN - DAY ${gameState.day}
+                📋 FARM BULLETIN - DAY ${gameState.day} (${capitalize(gameState.season)})
             </h3>
             <div class="bulletin-stats-grid">
                 <p class="bulletin-stat">😀 Happy Cows: ${happyCows.length}/${totalCows}</p>
@@ -1250,11 +1274,13 @@ function updateDisplay() {
     const milkEl  = document.getElementById('milk');
     const dayEl   = document.getElementById('day');
     const moodEl  = document.getElementById('happiness');
+    const seasonEl = document.getElementById('season');
 
     // Update header stats
     if (coinsEl) coinsEl.textContent = gameState.coins;
     if (milkEl)  milkEl.textContent  = gameState.milk;
     if (dayEl)   dayEl.textContent   = gameState.day;
+    if (seasonEl) seasonEl.textContent = capitalize(gameState.season);
 
     // → NEW: average happiness across all unlocked cows
     if (moodEl) {
@@ -1321,6 +1347,10 @@ function migrateGameState() {
     // Count existing upgrades for achievement tracking
     if (gameState.upgrades && gameState.stats.upgradesPurchased === 0) {
         gameState.stats.upgradesPurchased = Object.values(gameState.upgrades).reduce((total, level) => total + level, 0);
+    }
+
+    if (!gameState.season) {
+        gameState.season = GAME_CONFIG.STARTING_SEASON;
     }
     
     // Check for midnight play

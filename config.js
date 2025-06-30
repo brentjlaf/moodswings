@@ -6,6 +6,9 @@ const GAME_CONFIG = {
     STARTING_COINS: 100,
     STARTING_MILK: 0,
     STARTING_DAY: 1,
+    STARTING_SEASON: 'spring',
+    DAYS_PER_SEASON: 10,
+    SEASONS: ['spring', 'summer', 'fall', 'winter'],
 
     // Minigame settings
     MINIGAME_DURATION: 15000, // 15 seconds

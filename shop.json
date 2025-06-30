@@ -262,6 +262,22 @@
         "type": "totalMilk",
         "target": 300
       }
+    },
+    {
+      "id": "season_stone",
+      "name": "Season Stone",
+      "description": "Advance to the next season instantly.",
+      "icon": "\u23ED\uFE0F",
+      "category": "consumables",
+      "cost": 150,
+      "maxLevel": 99,
+      "effects": {
+        "advance_season": true
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 2
+      }
     }
   ]
 }
