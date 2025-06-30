@@ -153,6 +153,10 @@ function resetGameData() {
             cows: [],
             lockedCows: [],
             crops: [],
+            unlockedCrops: [],
+            newUnlockedCrops: [],
+            unlockedShopItems: [],
+            newUnlockedShopItems: [],
             upgrades: {},
             effects: {},
             dailyStats: {

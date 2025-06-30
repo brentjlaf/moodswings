@@ -72,6 +72,10 @@ let gameState = {
     cows: [],
     lockedCows: [],
     crops: [],
+    unlockedCrops: [], // Track crops that have been unlocked
+    newUnlockedCrops: [], // Crops not yet viewed
+    unlockedShopItems: [], // Track shop items that have been unlocked
+    newUnlockedShopItems: [], // Shop items not yet viewed
     upgrades: {},
     effects: {}, // Effect system for upgrades
     dailyStats: {
@@ -164,21 +168,34 @@ function getAvailableCrops() {
 function generateCropButtons() {
     const container = document.querySelector('.plant-controls');
     if (!container) return;
-    
+
     const availableCrops = getAvailableCrops();
-    
+
+    availableCrops.forEach(cropId => {
+        if (!gameState.unlockedCrops.includes(cropId)) {
+            gameState.unlockedCrops.push(cropId);
+            gameState.newUnlockedCrops.push(cropId);
+        }
+    });
+
     container.innerHTML = availableCrops.map(cropId => {
         const crop = cropTypes[cropId];
         const rarityClass = crop.rarity ? `crop-${crop.rarity}` : '';
-        
+        const newBadge = gameState.newUnlockedCrops.includes(cropId) ? '<span class="new-badge">New!</span>' : '';
+
         return `
             <button class="plant-btn ${rarityClass}" onclick="plantCrop('${cropId}')" title="${crop.description || ''}">
+                ${newBadge}
                 ${crop.emoji}<br />${crop.name}<br>
                 <span class="crop-cost">${crop.cost} coins</span>
                 ${crop.rarity ? `<span class="crop-rarity">${crop.rarity}</span>` : ''}
             </button>
         `;
     }).join('');
+
+    if (document.getElementById('farmTab').classList.contains('active')) {
+        gameState.newUnlockedCrops = [];
+    }
 }
 
 // Shop unlock condition checking
@@ -238,6 +255,11 @@ function renderShop() {
         categoryItems.forEach(item => {
             const shopItem = document.createElement('div');
             shopItem.className = 'shop-item';
+
+            if (!gameState.unlockedShopItems.includes(item.id)) {
+                gameState.unlockedShopItems.push(item.id);
+                gameState.newUnlockedShopItems.push(item.id);
+            }
             
             const isOwned = gameState.upgrades[item.id] >= (item.maxLevel || 1);
             const currency = item.currency || 'coins';
@@ -248,7 +270,10 @@ function renderShop() {
             const buttonText = isOwned ? 'OWNED' : (canAfford ? 'BUY' : 'TOO EXPENSIVE');
             const buttonClass = isOwned ? 'owned' : (canAfford ? 'available' : 'expensive');
             
+            const newBadge = gameState.newUnlockedShopItems.includes(item.id) ? '<span class="new-badge">New!</span>' : '';
+
             shopItem.innerHTML = `
+                ${newBadge}
                 <div class="item-icon">${item.icon}</div>
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
@@ -271,6 +296,10 @@ function renderShop() {
         section.appendChild(itemGrid);
         categoriesContainer.appendChild(section);
     });
+
+    if (document.getElementById('shopTab').classList.contains('active')) {
+        gameState.newUnlockedShopItems = [];
+    }
 }
 
 // Flexible upgrade buying system
@@ -424,6 +453,14 @@ function switchTab(tabName) {
     if (navigator.vibrate) {
         navigator.vibrate(50);
     }
+
+    if (tabName === 'farm') {
+        generateCropButtons();
+    } else if (tabName === 'shop') {
+        renderShop();
+    } else if (tabName === 'cows') {
+        renderCows();
+    }
 }
 
 function buildCow(cow) {
@@ -452,7 +489,8 @@ function buildCow(cow) {
         isHappy: base.moodValue >= 70, // happy threshold at 70
         lastPlayed: null,
         happinessLevel: base.moodValue, // mirror moodValue
-        lastHappinessUpdate: Date.now()
+        lastHappinessUpdate: Date.now(),
+        isNew: base.isNew || false
     };
 }
 
@@ -470,8 +508,8 @@ function generateCows() {
         if (starterCow) {
             gameState.cows = [starterCow];
         }
-        gameState.lockedCows = others.map(cow => ({ ...cow, locked: true }));
-        gameState.lockedCows.push(...secretCows.map(c => ({ ...c, locked: true })));
+        gameState.lockedCows = others.map(cow => ({ ...cow, locked: true, isNew: false }));
+        gameState.lockedCows.push(...secretCows.map(c => ({ ...c, locked: true, isNew: false })));
         
         // Immediately check for any that should be unlocked based on starting conditions
         checkAllCowUnlocks();
@@ -527,7 +565,10 @@ function renderCows() {
                 : 'Keep Happy!';
         const disabledAttr = isMaxHappy ? 'disabled' : '';
 
+        const newBadge = cow.isNew ? '<span class="new-badge">New!</span>' : '';
+
         cowCard.innerHTML = `
+            ${newBadge}
             <div class="cow-icon">${cow.emoji}</div>
             <div class="cow-name">${cow.name}</div>
             <div class="${moodClass}">
@@ -556,6 +597,10 @@ function renderCows() {
         `;
         grid.appendChild(cowCard);
     });
+
+    if (document.getElementById('cowsTab').classList.contains('active')) {
+        gameState.cows.forEach(c => { if (c.isNew) c.isNew = false; });
+    }
 }
 
 // Reduce each cow's happiness over time
@@ -888,7 +933,7 @@ function checkAllCowUnlocks() {
         }
 
         if (unlocked) {
-            const newCow = buildCow(cow);
+            const newCow = buildCow({ ...cow, isNew: true });
             gameState.lockedCows.splice(i, 1);
             gameState.cows.push(newCow);
             
@@ -1316,6 +1361,14 @@ function migrateGameState() {
     // Initialize effects object if it doesn't exist
     if (!gameState.effects) {
         gameState.effects = {};
+    }
+
+    if (!gameState.unlockedCrops) gameState.unlockedCrops = [];
+    if (!gameState.newUnlockedCrops) gameState.newUnlockedCrops = [];
+    if (!gameState.unlockedShopItems) gameState.unlockedShopItems = [];
+    if (!gameState.newUnlockedShopItems) gameState.newUnlockedShopItems = [];
+    if (gameState.cows) {
+        gameState.cows.forEach(c => { if (c.isNew === undefined) c.isNew = false; });
     }
     
     // Count existing upgrades for achievement tracking
