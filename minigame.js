@@ -18,7 +18,7 @@ const DEFAULT_HIT_COLORS = {
     miss: '#FF0000'
 };
 
-// Colors for hit feedback. Also used to color the legend dynamically
+// Colors for hit feedback.
 const HIT_COLORS = {
     perfect: '#00FF00',
     good: '#FFFF00',
@@ -33,20 +33,6 @@ function getHitColor(type) {
     return DEFAULT_HIT_COLORS[type];
 }
 
-function updateMinigameLegend() {
-    const legendMap = {
-        perfect: document.querySelector('.legend-perfect'),
-        good: document.querySelector('.legend-good'),
-        okay: document.querySelector('.legend-okay'),
-        miss: document.querySelector('.legend-miss')
-    };
-    for (const key in legendMap) {
-        if (legendMap[key]) {
-            legendMap[key].style.background = getHitColor(key);
-            legendMap[key].style.background = HIT_COLORS[key];
-        }
-    }
-}
 
 function getRandomGameType() {
     const types = rhythmPatterns.rhythmTypes ? Object.keys(rhythmPatterns.rhythmTypes) : [];
@@ -489,7 +475,6 @@ function startMinigame(cowIndex) {
     title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.currentGameType.toUpperCase()} Challenge!`;
     instructions.textContent = getGameInstructions(cow.currentGameType);
 
-    updateMinigameLegend();
 
     // Hide the close button until the game is finished
     const closeBtn = document.querySelector('.close-minigame');
@@ -509,8 +494,6 @@ window.startMinigame = startMinigame;
 document.addEventListener('DOMContentLoaded', function() {
     const tapBtn = document.getElementById('tapBtn');
 
-    // Ensure legend colors match the hit feedback colors
-    updateMinigameLegend();
     
     if (tapBtn) {
         tapBtn.addEventListener('touchstart', (e) => {
