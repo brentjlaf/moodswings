@@ -12,6 +12,12 @@ let currentMinigame = {
 
 // Default colors for hit feedback. These may be overridden by rhythmPatterns.hitColors
 const DEFAULT_HIT_COLORS = {
+    perfect: '#00FF00',
+    good: '#FFFF00',
+    okay: '#FF8C00',
+    miss: '#FF0000'
+};
+
 // Colors for hit feedback. Also used to color the legend dynamically
 const HIT_COLORS = {
     perfect: '#00FF00',
@@ -244,10 +250,6 @@ function hitNote(note) {
         currentMinigame.combo = 0;
         hitQuality = 'miss';
         note.style.background = getHitColor('miss');
-        note.style.background = HIT_COLORS.okay;
-    } else {
-        currentMinigame.combo = 0;
-        hitQuality = 'miss';
         note.style.background = HIT_COLORS.miss;
     }
     
