@@ -300,6 +300,22 @@ body {
     margin-top: 2px;
 }
 
+.growth-progress {
+    width: 80%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 2px;
+}
+
+.growth-bar {
+    height: 100%;
+    background: #32CD32;
+    width: 0;
+    transition: width 0.3s linear;
+}
+
 .plant-controls {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
