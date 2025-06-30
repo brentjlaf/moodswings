@@ -415,6 +415,7 @@ function endMinigame() {
     updateBulletin();
     renderCows();
     checkAchievements(); // Check for new achievements
+    checkDailyQuests();
 
     // Auto-save after minigame
     if (success || gameState.stats.totalPerfectScores > 0) {

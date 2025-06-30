@@ -162,6 +162,7 @@ function resetGameData() {
                 perfectScores: 0,
                 totalGames: 0
             },
+            dailyQuests: [],
             achievements: [],
             stats: {
                 totalMilkProduced: 0,

@@ -81,6 +81,7 @@ let gameState = {
         perfectScores: 0,
         totalGames: 0
     },
+    dailyQuests: [],
     achievements: [], // Array of earned achievement IDs
     // Enhanced achievement tracking
     stats: {
@@ -731,6 +732,7 @@ function harvestCrop(index) {
     renderCrops();
     checkAchievements(); // Check for new achievements
     showToast(`Harvested ${cropData.name}! +${cropData.value} coins!`, 'success');
+    checkDailyQuests();
 }
 
 function harvestAll() {
@@ -775,6 +777,7 @@ function harvestAll() {
         renderCrops();
         checkAchievements(); // Check for new achievements
         showToast(`Harvested ${harvested} crops! +${totalValue} coins!`, 'success');
+        checkDailyQuests();
         
         if (navigator.vibrate) {
             navigator.vibrate([100, 50, 100, 50, 100]);
@@ -793,6 +796,7 @@ function nextDay() {
         perfectScores: 0,
         totalGames: 0
     };
+    generateDailyQuests();
 
     updateAllCowHappiness();
     generateCows();
@@ -815,6 +819,66 @@ function nextDay() {
     
     if (navigator.vibrate) {
         navigator.vibrate([300, 100, 300]);
+    }
+}
+
+function generateDailyQuests() {
+    const day = gameState.day;
+    gameState.dailyQuests = [
+        { objective: { type: 'milk', amount: 50 + day * 10 }, reward: { coins: 20 } },
+        { objective: { type: 'coins', amount: 100 + day * 20 }, reward: { milk: 10 } },
+        { objective: { type: 'perfectScores', amount: 1 + Math.floor(day / 3) }, reward: { coins: 30 } }
+    ];
+}
+
+function getQuestProgress(q) {
+    switch (q.objective.type) {
+        case 'milk':
+            return gameState.dailyStats.milkProduced;
+        case 'coins':
+            return gameState.dailyStats.coinsEarned;
+        case 'perfectScores':
+            return gameState.dailyStats.perfectScores;
+        default:
+            return 0;
+    }
+}
+
+function describeQuest(q) {
+    let desc = '';
+    if (q.objective.type === 'milk') {
+        desc = `Produce ${q.objective.amount} milk`;
+    } else if (q.objective.type === 'coins') {
+        desc = `Earn ${q.objective.amount} coins`;
+    } else if (q.objective.type === 'perfectScores') {
+        desc = `Get ${q.objective.amount} perfect scores`;
+    }
+
+    const progress = Math.min(getQuestProgress(q), q.objective.amount);
+    const rewardParts = [];
+    if (q.reward.coins) rewardParts.push(`${q.reward.coins} coins`);
+    if (q.reward.milk) rewardParts.push(`${q.reward.milk} milk`);
+
+    const status = q.completed ? '✅' : `${progress}/${q.objective.amount}`;
+    return `${desc} - ${status} (Reward: ${rewardParts.join(', ')})`;
+}
+
+function checkDailyQuests() {
+    let updated = false;
+    gameState.dailyQuests.forEach(q => {
+        if (q.completed) return;
+        if (getQuestProgress(q) >= q.objective.amount) {
+            q.completed = true;
+            if (q.reward.coins) gameState.coins += q.reward.coins;
+            if (q.reward.milk) gameState.milk += q.reward.milk;
+            showToast('Daily quest completed!', 'success');
+            updated = true;
+        }
+    });
+
+    if (updated) {
+        updateDisplay();
+        updateBulletin();
     }
 }
 
@@ -859,6 +923,10 @@ function updateBulletin() {
                 💡 FARM TIP
             </h4>
             <p class="farm-tip-text">${getFarmTip()}</p>
+        </div>
+        <div class="daily-quests-box">
+            <h4 class="daily-quests-title">📝 DAILY QUESTS</h4>
+            ${gameState.dailyQuests.map(q => `<p class="daily-quest">${describeQuest(q)}</p>`).join('')}
         </div>
     `;
 }
@@ -1317,6 +1385,10 @@ function migrateGameState() {
     if (!gameState.effects) {
         gameState.effects = {};
     }
+
+    if (!gameState.dailyQuests) {
+        gameState.dailyQuests = [];
+    }
     
     // Count existing upgrades for achievement tracking
     if (gameState.upgrades && gameState.stats.upgradesPurchased === 0) {
@@ -1375,6 +1447,10 @@ function initializeGame() {
 
     // Apply any happiness decay since last session
     updateAllCowHappiness();
+
+    if (!gameState.dailyQuests || gameState.dailyQuests.length === 0) {
+        generateDailyQuests();
+    }
     
     // Initialize new data-driven systems
     generateCropButtons();
