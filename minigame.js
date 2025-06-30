@@ -12,6 +12,8 @@ let currentMinigame = {
 
 // Default colors for hit feedback. These may be overridden by rhythmPatterns.hitColors
 const DEFAULT_HIT_COLORS = {
+// Colors for hit feedback. Also used to color the legend dynamically
+const HIT_COLORS = {
     perfect: '#00FF00',
     good: '#FFFF00',
     okay: '#FF8C00',
@@ -35,6 +37,7 @@ function updateMinigameLegend() {
     for (const key in legendMap) {
         if (legendMap[key]) {
             legendMap[key].style.background = getHitColor(key);
+            legendMap[key].style.background = HIT_COLORS[key];
         }
     }
 }
@@ -184,6 +187,7 @@ function spawnNote() {
         if (note.parentNode) {
             // Visual feedback for missing a note
             note.style.background = getHitColor('miss');
+            note.style.background = HIT_COLORS.miss;
             setTimeout(() => {
                 if (note.parentNode) note.parentNode.removeChild(note);
             }, 200);
@@ -222,12 +226,14 @@ function hitNote(note) {
         hitQuality = 'perfect';
         currentMinigame.combo++;
         note.style.background = getHitColor('perfect');
+        note.style.background = HIT_COLORS.perfect;
         if (navigator.vibrate) navigator.vibrate(50);
     } else if (distance < 80 * baseTolerance) {
         points = Math.floor(basePoints * 0.7);
         hitQuality = 'good';
         currentMinigame.combo++;
         note.style.background = getHitColor('good');
+        note.style.background = HIT_COLORS.good;
         if (navigator.vibrate) navigator.vibrate(30);
     } else if (distance < 120 * baseTolerance) {
         points = Math.floor(basePoints * 0.4);
@@ -238,6 +244,11 @@ function hitNote(note) {
         currentMinigame.combo = 0;
         hitQuality = 'miss';
         note.style.background = getHitColor('miss');
+        note.style.background = HIT_COLORS.okay;
+    } else {
+        currentMinigame.combo = 0;
+        hitQuality = 'miss';
+        note.style.background = HIT_COLORS.miss;
     }
     
     // Apply combo bonus
@@ -384,12 +395,10 @@ function endMinigame() {
             milkReward += 20;
             coinReward += 25;
             resultMessage = `🎉 PERFECT! ${cow.name} is ecstatic!<br>+${milkReward} milk, +${coinReward} coins!<br>Max Combo: ${currentMinigame.maxCombo}`;
-            showToast(`🎉 PERFECT! ${cow.name} is ecstatic!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
         } else {
             gameState.stats.currentPerfectStreak = 0; // Reset streak
             resultMessage = `🎉 Success! ${cow.name} is happy!<br>+${milkReward} milk, +${coinReward} coins!<br>Max Combo: ${currentMinigame.maxCombo}`;
-            showToast(`🎉 Success! ${cow.name} is happy!\n+${milkReward} milk, +${coinReward} coins!\nMax Combo: ${currentMinigame.maxCombo}`, 'success');
             if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
         
@@ -411,7 +420,6 @@ function endMinigame() {
         cow.happinessLevel = Math.max(1, cow.happinessLevel - 10);
 
         resultMessage = `😤 ${cow.name} is not impressed!<br>-${coinLoss} coins.<br>Max Combo: ${currentMinigame.maxCombo}`;
-        showToast(`😤 ${cow.name} is not impressed! -${coinLoss} coins.\nMax Combo: ${currentMinigame.maxCombo}`, 'failure');
         if (navigator.vibrate) navigator.vibrate(300);
     }
     
