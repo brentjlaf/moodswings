@@ -364,6 +364,56 @@
       "rarity": "rare"
     },
     {
+      "id": "login_3_days",
+      "name": "Welcome Back",
+      "description": "Log in on 3 different days",
+      "icon": "\ud83d\udcc5",
+      "category": "progression",
+      "condition": {
+        "type": "consecutiveLogins",
+        "target": 3
+      },
+      "reward": {
+        "coins": 100,
+        "message": "Keep it up!"
+      },
+      "rarity": "common"
+    },
+    {
+      "id": "login_7_days",
+      "name": "Weekly Regular",
+      "description": "Log in on 7 different days",
+      "icon": "\ud83d\udcc6",
+      "category": "progression",
+      "condition": {
+        "type": "consecutiveLogins",
+        "target": 7
+      },
+      "reward": {
+        "coins": 250,
+        "milk": 30,
+        "message": "7-day streak!"
+      },
+      "rarity": "uncommon"
+    },
+    {
+      "id": "login_30_days",
+      "name": "Daily Devotee",
+      "description": "Log in on 30 different days",
+      "icon": "\ud83c\udfc5",
+      "category": "progression",
+      "condition": {
+        "type": "consecutiveLogins",
+        "target": 30
+      },
+      "reward": {
+        "coins": 1000,
+        "milk": 100,
+        "message": "A month of farming!"
+      },
+      "rarity": "epic"
+    },
+    {
       "id": "perfectionist",
       "name": "Perfectionist",
       "description": "Get 20 perfect scores in a row",

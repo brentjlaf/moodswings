@@ -175,12 +175,14 @@ function resetGameData() {
                 currentPerfectStreak: 0,
                 upgradesPurchased: 0,
                 secretCowsUnlocked: 0,
-                playedAtMidnight: false
+                playedAtMidnight: false,
+                consecutiveLogins: 0
             },
             perfectStreakRecord: 0,
             activeCropTimers: [],
             playerID: generateDeviceID(),
             lastSaved: null,
+            lastLoginDay: null,
             gameVersion: "2.1"
         });
         

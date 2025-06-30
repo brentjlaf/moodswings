@@ -95,12 +95,14 @@ let gameState = {
         currentPerfectStreak: 0,
         upgradesPurchased: 0,
         secretCowsUnlocked: 0,
-        playedAtMidnight: false
+        playedAtMidnight: false,
+        consecutiveLogins: 0
     },
     perfectStreakRecord: 0,
     activeCropTimers: [],
     playerID: null,
     lastSaved: null,
+    lastLoginDay: null,
     gameVersion: "2.1" // Updated version for achievement system
 };
 
@@ -961,14 +963,17 @@ function checkAchievementCondition(achievement) {
             
         case 'upgradesPurchased':
             return stats.upgradesPurchased >= condition.target;
-            
+
         case 'timeOfDay':
             if (condition.target === 'midnight') {
                 const hour = new Date().getHours();
                 return hour >= 0 && hour < 6;
             }
             return false;
-            
+
+        case 'consecutiveLogins':
+            return stats.consecutiveLogins >= condition.target;
+
         default:
             console.warn(`Unknown achievement condition: ${condition.type}`);
             return false;
@@ -1293,7 +1298,8 @@ function migrateGameState() {
             currentPerfectStreak: 0,
             upgradesPurchased: 0,
             secretCowsUnlocked: 0,
-            playedAtMidnight: false
+            playedAtMidnight: false,
+            consecutiveLogins: 0
         };
     }
     
@@ -1332,6 +1338,19 @@ function migrateGameState() {
     console.log('Game state migrated to new achievement system');
 }
 
+function updateLoginStreak() {
+    const today = new Date().toISOString().slice(0, 10);
+    if (!gameState.stats.consecutiveLogins) {
+        gameState.stats.consecutiveLogins = 0;
+    }
+    if (!gameState.lastLoginDay) {
+        gameState.stats.consecutiveLogins = 1;
+    } else if (gameState.lastLoginDay !== today) {
+        gameState.stats.consecutiveLogins += 1;
+    }
+    gameState.lastLoginDay = today;
+}
+
 // Mobile-optimized game functions
 function initializeGame() {
     // Migrate old save data to new format
@@ -1339,6 +1358,8 @@ function initializeGame() {
     
     // Try to load saved game first
     const loadedSave = loadGameState();
+
+    updateLoginStreak();
     
     if (!loadedSave) {
         // New game - initialize everything
