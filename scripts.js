@@ -610,32 +610,39 @@ function initializeCrops() {
 function renderCrops() {
     const grid = document.getElementById('cropsGrid');
     if (!grid) return;
-    
+
     grid.innerHTML = '';
-    
+
     gameState.crops.forEach((crop, index) => {
         const cropSlot = document.createElement('div');
         cropSlot.className = 'crop-slot';
         cropSlot.onclick = () => handleCropClick(index);
-        
+
         if (crop.type) {
             const cropData = cropTypes[crop.type];
             cropSlot.classList.add(crop.isReady ? 'crop-ready' : 'crop-planted');
-            
+            const growTime = cropData.growTime;
+            const timeLeft = crop.readyAt ? Math.max(0, crop.readyAt - Date.now()) : 0;
+            const progress = Math.min(100, Math.round(((growTime - timeLeft) / growTime) * 100));
+            crop.remainingTime = timeLeft;
+
             if (crop.isReady) {
-                cropSlot.innerHTML = `<div class="crop-emoji">${cropData.emoji}</div>`;
+                cropSlot.innerHTML = `
+                    <div class="crop-emoji">${cropData.emoji}</div>
+                    <div class="growth-progress"><div class="growth-bar" style="width:${progress}%;"></div></div>
+                `;
             } else {
-                const timeLeft = Math.max(0, crop.readyAt - Date.now());
                 const seconds = Math.ceil(timeLeft / 1000);
                 cropSlot.innerHTML = `
                     <div class="crop-emoji">🌱</div>
                     <div class="growth-timer">${seconds}s</div>
+                    <div class="growth-progress"><div class="growth-bar" style="width:${progress}%;"></div></div>
                 `;
             }
         } else {
             cropSlot.innerHTML = '<div class="crop-slot-empty">➕</div>';
         }
-        
+
         grid.appendChild(cropSlot);
     });
 }
@@ -1424,13 +1431,36 @@ loadGameData().then(() => {
 // Auto-update crop timers
 setInterval(() => {
     let needsUpdate = false;
-    gameState.crops.forEach(crop => {
-        if (crop.type && !crop.isReady && Date.now() >= crop.readyAt) {
-            crop.isReady = true;
-            needsUpdate = true;
+    const cropSlots = document.querySelectorAll('#cropsGrid .crop-slot');
+    gameState.crops.forEach((crop, index) => {
+        if (!crop.type) return;
+
+        if (!crop.isReady) {
+            const timeLeft = crop.readyAt - Date.now();
+            if (timeLeft <= 0) {
+                crop.isReady = true;
+                needsUpdate = true;
+            }
+
+            const growTime = cropTypes[crop.type].growTime;
+            const progress = Math.min(100, Math.round(((growTime - Math.max(0, timeLeft)) / growTime) * 100));
+
+            const slot = cropSlots[index];
+            if (slot) {
+                const timerEl = slot.querySelector('.growth-timer');
+                if (timerEl) timerEl.textContent = `${Math.ceil(Math.max(0, timeLeft) / 1000)}s`;
+                const barEl = slot.querySelector('.growth-bar');
+                if (barEl) barEl.style.width = `${progress}%`;
+            }
+        } else {
+            const slot = cropSlots[index];
+            if (slot) {
+                const barEl = slot.querySelector('.growth-bar');
+                if (barEl) barEl.style.width = '100%';
+            }
         }
     });
-    
+
     if (needsUpdate) {
         renderCrops();
     }
