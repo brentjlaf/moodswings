@@ -10,6 +10,8 @@ let currentMinigame = {
     maxCombo: 0
 };
 
+// Default colors for hit feedback. These may be overridden by rhythmPatterns.hitColors
+const DEFAULT_HIT_COLORS = {
 // Colors for hit feedback. Also used to color the legend dynamically
 const HIT_COLORS = {
     perfect: '#00FF00',
@@ -17,6 +19,13 @@ const HIT_COLORS = {
     okay: '#FF8C00',
     miss: '#FF0000'
 };
+
+function getHitColor(type) {
+    if (rhythmPatterns.hitColors && rhythmPatterns.hitColors[type]) {
+        return rhythmPatterns.hitColors[type];
+    }
+    return DEFAULT_HIT_COLORS[type];
+}
 
 function updateMinigameLegend() {
     const legendMap = {
@@ -27,6 +36,7 @@ function updateMinigameLegend() {
     };
     for (const key in legendMap) {
         if (legendMap[key]) {
+            legendMap[key].style.background = getHitColor(key);
             legendMap[key].style.background = HIT_COLORS[key];
         }
     }
@@ -176,6 +186,7 @@ function spawnNote() {
     setTimeout(() => {
         if (note.parentNode) {
             // Visual feedback for missing a note
+            note.style.background = getHitColor('miss');
             note.style.background = HIT_COLORS.miss;
             setTimeout(() => {
                 if (note.parentNode) note.parentNode.removeChild(note);
@@ -214,18 +225,25 @@ function hitNote(note) {
         points = basePoints;
         hitQuality = 'perfect';
         currentMinigame.combo++;
+        note.style.background = getHitColor('perfect');
         note.style.background = HIT_COLORS.perfect;
         if (navigator.vibrate) navigator.vibrate(50);
     } else if (distance < 80 * baseTolerance) {
         points = Math.floor(basePoints * 0.7);
         hitQuality = 'good';
         currentMinigame.combo++;
+        note.style.background = getHitColor('good');
         note.style.background = HIT_COLORS.good;
         if (navigator.vibrate) navigator.vibrate(30);
     } else if (distance < 120 * baseTolerance) {
         points = Math.floor(basePoints * 0.4);
         hitQuality = 'okay';
         currentMinigame.combo = Math.max(0, currentMinigame.combo - 1);
+        note.style.background = getHitColor('okay');
+    } else {
+        currentMinigame.combo = 0;
+        hitQuality = 'miss';
+        note.style.background = getHitColor('miss');
         note.style.background = HIT_COLORS.okay;
     } else {
         currentMinigame.combo = 0;

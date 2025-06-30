@@ -177,5 +177,11 @@
       "points": 25,
       "effect": "synth_wave"
     }
+  },
+  "hitColors": {
+    "perfect": "#00FF00",
+    "good": "#FFFF00",
+    "okay": "#FF8C00",
+    "miss": "#FF0000"
   }
 }
