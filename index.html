@@ -72,7 +72,10 @@
       <!-- Stats Tab -->
       <div id="statsTab" class="tab-content">
         <div id="bulletinBoard" class="bulletin-board">
-          <!-- Daily stats will be shown here --> 
+          <!-- Daily stats will be shown here -->
+        </div>
+        <div class="stats-chart-container">
+          <canvas id="statsChart"></canvas>
         </div>
         <div class="achievements-container">
           <h3 class="section-title section-title-blue">&#x1F3C6; ACHIEVEMENTS &#x1F3C6;</h3>
@@ -139,6 +142,7 @@
 <div class="result-popup" id="minigameResultPopup"></div>
 
 <script src="config.js?v=moo3.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="saveLoad.js?v=1.0"></script>
 <script src="scripts.js?v=moo3.7"></script>
 <script src="minigame.js?v=moo3.7"></script>

@@ -5,6 +5,7 @@ let rhythmPatterns = {};
 let achievementsData = {};
 let cowData = [];
 let secretCows = [];
+let statsChart;
 
 // Data loading system
 async function loadGameData() {
@@ -74,6 +75,8 @@ let gameState = {
     crops: [],
     upgrades: {},
     effects: {}, // Effect system for upgrades
+    dailyMilkTotals: [],
+    dailyCoinTotals: [],
     dailyStats: {
         happiest: null,
         milkProduced: 0,
@@ -415,6 +418,10 @@ function switchTab(tabName) {
     // Update tab content
     document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
     document.getElementById(tabName + 'Tab').classList.add('active');
+
+    if (tabName === 'stats') {
+        updateStatsChart();
+    }
     
     // Reset scroll position for new tab
     const wrapper = document.querySelector('.tab-content-wrapper');
@@ -792,6 +799,9 @@ function harvestAll() {
 }
 
 function nextDay() {
+    // Record the day's totals before resetting
+    gameState.dailyMilkTotals.push(gameState.dailyStats.milkProduced);
+    gameState.dailyCoinTotals.push(gameState.dailyStats.coinsEarned);
     gameState.day++;
     gameState.dailyStats = {
         happiest: null,
@@ -817,9 +827,11 @@ function nextDay() {
     // Auto-save after advancing day
     saveGameState();
     updateSaveInfo();
-    
+
     showToast(`🌅 Day ${gameState.day} begins! Your cows have new moods!`, 'success');
-    
+
+    updateStatsChart();
+
     if (navigator.vibrate) {
         navigator.vibrate([300, 100, 300]);
     }
@@ -872,6 +884,51 @@ function updateBulletin() {
 
 function getFarmTip() {
     return FARM_TIPS[Math.floor(Math.random() * FARM_TIPS.length)];
+}
+
+function updateStatsChart() {
+    const labels = gameState.dailyMilkTotals.map((_, i) => `Day ${i + 1}`);
+
+    if (!statsChart) {
+        const ctx = document.getElementById('statsChart');
+        if (!ctx) return;
+        statsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Milk',
+                        data: gameState.dailyMilkTotals,
+                        borderColor: '#4169E1',
+                        backgroundColor: 'rgba(65,105,225,0.2)',
+                        tension: 0.2
+                    },
+                    {
+                        label: 'Coins',
+                        data: gameState.dailyCoinTotals,
+                        borderColor: '#DAA520',
+                        backgroundColor: 'rgba(218,165,32,0.2)',
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } else {
+        statsChart.data.labels = labels;
+        statsChart.data.datasets[0].data = gameState.dailyMilkTotals;
+        statsChart.data.datasets[1].data = gameState.dailyCoinTotals;
+        statsChart.update();
+    }
 }
 
 // FIXED: Combined unlock check function that handles both regular and secret cows
@@ -1359,8 +1416,15 @@ function migrateGameState() {
             currentPerfectStreak: 0,
             upgradesPurchased: 0,
             secretCowsUnlocked: 0,
-            playedAtMidnight: false
-        };
+        playedAtMidnight: false
+    };
+    }
+
+    if (!gameState.dailyMilkTotals) {
+        gameState.dailyMilkTotals = [];
+    }
+    if (!gameState.dailyCoinTotals) {
+        gameState.dailyCoinTotals = [];
     }
     
     // Migrate old fields to new stats structure
@@ -1405,6 +1469,7 @@ function initializeGame() {
     
     // Try to load saved game first
     const loadedSave = loadGameState();
+    migrateGameState();
     
     if (!loadedSave) {
         // New game - initialize everything
@@ -1445,9 +1510,10 @@ function initializeGame() {
     // Initialize new data-driven systems
     generateCropButtons();
     renderShop();
-    
+
     updateDisplay();
     updateBulletin();
+    updateStatsChart();
     updateAchievements();
     updateSaveInfo();
     

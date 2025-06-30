@@ -155,6 +155,8 @@ function resetGameData() {
             crops: [],
             upgrades: {},
             effects: {},
+            dailyMilkTotals: [],
+            dailyCoinTotals: [],
             dailyStats: {
                 happiest: null,
                 milkProduced: 0,
