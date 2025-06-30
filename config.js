@@ -29,6 +29,15 @@ const GAME_CONFIG = {
     CROP_SLOTS: 12,
     CROP_UPDATE_INTERVAL: 1000, // 1 second
 
+    // Seasonal settings
+    SEASON_LENGTH: 10, // Days per season
+    SEASONS: [
+        { name: 'Spring', emoji: '🌱', cropGrowthMultiplier: 0.9, happinessMultiplier: 1.05 },
+        { name: 'Summer', emoji: '☀️', cropGrowthMultiplier: 1.0, happinessMultiplier: 1.1 },
+        { name: 'Autumn', emoji: '🍂', cropGrowthMultiplier: 1.0, happinessMultiplier: 1.0 },
+        { name: 'Winter', emoji: '❄️', cropGrowthMultiplier: 1.25, happinessMultiplier: 0.9 }
+    ],
+
     // Upgrade settings
     UPGRADES: {
         pitchfork: {
@@ -140,7 +149,8 @@ const FARM_TIPS = [
     "Auto-save keeps your progress safe!",
     "Watch the unlock progress in the stats tab!",
     "Try different rhythm strategies for each cow!",
-    "Timing gets easier with pitchfork upgrades!"
+    "Timing gets easier with pitchfork upgrades!",
+    "Seasons change every 10 days and affect your farm!"
 ];
 
 // Export config for use in other files

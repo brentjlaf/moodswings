@@ -102,6 +102,7 @@ let gameState = {
     },
     perfectStreakRecord: 0,
     activeCropTimers: [],
+    currentSeasonIndex: 0,
     playerID: null,
     lastSaved: null,
     gameVersion: "2.1" // Updated version for achievement system
@@ -134,6 +135,27 @@ function clearAllCropTimers() {
         clearTimeout(timerId);
     });
     gameState.activeCropTimers = [];
+}
+
+function getCurrentSeason() {
+    return GAME_CONFIG.SEASONS[gameState.currentSeasonIndex];
+}
+
+function updateSeason() {
+    const index = Math.floor((gameState.day - 1) / GAME_CONFIG.SEASON_LENGTH) % GAME_CONFIG.SEASONS.length;
+    if (index !== gameState.currentSeasonIndex) {
+        gameState.currentSeasonIndex = index;
+        const season = getCurrentSeason();
+        gameState.cows.forEach(cow => {
+            cow.happinessLevel = Math.min(
+                GAME_CONFIG.HAPPINESS.level_max,
+                cow.happinessLevel * season.happinessMultiplier
+            );
+            refreshCowMood(cow);
+        });
+        showToast(`${season.emoji} ${season.name} begins!`, 'info');
+        updateDisplay();
+    }
 }
 
 // Crop unlock condition checking
@@ -628,7 +650,7 @@ function renderCrops() {
         if (crop.type) {
             const cropData = cropTypes[crop.type];
             cropSlot.classList.add(crop.isReady ? 'crop-ready' : 'crop-planted');
-            const growTime = cropData.growTime;
+            const growTime = crop.growTime || cropData.growTime;
             const timeLeft = crop.readyAt ? Math.max(0, crop.readyAt - Date.now()) : 0;
             const progress = Math.min(100, Math.round(((growTime - timeLeft) / growTime) * 100));
             crop.remainingTime = timeLeft;
@@ -682,9 +704,11 @@ function plantCrop(type) {
         return;
     }
     
+    const season = getCurrentSeason();
     emptySlot.type = type;
     emptySlot.plantedAt = Date.now();
-    emptySlot.readyAt = Date.now() + cropData.growTime;
+    emptySlot.growTime = cropData.growTime * season.cropGrowthMultiplier;
+    emptySlot.readyAt = Date.now() + emptySlot.growTime;
     emptySlot.isReady = false;
     
     // FIX: Store timer ID and add safety check
@@ -697,7 +721,7 @@ function plantCrop(type) {
                 navigator.vibrate([200, 100, 200]);
             }
         }
-    }, cropData.growTime);
+    }, emptySlot.growTime);
     
     gameState.activeCropTimers.push(emptySlot.timerId);
     
@@ -738,6 +762,7 @@ function harvestCrop(index) {
     crop.type = null;
     crop.plantedAt = null;
     crop.readyAt = null;
+    crop.growTime = null;
     crop.isReady = false;
     crop.timerId = null;
     
@@ -776,6 +801,7 @@ function harvestAll() {
             crop.type = null;
             crop.plantedAt = null;
             crop.readyAt = null;
+            crop.growTime = null;
             crop.isReady = false;
             crop.timerId = null;
         }
@@ -803,6 +829,7 @@ function nextDay() {
     gameState.dailyMilkTotals.push(gameState.dailyStats.milkProduced);
     gameState.dailyCoinTotals.push(gameState.dailyStats.coinsEarned);
     gameState.day++;
+    updateSeason();
     gameState.dailyStats = {
         happiest: null,
         milkProduced: 0,
@@ -1373,11 +1400,13 @@ function updateDisplay() {
     const milkEl  = document.getElementById('milk');
     const dayEl   = document.getElementById('day');
     const moodEl  = document.getElementById('happiness');
+    const seasonEl = document.getElementById('season');
 
     // Update header stats
     if (coinsEl) coinsEl.textContent = gameState.coins;
     if (milkEl)  milkEl.textContent  = gameState.milk;
     if (dayEl)   dayEl.textContent   = gameState.day;
+    if (seasonEl) seasonEl.textContent = getCurrentSeason().name;
 
     // → NEW: average happiness across all unlocked cows
     if (moodEl) {
@@ -1425,6 +1454,10 @@ function migrateGameState() {
     }
     if (!gameState.dailyCoinTotals) {
         gameState.dailyCoinTotals = [];
+    }
+
+    if (gameState.currentSeasonIndex === undefined) {
+        gameState.currentSeasonIndex = 0;
     }
     
     // Migrate old fields to new stats structure
@@ -1475,6 +1508,7 @@ function initializeGame() {
         // New game - initialize everything
         generateCows();
         initializeCrops();
+        updateSeason();
     } else {
         // Loaded game - reinitialize display elements
         generateCows(); // This will use existing cow data
@@ -1502,6 +1536,7 @@ function initializeGame() {
                 }
             }
         });
+        updateSeason();
     }
 
     // Apply any happiness decay since last session
@@ -1567,7 +1602,7 @@ setInterval(() => {
                 needsUpdate = true;
             }
 
-            const growTime = cropTypes[crop.type].growTime;
+            const growTime = crop.growTime || cropTypes[crop.type].growTime;
             const progress = Math.min(100, Math.round(((growTime - Math.max(0, timeLeft)) / growTime) * 100));
 
             const slot = cropSlots[index];

@@ -29,5 +29,6 @@ Modify the JSON files to add new cows, crops, shop items or rhythm patterns. Ref
 - Plant and harvest crops for additional income.
 - Spend coins or milk on upgrades in the shop.
 - Unlock more content as you progress through the days.
+- Seasons rotate every 10 days, changing crop growth speed and cow mood.
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
