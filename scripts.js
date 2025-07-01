@@ -5,6 +5,7 @@ let rhythmPatterns = {};
 let achievementsData = {};
 let cowData = [];
 let secretCows = [];
+let totalSecretCows = 0;
 let statsChart;
 
 // Data loading system
@@ -31,6 +32,7 @@ async function loadGameData() {
         // Process cow data
         cowData = cowsData.cowData;
         secretCows = cowsData.secretCows;
+        totalSecretCows = secretCows.length;
 
         // Convert crops array to lookup object for backward compatibility
         cropTypes = {};
@@ -1668,6 +1670,11 @@ function updateDisplay() {
         } else {
             moodEl.textContent = '0';
         }
+    }
+
+    const secretCowEl = document.getElementById('secretCowCount');
+    if (secretCowEl) {
+        secretCowEl.textContent = `${gameState.stats.secretCowsUnlocked}/${totalSecretCows}`;
     }
 
     // → NEW: auto-unlock cows whose conditions are now met
