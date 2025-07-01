@@ -1667,6 +1667,9 @@ body {
 .spin-wheel-panel .action-btn {
     width: 100%;
 }
+.spin-wheel-panel .action-btn:disabled {
+    opacity: 0.5;
+}
 
 /* Spin Wheel Overlay */
 .spin-overlay {

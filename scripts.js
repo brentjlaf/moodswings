@@ -98,7 +98,8 @@ let gameState = {
         currentPerfectStreak: 0,
         upgradesPurchased: 0,
         secretCowsUnlocked: 0,
-        playedAtMidnight: false
+        playedAtMidnight: false,
+        spinsDone: 0
     },
     perfectStreakRecord: 0,
     activeCropTimers: [],
@@ -988,6 +989,18 @@ function updateStatsChart() {
     }
 }
 
+function updateSpinButton() {
+    const btn = document.getElementById('spinWheelButton');
+    if (!btn) return;
+    if (gameState.lastSpinDay === gameState.day) {
+        btn.disabled = true;
+        btn.textContent = 'COME BACK TOMORROW';
+    } else {
+        btn.disabled = false;
+        btn.textContent = 'SPIN THE WHEEL';
+    }
+}
+
 // FIXED: Combined unlock check function that handles both regular and secret cows
 function checkAllCowUnlocks() {
     let anyUnlocked = false;
@@ -1540,6 +1553,8 @@ function updateDisplay() {
 
     // Ensure cow grid reflects latest mood values
     renderCows();
+
+    updateSpinButton();
 }
 
 // Backward compatibility function to migrate old saves
@@ -1558,7 +1573,8 @@ function migrateGameState() {
             currentPerfectStreak: 0,
             upgradesPurchased: 0,
             secretCowsUnlocked: 0,
-        playedAtMidnight: false
+        playedAtMidnight: false,
+        spinsDone: 0
     };
     }
 
@@ -1567,6 +1583,10 @@ function migrateGameState() {
     }
     if (!gameState.dailyCoinTotals) {
         gameState.dailyCoinTotals = [];
+    }
+
+    if (gameState.stats.spinsDone === undefined) {
+        gameState.stats.spinsDone = 0;
     }
 
     if (gameState.lastSpinDay === undefined) {
@@ -1707,6 +1727,10 @@ loadGameData().then(() => {
 
 // ----- Spin Wheel System -----
 function openSpinWheel() {
+    if (gameState.lastSpinDay === gameState.day) {
+        showToast('You already spun today!', 'info');
+        return;
+    }
     const overlay = document.getElementById('spinOverlay');
     const result = document.getElementById('spinResult');
     if (!overlay || !result) return;
@@ -1717,6 +1741,7 @@ function openSpinWheel() {
 function closeSpinWheel() {
     const overlay = document.getElementById('spinOverlay');
     if (overlay) overlay.style.display = 'none';
+    updateSpinButton();
 }
 
 function spinWheel() {
@@ -1737,10 +1762,14 @@ function spinWheel() {
         text = `+${amount} Milk!`;
     }
     gameState.lastSpinDay = gameState.day;
-    updateDisplay();
+    gameState.stats.spinsDone++;
     const result = document.getElementById('spinResult');
     if (result) result.textContent = text;
+    showToast(text, 'success');
+    updateDisplay();
+    updateSpinButton();
     saveGameState();
+    setTimeout(closeSpinWheel, 500);
 }
 
 window.openSpinWheel = openSpinWheel;
