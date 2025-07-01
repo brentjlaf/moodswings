@@ -550,6 +550,10 @@ function getUnlockText(cow) {
     if (cow.unlockCondition === 'day') {
         return `Reach day ${cow.unlockTarget} (${gameState.day}/${cow.unlockTarget})`;
     }
+    if (cow.unlockCondition === 'achievement') {
+        const ach = achievementsData.achievements?.find(a => a.id === cow.unlockTarget);
+        return ach ? `Earn the \"${ach.name}\" achievement` : `Unlock achievement ${cow.unlockTarget}`;
+    }
     return 'Unlock requirement unknown';
 }
 
@@ -999,6 +1003,8 @@ function checkAllCowUnlocks() {
             unlocked = true;
         } else if (cow.unlockCondition === 'day' && gameState.day >= (cow.unlockTarget || 1)) {
             unlocked = true;
+        } else if (cow.unlockCondition === 'achievement' && gameState.achievements.includes(cow.unlockTarget)) {
+            unlocked = true;
         } else if (cow.unlockCondition === 'perfectScores' && gameState.stats.totalPerfectScores >= cow.unlockTarget) {
             unlocked = true;
         }
@@ -1138,8 +1144,9 @@ function awardAchievement(achievement) {
     if (reward.special_effect) {
         applyAchievementEffect(reward.special_effect);
     }
-    
+
     console.log(`Achievement unlocked: ${achievement.name}`);
+    checkAllCowUnlocks();
 }
 
 function applyAchievementEffect(effectType) {
