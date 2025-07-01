@@ -212,23 +212,24 @@ function hitNote(note) {
     
     let points = 0;
     let hitQuality = 'miss';
-    
+
+    const maxDistance = 120 * baseTolerance;
+    const accuracyRatio = Math.max(0, 1 - distance / maxDistance);
+    points = Math.round(basePoints * accuracyRatio);
+
     if (distance < 40 * baseTolerance) {
-        points = basePoints;
         hitQuality = 'perfect';
         currentMinigame.combo++;
         note.style.background = getHitColor('perfect');
         note.style.background = HIT_COLORS.perfect;
         if (navigator.vibrate) navigator.vibrate(50);
     } else if (distance < 80 * baseTolerance) {
-        points = Math.floor(basePoints * 0.7);
         hitQuality = 'good';
         currentMinigame.combo++;
         note.style.background = getHitColor('good');
         note.style.background = HIT_COLORS.good;
         if (navigator.vibrate) navigator.vibrate(30);
     } else if (distance < 120 * baseTolerance) {
-        points = Math.floor(basePoints * 0.4);
         hitQuality = 'okay';
         currentMinigame.combo = Math.max(0, currentMinigame.combo - 1);
         note.style.background = getHitColor('okay');
@@ -237,6 +238,7 @@ function hitNote(note) {
         hitQuality = 'miss';
         note.style.background = getHitColor('miss');
         note.style.background = HIT_COLORS.miss;
+        points = 0;
     }
     
     // Apply combo bonus
