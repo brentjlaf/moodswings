@@ -253,8 +253,10 @@ function hitNote(note) {
     
     currentMinigame.score += points;
     currentMinigame.maxCombo = Math.max(currentMinigame.maxCombo, currentMinigame.combo);
-    
-    document.getElementById('currentScore').textContent = currentMinigame.score;
+
+    // Ensure displayed score never shows decimals
+    const displayScore = Math.floor(currentMinigame.score);
+    document.getElementById('currentScore').textContent = displayScore;
     
     if (points > 0) {
         showFloatingText(`+${points}!`, noteRect.left, noteRect.top);
