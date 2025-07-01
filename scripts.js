@@ -139,10 +139,19 @@ function clearAllCropTimers() {
 }
 
 function getCurrentSeason() {
+    if (!GAME_CONFIG.SEASONS) {
+        // Seasons were removed from the config; return neutral defaults
+        return { name: '', emoji: '', cropGrowthMultiplier: 1, happinessMultiplier: 1 };
+    }
     return GAME_CONFIG.SEASONS[gameState.currentSeasonIndex];
 }
 
 function updateSeason() {
+    // If seasons are not defined, skip all seasonal logic
+    if (!GAME_CONFIG.SEASONS || !GAME_CONFIG.SEASON_LENGTH) {
+        return;
+    }
+
     const index = Math.floor((gameState.day - 1) / GAME_CONFIG.SEASON_LENGTH) % GAME_CONFIG.SEASONS.length;
     if (index !== gameState.currentSeasonIndex) {
         gameState.currentSeasonIndex = index;
@@ -150,11 +159,13 @@ function updateSeason() {
         gameState.cows.forEach(cow => {
             cow.happinessLevel = Math.min(
                 GAME_CONFIG.HAPPINESS.level_max,
-                cow.happinessLevel * season.happinessMultiplier
+                cow.happinessLevel * (season.happinessMultiplier || 1)
             );
             refreshCowMood(cow);
         });
-        showToast(`${season.emoji} ${season.name} begins!`, 'info');
+        if (season.name) {
+            showToast(`${season.emoji} ${season.name} begins!`, 'info');
+        }
         updateDisplay();
     }
 }
@@ -721,7 +732,7 @@ function plantCrop(type) {
     const season = getCurrentSeason();
     emptySlot.type = type;
     emptySlot.plantedAt = Date.now();
-    emptySlot.growTime = cropData.growTime * season.cropGrowthMultiplier;
+    emptySlot.growTime = cropData.growTime * (season.cropGrowthMultiplier || 1);
     emptySlot.readyAt = Date.now() + emptySlot.growTime;
     emptySlot.isReady = false;
     
