@@ -7,6 +7,15 @@ const GAME_CONFIG = {
     STARTING_MILK: 0,
     STARTING_DAY: 1,
 
+    // Season settings
+    SEASON_LENGTH: 10,
+    SEASONS: [
+        { name: 'Spring', emoji: '🌱', cropGrowthMultiplier: 1.1, happinessMultiplier: 1 },
+        { name: 'Summer', emoji: '☀️', cropGrowthMultiplier: 1.0, happinessMultiplier: 1.1 },
+        { name: 'Autumn', emoji: '🍂', cropGrowthMultiplier: 0.9, happinessMultiplier: 1 },
+        { name: 'Winter', emoji: '❄️', cropGrowthMultiplier: 0.8, happinessMultiplier: 0.9 }
+    ],
+
     // Minigame settings
     MINIGAME_DURATION: 15000, // 15 seconds
     BASE_TARGET_SCORE: 80,

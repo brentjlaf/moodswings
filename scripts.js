@@ -1653,11 +1653,17 @@ function updateDisplay() {
     const milkEl  = document.getElementById('milk');
     const dayEl   = document.getElementById('day');
     const moodEl  = document.getElementById('happiness');
+    const seasonEl = document.getElementById('seasonDisplay');
 
     // Update header stats
     if (coinsEl) coinsEl.textContent = Math.floor(gameState.coins);
     if (milkEl)  milkEl.textContent  = gameState.milk;
     if (dayEl)   dayEl.textContent   = gameState.day;
+
+    if (seasonEl) {
+        const season = getCurrentSeason();
+        seasonEl.textContent = `${season.emoji} ${season.name}`.trim();
+    }
 
     // → NEW: average happiness across all unlocked cows
     if (moodEl) {
