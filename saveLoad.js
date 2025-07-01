@@ -39,7 +39,14 @@ function saveGameState() {
     const saveData = {
       ...gameState,
       activeCropTimers: [],
-      crops: gameState.crops.map(c => ({ ...c, timerId: null }))
+      crops: gameState.crops.map(c => ({ ...c, timerId: null })),
+      activeEffects: gameState.activeEffects.map(e => ({
+        id: e.id,
+        itemName: e.itemName,
+        effectType: e.effectType,
+        value: e.value,
+        expiresAt: e.expiresAt
+      }))
     };
 
     localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
@@ -67,6 +74,8 @@ function loadGameState() {
       gameState.playerID = saved.playerID;
       gameState.activeCropTimers = [];
       gameState.crops.forEach(c => c.timerId = null);
+      gameState.activeEffects = saved.activeEffects || [];
+      gameState.activeEffects.forEach(e => e.timerId = null);
 
       console.log('Game loaded from localStorage');
       showToast(`Welcome back, ${gameState.playerID}!`, 'success');
@@ -111,6 +120,8 @@ function importGameData() {
                     gameState.crops.forEach(crop => {
                         crop.timerId = null;
                     });
+                    gameState.activeEffects = loadedState.activeEffects || [];
+                    gameState.activeEffects.forEach(e => e.timerId = null);
                     
                     // Reinitialize the game with loaded data
                     generateCows();
@@ -118,7 +129,8 @@ function importGameData() {
                     updateDisplay();
                     updateBulletin();
                     updateAchievements();
-                    
+                    restartEffectTimers();
+
                     showToast(`Game loaded! Welcome back, Day ${gameState.day}!`, 'success');
                 } else {
                     showToast('Invalid save file format!', 'failure');
@@ -181,6 +193,7 @@ function resetGameData() {
             },
             perfectStreakRecord: 0,
             activeCropTimers: [],
+            activeEffects: [],
             currentSeasonIndex: 0,
             playerID: generateDeviceID(),
             lastSaved: null,
