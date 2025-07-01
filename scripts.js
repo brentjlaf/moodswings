@@ -6,6 +6,7 @@ let achievementsData = {};
 let cowData = [];
 let secretCows = [];
 let statsChart;
+let autoWaterTimerId = null;
 
 // Data loading system
 async function loadGameData() {
@@ -446,8 +447,25 @@ function applyUpgradeEffects(item) {
                 break;
 
             case 'crop_yield_boost':
+            case 'crop_yield_bonus': // alias used by some items
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.cropYieldBoost = (gameState.effects.cropYieldBoost || 0) + effectValue;
+                break;
+
+            case 'auto_water':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.autoWater = true;
+                startAutoWater();
+                break;
+
+            case 'auto_milk_conversion':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.autoMilkConversion = true;
+                break;
+
+            case 'conversion_rate':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.milkConversionRate = effectValue;
                 break;
                 
             default:
@@ -929,6 +947,10 @@ function nextDay() {
         totalGames: 0
     };
 
+    // Automation effects
+    convertMilkToCoins();
+    if (gameState.effects.autoWater) autoWaterCrops();
+
     updateAllCowHappiness();
     generateCows();
     
@@ -1055,6 +1077,47 @@ function startPestChecks() {
             }
         });
     }, GAME_CONFIG.PESTS.check_interval);
+}
+
+function autoWaterCrops() {
+    let watered = 0;
+    gameState.crops.forEach(crop => {
+        if (crop.type && !crop.isReady) {
+            if (crop.timerId) {
+                clearTimeout(crop.timerId);
+                const idx = gameState.activeCropTimers.indexOf(crop.timerId);
+                if (idx > -1) gameState.activeCropTimers.splice(idx, 1);
+                crop.timerId = null;
+            }
+            crop.isReady = true;
+            watered++;
+        }
+    });
+    if (watered > 0) {
+        renderCrops();
+        showToast(`Sprinkler finished ${watered} crop${watered>1?'s':''}!`, 'success');
+    }
+}
+
+function startAutoWater() {
+    if (autoWaterTimerId) clearInterval(autoWaterTimerId);
+    if (!gameState.effects.autoWater) return;
+    autoWaterTimerId = setInterval(autoWaterCrops, 3600000); // hourly
+    autoWaterCrops();
+}
+
+function convertMilkToCoins() {
+    if (!gameState.effects.autoMilkConversion) return;
+    const rate = gameState.effects.milkConversionRate || 1;
+    const milk = gameState.milk;
+    if (milk <= 0) return;
+    const coins = milk * rate;
+    gameState.milk = 0;
+    gameState.coins += coins;
+    gameState.dailyStats.coinsEarned += coins;
+    gameState.stats.totalCoinsEarned += coins;
+    showToast(`Processed milk into ${Math.floor(coins)} coins!`, 'success');
+    updateDisplay();
 }
 
 function updateStatsChart() {
@@ -1806,6 +1869,7 @@ function initializeGame() {
     }
 
     restartEffectTimers();
+    if (gameState.effects.autoWater) startAutoWater();
 
     // Apply any happiness decay since last session
     updateAllCowHappiness();
