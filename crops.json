@@ -6,7 +6,7 @@
       "emoji": "\uD83E\uDD55",
       "cost": 2,
       "value": 2,
-      "growTime": 30000,
+      "growTime": 37500,
       "rarity": "common",
       "unlockCondition": null,
       "description": "Quick growing and reliable!"
@@ -17,7 +17,7 @@
       "emoji": "\uD83C\uDF3D",
       "cost": 5,
       "value": 10,
-      "growTime": 60000,
+      "growTime": 75000,
       "rarity": "common",
       "unlockCondition": null,
       "description": "Golden kernels of profit!"
@@ -28,7 +28,7 @@
       "emoji": "\uD83C\uDF53",
       "cost": 30,
       "value": 50,
-      "growTime": 40000,
+      "growTime": 50000,
       "rarity": "common",
       "unlockCondition": {
         "type": "day",
@@ -42,7 +42,7 @@
       "emoji": "\uD83E\uDD6C",
       "cost": 20,
       "value": 40,
-      "growTime": 20000,
+      "growTime": 25000,
       "rarity": "common",
       "unlockCondition": null,
       "description": "Crisp and refreshing!"
@@ -53,7 +53,7 @@
       "emoji": "\uD83C\uDF45",
       "cost": 25,
       "value": 45,
-      "growTime": 35000,
+      "growTime": 43750,
       "rarity": "common",
       "unlockCondition": {
         "type": "day",
@@ -67,7 +67,7 @@
       "emoji": "\uD83C\uDF3B",
       "cost": 60,
       "value": 100,
-      "growTime": 60000,
+      "growTime": 90000,
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
@@ -81,7 +81,7 @@
       "emoji": "\uD83E\uDED0",
       "cost": 50,
       "value": 90,
-      "growTime": 50000,
+      "growTime": 75000,
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
@@ -95,7 +95,7 @@
       "emoji": "\uD83C\uDF52",
       "cost": 55,
       "value": 100,
-      "growTime": 55000,
+      "growTime": 82500,
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "totalCoins",
@@ -109,7 +109,7 @@
       "emoji": "\uD83C\uDF83",
       "cost": 150,
       "value": 300,
-      "growTime": 150000,
+      "growTime": 300000,
       "rarity": "rare",
       "unlockCondition": {
         "type": "totalCoins",
@@ -123,7 +123,7 @@
       "emoji": "\uD83C\uDF49",
       "cost": 120,
       "value": 250,
-      "growTime": 100000,
+      "growTime": 200000,
       "rarity": "rare",
       "unlockCondition": {
         "type": "totalMilk",
@@ -137,7 +137,7 @@
       "emoji": "\uD83C\uDF1F",
       "cost": 350,
       "value": 700,
-      "growTime": 180000,
+      "growTime": 450000,
       "rarity": "epic",
       "unlockCondition": {
         "type": "totalMilk",
@@ -151,7 +151,7 @@
       "emoji": "\uD83C\uDF19",
       "cost": 400,
       "value": 800,
-      "growTime": 200000,
+      "growTime": 500000,
       "rarity": "epic",
       "unlockCondition": {
         "type": "day",
@@ -165,7 +165,7 @@
       "emoji": "\uD83D\uDD2E",
       "cost": 600,
       "value": 1200,
-      "growTime": 240000,
+      "growTime": 720000,
       "rarity": "legendary",
       "unlockCondition": {
         "type": "perfectScores",
@@ -179,7 +179,7 @@
       "emoji": "\uD83C\uDF4F",
       "cost": 1500,
       "value": 2000,
-      "growTime": 300000,
+      "growTime": 900000,
       "rarity": "legendary",
       "unlockCondition": {
         "type": "perfectScores",
