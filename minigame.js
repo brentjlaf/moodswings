@@ -393,7 +393,10 @@ function endMinigame() {
             resultMessage = `🎉 Success! ${cow.name} is happy!<br>+${milkReward} milk, +${coinReward} coins!<br>Max Combo: ${currentMinigame.maxCombo}`;
             if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
-        
+
+        // Ensure coin reward is a whole number
+        coinReward = Math.round(coinReward);
+
         gameState.milk += milkReward;
         gameState.coins += coinReward;
         gameState.dailyStats.milkProduced += milkReward;

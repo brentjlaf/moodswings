@@ -904,7 +904,7 @@ function updateBulletin() {
             <div class="bulletin-stats-grid">
                 <p class="bulletin-stat">😀 Happy Cows: ${happyCows.length}/${totalCows}</p>
                 <p class="bulletin-stat">🥛 Milk: ${gameState.dailyStats.milkProduced}</p>
-                <p class="bulletin-stat">💰 Coins: ${gameState.dailyStats.coinsEarned}</p>
+                <p class="bulletin-stat">💰 Coins: ${Math.floor(gameState.dailyStats.coinsEarned)}</p>
                 <p class="bulletin-stat">🎯 Perfect Scores: ${gameState.dailyStats.perfectScores}</p>
                 <p class="bulletin-stat">🏆 Total Perfects: ${gameState.stats.totalPerfectScores}</p>
             </div>
@@ -913,7 +913,7 @@ function updateBulletin() {
             <h4 class="unlock-progress-title">
                 🔓 UNLOCK PROGRESS
             </h4>
-            <p class="unlock-progress-stat">Total Milk: ${gameState.stats.totalMilkProduced} | Total Coins: ${gameState.stats.totalCoinsEarned}</p>
+            <p class="unlock-progress-stat">Total Milk: ${gameState.stats.totalMilkProduced} | Total Coins: ${Math.floor(gameState.stats.totalCoinsEarned)}</p>
             <p class="unlock-progress-stat">Perfect Scores: ${gameState.stats.totalPerfectScores} | Day: ${gameState.day}</p>
             <p class="unlock-progress-stat">Locked Cows: ${gameState.lockedCows.length}</p>
         </div>
@@ -1509,7 +1509,7 @@ function updateDisplay() {
     const moodEl  = document.getElementById('happiness');
 
     // Update header stats
-    if (coinsEl) coinsEl.textContent = gameState.coins;
+    if (coinsEl) coinsEl.textContent = Math.floor(gameState.coins);
     if (milkEl)  milkEl.textContent  = gameState.milk;
     if (dayEl)   dayEl.textContent   = gameState.day;
 
