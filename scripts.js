@@ -1016,6 +1016,10 @@ function spawnPest(index) {
     crop.pestPenalty = false;
     crop.pestExpiresAt = Date.now() + GAME_CONFIG.PESTS.duration;
     crop.pestTimerId = setTimeout(() => pestExpired(index), GAME_CONFIG.PESTS.duration);
+    showToast('🐛 Pests are attacking! Tap to clear them.', 'failure');
+    if (navigator.vibrate) {
+        navigator.vibrate(100);
+    }
     renderCrops();
 }
 
