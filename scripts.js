@@ -6,6 +6,15 @@ let achievementsData = {};
 let cowData = [];
 let secretCows = [];
 let statsChart;
+const ACHIEVEMENT_EFFECT_ICONS = {
+    milk_boost_permanent: "🥛",
+    coin_boost_permanent: "💰",
+    crop_growth_boost: "🌱",
+    rhythm_tolerance_boost: "🎵",
+    happiness_aura: "😊",
+    perfectionist_aura: "🏆",
+    legend_status: "🌟"
+};
 
 // Data loading system
 async function loadGameData() {
@@ -1292,6 +1301,7 @@ function applyAchievementEffect(effectType) {
         default:
             console.log(`Unknown achievement effect: ${effectType}`);
     }
+    renderAchievementEffectIcons();
 }
 
 function showAchievementUnlock(achievement) {
@@ -1614,6 +1624,22 @@ function restartEffectTimers() {
     });
     renderEffectTimers();
 }
+function renderAchievementEffectIcons() {
+    const container = document.getElementById("achievementEffects");
+    if (!container) return;
+    container.innerHTML = "";
+    const effects = gameState.effects.achievements || {};
+    Object.keys(effects).forEach(key => {
+        if (!effects[key]) return;
+        const icon = ACHIEVEMENT_EFFECT_ICONS[key];
+        if (!icon) return;
+        const span = document.createElement("span");
+        span.className = "achievement-effect-icon";
+        span.textContent = icon;
+        container.appendChild(span);
+    });
+}
+
 
 // --- Meteor Shower Event System ---
 function maybeTriggerMeteorShower() {
@@ -1791,6 +1817,7 @@ function initializeGame() {
     }
 
     restartEffectTimers();
+    renderAchievementEffectIcons();
 
     // Apply any happiness decay since last session
     updateAllCowHappiness();
