@@ -21,6 +21,12 @@ const GAME_CONFIG = {
     PERFECT_BONUS_MILK: 20,
     PERFECT_BONUS_COINS: 25,
 
+    // Spin wheel rewards
+    SPIN_WHEEL_REWARDS: [
+        { type: 'coins', min: 20, max: 50 },
+        { type: 'milk',  min: 10, max: 25 }
+    ],
+
     // Penalty settings
     FAILURE_COIN_LOSS_MIN: 3,
     FAILURE_COIN_LOSS_MAX: 10,

@@ -1582,6 +1582,7 @@ body {
 .section-title-blue { color: #4169E1; }
 .section-title-green { color: #228B22; }
 .section-title-purple { color: #8B008B; }
+.section-title-yellow { color: #DAA520; }
 
 /* Stats Tab Containers */
 .bulletin-board {
@@ -1651,4 +1652,85 @@ body {
 
 .debug-button-green {
     background: linear-gradient(145deg, #32CD32, #228B22);
+}
+
+/* Spin Wheel Panel */
+.spin-wheel-panel {
+    background: linear-gradient(145deg, #FFFACD, #FAFAD2);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    border: 2px solid #DAA520;
+    box-shadow: 0 4px 15px rgba(218,165,32,0.3);
+    text-align: center;
+}
+.spin-wheel-panel .action-btn {
+    width: 100%;
+}
+
+/* Spin Wheel Overlay */
+.spin-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    z-index: 1000;
+    touch-action: manipulation;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.spin-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    padding: 20px;
+    border-radius: 20px;
+    border: 4px solid #8B4513;
+    margin: 40px 10px;
+}
+
+.spin-wheel {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 8px solid #8B4513;
+    background: conic-gradient(#FFD700 0 25%, #FFA500 25% 50%, #FF6B6B 50% 75%, #4ECDC4 75% 100%);
+    margin-bottom: 20px;
+}
+
+.spin-result {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #8B4513;
+}
+
+.spin-button {
+    background: linear-gradient(145deg, #FFA500, #FFD700);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+}
+
+.close-spin {
+    background: linear-gradient(145deg, #ccc, #aaa);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
 }

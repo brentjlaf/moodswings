@@ -80,9 +80,13 @@
         </div>
         <div class="achievements-container">
           <h3 class="section-title section-title-blue">&#x1F3C6; ACHIEVEMENTS &#x1F3C6;</h3>
-          <div id="achievementsList"> 
-            <!-- Achievements will be displayed here --> 
+          <div id="achievementsList">
+            <!-- Achievements will be displayed here -->
           </div>
+        </div>
+        <div class="spin-wheel-panel">
+          <h3 class="section-title section-title-yellow">&#x1F3B0; DAILY SPIN &#x1F3B0;</h3>
+          <button class="action-btn" onclick="openSpinWheel()">SPIN THE WHEEL</button>
         </div>
         <div class="save-system-container">
           <h3 class="section-title section-title-green">&#x1F4BE; SAVE SYSTEM &#x1F4BE;</h3>
@@ -137,6 +141,16 @@
   </div>
 </div>
 
+<!-- Daily Spin Overlay -->
+<div class="spin-overlay" id="spinOverlay">
+  <div class="spin-container">
+    <div class="spin-wheel" id="spinWheel"></div>
+    <div class="spin-result" id="spinResult"></div>
+    <button class="spin-button" onclick="spinWheel()">&#x1F3B0; SPIN</button>
+    <button class="close-spin" onclick="closeSpinWheel()">&#x274C; CLOSE</button>
+  </div>
+</div>
+
 <!-- Mobile Toast Messages -->
 <div class="toast-message" id="toastMessage"></div>
 <div class="achievement-popup" id="achievementPopup"></div>
@@ -145,7 +159,7 @@
 <script src="config.js?v=moo3.8"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="saveLoad.js?v=1.0"></script>
-<script src="scripts.js?v=moo3.7"></script>
+<script src="scripts.js?v=moo3.8"></script>
 <script src="minigame.js?v=moo3.7"></script>
 <script src="debug.js?v=1.0"></script>
 </body>

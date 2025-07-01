@@ -106,6 +106,7 @@ let gameState = {
     currentSeasonIndex: 0,
     playerID: null,
     lastSaved: null,
+    lastSpinDay: 0,
     gameVersion: "2.1" // Updated version for achievement system
 };
 
@@ -1568,6 +1569,10 @@ function migrateGameState() {
         gameState.dailyCoinTotals = [];
     }
 
+    if (gameState.lastSpinDay === undefined) {
+        gameState.lastSpinDay = 0;
+    }
+
     if (gameState.currentSeasonIndex === undefined) {
         gameState.currentSeasonIndex = 0;
     }
@@ -1699,6 +1704,48 @@ function showAchievement(title, description) {
 loadGameData().then(() => {
     initializeGame();
 });
+
+// ----- Spin Wheel System -----
+function openSpinWheel() {
+    const overlay = document.getElementById('spinOverlay');
+    const result = document.getElementById('spinResult');
+    if (!overlay || !result) return;
+    result.textContent = '';
+    overlay.style.display = 'block';
+}
+
+function closeSpinWheel() {
+    const overlay = document.getElementById('spinOverlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+function spinWheel() {
+    if (gameState.lastSpinDay === gameState.day) {
+        showToast('Come back tomorrow for another spin!', 'info');
+        return;
+    }
+    const rewards = GAME_CONFIG.SPIN_WHEEL_REWARDS || [];
+    if (rewards.length === 0) return;
+    const reward = rewards[Math.floor(Math.random() * rewards.length)];
+    const amount = Math.floor(Math.random() * (reward.max - reward.min + 1)) + reward.min;
+    let text = '';
+    if (reward.type === 'coins') {
+        gameState.coins += amount;
+        text = `+${amount} Coins!`;
+    } else if (reward.type === 'milk') {
+        gameState.milk += amount;
+        text = `+${amount} Milk!`;
+    }
+    gameState.lastSpinDay = gameState.day;
+    updateDisplay();
+    const result = document.getElementById('spinResult');
+    if (result) result.textContent = text;
+    saveGameState();
+}
+
+window.openSpinWheel = openSpinWheel;
+window.closeSpinWheel = closeSpinWheel;
+window.spinWheel = spinWheel;
 
 
 
