@@ -29,6 +29,11 @@ const GAME_CONFIG = {
     CROP_SLOTS: 12,
     CROP_UPDATE_INTERVAL: 1000, // 1 second
 
+    // Day/night cycle
+    DAY_START_HOUR: 6,
+    DAY_END_HOUR: 18,
+    NIGHT_GROWTH_MULTIPLIER: 1.5,
+
     // Upgrade settings
     UPGRADES: {
         pitchfork: {

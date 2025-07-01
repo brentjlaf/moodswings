@@ -172,14 +172,19 @@ function updateSeason() {
 
 function isNightTime() {
     const hour = new Date().getHours();
-    return hour < 6 || hour >= 18;
+    return (
+        hour < GAME_CONFIG.DAY_START_HOUR ||
+        hour >= GAME_CONFIG.DAY_END_HOUR
+    );
 }
 
 function getTimeOfDay() {
     const hour = new Date().getHours();
-    if (hour >= 5 && hour < 8) return 'dawn';
-    if (hour >= 8 && hour < 18) return 'day';
-    if (hour >= 18 && hour < 20) return 'dusk';
+    const start = GAME_CONFIG.DAY_START_HOUR;
+    const end = GAME_CONFIG.DAY_END_HOUR;
+    if (hour >= start - 1 && hour < start) return 'dawn';
+    if (hour >= start && hour < end) return 'day';
+    if (hour >= end && hour < end + 2) return 'dusk';
     return 'night';
 }
 
@@ -758,9 +763,10 @@ function plantCrop(type) {
     emptySlot.plantedAt = Date.now();
     let timeMultiplier = 1;
     if (isNightTime()) {
-        timeMultiplier = 1.5;
+        timeMultiplier = GAME_CONFIG.NIGHT_GROWTH_MULTIPLIER;
     }
-    emptySlot.growTime = cropData.growTime * (season.cropGrowthMultiplier || 1) * timeMultiplier;
+    emptySlot.growTime =
+        cropData.growTime * (season.cropGrowthMultiplier || 1) * timeMultiplier;
     emptySlot.readyAt = Date.now() + emptySlot.growTime;
     emptySlot.isReady = false;
     
