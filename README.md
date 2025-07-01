@@ -30,5 +30,6 @@ Modify the JSON files to add new cows, crops, shop items or rhythm patterns. Ref
 - Spend coins or milk on upgrades in the shop.
 - Unlock more content as you progress through the days.
 - Seasons rotate every 10 days, changing crop growth speed and cow mood.
+- The header displays the current local time so you know what part of the day the farm is themed for.
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.

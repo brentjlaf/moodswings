@@ -1897,7 +1897,8 @@ setInterval(renderEffectTimers, 1000);
 
 // Update time-of-day theme based on real-world time
 function updateTimeTheme() {
-    const hour = new Date().getHours();
+    const now = new Date();
+    const hour = now.getHours();
     let theme = 'day';
     if (hour >= 5 && hour < 8) {
         theme = 'dawn';
@@ -1911,8 +1912,13 @@ function updateTimeTheme() {
     const root = document.body;
     root.classList.remove('dawn', 'day', 'dusk', 'night');
     root.classList.add(theme);
+
+    const timeEl = document.getElementById('timeDisplay');
+    if (timeEl) {
+        timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
 }
 
-// Apply the theme immediately and update every hour
+// Apply the theme immediately and update every minute
 updateTimeTheme();
-setInterval(updateTimeTheme, 60 * 60 * 1000);
+setInterval(updateTimeTheme, 60 * 1000);
