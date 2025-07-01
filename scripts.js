@@ -170,6 +170,26 @@ function updateSeason() {
     }
 }
 
+function isNightTime() {
+    const hour = new Date().getHours();
+    return hour < 6 || hour >= 18;
+}
+
+function getTimeOfDay() {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 8) return 'dawn';
+    if (hour >= 8 && hour < 18) return 'day';
+    if (hour >= 18 && hour < 20) return 'dusk';
+    return 'night';
+}
+
+function updateLighting() {
+    const overlay = document.getElementById('weatherOverlay');
+    if (!overlay) return;
+    const time = getTimeOfDay();
+    overlay.className = `weather-overlay weather-${time}`;
+}
+
 // Crop unlock condition checking
 function checkCropUnlockCondition(crop) {
     if (!crop.unlockCondition) return true;
@@ -736,7 +756,11 @@ function plantCrop(type) {
     const season = getCurrentSeason();
     emptySlot.type = type;
     emptySlot.plantedAt = Date.now();
-    emptySlot.growTime = cropData.growTime * (season.cropGrowthMultiplier || 1);
+    let timeMultiplier = 1;
+    if (isNightTime()) {
+        timeMultiplier = 1.5;
+    }
+    emptySlot.growTime = cropData.growTime * (season.cropGrowthMultiplier || 1) * timeMultiplier;
     emptySlot.readyAt = Date.now() + emptySlot.growTime;
     emptySlot.isReady = false;
     
@@ -887,6 +911,8 @@ function nextDay() {
     showToast(`🌅 Day ${gameState.day} begins! Your cows have new moods!`, 'success');
 
     updateStatsChart();
+
+    updateLighting();
 
     if (navigator.vibrate) {
         navigator.vibrate([300, 100, 300]);
@@ -1665,6 +1691,9 @@ function initializeGame() {
     updateStatsChart();
     updateAchievements();
     updateSaveInfo();
+
+    updateLighting();
+    setInterval(updateLighting, 600000); // Refresh lighting every 10 minutes
     
     // Check achievements on startup (for achievements that might already be earned)
     checkAchievements();
