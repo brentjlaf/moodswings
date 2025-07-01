@@ -998,6 +998,11 @@ function updateBulletin() {
             <p class="farm-tip-text">${getFarmTip()}</p>
         </div>
     `;
+    const midnightEl = document.getElementById('midnightStatus');
+    if (midnightEl) {
+        const played = gameState.stats.playedAtMidnight ? 'Yes' : 'No';
+        midnightEl.textContent = `Played between 12 AM–6 AM: ${played}`;
+    }
 }
 
 function getFarmTip() {
