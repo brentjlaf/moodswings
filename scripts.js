@@ -247,12 +247,12 @@ function renderShop() {
     categoriesContainer.innerHTML = '';
 
     shopData.categories.forEach(category => {
-        // Get items for this category that are unlocked
-        const categoryItems = shopData.items.filter(item =>
-            item.category === category.id && checkShopUnlockCondition(item)
-        );
-
+        // Get all items for this category
+        const categoryItems = shopData.items.filter(item => item.category === category.id);
         if (categoryItems.length === 0) return;
+
+        // Only display unlocked items
+        const unlockedItems = categoryItems.filter(item => checkShopUnlockCondition(item));
 
         const section = document.createElement('div');
         section.className = 'shop-category-section';
@@ -272,7 +272,14 @@ function renderShop() {
         itemGrid.className = 'shop-grid';
 
         // Add items for this category
-        categoryItems.forEach(item => {
+        if (unlockedItems.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'shop-empty';
+            empty.textContent = 'No items unlocked yet';
+            itemGrid.appendChild(empty);
+        }
+
+        unlockedItems.forEach(item => {
             const shopItem = document.createElement('div');
             shopItem.className = 'shop-item';
             
