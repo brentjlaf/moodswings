@@ -998,6 +998,16 @@ function updateBulletin() {
             <p class="farm-tip-text">${getFarmTip()}</p>
         </div>
     `;
+
+    const currentStreakEl = document.getElementById('currentPerfectStreak');
+    if (currentStreakEl) {
+        currentStreakEl.textContent = gameState.stats.perfectStreak;
+    }
+
+    const recordStreakEl = document.getElementById('perfectStreakRecord');
+    if (recordStreakEl) {
+        recordStreakEl.textContent = gameState.perfectStreakRecord;
+    }
 }
 
 function getFarmTip() {
