@@ -98,7 +98,143 @@
         "special_effect": "milk_boost_permanent",
         "message": "Legendary dairy mastery achieved!"
       },
-      "rarity": "legendary"
+  "rarity": "legendary"
+  },
+    {
+      "id": "carrot_conqueror",
+      "name": "Carrot Conqueror",
+      "description": "Harvest 1000 carrots",
+      "icon": "\ud83e\udd55",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "carrot"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "A mountain of carrots collected!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "tomato_titan",
+      "name": "Tomato Titan",
+      "description": "Harvest 1000 tomatoes",
+      "icon": "\ud83c\udf45",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "tomato"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Tomatoes for days!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "strawberry_superstar",
+      "name": "Strawberry Superstar",
+      "description": "Harvest 1000 strawberries",
+      "icon": "\ud83c\udf53",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "strawberry"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Berry bonanza!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "lettuce_legend",
+      "name": "Lettuce Legend",
+      "description": "Harvest 1000 lettuce",
+      "icon": "\ud83e\udd6c",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "lettuce"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Lettuce empire built!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "blueberry_boss",
+      "name": "Blueberry Boss",
+      "description": "Harvest 1000 blueberries",
+      "icon": "\ud83e\uded0",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "blueberry"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Blueberry fields forever!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "pumpkin_powerhouse",
+      "name": "Pumpkin Powerhouse",
+      "description": "Harvest 1000 pumpkins",
+      "icon": "\ud83c\udf83",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "pumpkin"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Pumpkin domination!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "watermelon_warrior",
+      "name": "Watermelon Warrior",
+      "description": "Harvest 1000 watermelons",
+      "icon": "\ud83c\udf49",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "watermelon"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Watermelon wonder!"
+      },
+      "rarity": "rare"
+    },
+    {
+      "id": "corn_king",
+      "name": "Corn King",
+      "description": "Harvest 1000 corn",
+      "icon": "\ud83c\udf3d",
+      "category": "farming",
+      "condition": {
+        "type": "cropTypeHarvested",
+        "target": 1000,
+        "cropType": "corn"
+      },
+      "reward": {
+        "coins": 200,
+        "message": "Long live the corn king!"
+      },
+      "rarity": "rare"
     },
     {
       "id": "coin_collector",
