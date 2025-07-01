@@ -543,6 +543,26 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Meteor shower overlay */
+.meteor-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: none;
+    z-index: 900;
+    background: radial-gradient(ellipse at bottom, rgba(0,0,20,0.8), rgba(0,0,0,0.95));
+    overflow: hidden;
+    animation: meteor-bg 5s linear infinite;
+}
+
+@keyframes meteor-bg {
+    from { background-position: 0 0; }
+    to { background-position: -1000px 500px; }
+}
+
 .minigame-container {
     height: 100%;
     /* display: flex; */
@@ -1053,6 +1073,18 @@ body {
     background: linear-gradient(145deg, #FF69B4, #FFB6C1);
     box-shadow: 0 0 15px rgba(255,105,180,0.6);
     animation: legendary-glow 2s infinite alternate;
+}
+
+.crop-cosmic {
+    border: 2px solid #5F9EA0;
+    background: linear-gradient(145deg, #B0E0E6, #E0FFFF);
+    box-shadow: 0 0 20px rgba(173,216,230,0.8);
+    animation: cosmic-glow 3s infinite alternate;
+}
+
+@keyframes cosmic-glow {
+    from { box-shadow: 0 0 20px rgba(173,216,230,0.8); }
+    to { box-shadow: 0 0 30px rgba(173,216,230,1); }
 }
 
 @keyframes legendary-glow {
