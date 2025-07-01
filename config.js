@@ -33,6 +33,13 @@ const GAME_CONFIG = {
     DAY_START_HOUR: 6,
     DAY_END_HOUR: 18,
     NIGHT_GROWTH_MULTIPLIER: 1.5,
+    // Pest system settings
+    PESTS: {
+        check_interval: 10000, // how often to attempt spawning pests
+        spawn_chance: 0.1,    // chance per planted crop each check
+        duration: 10000,      // time allowed to clear pests
+        yield_penalty: 0.5    // 50% yield reduction if not cleared
+    },
 
     // Upgrade settings
     UPGRADES: {

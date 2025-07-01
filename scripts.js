@@ -44,7 +44,8 @@ async function loadGameData() {
                 name: crop.name,
                 rarity: crop.rarity,
                 unlockCondition: crop.unlockCondition,
-                description: crop.description
+                description: crop.description,
+                eventOnly: crop.eventOnly
             };
         });
 
@@ -103,6 +104,7 @@ let gameState = {
     perfectStreakRecord: 0,
     activeCropTimers: [],
     activeEffects: [],
+    isMeteorShower: false,
     currentSeasonIndex: 0,
     playerID: null,
     lastSaved: null,
@@ -136,6 +138,15 @@ function clearAllCropTimers() {
         clearTimeout(timerId);
     });
     gameState.activeCropTimers = [];
+    gameState.crops.forEach(crop => {
+        if (crop.pestTimerId) {
+            clearTimeout(crop.pestTimerId);
+            crop.pestTimerId = null;
+        }
+        crop.hasPest = false;
+        crop.pestExpiresAt = null;
+        crop.pestPenalty = false;
+    });
 }
 
 function getCurrentSeason() {
@@ -218,6 +229,9 @@ function checkCropUnlockCondition(crop) {
 function getAvailableCrops() {
     return Object.keys(cropTypes).filter(cropId => {
         const crop = cropTypes[cropId];
+        if (crop.eventOnly && crop.eventOnly === 'meteor_shower' && !gameState.isMeteorShower) {
+            return false;
+        }
         return checkCropUnlockCondition(crop);
     });
 }
@@ -272,12 +286,12 @@ function renderShop() {
     categoriesContainer.innerHTML = '';
 
     shopData.categories.forEach(category => {
-        // Get items for this category that are unlocked
-        const categoryItems = shopData.items.filter(item =>
-            item.category === category.id && checkShopUnlockCondition(item)
-        );
-
+        // Get all items for this category
+        const categoryItems = shopData.items.filter(item => item.category === category.id);
         if (categoryItems.length === 0) return;
+
+        // Only display unlocked items
+        const unlockedItems = categoryItems.filter(item => checkShopUnlockCondition(item));
 
         const section = document.createElement('div');
         section.className = 'shop-category-section';
@@ -297,7 +311,14 @@ function renderShop() {
         itemGrid.className = 'shop-grid';
 
         // Add items for this category
-        categoryItems.forEach(item => {
+        if (unlockedItems.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'shop-empty';
+            empty.textContent = 'No items unlocked yet';
+            itemGrid.appendChild(empty);
+        }
+
+        unlockedItems.forEach(item => {
             const shopItem = document.createElement('div');
             shopItem.className = 'shop-item';
             
@@ -684,7 +705,11 @@ function initializeCrops() {
             plantedAt: null,
             readyAt: null,
             isReady: false,
-            timerId: null // FIX: Track timer ID
+            timerId: null, // FIX: Track timer ID
+            hasPest: false,
+            pestTimerId: null,
+            pestExpiresAt: null,
+            pestPenalty: false
         });
     }
     renderCrops();
@@ -721,6 +746,16 @@ function renderCrops() {
                     <div class="growth-timer">${seconds}s</div>
                     <div class="growth-progress"><div class="growth-bar" style="width:${progress}%;"></div></div>
                 `;
+            }
+
+            if (crop.hasPest) {
+                const pest = document.createElement('div');
+                pest.className = 'pest-icon';
+                const timeLeftPest = Math.max(0, crop.pestExpiresAt - Date.now());
+                const secondsPest = Math.ceil(timeLeftPest / 1000);
+                pest.innerHTML = `🐛 <span class="pest-timer">${secondsPest}</span>`;
+                pest.onclick = (e) => { e.stopPropagation(); clearPest(index); };
+                cropSlot.appendChild(pest);
             }
         } else {
             cropSlot.innerHTML = '<div class="crop-slot-empty">➕</div>';
@@ -798,9 +833,13 @@ function harvestCrop(index) {
     if (!crop.isReady) return;
     
     const cropData = cropTypes[crop.type];
-    gameState.coins += cropData.value;
-    gameState.dailyStats.coinsEarned += cropData.value;
-    gameState.stats.totalCoinsEarned += cropData.value;
+    let reward = cropData.value;
+    if (crop.pestPenalty || crop.hasPest) {
+        reward = Math.floor(reward * (1 - GAME_CONFIG.PESTS.yield_penalty));
+    }
+    gameState.coins += reward;
+    gameState.dailyStats.coinsEarned += reward;
+    gameState.stats.totalCoinsEarned += reward;
     
     // Track achievement stats
     gameState.stats.cropsHarvested++;
@@ -818,17 +857,29 @@ function harvestCrop(index) {
         }
     }
     
+    if (crop.pestTimerId) {
+        clearTimeout(crop.pestTimerId);
+        crop.pestTimerId = null;
+    }
+
     crop.type = null;
     crop.plantedAt = null;
     crop.readyAt = null;
     crop.growTime = null;
     crop.isReady = false;
     crop.timerId = null;
+    crop.hasPest = false;
+    crop.pestExpiresAt = null;
+    crop.pestPenalty = false;
     
     updateDisplay();
     renderCrops();
     checkAchievements(); // Check for new achievements
-    showToast(`Harvested ${cropData.name}! +${cropData.value} coins!`, 'success');
+    if (reward < cropData.value) {
+        showToast(`Harvested ${cropData.name} (pest damage)! +${reward} coins!`, 'failure');
+    } else {
+        showToast(`Harvested ${cropData.name}! +${reward} coins!`, 'success');
+    }
 }
 
 function harvestAll() {
@@ -838,7 +889,11 @@ function harvestAll() {
     gameState.crops.forEach((crop) => {
         if (crop.isReady) {
             const cropData = cropTypes[crop.type];
-            totalValue += cropData.value;
+            let reward = cropData.value;
+            if (crop.pestPenalty || crop.hasPest) {
+                reward = Math.floor(reward * (1 - GAME_CONFIG.PESTS.yield_penalty));
+            }
+            totalValue += reward;
             harvested++;
             
             // Track achievement stats
@@ -856,13 +911,20 @@ function harvestAll() {
                     gameState.activeCropTimers.splice(timerIndex, 1);
                 }
             }
-            
+            if (crop.pestTimerId) {
+                clearTimeout(crop.pestTimerId);
+                crop.pestTimerId = null;
+            }
+
             crop.type = null;
             crop.plantedAt = null;
             crop.readyAt = null;
             crop.growTime = null;
             crop.isReady = false;
             crop.timerId = null;
+            crop.hasPest = false;
+            crop.pestExpiresAt = null;
+            crop.pestPenalty = false;
         }
     });
     
@@ -972,6 +1034,50 @@ function updateBulletin() {
 
 function getFarmTip() {
     return FARM_TIPS[Math.floor(Math.random() * FARM_TIPS.length)];
+}
+
+function spawnPest(index) {
+    const crop = gameState.crops[index];
+    if (!crop || !crop.type || crop.hasPest) return;
+    crop.hasPest = true;
+    crop.pestPenalty = false;
+    crop.pestExpiresAt = Date.now() + GAME_CONFIG.PESTS.duration;
+    crop.pestTimerId = setTimeout(() => pestExpired(index), GAME_CONFIG.PESTS.duration);
+    renderCrops();
+}
+
+function clearPest(index) {
+    const crop = gameState.crops[index];
+    if (!crop || !crop.hasPest) return;
+    if (crop.pestTimerId) {
+        clearTimeout(crop.pestTimerId);
+        crop.pestTimerId = null;
+    }
+    crop.hasPest = false;
+    crop.pestExpiresAt = null;
+    crop.pestPenalty = false;
+    renderCrops();
+}
+
+function pestExpired(index) {
+    const crop = gameState.crops[index];
+    if (!crop || !crop.hasPest) return;
+    crop.hasPest = false;
+    crop.pestTimerId = null;
+    crop.pestPenalty = true;
+    crop.pestExpiresAt = null;
+    renderCrops();
+}
+
+function startPestChecks() {
+    setInterval(() => {
+        gameState.crops.forEach((crop, idx) => {
+            if (!crop.type || crop.hasPest) return;
+            if (Math.random() < GAME_CONFIG.PESTS.spawn_chance) {
+                spawnPest(idx);
+            }
+        });
+    }, GAME_CONFIG.PESTS.check_interval);
 }
 
 function updateStatsChart() {
@@ -1541,6 +1647,39 @@ function restartEffectTimers() {
     renderEffectTimers();
 }
 
+// --- Meteor Shower Event System ---
+function maybeTriggerMeteorShower() {
+    const hour = new Date().getHours();
+    if ((hour >= 20 || hour < 6) && !gameState.isMeteorShower) {
+        if (Math.random() < 0.02) { // 2% chance each check
+            startMeteorShower();
+        }
+    }
+}
+
+function startMeteorShower() {
+    if (gameState.isMeteorShower) return;
+    gameState.isMeteorShower = true;
+    const overlay = document.getElementById('meteorShowerOverlay');
+    if (overlay) overlay.style.display = 'block';
+    const audio = document.getElementById('meteorSound');
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+    }
+    generateCropButtons();
+    showToast('🌠 Meteor shower! Cosmic crops available!', 'info');
+    setTimeout(endMeteorShower, 60000); // lasts 1 minute
+}
+
+function endMeteorShower() {
+    if (!gameState.isMeteorShower) return;
+    gameState.isMeteorShower = false;
+    const overlay = document.getElementById('meteorShowerOverlay');
+    if (overlay) overlay.style.display = 'none';
+    generateCropButtons();
+}
+
 function updateDisplay() {
     const coinsEl = document.getElementById('coins');
     const milkEl  = document.getElementById('milk');
@@ -1712,7 +1851,11 @@ function initializeGame() {
         updateAllCowHappiness();
         updateDisplay();
     }, GAME_CONFIG.HAPPINESS_UPDATE_INTERVAL);
-    
+
+    // Check for meteor showers at night
+    maybeTriggerMeteorShower();
+    setInterval(maybeTriggerMeteorShower, 60000);
+
     console.log('Game initialized with data-driven systems and achievements!');
 }
 
@@ -1733,6 +1876,7 @@ function showAchievement(title, description) {
 // Initialize game when data is loaded
 loadGameData().then(() => {
     initializeGame();
+    startPestChecks();
 });
 
 
@@ -1760,12 +1904,20 @@ setInterval(() => {
                 if (timerEl) timerEl.textContent = `${Math.ceil(Math.max(0, timeLeft) / 1000)}s`;
                 const barEl = slot.querySelector('.growth-bar');
                 if (barEl) barEl.style.width = `${progress}%`;
+                if (crop.hasPest) {
+                    const pestTimer = slot.querySelector('.pest-timer');
+                    if (pestTimer) pestTimer.textContent = Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000);
+                }
             }
         } else {
             const slot = cropSlots[index];
             if (slot) {
                 const barEl = slot.querySelector('.growth-bar');
                 if (barEl) barEl.style.width = '100%';
+                if (crop.hasPest) {
+                    const pestTimer = slot.querySelector('.pest-timer');
+                    if (pestTimer) pestTimer.textContent = Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000);
+                }
             }
         }
     });
@@ -1777,3 +1929,25 @@ setInterval(() => {
 
 // Update active effect timers every second
 setInterval(renderEffectTimers, 1000);
+
+// Update time-of-day theme based on real-world time
+function updateTimeTheme() {
+    const hour = new Date().getHours();
+    let theme = 'day';
+    if (hour >= 5 && hour < 8) {
+        theme = 'dawn';
+    } else if (hour >= 8 && hour < 18) {
+        theme = 'day';
+    } else if (hour >= 18 && hour < 21) {
+        theme = 'dusk';
+    } else {
+        theme = 'night';
+    }
+    const root = document.body;
+    root.classList.remove('dawn', 'day', 'dusk', 'night');
+    root.classList.add(theme);
+}
+
+// Apply the theme immediately and update every hour
+updateTimeTheme();
+setInterval(updateTimeTheme, 60 * 60 * 1000);
