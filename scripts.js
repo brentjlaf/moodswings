@@ -44,7 +44,8 @@ async function loadGameData() {
                 name: crop.name,
                 rarity: crop.rarity,
                 unlockCondition: crop.unlockCondition,
-                description: crop.description
+                description: crop.description,
+                eventOnly: crop.eventOnly
             };
         });
 
@@ -103,6 +104,7 @@ let gameState = {
     perfectStreakRecord: 0,
     activeCropTimers: [],
     activeEffects: [],
+    isMeteorShower: false,
     currentSeasonIndex: 0,
     playerID: null,
     lastSaved: null,
@@ -193,6 +195,9 @@ function checkCropUnlockCondition(crop) {
 function getAvailableCrops() {
     return Object.keys(cropTypes).filter(cropId => {
         const crop = cropTypes[cropId];
+        if (crop.eventOnly && crop.eventOnly === 'meteor_shower' && !gameState.isMeteorShower) {
+            return false;
+        }
         return checkCropUnlockCondition(crop);
     });
 }
@@ -1509,6 +1514,39 @@ function restartEffectTimers() {
     renderEffectTimers();
 }
 
+// --- Meteor Shower Event System ---
+function maybeTriggerMeteorShower() {
+    const hour = new Date().getHours();
+    if ((hour >= 20 || hour < 6) && !gameState.isMeteorShower) {
+        if (Math.random() < 0.02) { // 2% chance each check
+            startMeteorShower();
+        }
+    }
+}
+
+function startMeteorShower() {
+    if (gameState.isMeteorShower) return;
+    gameState.isMeteorShower = true;
+    const overlay = document.getElementById('meteorShowerOverlay');
+    if (overlay) overlay.style.display = 'block';
+    const audio = document.getElementById('meteorSound');
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+    }
+    generateCropButtons();
+    showToast('🌠 Meteor shower! Cosmic crops available!', 'info');
+    setTimeout(endMeteorShower, 60000); // lasts 1 minute
+}
+
+function endMeteorShower() {
+    if (!gameState.isMeteorShower) return;
+    gameState.isMeteorShower = false;
+    const overlay = document.getElementById('meteorShowerOverlay');
+    if (overlay) overlay.style.display = 'none';
+    generateCropButtons();
+}
+
 function updateDisplay() {
     const coinsEl = document.getElementById('coins');
     const milkEl  = document.getElementById('milk');
@@ -1677,7 +1715,11 @@ function initializeGame() {
         updateAllCowHappiness();
         updateDisplay();
     }, GAME_CONFIG.HAPPINESS_UPDATE_INTERVAL);
-    
+
+    // Check for meteor showers at night
+    maybeTriggerMeteorShower();
+    setInterval(maybeTriggerMeteorShower, 60000);
+
     console.log('Game initialized with data-driven systems and achievements!');
 }
 

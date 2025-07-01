@@ -186,6 +186,18 @@
         "target": 20
       },
       "description": "Legendary orchard treasure!"
+    },
+    {
+      "id": "cosmic_crop",
+      "name": "Cosmic Crop",
+      "emoji": "\u2728",
+      "cost": 0,
+      "value": 200,
+      "growTime": 30000,
+      "rarity": "cosmic",
+      "unlockCondition": null,
+      "eventOnly": "meteor_shower",
+      "description": "A gift from the stars!"
     }
   ],
   "cropCategories": {
@@ -208,6 +220,10 @@
     "legendary": {
       "color": "#FF69B4",
       "borderColor": "#FF1493"
+    },
+    "cosmic": {
+      "color": "#B0E0E6",
+      "borderColor": "#5F9EA0"
     }
   }
 }
