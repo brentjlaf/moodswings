@@ -262,6 +262,44 @@
         "type": "totalMilk",
         "target": 300
       }
+    },
+    {
+      "id": "cow_comforter",
+      "name": "Cow Comforter",
+      "description": "Barn upgrade that improves milk yield by 15%!",
+      "icon": "\uD83D\uDECF",
+      "category": "buildings",
+      "cost": 600,
+      "maxLevel": 1,
+      "effects": {
+        "milk_multiplier": 1.15
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "lucky_clover",
+      "name": "Lucky Clover",
+      "description": "Purchase to unlock a new crop.",
+      "icon": "\uD83C\uDF40",
+      "category": "tools",
+      "cost": 10000,
+      "maxLevel": 1,
+      "effects": {},
+      "unlockCondition": null
+    },
+    {
+      "id": "berry_mix_smoothie",
+      "name": "Berry Mix Smoothie",
+      "description": "Coin income +5% for 1 hour!",
+      "icon": "\uD83C\uDF53",
+      "category": "consumables",
+      "cost": 80,
+      "maxLevel": 1,
+      "effects": {
+        "coin_bonus": 0.05,
+        "duration": 3600000
+      },
+      "unlockCondition": null
     }
   ]
 }
