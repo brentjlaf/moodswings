@@ -19,6 +19,16 @@
       "id": "consumables",
       "name": "\uD83C\uDF4E Consumables",
       "description": "Temporary boosts and effects!"
+    },
+    {
+      "id": "lighting",
+      "name": "\uD83D\uDCA1 Lighting",
+      "description": "Illuminate your farm in style!"
+    },
+    {
+      "id": "furniture",
+      "name": "\uD83D\uDECB Furniture",
+      "description": "Decorate with comfy furnishings!"
     }
   ],
   "items": [
@@ -298,6 +308,58 @@
       "effects": {
         "coin_bonus": 0.05,
         "duration": 3600000
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "string_lights",
+      "name": "String Lights",
+      "description": "Adds charming lighting to your farm!",
+      "icon": "\uD83D\uDCA1",
+      "category": "lighting",
+      "cost": 150,
+      "maxLevel": 1,
+      "effects": {
+        "happiness_bonus": 0.05
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "lamp_post",
+      "name": "Lamp Post",
+      "description": "Brightens paths for evening chores.",
+      "icon": "\uD83D\uDEA6",
+      "category": "lighting",
+      "cost": 200,
+      "maxLevel": 1,
+      "effects": {
+        "happiness_bonus": 0.07
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "farm_bench",
+      "name": "Farm Bench",
+      "description": "A cozy place to rest.",
+      "icon": "\uD83E\uDE91",
+      "category": "furniture",
+      "cost": 120,
+      "maxLevel": 1,
+      "effects": {
+        "happiness_bonus": 0.05
+      },
+      "unlockCondition": null
+    },
+    {
+      "id": "cozy_sofa",
+      "name": "Cozy Sofa",
+      "description": "Comfort boosts happiness by 10%!",
+      "icon": "\uD83D\uDECB",
+      "category": "furniture",
+      "cost": 300,
+      "maxLevel": 1,
+      "effects": {
+        "happiness_bonus": 0.1
       },
       "unlockCondition": null
     }
