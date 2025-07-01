@@ -1742,3 +1742,25 @@ setInterval(() => {
 
 // Update active effect timers every second
 setInterval(renderEffectTimers, 1000);
+
+// Update time-of-day theme based on real-world time
+function updateTimeTheme() {
+    const hour = new Date().getHours();
+    let theme = 'day';
+    if (hour >= 5 && hour < 8) {
+        theme = 'dawn';
+    } else if (hour >= 8 && hour < 18) {
+        theme = 'day';
+    } else if (hour >= 18 && hour < 21) {
+        theme = 'dusk';
+    } else {
+        theme = 'night';
+    }
+    const root = document.body;
+    root.classList.remove('dawn', 'day', 'dusk', 'night');
+    root.classList.add(theme);
+}
+
+// Apply the theme immediately and update every hour
+updateTimeTheme();
+setInterval(updateTimeTheme, 60 * 60 * 1000);

@@ -1652,3 +1652,21 @@ body {
 .debug-button-green {
     background: linear-gradient(145deg, #32CD32, #228B22);
 }
+
+/* Time-of-day theme backgrounds */
+body.dawn {
+    background: linear-gradient(135deg, #FFE5B4 0%, #FFD59E 100%);
+}
+
+body.day {
+    background: linear-gradient(135deg, #E6A853 0%, #D4941E 100%);
+}
+
+body.dusk {
+    background: linear-gradient(135deg, #FDB99B 0%, #CF8E80 100%);
+}
+
+body.night {
+    background: linear-gradient(135deg, #2C3E50 0%, #4B79A1 100%);
+    color: #FFFFFF;
+}
