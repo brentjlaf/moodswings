@@ -548,7 +548,7 @@ function getUnlockText(cow) {
         return `Earn ${cow.unlockTarget} coins (${gameState.stats.totalCoinsEarned}/${cow.unlockTarget})`;
     }
     if (cow.unlockCondition === 'day') {
-        return 'Unlocked by default';
+        return `Reach day ${cow.unlockTarget} (${gameState.day}/${cow.unlockTarget})`;
     }
     return 'Unlock requirement unknown';
 }
@@ -997,7 +997,7 @@ function checkAllCowUnlocks() {
             unlocked = true;
         } else if (cow.unlockCondition === 'totalCoins' && gameState.stats.totalCoinsEarned >= cow.unlockTarget) {
             unlocked = true;
-        } else if (cow.unlockCondition === 'day') {
+        } else if (cow.unlockCondition === 'day' && gameState.day >= (cow.unlockTarget || 1)) {
             unlocked = true;
         } else if (cow.unlockCondition === 'perfectScores' && gameState.stats.totalPerfectScores >= cow.unlockTarget) {
             unlocked = true;
