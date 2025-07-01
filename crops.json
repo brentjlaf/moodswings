@@ -5,7 +5,7 @@
       "name": "Carrot",
       "emoji": "\uD83E\uDD55",
       "cost": 2,
-      "value": 2,
+      "value": 1,
       "growTime": 37500,
       "rarity": "common",
       "unlockCondition": null,
@@ -16,7 +16,7 @@
       "name": "Corn",
       "emoji": "\uD83C\uDF3D",
       "cost": 5,
-      "value": 10,
+      "value": 5,
       "growTime": 75000,
       "rarity": "common",
       "unlockCondition": null,
@@ -27,7 +27,7 @@
       "name": "Strawberry",
       "emoji": "\uD83C\uDF53",
       "cost": 30,
-      "value": 50,
+      "value": 25,
       "growTime": 50000,
       "rarity": "common",
       "unlockCondition": {
@@ -41,7 +41,7 @@
       "name": "Lettuce",
       "emoji": "\uD83E\uDD6C",
       "cost": 20,
-      "value": 40,
+      "value": 20,
       "growTime": 25000,
       "rarity": "common",
       "unlockCondition": null,
@@ -52,7 +52,7 @@
       "name": "Tomato",
       "emoji": "\uD83C\uDF45",
       "cost": 25,
-      "value": 45,
+      "value": 22,
       "growTime": 43750,
       "rarity": "common",
       "unlockCondition": {
@@ -66,7 +66,7 @@
       "name": "Sunflower",
       "emoji": "\uD83C\uDF3B",
       "cost": 60,
-      "value": 100,
+      "value": 50,
       "growTime": 90000,
       "rarity": "uncommon",
       "unlockCondition": {
@@ -80,7 +80,7 @@
       "name": "Blueberry",
       "emoji": "\uD83E\uDED0",
       "cost": 50,
-      "value": 90,
+      "value": 45,
       "growTime": 75000,
       "rarity": "uncommon",
       "unlockCondition": {
@@ -94,7 +94,7 @@
       "name": "Raspberry",
       "emoji": "\uD83C\uDF52",
       "cost": 55,
-      "value": 100,
+      "value": 50,
       "growTime": 82500,
       "rarity": "uncommon",
       "unlockCondition": {
@@ -108,7 +108,7 @@
       "name": "Pumpkin",
       "emoji": "\uD83C\uDF83",
       "cost": 150,
-      "value": 300,
+      "value": 150,
       "growTime": 300000,
       "rarity": "rare",
       "unlockCondition": {
@@ -122,7 +122,7 @@
       "name": "Watermelon",
       "emoji": "\uD83C\uDF49",
       "cost": 120,
-      "value": 250,
+      "value": 125,
       "growTime": 200000,
       "rarity": "rare",
       "unlockCondition": {
@@ -136,7 +136,7 @@
       "name": "Star Flower",
       "emoji": "\uD83C\uDF1F",
       "cost": 350,
-      "value": 700,
+      "value": 350,
       "growTime": 450000,
       "rarity": "epic",
       "unlockCondition": {
@@ -150,7 +150,7 @@
       "name": "Moonflower",
       "emoji": "\uD83C\uDF19",
       "cost": 400,
-      "value": 800,
+      "value": 400,
       "growTime": 500000,
       "rarity": "epic",
       "unlockCondition": {
@@ -164,7 +164,7 @@
       "name": "Crystal Fruit",
       "emoji": "\uD83D\uDD2E",
       "cost": 600,
-      "value": 1200,
+      "value": 600,
       "growTime": 720000,
       "rarity": "legendary",
       "unlockCondition": {
@@ -178,7 +178,7 @@
       "name": "Golden Apple",
       "emoji": "\uD83C\uDF4F",
       "cost": 1500,
-      "value": 2000,
+      "value": 1000,
       "growTime": 900000,
       "rarity": "legendary",
       "unlockCondition": {
