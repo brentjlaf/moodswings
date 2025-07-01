@@ -257,13 +257,20 @@ function hitNote(note) {
     // Ensure displayed score never shows decimals
     const displayScore = Math.floor(currentMinigame.score);
     document.getElementById('currentScore').textContent = displayScore;
-    
+
     if (points > 0) {
         showFloatingText(`+${points}!`, noteRect.left, noteRect.top);
     }
 
     if (currentMinigame.combo >= 3 && hitQuality !== 'miss') {
         showComboPopup(currentMinigame.combo);
+    }
+
+    if (currentMinigame.score >= currentMinigame.target && currentMinigame.gameActive) {
+        // Remove the note first for visual feedback before ending the game
+        note.remove();
+        endMinigame();
+        return;
     }
 
     note.remove();
