@@ -334,6 +334,18 @@ body {
     transition: width 0.3s linear;
 }
 
+.pest-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+.pest-timer {
+    font-size: 0.6em;
+    margin-left: 2px;
+}
+
 .plant-controls {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

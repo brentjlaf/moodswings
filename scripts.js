@@ -136,6 +136,15 @@ function clearAllCropTimers() {
         clearTimeout(timerId);
     });
     gameState.activeCropTimers = [];
+    gameState.crops.forEach(crop => {
+        if (crop.pestTimerId) {
+            clearTimeout(crop.pestTimerId);
+            crop.pestTimerId = null;
+        }
+        crop.hasPest = false;
+        crop.pestExpiresAt = null;
+        crop.pestPenalty = false;
+    });
 }
 
 function getCurrentSeason() {
@@ -659,7 +668,11 @@ function initializeCrops() {
             plantedAt: null,
             readyAt: null,
             isReady: false,
-            timerId: null // FIX: Track timer ID
+            timerId: null, // FIX: Track timer ID
+            hasPest: false,
+            pestTimerId: null,
+            pestExpiresAt: null,
+            pestPenalty: false
         });
     }
     renderCrops();
@@ -696,6 +709,16 @@ function renderCrops() {
                     <div class="growth-timer">${seconds}s</div>
                     <div class="growth-progress"><div class="growth-bar" style="width:${progress}%;"></div></div>
                 `;
+            }
+
+            if (crop.hasPest) {
+                const pest = document.createElement('div');
+                pest.className = 'pest-icon';
+                const timeLeftPest = Math.max(0, crop.pestExpiresAt - Date.now());
+                const secondsPest = Math.ceil(timeLeftPest / 1000);
+                pest.innerHTML = `🐛 <span class="pest-timer">${secondsPest}</span>`;
+                pest.onclick = (e) => { e.stopPropagation(); clearPest(index); };
+                cropSlot.appendChild(pest);
             }
         } else {
             cropSlot.innerHTML = '<div class="crop-slot-empty">➕</div>';
@@ -768,9 +791,13 @@ function harvestCrop(index) {
     if (!crop.isReady) return;
     
     const cropData = cropTypes[crop.type];
-    gameState.coins += cropData.value;
-    gameState.dailyStats.coinsEarned += cropData.value;
-    gameState.stats.totalCoinsEarned += cropData.value;
+    let reward = cropData.value;
+    if (crop.pestPenalty || crop.hasPest) {
+        reward = Math.floor(reward * (1 - GAME_CONFIG.PESTS.yield_penalty));
+    }
+    gameState.coins += reward;
+    gameState.dailyStats.coinsEarned += reward;
+    gameState.stats.totalCoinsEarned += reward;
     
     // Track achievement stats
     gameState.stats.cropsHarvested++;
@@ -788,17 +815,29 @@ function harvestCrop(index) {
         }
     }
     
+    if (crop.pestTimerId) {
+        clearTimeout(crop.pestTimerId);
+        crop.pestTimerId = null;
+    }
+
     crop.type = null;
     crop.plantedAt = null;
     crop.readyAt = null;
     crop.growTime = null;
     crop.isReady = false;
     crop.timerId = null;
+    crop.hasPest = false;
+    crop.pestExpiresAt = null;
+    crop.pestPenalty = false;
     
     updateDisplay();
     renderCrops();
     checkAchievements(); // Check for new achievements
-    showToast(`Harvested ${cropData.name}! +${cropData.value} coins!`, 'success');
+    if (reward < cropData.value) {
+        showToast(`Harvested ${cropData.name} (pest damage)! +${reward} coins!`, 'failure');
+    } else {
+        showToast(`Harvested ${cropData.name}! +${reward} coins!`, 'success');
+    }
 }
 
 function harvestAll() {
@@ -808,7 +847,11 @@ function harvestAll() {
     gameState.crops.forEach((crop) => {
         if (crop.isReady) {
             const cropData = cropTypes[crop.type];
-            totalValue += cropData.value;
+            let reward = cropData.value;
+            if (crop.pestPenalty || crop.hasPest) {
+                reward = Math.floor(reward * (1 - GAME_CONFIG.PESTS.yield_penalty));
+            }
+            totalValue += reward;
             harvested++;
             
             // Track achievement stats
@@ -826,13 +869,20 @@ function harvestAll() {
                     gameState.activeCropTimers.splice(timerIndex, 1);
                 }
             }
-            
+            if (crop.pestTimerId) {
+                clearTimeout(crop.pestTimerId);
+                crop.pestTimerId = null;
+            }
+
             crop.type = null;
             crop.plantedAt = null;
             crop.readyAt = null;
             crop.growTime = null;
             crop.isReady = false;
             crop.timerId = null;
+            crop.hasPest = false;
+            crop.pestExpiresAt = null;
+            crop.pestPenalty = false;
         }
     });
     
@@ -940,6 +990,50 @@ function updateBulletin() {
 
 function getFarmTip() {
     return FARM_TIPS[Math.floor(Math.random() * FARM_TIPS.length)];
+}
+
+function spawnPest(index) {
+    const crop = gameState.crops[index];
+    if (!crop || !crop.type || crop.hasPest) return;
+    crop.hasPest = true;
+    crop.pestPenalty = false;
+    crop.pestExpiresAt = Date.now() + GAME_CONFIG.PESTS.duration;
+    crop.pestTimerId = setTimeout(() => pestExpired(index), GAME_CONFIG.PESTS.duration);
+    renderCrops();
+}
+
+function clearPest(index) {
+    const crop = gameState.crops[index];
+    if (!crop || !crop.hasPest) return;
+    if (crop.pestTimerId) {
+        clearTimeout(crop.pestTimerId);
+        crop.pestTimerId = null;
+    }
+    crop.hasPest = false;
+    crop.pestExpiresAt = null;
+    crop.pestPenalty = false;
+    renderCrops();
+}
+
+function pestExpired(index) {
+    const crop = gameState.crops[index];
+    if (!crop || !crop.hasPest) return;
+    crop.hasPest = false;
+    crop.pestTimerId = null;
+    crop.pestPenalty = true;
+    crop.pestExpiresAt = null;
+    renderCrops();
+}
+
+function startPestChecks() {
+    setInterval(() => {
+        gameState.crops.forEach((crop, idx) => {
+            if (!crop.type || crop.hasPest) return;
+            if (Math.random() < GAME_CONFIG.PESTS.spawn_chance) {
+                spawnPest(idx);
+            }
+        });
+    }, GAME_CONFIG.PESTS.check_interval);
 }
 
 function updateStatsChart() {
@@ -1698,6 +1792,7 @@ function showAchievement(title, description) {
 // Initialize game when data is loaded
 loadGameData().then(() => {
     initializeGame();
+    startPestChecks();
 });
 
 
@@ -1725,12 +1820,20 @@ setInterval(() => {
                 if (timerEl) timerEl.textContent = `${Math.ceil(Math.max(0, timeLeft) / 1000)}s`;
                 const barEl = slot.querySelector('.growth-bar');
                 if (barEl) barEl.style.width = `${progress}%`;
+                if (crop.hasPest) {
+                    const pestTimer = slot.querySelector('.pest-timer');
+                    if (pestTimer) pestTimer.textContent = Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000);
+                }
             }
         } else {
             const slot = cropSlots[index];
             if (slot) {
                 const barEl = slot.querySelector('.growth-bar');
                 if (barEl) barEl.style.width = '100%';
+                if (crop.hasPest) {
+                    const pestTimer = slot.querySelector('.pest-timer');
+                    if (pestTimer) pestTimer.textContent = Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000);
+                }
             }
         }
     });

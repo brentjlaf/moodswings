@@ -29,6 +29,14 @@ const GAME_CONFIG = {
     CROP_SLOTS: 12,
     CROP_UPDATE_INTERVAL: 1000, // 1 second
 
+    // Pest system settings
+    PESTS: {
+        check_interval: 10000, // how often to attempt spawning pests
+        spawn_chance: 0.1,    // chance per planted crop each check
+        duration: 10000,      // time allowed to clear pests
+        yield_penalty: 0.5    // 50% yield reduction if not cleared
+    },
+
     // Upgrade settings
     UPGRADES: {
         pitchfork: {

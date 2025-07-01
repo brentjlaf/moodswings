@@ -39,7 +39,7 @@ function saveGameState() {
     const saveData = {
       ...gameState,
       activeCropTimers: [],
-      crops: gameState.crops.map(c => ({ ...c, timerId: null })),
+      crops: gameState.crops.map(c => ({ ...c, timerId: null, pestTimerId: null })),
       activeEffects: gameState.activeEffects.map(e => ({
         id: e.id,
         itemName: e.itemName,
