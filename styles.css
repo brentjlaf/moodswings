@@ -1596,6 +1596,7 @@ body {
 }
 .stats-chart-container {
     margin: 12px 0;
+    background: #ffffff;
 }
 
 #statsChart {
