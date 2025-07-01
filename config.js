@@ -34,7 +34,8 @@ const GAME_CONFIG = {
         check_interval: 10000, // how often to attempt spawning pests
         spawn_chance: 0.1,    // chance per planted crop each check
         duration: 10000,      // time allowed to clear pests
-        yield_penalty: 0.5    // 50% yield reduction if not cleared
+        // Reduced penalty so pests are less destructive
+        yield_penalty: 0.25   // 25% yield reduction if not cleared
     },
 
     // Upgrade settings
