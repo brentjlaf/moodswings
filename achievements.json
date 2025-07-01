@@ -1013,8 +1013,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "seasoned_farmer",
-      "name": "Seasoned Farmer",
+      "id": "expert_farmer",
+      "name": "Expert Farmer",
       "description": "Reach day 40",
       "icon": "\ud83c\udf96",
       "category": "progression",
@@ -1024,7 +1024,7 @@
       },
       "reward": {
         "coins": 600,
-        "message": "Seasoned farming skills!"
+        "message": "Expert farming skills!"
       },
       "rarity": "rare"
     },

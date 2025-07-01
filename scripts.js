@@ -102,7 +102,6 @@ let gameState = {
     },
     perfectStreakRecord: 0,
     activeCropTimers: [],
-    currentSeasonIndex: 0,
     playerID: null,
     lastSaved: null,
     gameVersion: "2.1" // Updated version for achievement system
@@ -137,26 +136,6 @@ function clearAllCropTimers() {
     gameState.activeCropTimers = [];
 }
 
-function getCurrentSeason() {
-    return GAME_CONFIG.SEASONS[gameState.currentSeasonIndex];
-}
-
-function updateSeason() {
-    const index = Math.floor((gameState.day - 1) / GAME_CONFIG.SEASON_LENGTH) % GAME_CONFIG.SEASONS.length;
-    if (index !== gameState.currentSeasonIndex) {
-        gameState.currentSeasonIndex = index;
-        const season = getCurrentSeason();
-        gameState.cows.forEach(cow => {
-            cow.happinessLevel = Math.min(
-                GAME_CONFIG.HAPPINESS.level_max,
-                cow.happinessLevel * season.happinessMultiplier
-            );
-            refreshCowMood(cow);
-        });
-        showToast(`${season.emoji} ${season.name} begins!`, 'info');
-        updateDisplay();
-    }
-}
 
 // Crop unlock condition checking
 function checkCropUnlockCondition(crop) {
@@ -704,10 +683,9 @@ function plantCrop(type) {
         return;
     }
     
-    const season = getCurrentSeason();
     emptySlot.type = type;
     emptySlot.plantedAt = Date.now();
-    emptySlot.growTime = cropData.growTime * season.cropGrowthMultiplier;
+    emptySlot.growTime = cropData.growTime;
     emptySlot.readyAt = Date.now() + emptySlot.growTime;
     emptySlot.isReady = false;
     
@@ -829,7 +807,6 @@ function nextDay() {
     gameState.dailyMilkTotals.push(gameState.dailyStats.milkProduced);
     gameState.dailyCoinTotals.push(gameState.dailyStats.coinsEarned);
     gameState.day++;
-    updateSeason();
     gameState.dailyStats = {
         happiest: null,
         milkProduced: 0,
@@ -1398,15 +1375,13 @@ function showToast(text, type) {
 function updateDisplay() {
     const coinsEl = document.getElementById('coins');
     const milkEl  = document.getElementById('milk');
-    const dayEl   = document.getElementById('day');
-    const moodEl  = document.getElementById('happiness');
-    const seasonEl = document.getElementById('season');
+    const dayEl   = document.getElementById("day");
+    const moodEl  = document.getElementById("happiness");
 
     // Update header stats
     if (coinsEl) coinsEl.textContent = gameState.coins;
     if (milkEl)  milkEl.textContent  = gameState.milk;
     if (dayEl)   dayEl.textContent   = gameState.day;
-    if (seasonEl) seasonEl.textContent = getCurrentSeason().name;
 
     // → NEW: average happiness across all unlocked cows
     if (moodEl) {
@@ -1456,8 +1431,6 @@ function migrateGameState() {
         gameState.dailyCoinTotals = [];
     }
 
-    if (gameState.currentSeasonIndex === undefined) {
-        gameState.currentSeasonIndex = 0;
     }
     
     // Migrate old fields to new stats structure
@@ -1508,7 +1481,6 @@ function initializeGame() {
         // New game - initialize everything
         generateCows();
         initializeCrops();
-        updateSeason();
     } else {
         // Loaded game - reinitialize display elements
         generateCows(); // This will use existing cow data
@@ -1536,7 +1508,6 @@ function initializeGame() {
                 }
             }
         });
-        updateSeason();
     }
 
     // Apply any happiness decay since last session
