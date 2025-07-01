@@ -43,7 +43,7 @@
         "target": 1
       },
       "reward": {
-        "coins": 25,
+        "coins": 13,
         "message": "Welcome to dairy farming!"
       },
       "rarity": "common"
@@ -59,8 +59,8 @@
         "target": 1000
       },
       "reward": {
-        "coins": 200,
-        "milk": 50,
+        "coins": 100,
+        "milk": 25,
         "message": "You're a true dairy expert!"
       },
       "rarity": "uncommon"
@@ -76,8 +76,8 @@
         "target": 5000
       },
       "reward": {
-        "coins": 350,
-        "milk": 75,
+        "coins": 175,
+        "milk": 38,
         "message": "Champion of the dairy!"
       },
       "rarity": "rare"
@@ -93,8 +93,8 @@
         "target": 20000
       },
       "reward": {
-        "coins": 500,
-        "milk": 100,
+        "coins": 250,
+        "milk": 50,
         "special_effect": "milk_boost_permanent",
         "message": "Legendary dairy mastery achieved!"
       },
@@ -111,7 +111,7 @@
         "target": 2000
       },
       "reward": {
-        "coins": 300,
+        "coins": 150,
         "message": "Your wallet is getting heavy!"
       },
       "rarity": "common"
@@ -127,7 +127,7 @@
         "target": 10000
       },
       "reward": {
-        "coins": 600,
+        "coins": 300,
         "special_effect": "coin_boost_permanent",
         "message": "You're swimming in coins!"
       },
@@ -144,7 +144,7 @@
         "target": 50000
       },
       "reward": {
-        "coins": 1000,
+        "coins": 500,
         "message": "Tycoon status!"
       },
       "rarity": "legendary"
@@ -160,7 +160,7 @@
         "target": 1
       },
       "reward": {
-        "coins": 20,
+        "coins": 10,
         "message": "Your farming journey begins!"
       },
       "rarity": "common"
@@ -176,7 +176,7 @@
         "target": 200
       },
       "reward": {
-        "coins": 300,
+        "coins": 150,
         "special_effect": "crop_growth_boost",
         "message": "The crops bow to your expertise!"
       },
@@ -194,7 +194,7 @@
         "cropType": "rainbow"
       },
       "reward": {
-        "coins": 500,
+        "coins": 250,
         "message": "You've mastered the magical harvest!"
       },
       "rarity": "epic"
@@ -210,7 +210,7 @@
         "target": 1
       },
       "reward": {
-        "coins": 50,
+        "coins": 25,
         "message": "Flawless rhythm!"
       },
       "rarity": "common"
@@ -226,7 +226,7 @@
         "target": 50
       },
       "reward": {
-        "coins": 500,
+        "coins": 250,
         "special_effect": "rhythm_tolerance_boost",
         "message": "Your timing is legendary!"
       },
@@ -243,7 +243,7 @@
         "target": 100
       },
       "reward": {
-        "coins": 300,
+        "coins": 150,
         "message": "Unstoppable rhythm chain!"
       },
       "rarity": "rare"
@@ -259,7 +259,7 @@
         "target": 1
       },
       "reward": {
-        "coins": 30,
+        "coins": 15,
         "message": "The cows love you!"
       },
       "rarity": "common"
@@ -275,7 +275,7 @@
         "target": 10
       },
       "reward": {
-        "coins": 400,
+        "coins": 200,
         "message": "Your herd is growing!"
       },
       "rarity": "uncommon"
@@ -292,7 +292,7 @@
         "minimumCows": 10
       },
       "reward": {
-        "coins": 800,
+        "coins": 400,
         "special_effect": "happiness_aura",
         "message": "Pure bovine bliss achieved!"
       },
@@ -309,7 +309,7 @@
         "target": 3
       },
       "reward": {
-        "coins": 600,
+        "coins": 300,
         "message": "You found the hidden treasures!"
       },
       "rarity": "epic"
@@ -325,7 +325,7 @@
         "target": 20
       },
       "reward": {
-        "coins": 600,
+        "coins": 300,
         "message": "You're a farming veteran!"
       },
       "rarity": "uncommon"
@@ -341,7 +341,7 @@
         "target": 60
       },
       "reward": {
-        "coins": 1200,
+        "coins": 600,
         "special_effect": "legend_status",
         "message": "You are a true farm legend!"
       },
@@ -358,7 +358,7 @@
         "target": 20
       },
       "reward": {
-        "coins": 400,
+        "coins": 200,
         "message": "You love to shop!"
       },
       "rarity": "rare"
@@ -374,7 +374,7 @@
         "target": 20
       },
       "reward": {
-        "coins": 1000,
+        "coins": 500,
         "special_effect": "perfectionist_aura",
         "message": "Absolute perfection achieved!"
       },
@@ -391,7 +391,7 @@
         "target": "midnight"
       },
       "reward": {
-        "coins": 150,
+        "coins": 75,
         "message": "The night shift farmer!"
       },
       "rarity": "uncommon"
@@ -407,7 +407,7 @@
         "target": 50000
       },
       "reward": {
-        "coins": 700,
+        "coins": 350,
         "message": "You've become a milk prodigy!"
       },
       "rarity": "rare"
@@ -423,7 +423,7 @@
         "target": 100000
       },
       "reward": {
-        "coins": 1000,
+        "coins": 500,
         "message": "You're a milk mogul!"
       },
       "rarity": "epic"
@@ -439,7 +439,7 @@
         "target": 250000
       },
       "reward": {
-        "coins": 1500,
+        "coins": 750,
         "message": "Dairy empire grows!"
       },
       "rarity": "epic"
@@ -455,7 +455,7 @@
         "target": 500000
       },
       "reward": {
-        "coins": 2500,
+        "coins": 1250,
         "message": "Absolute dairy domination!"
       },
       "rarity": "legendary"
@@ -471,7 +471,7 @@
         "target": 1000000
       },
       "reward": {
-        "coins": 5000,
+        "coins": 2500,
         "message": "Unparalleled milk tycoon!"
       },
       "rarity": "legendary"
@@ -487,7 +487,7 @@
         "target": 25000
       },
       "reward": {
-        "coins": 500,
+        "coins": 250,
         "message": "Specialist of savings!"
       },
       "rarity": "uncommon"
@@ -503,7 +503,7 @@
         "target": 100000
       },
       "reward": {
-        "coins": 1500,
+        "coins": 750,
         "message": "You're rolling in riches!"
       },
       "rarity": "rare"
@@ -519,7 +519,7 @@
         "target": 250000
       },
       "reward": {
-        "coins": 3000,
+        "coins": 1500,
         "message": "Coins pour in endlessly!"
       },
       "rarity": "epic"
@@ -535,7 +535,7 @@
         "target": 500000
       },
       "reward": {
-        "coins": 5000,
+        "coins": 2500,
         "message": "Crowned with coinage!"
       },
       "rarity": "epic"
@@ -551,7 +551,7 @@
         "target": 1000000
       },
       "reward": {
-        "coins": 10000,
+        "coins": 5000,
         "message": "Wealth beyond dreams!"
       },
       "rarity": "legendary"
@@ -567,7 +567,7 @@
         "target": 1000
       },
       "reward": {
-        "coins": 200,
+        "coins": 100,
         "message": "Hero of the harvest!"
       },
       "rarity": "uncommon"
@@ -583,7 +583,7 @@
         "target": 5000
       },
       "reward": {
-        "coins": 600,
+        "coins": 300,
         "message": "Bumper yields achieved!"
       },
       "rarity": "rare"
@@ -599,7 +599,7 @@
         "target": 10000
       },
       "reward": {
-        "coins": 1200,
+        "coins": 600,
         "message": "Mega harvest complete!"
       },
       "rarity": "epic"
@@ -615,7 +615,7 @@
         "target": 25000
       },
       "reward": {
-        "coins": 2500,
+        "coins": 1250,
         "message": "You rule the fields!"
       },
       "rarity": "legendary"
@@ -632,7 +632,7 @@
         "cropType": "carrot"
       },
       "reward": {
-        "coins": 150,
+        "coins": 75,
         "message": "Carrot patch superstar!"
       },
       "rarity": "uncommon"
@@ -649,7 +649,7 @@
         "cropType": "corn"
       },
       "reward": {
-        "coins": 300,
+        "coins": 150,
         "message": "Commanding the cornfields!"
       },
       "rarity": "rare"
@@ -666,7 +666,7 @@
         "cropType": "strawberry"
       },
       "reward": {
-        "coins": 450,
+        "coins": 225,
         "message": "Berry bounty gathered!"
       },
       "rarity": "rare"
@@ -683,7 +683,7 @@
         "cropType": "pumpkin"
       },
       "reward": {
-        "coins": 600,
+        "coins": 300,
         "message": "Pumpkin patches perfected!"
       },
       "rarity": "epic"
@@ -700,7 +700,7 @@
         "cropType": "golden_apple"
       },
       "reward": {
-        "coins": 1200,
+        "coins": 600,
         "message": "Legendary orchard yields!"
       },
       "rarity": "legendary"
@@ -717,7 +717,7 @@
         "cropType": "rainbow"
       },
       "reward": {
-        "coins": 1500,
+        "coins": 750,
         "message": "Double rainbow greatness!"
       },
       "rarity": "legendary"
@@ -733,7 +733,7 @@
         "target": 10
       },
       "reward": {
-        "coins": 50,
+        "coins": 25,
         "message": "The rhythm starts flowing!"
       },
       "rarity": "uncommon"
@@ -749,7 +749,7 @@
         "target": 100
       },
       "reward": {
-        "coins": 300,
+        "coins": 150,
         "message": "Veteran of the beat!"
       },
       "rarity": "rare"
@@ -765,7 +765,7 @@
         "target": 200
       },
       "reward": {
-        "coins": 700,
+        "coins": 350,
         "message": "Champion of rhythms!"
       },
       "rarity": "epic"
@@ -781,7 +781,7 @@
         "target": 500
       },
       "reward": {
-        "coins": 1500,
+        "coins": 750,
         "message": "Legendary rhythm skills!"
       },
       "rarity": "legendary"
@@ -797,7 +797,7 @@
         "target": 150
       },
       "reward": {
-        "coins": 200,
+        "coins": 100,
         "message": "Cadet of combos!"
       },
       "rarity": "uncommon"
@@ -813,7 +813,7 @@
         "target": 200
       },
       "reward": {
-        "coins": 400,
+        "coins": 200,
         "message": "Combo skills sharpened!"
       },
       "rarity": "rare"
@@ -829,7 +829,7 @@
         "target": 300
       },
       "reward": {
-        "coins": 800,
+        "coins": 400,
         "message": "Extreme combo prowess!"
       },
       "rarity": "epic"
@@ -845,7 +845,7 @@
         "target": 500
       },
       "reward": {
-        "coins": 1500,
+        "coins": 750,
         "message": "Ultimate combo legend!"
       },
       "rarity": "legendary"
@@ -861,7 +861,7 @@
         "target": 50
       },
       "reward": {
-        "coins": 900,
+        "coins": 450,
         "message": "Fanatic level perfection!"
       },
       "rarity": "epic"
@@ -877,7 +877,7 @@
         "target": 100
       },
       "reward": {
-        "coins": 1800,
+        "coins": 900,
         "message": "Master of perfect streaks!"
       },
       "rarity": "legendary"
@@ -893,7 +893,7 @@
         "target": 20
       },
       "reward": {
-        "coins": 400,
+        "coins": 200,
         "message": "Your herd keeps growing!"
       },
       "rarity": "uncommon"
@@ -909,7 +909,7 @@
         "target": 40
       },
       "reward": {
-        "coins": 800,
+        "coins": 400,
         "message": "A truly massive herd!"
       },
       "rarity": "rare"
@@ -925,7 +925,7 @@
         "target": 60
       },
       "reward": {
-        "coins": 2000,
+        "coins": 1000,
         "message": "The cows worship you!"
       },
       "rarity": "legendary"
@@ -941,7 +941,7 @@
         "target": 5
       },
       "reward": {
-        "coins": 1000,
+        "coins": 500,
         "message": "Secrets uncovered!"
       },
       "rarity": "epic"
@@ -957,7 +957,7 @@
         "target": 10
       },
       "reward": {
-        "coins": 2000,
+        "coins": 1000,
         "message": "Master of mysteries!"
       },
       "rarity": "legendary"
@@ -974,7 +974,7 @@
         "minimumCows": 20
       },
       "reward": {
-        "coins": 1500,
+        "coins": 750,
         "message": "So many smiles!"
       },
       "rarity": "epic"
@@ -991,7 +991,7 @@
         "minimumCows": 50
       },
       "reward": {
-        "coins": 4000,
+        "coins": 2000,
         "message": "Ultimate bovine bliss!"
       },
       "rarity": "legendary"
@@ -1007,7 +1007,7 @@
         "target": 50
       },
       "reward": {
-        "coins": 500,
+        "coins": 250,
         "message": "The cows adore you!"
       },
       "rarity": "uncommon"
@@ -1023,7 +1023,7 @@
         "target": 40
       },
       "reward": {
-        "coins": 600,
+        "coins": 300,
         "message": "Seasoned farming skills!"
       },
       "rarity": "rare"
@@ -1039,7 +1039,7 @@
         "target": 100
       },
       "reward": {
-        "coins": 1500,
+        "coins": 750,
         "message": "100 days of dedication!"
       },
       "rarity": "epic"
@@ -1055,7 +1055,7 @@
         "target": 200
       },
       "reward": {
-        "coins": 3000,
+        "coins": 1500,
         "message": "200 days on the farm!"
       },
       "rarity": "epic"
@@ -1071,7 +1071,7 @@
         "target": 365
       },
       "reward": {
-        "coins": 10000,
+        "coins": 5000,
         "special_effect": "legend_status",
         "message": "A year of farming legend!"
       },
@@ -1088,7 +1088,7 @@
         "target": 50
       },
       "reward": {
-        "coins": 2000,
+        "coins": 1000,
         "message": "Addicted to improvements!"
       },
       "rarity": "epic"
@@ -1104,7 +1104,7 @@
         "target": 100
       },
       "reward": {
-        "coins": 5000,
+        "coins": 2500,
         "message": "Supreme upgrade master!"
       },
       "rarity": "legendary"
@@ -1120,7 +1120,7 @@
         "target": "midnight"
       },
       "reward": {
-        "coins": 300,
+        "coins": 150,
         "message": "Owls approve your dedication!"
       },
       "rarity": "uncommon"
@@ -1136,7 +1136,7 @@
         "target": 1000
       },
       "reward": {
-        "coins": 5000,
+        "coins": 2500,
         "message": "Truly unstoppable!"
       },
       "rarity": "legendary"
@@ -1152,7 +1152,7 @@
         "target": 100
       },
       "reward": {
-        "coins": 800,
+        "coins": 400,
         "message": "You love your cows!"
       },
       "rarity": "epic"
