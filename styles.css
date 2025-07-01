@@ -85,6 +85,24 @@ body {
     font-weight: 700;
 }
 
+.effect-timers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px 0 10px;
+}
+
+.effect-timer {
+    background: #FFF3CD;
+    border: 1px solid #F0C36D;
+    border-radius: 8px;
+    padding: 2px 6px;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: #8B4513;
+}
+
 .main-content {
     flex: 1;
     overflow-y: auto;

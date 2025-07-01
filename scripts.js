@@ -102,6 +102,7 @@ let gameState = {
     },
     perfectStreakRecord: 0,
     activeCropTimers: [],
+    activeEffects: [],
     currentSeasonIndex: 0,
     playerID: null,
     lastSaved: null,
@@ -348,6 +349,7 @@ function applyUpgradeEffects(item) {
     if (!item.effects) return;
     
     Object.keys(item.effects).forEach(effectType => {
+        if (effectType === 'duration') return;
         const effectValue = item.effects[effectType];
         
         switch (effectType) {
@@ -399,17 +401,29 @@ function applyUpgradeEffects(item) {
             case 'crop_speed_boost':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.cropSpeedBoost = effectValue;
-                // Apply temporary effect if it has duration
-                if (item.effects.duration) {
-                    setTimeout(() => {
-                        gameState.effects.cropSpeedBoost = 0;
-                        showToast('Fertilizer effect has worn off!', 'info');
-                    }, item.effects.duration);
-                }
+                break;
+
+            case 'action_speed_boost':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.actionSpeedBoost = (gameState.effects.actionSpeedBoost || 0) + effectValue;
+                break;
+
+            case 'extra_milk_per_click':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.extraMilkPerClick = (gameState.effects.extraMilkPerClick || 0) + effectValue;
+                break;
+
+            case 'crop_yield_boost':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.cropYieldBoost = (gameState.effects.cropYieldBoost || 0) + effectValue;
                 break;
                 
             default:
                 console.log(`Unknown effect type: ${effectType}`);
+        }
+
+        if (item.effects.duration) {
+            startTimedEffect(item, effectType, effectValue, item.effects.duration);
         }
     });
 }
@@ -1395,6 +1409,88 @@ function showToast(text, type) {
     }, 3000);
 }
 
+function startTimedEffect(item, effectType, value, duration) {
+    const effectId = `${item.id}_${effectType}`;
+    const expiresAt = Date.now() + duration;
+    const timerId = setTimeout(() => {
+        removeTimedEffect(effectId);
+    }, duration);
+    gameState.activeEffects.push({
+        id: effectId,
+        itemName: item.name,
+        effectType,
+        value,
+        expiresAt,
+        timerId
+    });
+    renderEffectTimers();
+}
+
+function removeTimedEffect(effectId) {
+    const index = gameState.activeEffects.findIndex(e => e.id === effectId);
+    if (index === -1) return;
+    const effect = gameState.activeEffects[index];
+    switch (effect.effectType) {
+        case 'coin_bonus':
+            gameState.effects.coinBonus = (gameState.effects.coinBonus || 0) - effect.value;
+            break;
+        case 'crop_speed_boost':
+            gameState.effects.cropSpeedBoost = 0;
+            break;
+        case 'action_speed_boost':
+            gameState.effects.actionSpeedBoost = (gameState.effects.actionSpeedBoost || 0) - effect.value;
+            break;
+        case 'extra_milk_per_click':
+            gameState.effects.extraMilkPerClick = (gameState.effects.extraMilkPerClick || 0) - effect.value;
+            break;
+        case 'happiness_boost':
+            gameState.effects.happinessBoost = 0;
+            break;
+        case 'crop_yield_boost':
+            gameState.effects.cropYieldBoost = (gameState.effects.cropYieldBoost || 0) - effect.value;
+            break;
+    }
+    clearTimeout(effect.timerId);
+    gameState.activeEffects.splice(index, 1);
+    showToast(`${effect.itemName} effect has worn off!`, 'info');
+    renderEffectTimers();
+}
+
+function renderEffectTimers() {
+    const container = document.getElementById('effectTimers');
+    if (!container) return;
+    const now = Date.now();
+    container.innerHTML = '';
+    gameState.activeEffects.forEach(effect => {
+        const remaining = Math.max(0, effect.expiresAt - now);
+        if (remaining <= 0) {
+            removeTimedEffect(effect.id);
+            return;
+        }
+        const div = document.createElement('div');
+        div.className = 'effect-timer';
+        div.textContent = `${effect.itemName} ${Math.ceil(remaining / 1000)}s`;
+        container.appendChild(div);
+    });
+}
+
+function restartEffectTimers() {
+    const now = Date.now();
+    gameState.activeEffects.forEach(effect => {
+        const remaining = effect.expiresAt - now;
+        if (remaining > 0) {
+            effect.timerId = setTimeout(() => {
+                removeTimedEffect(effect.id);
+            }, remaining);
+        } else {
+            effect.timerId = setTimeout(() => {
+                removeTimedEffect(effect.id);
+            }, 0);
+        }
+    });
+    renderEffectTimers();
+}
+
 function updateDisplay() {
     const coinsEl = document.getElementById('coins');
     const milkEl  = document.getElementById('milk');
@@ -1539,6 +1635,8 @@ function initializeGame() {
         updateSeason();
     }
 
+    restartEffectTimers();
+
     // Apply any happiness decay since last session
     updateAllCowHappiness();
     
@@ -1625,3 +1723,6 @@ setInterval(() => {
         renderCrops();
     }
 }, GAME_CONFIG.CROP_UPDATE_INTERVAL);
+
+// Update active effect timers every second
+setInterval(renderEffectTimers, 1000);

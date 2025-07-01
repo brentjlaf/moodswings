@@ -117,7 +117,7 @@
       "icon": "\uD83E\uDDEA",
       "category": "consumables",
       "cost": 100,
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "crop_speed_boost": 0.5,
         "duration": 3600000
@@ -134,7 +134,7 @@
       "icon": "\uD83E\uDD64",
       "category": "consumables",
       "cost": 50,
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "action_speed_boost": 0.2,
         "duration": 1200000
@@ -151,7 +151,7 @@
       "icon": "\uD83E\uDDF2",
       "category": "consumables",
       "cost": 120,
-      "maxLevel": 10,
+      "maxLevel": 1,
       "effects": {
         "coin_bonus": 0.1,
         "duration": 7200000
@@ -168,7 +168,7 @@
       "icon": "\uD83C\uDF56",
       "category": "consumables",
       "cost": 80,
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "extra_milk_per_click": 1,
         "duration": 3600000
@@ -185,7 +185,7 @@
       "icon": "\uD83C\uDF53",
       "category": "consumables",
       "cost": 60,
-      "maxLevel": 50,
+      "maxLevel": 1,
       "effects": {
         "happiness_boost": 0.05,
         "duration": 2700000
@@ -202,7 +202,7 @@
       "icon": "\uD83C\uDF6F",
       "category": "consumables",
       "cost": 200,
-      "maxLevel": 20,
+      "maxLevel": 1,
       "effects": {
         "crop_yield_boost": 0.25,
         "duration": 7200000
