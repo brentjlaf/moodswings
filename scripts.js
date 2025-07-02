@@ -196,6 +196,8 @@ function checkCropUnlockCondition(crop) {
             return gameState.stats.totalCoinsEarned >= condition.target;
         case 'perfectScores':
             return gameState.stats.totalPerfectScores >= condition.target;
+        case 'upgrade':
+            return gameState.upgrades[condition.target] > 0;
         default:
             return true;
     }
