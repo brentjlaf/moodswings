@@ -413,7 +413,7 @@ function endMinigame() {
         gameState.stats.totalCoinsEarned += coinReward;
         cow.isHappy = true;
         cow.happinessLevel = Math.min(100, cow.happinessLevel + 20);
-        
+
     } else {
         gameState.stats.currentPerfectStreak = 0; // Reset streak on failure
         const coinLoss = Math.floor(Math.random() * 8) + 3;
@@ -423,6 +423,11 @@ function endMinigame() {
 
         resultMessage = `😤 ${cow.name} is not impressed!<br>-${coinLoss} coins.<br>Max Combo: ${currentMinigame.maxCombo}`;
         if (navigator.vibrate) navigator.vibrate(300);
+    }
+
+    // Synchronize mood stats and reset happiness timer
+    if (typeof refreshCowMood === 'function') {
+        refreshCowMood(cow);
     }
     
     updateDisplay();
