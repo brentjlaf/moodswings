@@ -188,6 +188,20 @@
       "description": "Legendary orchard treasure!"
     },
     {
+      "id": "clover",
+      "name": "Clover",
+      "emoji": "\uD83C\uDF40",
+      "cost": 80,
+      "value": 85,
+      "growTime": 65000,
+      "rarity": "rare",
+      "unlockCondition": {
+        "type": "upgrade",
+        "target": "lucky_clover"
+      },
+      "description": "Bring a bit of luck to your harvest!"
+    },
+    {
       "id": "cosmic_crop",
       "name": "Cosmic Crop",
       "emoji": "\u2728",
