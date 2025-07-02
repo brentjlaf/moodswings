@@ -467,7 +467,13 @@ function applyUpgradeEffects(item) {
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.milkConversionRate = effectValue;
                 break;
-                
+
+            case 'pest_protection':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.pestProtection = true;
+                clearAllPests();
+                break;
+
             default:
                 console.log(`Unknown effect type: ${effectType}`);
         }
@@ -1058,6 +1064,14 @@ function clearPest(index) {
     renderCrops();
 }
 
+function clearAllPests() {
+    gameState.crops.forEach((crop, idx) => {
+        if (crop.hasPest) {
+            clearPest(idx);
+        }
+    });
+}
+
 function pestExpired(index) {
     const crop = gameState.crops[index];
     if (!crop || !crop.hasPest) return;
@@ -1070,6 +1084,7 @@ function pestExpired(index) {
 
 function startPestChecks() {
     setInterval(() => {
+        if (gameState.effects.pestProtection) return;
         gameState.crops.forEach((crop, idx) => {
             if (!crop.type || crop.hasPest) return;
             if (Math.random() < GAME_CONFIG.PESTS.spawn_chance) {
@@ -1644,6 +1659,9 @@ function removeTimedEffect(effectId) {
             break;
         case 'crop_yield_boost':
             gameState.effects.cropYieldBoost = (gameState.effects.cropYieldBoost || 0) - effect.value;
+            break;
+        case 'pest_protection':
+            gameState.effects.pestProtection = false;
             break;
     }
     clearTimeout(effect.timerId);

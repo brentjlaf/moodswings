@@ -36,5 +36,6 @@ Modify the JSON files to add new cows, crops, shop items or rhythm patterns. Ref
 Certain shop upgrades provide automation:
 - **Auto Sprinkler** instantly waters planted crops each hour, finishing their growth.
 - **Milk Processor** converts all stored milk into coins at the start of each day using its conversion rate.
+- **Pest Control** keeps pests away from your fields for five minutes. You can stock up to 100 of them.
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
