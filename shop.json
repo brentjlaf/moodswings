@@ -223,6 +223,20 @@
       }
     },
     {
+      "id": "pest_control",
+      "name": "Pest Control",
+      "description": "No pests for 5 minutes!",
+      "icon": "\uD83D\uDC1E",
+      "category": "consumables",
+      "cost": 90,
+      "maxLevel": 100,
+      "effects": {
+        "pest_protection": true,
+        "duration": 300000
+      },
+      "unlockCondition": null
+    },
+    {
       "id": "rainbow_fence",
       "name": "Rainbow Fence",
       "description": "Increases farm happiness by 10%!",
