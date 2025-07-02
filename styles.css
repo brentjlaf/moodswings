@@ -801,17 +801,6 @@ body {
     border: 3px solid #8B4513;
 }
 
-.close-result {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: transparent;
-    border: none;
-    color: #8B4513;
-    font-size: 1.2em;
-    cursor: pointer;
-    font-weight: bold;
-}
 
 .close-achievement {
     position: absolute;
