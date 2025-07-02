@@ -449,8 +449,8 @@ function showMinigameResult(message) {
     if (!popup) return;
 
     popup.innerHTML = `
-        <button class="close-result" onclick="closeResultPopup()">&#x274C;</button>
         <div class="result-text">${message}</div>
+        <button class="close-minigame" onclick="closeMinigame()">&#x274C; CLOSE</button>
     `;
     popup.style.display = 'block';
 }
