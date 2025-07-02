@@ -1720,3 +1720,20 @@ body.night {
     background: linear-gradient(135deg, #2C3E50 0%, #4B79A1 100%);
     color: #FFFFFF;
 }
+
+/* Header gradients for time-of-day themes */
+.game-header.dawn {
+    background: linear-gradient(135deg, #FFE5B4 0%, #FFD59E 100%);
+}
+
+.game-header.day {
+    background: linear-gradient(135deg, #E6A853 0%, #D4941E 100%);
+}
+
+.game-header.dusk {
+    background: linear-gradient(135deg, #FDB99B 0%, #CF8E80 100%);
+}
+
+.game-header.night {
+    background: linear-gradient(135deg, #2C3E50 0%, #4B79A1 100%);
+}

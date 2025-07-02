@@ -1992,6 +1992,12 @@ function updateTimeTheme() {
     root.classList.remove('dawn', 'day', 'dusk', 'night');
     root.classList.add(theme);
 
+    const header = document.querySelector('.game-header');
+    if (header) {
+        header.classList.remove('dawn', 'day', 'dusk', 'night');
+        header.classList.add(theme);
+    }
+
     const timeEl = document.getElementById('timeDisplay');
     if (timeEl) {
         timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
