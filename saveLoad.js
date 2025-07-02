@@ -195,6 +195,7 @@ function resetGameData() {
             activeCropTimers: [],
             activeEffects: [],
             currentSeasonIndex: 0,
+            currentWeatherIndex: 0,
             playerID: generateDeviceID(),
             lastSaved: null,
             gameVersion: "2.1"

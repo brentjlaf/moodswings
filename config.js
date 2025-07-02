@@ -16,6 +16,14 @@ const GAME_CONFIG = {
         { name: 'Winter', emoji: '❄️', cropGrowthMultiplier: 0.8, happinessMultiplier: 0.9 }
     ],
 
+    // Daily weather settings
+    WEATHER_TYPES: [
+        { name: 'Clear', emoji: '☀️', cropGrowthModifier: 1 },
+        { name: 'Rain Storm', emoji: '🌧️', cropGrowthModifier: 0.8 },
+        { name: 'Drought', emoji: '🔥', cropGrowthModifier: 1.3 }
+    ],
+    WEATHER_CHANGE_CHANCE: 0.3,
+
     // Minigame settings
     MINIGAME_DURATION: 15000, // 15 seconds
     BASE_TARGET_SCORE: 80,

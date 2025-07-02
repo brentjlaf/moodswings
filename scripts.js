@@ -107,6 +107,7 @@ let gameState = {
     activeEffects: [],
     isMeteorShower: false,
     currentSeasonIndex: 0,
+    currentWeatherIndex: 0,
     playerID: null,
     lastSaved: null,
     gameVersion: "2.1" // Updated version for achievement system
@@ -187,6 +188,30 @@ function updateSeason() {
             showToast(`${season.emoji} ${season.name} begins!`, 'info');
         }
         updateDisplay();
+    }
+}
+
+function getCurrentWeather() {
+    if (!GAME_CONFIG.WEATHER_TYPES) {
+        return { name: '', emoji: '', cropGrowthModifier: 1 };
+    }
+    return GAME_CONFIG.WEATHER_TYPES[gameState.currentWeatherIndex];
+}
+
+function updateWeather(force = false) {
+    if (!GAME_CONFIG.WEATHER_TYPES) return;
+
+    if (force || Math.random() < (GAME_CONFIG.WEATHER_CHANGE_CHANCE || 0)) {
+        const index = Math.floor(Math.random() * GAME_CONFIG.WEATHER_TYPES.length);
+        if (force || index !== gameState.currentWeatherIndex) {
+            gameState.currentWeatherIndex = index;
+            const weather = getCurrentWeather();
+            let effectMsg = 'normal crop growth';
+            if (weather.cropGrowthModifier < 1) effectMsg = 'faster crop growth';
+            if (weather.cropGrowthModifier > 1) effectMsg = 'slower crop growth';
+            showToast(`${weather.emoji} ${weather.name}! ${effectMsg}!`, 'info');
+            updateDisplay();
+        }
     }
 }
 
@@ -803,9 +828,10 @@ function plantCrop(type) {
     }
     
     const season = getCurrentSeason();
+    const weather = getCurrentWeather();
     emptySlot.type = type;
     emptySlot.plantedAt = Date.now();
-    emptySlot.growTime = cropData.growTime * (season.cropGrowthMultiplier || 1);
+    emptySlot.growTime = cropData.growTime * (season.cropGrowthMultiplier || 1) * (weather.cropGrowthModifier || 1);
     emptySlot.readyAt = Date.now() + emptySlot.growTime;
     emptySlot.isReady = false;
     
@@ -955,6 +981,7 @@ function nextDay() {
     gameState.dailyCoinTotals.push(gameState.dailyStats.coinsEarned);
     gameState.day++;
     updateSeason();
+    updateWeather();
     gameState.dailyStats = {
         happiest: null,
         milkProduced: 0,
@@ -1754,6 +1781,7 @@ function updateDisplay() {
     const dayEl   = document.getElementById('day');
     const moodEl  = document.getElementById('happiness');
     const seasonEl = document.getElementById('seasonDisplay');
+    const weatherEl = document.getElementById('weatherDisplay');
 
     // Update header stats
     if (coinsEl) coinsEl.textContent = Math.floor(gameState.coins);
@@ -1763,6 +1791,10 @@ function updateDisplay() {
     if (seasonEl) {
         const season = getCurrentSeason();
         seasonEl.textContent = `${season.emoji} ${season.name}`.trim();
+    }
+    if (weatherEl) {
+        const weather = getCurrentWeather();
+        weatherEl.textContent = `${weather.emoji} ${weather.name}`.trim();
     }
 
     // → NEW: average happiness across all unlocked cows
@@ -1816,6 +1848,9 @@ function migrateGameState() {
     if (gameState.currentSeasonIndex === undefined) {
         gameState.currentSeasonIndex = 0;
     }
+    if (gameState.currentWeatherIndex === undefined) {
+        gameState.currentWeatherIndex = 0;
+    }
     
     // Migrate old fields to new stats structure
     if (gameState.totalMilkProduced !== undefined) {
@@ -1866,6 +1901,7 @@ function initializeGame() {
         generateCows();
         initializeCrops();
         updateSeason();
+        updateWeather(true);
     } else {
         // Loaded game - reinitialize display elements
         generateCows(); // This will use existing cow data
@@ -1894,6 +1930,7 @@ function initializeGame() {
             }
         });
         updateSeason();
+        updateWeather(true);
     }
 
     restartEffectTimers();
