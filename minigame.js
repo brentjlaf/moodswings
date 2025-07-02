@@ -404,8 +404,8 @@ function endMinigame() {
         // Ensure coin reward is a whole number
         coinReward = Math.round(coinReward);
 
-        gameState.milk += milkReward;
-        gameState.coins += coinReward;
+        gameState.milk = Math.max(0, gameState.milk + milkReward);
+        gameState.coins = Math.max(0, gameState.coins + coinReward);
         gameState.dailyStats.milkProduced += milkReward;
         gameState.dailyStats.coinsEarned += coinReward;
         gameState.dailyStats.happiest = cow.name;

@@ -115,6 +115,10 @@ let gameState = {
 
 // FIX: Helper function to safely deduct coins
 function deductCoins(amount, context = 'purchase') {
+    if (typeof amount !== 'number' || isNaN(amount) || amount <= 0) {
+        console.warn(`Invalid coin deduction: ${amount}`);
+        return false;
+    }
     if (gameState.coins < amount) {
         showToast(`Not enough coins for ${context}!`, 'failure');
         return false;
@@ -125,6 +129,10 @@ function deductCoins(amount, context = 'purchase') {
 
 // NEW: Helper function to safely deduct milk
 function deductMilk(amount, context = 'purchase') {
+    if (typeof amount !== 'number' || isNaN(amount) || amount <= 0) {
+        console.warn(`Invalid milk deduction: ${amount}`);
+        return false;
+    }
     if (gameState.milk < amount) {
         showToast(`Not enough milk for ${context}!`, 'failure');
         return false;
@@ -790,7 +798,7 @@ function plantCrop(type) {
     const emptySlot = gameState.crops.find(crop => !crop.type);
     if (!emptySlot) {
         showToast("No empty crop slots! Harvest some crops first.", 'failure');
-        gameState.coins += cropData.cost; // Refund coins
+        gameState.coins = Math.max(0, gameState.coins + cropData.cost); // Refund coins
         return;
     }
     
@@ -833,7 +841,7 @@ function harvestCrop(index) {
     if (crop.pestPenalty || crop.hasPest) {
         reward = Math.floor(reward * (1 - GAME_CONFIG.PESTS.yield_penalty));
     }
-    gameState.coins += reward;
+    gameState.coins = Math.max(0, gameState.coins + reward);
     gameState.dailyStats.coinsEarned += reward;
     gameState.stats.totalCoinsEarned += reward;
     
@@ -925,7 +933,7 @@ function harvestAll() {
     });
     
     if (harvested > 0) {
-        gameState.coins += totalValue;
+        gameState.coins = Math.max(0, gameState.coins + totalValue);
         gameState.dailyStats.coinsEarned += totalValue;
         gameState.stats.totalCoinsEarned += totalValue;
         updateDisplay();
@@ -1130,7 +1138,7 @@ function convertMilkToCoins() {
     if (milk <= 0) return;
     const coins = milk * rate;
     gameState.milk = 0;
-    gameState.coins += coins;
+    gameState.coins = Math.max(0, gameState.coins + coins);
     gameState.dailyStats.coinsEarned += coins;
     gameState.stats.totalCoinsEarned += coins;
     showToast(`Processed milk into ${Math.floor(coins)} coins!`, 'success');
@@ -1324,13 +1332,13 @@ function awardAchievement(achievement) {
     
     // Award coins
     if (reward.coins) {
-        gameState.coins += reward.coins;
+        gameState.coins = Math.max(0, gameState.coins + reward.coins);
         console.log(`Achievement reward: +${reward.coins} coins`);
     }
     
     // Award milk
     if (reward.milk) {
-        gameState.milk += reward.milk;
+        gameState.milk = Math.max(0, gameState.milk + reward.milk);
         gameState.stats.totalMilkProduced += reward.milk;
         console.log(`Achievement reward: +${reward.milk} milk`);
     }
