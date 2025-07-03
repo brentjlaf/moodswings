@@ -415,12 +415,27 @@ function buyUpgrade(itemId) {
 // Flexible effect application system
 function applyUpgradeEffects(item) {
     if (!item.effects) return;
-    
+
+    // Support alternate keys used by older shop data
+    if (item.effects.duration_minutes && !item.effects.duration) {
+        item.effects.duration = item.effects.duration_minutes * 60000;
+    }
+
     Object.keys(item.effects).forEach(effectType => {
-        if (effectType === 'duration') return;
+        if (effectType === 'duration' || effectType === 'duration_minutes') return;
+
+        const aliasMap = {
+            rhythm_tolerance_boost: 'rhythm_tolerance',
+            coin_bonus_percent: 'coin_bonus',
+            happiness_boost_percent: 'happiness_boost',
+            milk_production_multiplier: 'milk_multiplier',
+            crop_growth_speed: 'crop_speed_boost'
+        };
+
+        const mappedType = aliasMap[effectType] || effectType;
         const effectValue = item.effects[effectType];
         
-        switch (effectType) {
+        switch (mappedType) {
             case 'rhythm_tolerance':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.rhythmTolerance = (gameState.effects.rhythmTolerance || 0) + effectValue;
@@ -498,6 +513,24 @@ function applyUpgradeEffects(item) {
                 gameState.effects.autoMilkConversion = true;
                 break;
 
+            case 'milk_yield_bonus':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.milkYieldBonus = (gameState.effects.milkYieldBonus || 0) + effectValue;
+                break;
+
+            case 'unlock_crop':
+                if (cropTypes[effectValue]) {
+                    if (!gameState.effects) gameState.effects = {};
+                    if (!gameState.effects.unlockedCrops) gameState.effects.unlockedCrops = [];
+                    if (!gameState.effects.unlockedCrops.includes(effectValue)) {
+                        gameState.effects.unlockedCrops.push(effectValue);
+                    }
+                    cropTypes[effectValue].unlockCondition = null;
+                    generateCropButtons();
+                    showToast(`Unlocked crop: ${cropTypes[effectValue].name}!`, 'success');
+                }
+                break;
+
             case 'conversion_rate':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.milkConversionRate = effectValue;
@@ -514,7 +547,7 @@ function applyUpgradeEffects(item) {
         }
 
         if (item.effects.duration) {
-            startTimedEffect(item, effectType, effectValue, item.effects.duration);
+            startTimedEffect(item, mappedType, effectValue, item.effects.duration);
         }
     });
 }
@@ -1711,6 +1744,9 @@ function removeTimedEffect(effectId) {
             break;
         case 'crop_yield_boost':
             gameState.effects.cropYieldBoost = (gameState.effects.cropYieldBoost || 0) - effect.value;
+            break;
+        case 'milk_yield_bonus':
+            gameState.effects.milkYieldBonus = (gameState.effects.milkYieldBonus || 0) - effect.value;
             break;
         case 'pest_protection':
             gameState.effects.pestProtection = false;

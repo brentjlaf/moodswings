@@ -1,0 +1,13 @@
+{
+  "gameVersion": "2.1",
+  "playerID": "test_player",
+  "coins": 400,
+  "milk": 0,
+  "day": 1,
+  "cows": [],
+  "lockedCows": [],
+  "crops": [],
+  "upgrades": {"cow_comforter": 1},
+  "effects": {"milkYieldBonus": 15}
+}
+

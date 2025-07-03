@@ -1,0 +1,13 @@
+{
+  "gameVersion": "2.1",
+  "playerID": "test_player",
+  "coins": 1000,
+  "milk": 0,
+  "day": 1,
+  "cows": [],
+  "lockedCows": [],
+  "crops": [],
+  "upgrades": {},
+  "effects": {}
+}
+

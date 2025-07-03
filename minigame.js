@@ -364,6 +364,9 @@ function endMinigame() {
         if (gameState.effects.milkMultiplier) {
             milkReward *= gameState.effects.milkMultiplier;
         }
+        if (gameState.effects.milkYieldBonus) {
+            milkReward = Math.floor(milkReward * (1 + gameState.effects.milkYieldBonus / 100));
+        }
         if (gameState.effects.coinBonus) {
             coinReward += gameState.effects.coinBonus;
         }
