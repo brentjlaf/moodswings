@@ -13,31 +13,52 @@
 <div class="mobile-container"> 
   <!-- Game Header -->
   <div class="game-header">
-    <h1 class="game-title">&#x1F404; MOO-D SWINGS &#x1F404;</h1>
-    <div class="stats-bar">
-      <div class="stat"> <span class="stat-value" id="coins">100</span>
-        <div class="stat-label">&#x1F4B0; Coins</div>
+    <div class="header-content">
+      <h1 class="game-title">&#x1F404; MOO-D SWINGS &#x1F404;</h1>
+
+      <div class="primary-stats">
+        <div class="primary-stat coins-stat">
+          <span class="stat-icon">&#x1F4B0;</span>
+          <span class="stat-value" id="coins">100</span>
+          <div class="stat-label">Coins</div>
+        </div>
+        <div class="primary-stat">
+          <span class="stat-icon">&#x1F95B;</span>
+          <span class="stat-value" id="milk">0</span>
+          <div class="stat-label">Milk</div>
+        </div>
+        <div class="primary-stat mood-stat">
+          <span class="stat-icon">&#x1F60A;</span>
+          <span class="stat-value" id="happiness"></span>
+          <div class="stat-label">Mood</div>
+        </div>
+        <div class="primary-stat">
+          <span class="stat-icon">&#x1F4C5;</span>
+          <span class="stat-value" id="day">1</span>
+          <div class="stat-label">Day</div>
+        </div>
       </div>
-      <div class="stat"> <span class="stat-value" id="milk">0</span>
-        <div class="stat-label">&#x1F95B; Milk</div>
+
+      <div class="secondary-stats">
+        <div class="secondary-stat">
+          <span class="stat-icon">&#x1F331;</span>
+          <span class="stat-value" id="seasonDisplay"></span>
+          <div class="stat-label">Season</div>
+        </div>
+        <div class="secondary-stat">
+          <span class="stat-icon">⛅</span>
+          <span class="stat-value" id="weatherDisplay"></span>
+          <div class="stat-label">Weather</div>
+        </div>
+        <div class="secondary-stat">
+          <span class="stat-icon">&#x1F552;</span>
+          <span class="stat-value" id="timeDisplay"></span>
+          <div class="stat-label">Time</div>
+        </div>
       </div>
-      <div class="stat"> <span class="stat-value" id="happiness"></span>
-        <div class="stat-label">&#x1F60A; Mood</div>
-      </div>
-      <div class="stat"> <span class="stat-value" id="day">1</span>
-        <div class="stat-label">&#x1F4C5; Day</div>
-      </div>
-      <div class="stat"> <span class="stat-value" id="seasonDisplay"></span>
-        <div class="stat-label">&#x1F331; Season</div>
-      </div>
-      <div class="stat"> <span class="stat-value" id="weatherDisplay"></span>
-        <div class="stat-label">⛅ Weather</div>
-      </div>
-      <div class="stat time-stat"> <span class="stat-value" id="timeDisplay"></span>
-        <div class="stat-label">&#x1F552; Time</div>
-      </div>
+
+      <div id="effectTimers" class="effect-timers"></div>
     </div>
-    <div id="effectTimers" class="effect-timers"></div>
   </div>
   
   <!-- Tab Navigation -->
