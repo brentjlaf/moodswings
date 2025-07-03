@@ -661,7 +661,7 @@ function renderCows() {
         const happinessColor    = cow.isHappy ? '#32CD32' : '#FF6B6B';
         const heartIcon         = cow.isHappy ? '💚' : '💔';
         const moodClass         = cow.isHappy ? 'cow-mood cow-mood-happy' : 'cow-mood cow-mood-sad';
-        const moodValueDisplay  = Math.round(cow.moodValue);
+        const moodValueDisplay  = Math.floor(cow.moodValue);
 
         const isMaxHappy = cow.happinessLevel >= 100;
         const buttonText = !cow.isHappy
@@ -1819,7 +1819,7 @@ function updateDisplay() {
         const herd = gameState.cows;
         if (herd.length > 0) {
             const total = herd.reduce((sum, c) => sum + c.happinessLevel, 0);
-            moodEl.textContent = Math.round(total / herd.length);
+            moodEl.textContent = Math.floor(total / herd.length);
         } else {
             moodEl.textContent = '0';
         }
