@@ -149,15 +149,17 @@
       <p class="minigame-instructions" id="minigameInstructions">Get ready to play!</p>
       <div class="countdown-clock" id="countdownClock">15</div>
     </div>
-    <div class="rhythm-game">
-      <div class="score-area container">
-        <div class="score-display">Score: <span id="currentScore">0</span></div>
-        <div class="score-display">Target: <span id="targetScore">100</span></div>
+      <div class="rhythm-game">
+        <div class="score-area container">
+          <div class="score-bar">
+            <div class="score-fill" id="scoreFill"></div>
+            <div class="score-numbers"><span id="currentScore">0</span>/<span id="targetScore">100</span></div>
+          </div>
+        </div>
+        <div class="rhythm-bar" id="rhythmBar">
+          <div class="rhythm-marker"></div>
+        </div>
       </div>
-      <div class="rhythm-bar" id="rhythmBar">
-        <div class="rhythm-marker"></div>
-      </div>
-    </div>
     <div class="minigame-footer">
       <div class="mobile-controls">
         <button class="control-btn" id="tapBtn">&#x1F446;<br>TAP</button>
