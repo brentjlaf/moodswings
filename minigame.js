@@ -247,8 +247,13 @@ function hitNote(note) {
     }
     
     // Apply coin bonus effects
-    if (gameState.effects && gameState.effects.coinBonus && hitQuality !== 'miss') {
-        points += gameState.effects.coinBonus;
+    if (gameState.effects && hitQuality !== 'miss') {
+        if (gameState.effects.coinBonus) {
+            points += gameState.effects.coinBonus;
+        }
+        if (gameState.effects.coinBonusPercent) {
+            points = Math.floor(points * (1 + gameState.effects.coinBonusPercent));
+        }
     }
     
     currentMinigame.score += points;
@@ -369,6 +374,9 @@ function endMinigame() {
         }
         if (gameState.effects.coinBonus) {
             coinReward += gameState.effects.coinBonus;
+        }
+        if (gameState.effects.coinBonusPercent) {
+            coinReward = Math.floor(coinReward * (1 + gameState.effects.coinBonusPercent));
         }
         
         // Apply achievement effect bonuses

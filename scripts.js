@@ -425,15 +425,19 @@ function applyUpgradeEffects(item) {
         if (effectType === 'duration' || effectType === 'duration_minutes') return;
 
         const aliasMap = {
-            rhythm_tolerance_boost: 'rhythm_tolerance',
-            coin_bonus_percent: 'coin_bonus',
-            happiness_boost_percent: 'happiness_boost',
-            milk_production_multiplier: 'milk_multiplier',
-            crop_growth_speed: 'crop_speed_boost'
+            rhythm_tolerance_boost: { key: 'rhythm_tolerance', convert: v => v / 100 },
+            coin_bonus_percent: { key: 'coin_bonus_percent', convert: v => v / 100 },
+            happiness_boost_percent: { key: 'happiness_boost', convert: v => v / 100 },
+            milk_production_multiplier: { key: 'milk_multiplier', convert: v => v / 100 },
+            crop_growth_speed: { key: 'crop_speed_boost', convert: v => v / 100 }
         };
 
-        const mappedType = aliasMap[effectType] || effectType;
-        const effectValue = item.effects[effectType];
+        const mapping = aliasMap[effectType];
+        const mappedType = mapping ? mapping.key : effectType;
+        let effectValue = item.effects[effectType];
+        if (mapping && mapping.convert) {
+            effectValue = mapping.convert(effectValue);
+        }
         
         switch (mappedType) {
             case 'rhythm_tolerance':
@@ -449,6 +453,11 @@ function applyUpgradeEffects(item) {
             case 'coin_bonus':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.coinBonus = (gameState.effects.coinBonus || 0) + effectValue;
+                break;
+
+            case 'coin_bonus_percent':
+                if (!gameState.effects) gameState.effects = {};
+                gameState.effects.coinBonusPercent = (gameState.effects.coinBonusPercent || 0) + effectValue;
                 break;
                 
             case 'happiness_boost':
@@ -1729,6 +1738,9 @@ function removeTimedEffect(effectId) {
     switch (effect.effectType) {
         case 'coin_bonus':
             gameState.effects.coinBonus = (gameState.effects.coinBonus || 0) - effect.value;
+            break;
+        case 'coin_bonus_percent':
+            gameState.effects.coinBonusPercent = (gameState.effects.coinBonusPercent || 0) - effect.value;
             break;
         case 'crop_speed_boost':
             gameState.effects.cropSpeedBoost = 0;
