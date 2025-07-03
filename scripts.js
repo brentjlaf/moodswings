@@ -415,9 +415,15 @@ function buyUpgrade(itemId) {
 // Flexible effect application system
 function applyUpgradeEffects(item) {
     if (!item.effects) return;
-    
+
+    const duration = item.effects.duration
+        ? item.effects.duration
+        : (item.effects.duration_minutes
+            ? item.effects.duration_minutes * 60000
+            : 0);
+
     Object.keys(item.effects).forEach(effectType => {
-        if (effectType === 'duration') return;
+        if (effectType === 'duration' || effectType === 'duration_minutes') return;
         const effectValue = item.effects[effectType];
         
         switch (effectType) {
@@ -513,8 +519,8 @@ function applyUpgradeEffects(item) {
                 console.log(`Unknown effect type: ${effectType}`);
         }
 
-        if (item.effects.duration) {
-            startTimedEffect(item, effectType, effectValue, item.effects.duration);
+        if (duration) {
+            startTimedEffect(item, effectType, effectValue, duration);
         }
     });
 }
