@@ -10,16 +10,14 @@ let currentMinigame = {
     maxCombo: 0
 };
 
-// Default colors for hit feedback. These may be overridden by rhythmPatterns.hitColors
-const DEFAULT_HIT_COLORS = {
-    perfect: '#00FF00',
-    good: '#FFFF00',
-    okay: '#FF8C00',
-    miss: '#FF0000'
-};
-
-
 function getHitColor(type) {
+    const DEFAULT_HIT_COLORS = {
+        perfect: '#00FF00',
+        good: '#FFFF00',
+        okay: '#FF8C00',
+        miss: '#FF0000'
+    };
+
     if (rhythmPatterns.hitColors && rhythmPatterns.hitColors[type]) {
         return rhythmPatterns.hitColors[type];
     }
