@@ -55,6 +55,8 @@ function startRhythmGame(cowIndex) {
 
     document.getElementById('currentScore').textContent = '0';
     document.getElementById('targetScore').textContent = currentMinigame.target;
+    const scoreFill = document.getElementById('scoreFill');
+    if (scoreFill) scoreFill.style.width = '0%';
     const countdownEl = document.getElementById('countdownClock');
     if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
 
@@ -191,6 +193,8 @@ function spawnNote() {
 // Enhanced hit detection with new tolerance system
 function hitNote(note) {
     if (!note) return;
+
+    const scoreFill = document.getElementById('scoreFill');
     
     const noteRect = note.getBoundingClientRect();
     const marker = document.querySelector('.rhythm-marker');
@@ -253,6 +257,10 @@ function hitNote(note) {
     // Ensure displayed score never shows decimals
     const displayScore = Math.floor(currentMinigame.score);
     document.getElementById('currentScore').textContent = displayScore;
+    if (scoreFill) {
+        const progress = Math.min(currentMinigame.score / currentMinigame.target, 1) * 100;
+        scoreFill.style.width = progress + '%';
+    }
 
     if (points > 0) {
         showFloatingText(`+${points}!`, noteRect.left, noteRect.top);

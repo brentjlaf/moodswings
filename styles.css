@@ -837,6 +837,35 @@ body {
     margin: 0 5px;
 }
 
+/* Progress bar for the rhythm game score */
+.score-bar {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.score-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #4ECDC4, #FF6B6B);
+    transition: width 0.3s ease;
+}
+
+.score-numbers {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-weight: bold;
+}
+
 
 .mobile-controls {
     display: grid;
