@@ -271,7 +271,7 @@
     {
       "id": "super_fertilizer",
       "name": "Super Fertilizer",
-      "description": "Crops grow 50% faster for 1 hour!",
+      "description": "Crops grow 50% faster for 15 minutes!",
       "icon": "\ud83e\uddea",
       "category": "consumables",
       "cost": 100,
@@ -279,7 +279,7 @@
       "maxLevel": 99,
       "effects": {
         "crop_growth_speed": 50,
-        "duration_minutes": 60
+      "duration_minutes": 15
       },
       "unlockCondition": {
         "type": "day",
@@ -289,7 +289,7 @@
     {
       "id": "energy_drink",
       "name": "Energy Drink",
-      "description": "All actions 20% faster for 30 minutes!",
+      "description": "All actions 20% faster for 15 minutes!",
       "icon": "\ud83e\udd64",
       "category": "consumables",
       "cost": 50,
@@ -297,7 +297,7 @@
       "maxLevel": 99,
       "effects": {
         "action_speed_boost": 20,
-        "duration_minutes": 30
+      "duration_minutes": 15
       },
       "unlockCondition": {
         "type": "day",
@@ -307,7 +307,7 @@
     {
       "id": "lucky_horseshoe",
       "name": "Lucky Horseshoe",
-      "description": "Coin gain +10% for 2 hours!",
+      "description": "Coin gain +10% for 30 minutes!",
       "icon": "\ud83e\uddf2",
       "category": "consumables",
       "cost": 120,
@@ -315,7 +315,7 @@
       "maxLevel": 99,
       "effects": {
         "coin_bonus_percent": 10,
-        "duration_minutes": 120
+      "duration_minutes": 30
       },
       "unlockCondition": {
         "type": "totalCoins",
@@ -325,7 +325,7 @@
     {
       "id": "cow_treats",
       "name": "Cow Treats",
-      "description": "Milk production +1 per click for 1 hour!",
+      "description": "Milk production +1 per click for 15 minutes!",
       "icon": "\ud83c\udf56",
       "category": "consumables",
       "cost": 80,
@@ -333,7 +333,7 @@
       "maxLevel": 99,
       "effects": {
         "extra_milk_per_click": 1,
-        "duration_minutes": 60
+      "duration_minutes": 15
       },
       "unlockCondition": {
         "type": "day",
@@ -343,7 +343,7 @@
     {
       "id": "strawberry_snack",
       "name": "Strawberry Snack",
-      "description": "Happiness +5% for 45 minutes!",
+      "description": "Happiness +5% for 15 minutes!",
       "icon": "\ud83c\udf53",
       "category": "consumables",
       "cost": 60,
@@ -351,7 +351,7 @@
       "maxLevel": 99,
       "effects": {
         "happiness_boost_percent": 5,
-        "duration_minutes": 45
+      "duration_minutes": 15
       },
       "unlockCondition": {
         "type": "totalCoins",
@@ -361,15 +361,15 @@
     {
       "id": "honey_potion",
       "name": "Honey Potion",
-      "description": "Crop yield +25% for 2 hours!",
+      "description": "Crop yield +25% for 1 hour!",
       "icon": "\ud83c\udf6f",
       "category": "consumables",
-      "cost": 200,
+      "cost": 500,
       "currency": "coins",
       "maxLevel": 99,
       "effects": {
         "crop_yield_bonus": 25,
-        "duration_minutes": 120
+      "duration_minutes": 60
       },
       "unlockCondition": {
         "type": "day",
@@ -379,15 +379,15 @@
     {
       "id": "berry_smoothie",
       "name": "Berry Smoothie",
-      "description": "Coin income +5% for 1 hour!",
+      "description": "Coin income +5% for 30 minutes!",
       "icon": "\ud83e\udd64",
       "category": "consumables",
-      "cost": 80,
+      "cost": 100,
       "currency": "coins",
       "maxLevel": 99,
       "effects": {
         "coin_bonus_percent": 5,
-        "duration_minutes": 60
+      "duration_minutes": 30
       },
       "unlockCondition": {
         "type": "day",
