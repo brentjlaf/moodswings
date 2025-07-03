@@ -179,7 +179,6 @@ function spawnNote() {
         if (note.parentNode) {
             // Visual feedback for missing a note
             note.style.background = getHitColor('miss');
-            note.style.background = HIT_COLORS.miss;
             setTimeout(() => {
                 if (note.parentNode) note.parentNode.removeChild(note);
             }, 200);
@@ -221,13 +220,11 @@ function hitNote(note) {
         hitQuality = 'perfect';
         currentMinigame.combo++;
         note.style.background = getHitColor('perfect');
-        note.style.background = HIT_COLORS.perfect;
         if (navigator.vibrate) navigator.vibrate(50);
     } else if (distance < 80 * baseTolerance) {
         hitQuality = 'good';
         currentMinigame.combo++;
         note.style.background = getHitColor('good');
-        note.style.background = HIT_COLORS.good;
         if (navigator.vibrate) navigator.vibrate(30);
     } else if (distance < 120 * baseTolerance) {
         hitQuality = 'okay';
@@ -237,7 +234,6 @@ function hitNote(note) {
         currentMinigame.combo = 0;
         hitQuality = 'miss';
         note.style.background = getHitColor('miss');
-        note.style.background = HIT_COLORS.miss;
         points = 0;
     }
     
@@ -317,7 +313,6 @@ function endMinigame() {
     const success = currentMinigame.score >= currentMinigame.target;
     let resultMessage = '';
     
-// --- INSERT MOOD-BUMP HERE -------------------------------
   // Adjust mood based on how well or poorly the minigame went
   const resultDelta = currentMinigame.score - currentMinigame.target;
   // Translate score difference into a mood change, capped to keep swings reasonable
