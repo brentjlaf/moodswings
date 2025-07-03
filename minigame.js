@@ -40,6 +40,13 @@ function getRandomGameType() {
     return types[Math.floor(Math.random() * types.length)];
 }
 
+// Reset the countdown display and internal timer
+function resetMinigameTimer() {
+    currentMinigame.timeLeft = 15;
+    const countdownEl = document.getElementById('countdownClock');
+    if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
+}
+
 function startRhythmGame(cowIndex) {
     currentMinigame.cowIndex = cowIndex;
     currentMinigame.score = 0;
@@ -51,14 +58,13 @@ function startRhythmGame(cowIndex) {
     currentMinigame.target = Math.max(20, Math.round(mood * 2));
 
     currentMinigame.gameActive = true;
-    currentMinigame.timeLeft = 15;
+    resetMinigameTimer();
 
     document.getElementById('currentScore').textContent = '0';
     document.getElementById('targetScore').textContent = currentMinigame.target;
     const scoreFill = document.getElementById('scoreFill');
     if (scoreFill) scoreFill.style.width = '0%';
     const countdownEl = document.getElementById('countdownClock');
-    if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
 
     const speed = getGameSpeed(cow.currentGameType || cow.gameType);
 
@@ -503,6 +509,8 @@ function startMinigame(cowIndex) {
     if (closeBtn) closeBtn.style.display = 'none';
 
     overlay.style.display = 'block';
+    // Ensure timer always starts at 15 seconds when the overlay is shown
+    resetMinigameTimer();
     startRhythmGame(cowIndex);
     
     if (navigator.vibrate) {
