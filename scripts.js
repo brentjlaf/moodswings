@@ -1175,11 +1175,12 @@ function startAutoWater() {
 
 function convertMilkToCoins() {
     if (!gameState.effects.autoMilkConversion) return;
-    const rate = gameState.effects.milkConversionRate || 1;
+    const rate = gameState.effects.milkConversionRate || 1; // milk needed per coin
     const milk = gameState.milk;
     if (milk <= 0) return;
-    const coins = milk * rate;
-    gameState.milk = 0;
+
+    const coins = milk / rate;
+    gameState.milk = 0; // all milk is processed at day end
     gameState.coins = Math.max(0, gameState.coins + coins);
     gameState.dailyStats.coinsEarned += coins;
     gameState.stats.totalCoinsEarned += coins;
