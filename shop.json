@@ -2,32 +2,32 @@
   "categories": [
     {
       "id": "tools",
-      "name": "\uD83D\uDD27 Farm Tools",
+      "name": "\ud83d\udd27 Farm Tools",
       "description": "Improve your farming efficiency!"
     },
     {
       "id": "buildings",
-      "name": "\uD83C\uDFE0 Buildings",
+      "name": "\ud83c\udfe0 Buildings",
       "description": "Upgrade your farm infrastructure!"
     },
     {
       "id": "decorations",
-      "name": "\uD83C\uDFA8 Decorations",
+      "name": "\ud83c\udfa8 Decorations",
       "description": "Make your farm look amazing!"
     },
     {
       "id": "consumables",
-      "name": "\uD83C\uDF4E Consumables",
+      "name": "\ud83c\udf4e Consumables",
       "description": "Temporary boosts and effects!"
     },
     {
       "id": "lighting",
-      "name": "\uD83D\uDCA1 Lighting",
+      "name": "\ud83d\udca1 Lighting",
       "description": "Illuminate your farm in style!"
     },
     {
       "id": "furniture",
-      "name": "\uD83D\uDECB Furniture",
+      "name": "\ud83d\udecb Furniture",
       "description": "Decorate with comfy furnishings!"
     }
   ],
@@ -35,27 +35,29 @@
     {
       "id": "pitchfork_1",
       "name": "Better Pitchfork",
-      "description": "Makes rhythm games easier!",
-      "icon": "\uD83D\uDD31",
+      "description": "Makes rhythm games 30% more forgiving!",
+      "icon": "\ud83d\udd31",
       "category": "tools",
       "cost": 120,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "rhythm_tolerance": 0.3
+        "rhythm_tolerance_boost": 30
       },
       "unlockCondition": null
     },
     {
       "id": "pitchfork_2",
       "name": "Super Pitchfork",
-      "description": "Massive timing window!",
-      "icon": "\u26A1",
+      "description": "60% more forgiving timing + 10% coin bonus!",
+      "icon": "\u26a1",
       "category": "tools",
       "cost": 500,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "rhythm_tolerance": 0.6,
-        "coin_bonus": 10
+        "rhythm_tolerance_boost": 60,
+        "coin_bonus_percent": 10
       },
       "unlockCondition": {
         "type": "upgrade",
@@ -63,206 +65,66 @@
       }
     },
     {
-      "id": "metronome_1",
-      "name": "Metronome",
-      "description": "Perfect timing assistance!",
-      "icon": "\uD83C\uDFB5",
+      "id": "pitchfork_3",
+      "name": "Master Pitchfork",
+      "description": "Ultimate timing assistance + 25% coin bonus!",
+      "icon": "\u2728",
       "category": "tools",
-      "cost": 200,
+      "cost": 1500,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "rhythm_speed_bonus": 0.3
-      },
-      "unlockCondition": null
-    },
-    {
-      "id": "barn_1",
-      "name": "Neon Pink Barn",
-      "description": "Double milk production!",
-      "icon": "\uD83C\uDFE0",
-      "category": "buildings",
-      "cost": 450,
-      "currency": "milk",
-      "maxLevel": 1,
-      "effects": {
-        "milk_multiplier": 2
-      },
-      "unlockCondition": null
-    },
-    {
-      "id": "barn_2",
-      "name": "Starlight Barn",
-      "description": "Triple milk production!",
-      "icon": "\u2B50",
-      "category": "buildings",
-      "cost": 1000,
-      "currency": "milk",
-      "maxLevel": 1,
-      "effects": {
-        "milk_multiplier": 3
+        "rhythm_tolerance_boost": 100,
+        "coin_bonus_percent": 25
       },
       "unlockCondition": {
         "type": "upgrade",
-        "target": "barn_1"
+        "target": "pitchfork_2"
       }
     },
     {
-      "id": "cowbell",
-      "name": "Golden Cowbell",
-      "description": "Boost all cow happiness!",
-      "icon": "\uD83D\uDD14",
+      "id": "metronome_1",
+      "name": "Basic Metronome",
+      "description": "Rhythm speed bonus of 30%!",
+      "icon": "\ud83c\udfb5",
       "category": "tools",
-      "cost": 500,
-      "currency": "milk",
-      "maxLevel": 1,
-      "effects": {
-        "happiness_boost": true
-      },
-      "unlockCondition": null
-    },
-    {
-      "id": "fertilizer",
-      "name": "Super Fertilizer",
-      "description": "Crops grow 50% faster for 1 hour!",
-      "icon": "\uD83E\uDDEA",
-      "category": "consumables",
-      "cost": 100,
-      "maxLevel": 1,
-      "effects": {
-        "crop_speed_boost": 0.5,
-        "duration": 3600000
-      },
-      "unlockCondition": {
-        "type": "day",
-        "target": 3
-      }
-    },
-    {
-      "id": "energy_drink",
-      "name": "Energy Drink",
-      "description": "Farm actions 20% faster for 30 minutes!",
-      "icon": "\uD83E\uDD64",
-      "category": "consumables",
-      "cost": 50,
-      "maxLevel": 1,
-      "effects": {
-        "action_speed_boost": 0.2,
-        "duration": 1200000
-      },
-      "unlockCondition": {
-        "type": "day",
-        "target": 1
-      }
-    },
-    {
-      "id": "lucky_horseshoe",
-      "name": "Lucky Horseshoe",
-      "description": "Coin gain +10% for 2 hours!",
-      "icon": "\uD83E\uDDF2",
-      "category": "consumables",
-      "cost": 120,
-      "maxLevel": 1,
-      "effects": {
-        "coin_bonus": 0.1,
-        "duration": 7200000
-      },
-      "unlockCondition": {
-        "type": "totalCoins",
-        "target": 500
-      }
-    },
-    {
-      "id": "cow_treats",
-      "name": "Cow Treats",
-      "description": "Milk production +1 per click for 1 hour!",
-      "icon": "\uD83C\uDF56",
-      "category": "consumables",
-      "cost": 80,
-      "maxLevel": 1,
-      "effects": {
-        "extra_milk_per_click": 1,
-        "duration": 3600000
-      },
-      "unlockCondition": {
-        "type": "day",
-        "target": 2
-      }
-    },
-    {
-      "id": "strawberry_snack",
-      "name": "Strawberry Snack",
-      "description": "Happiness +5% for 45 minutes!",
-      "icon": "\uD83C\uDF53",
-      "category": "consumables",
-      "cost": 60,
-      "maxLevel": 1,
-      "effects": {
-        "happiness_boost": 0.05,
-        "duration": 2700000
-      },
-      "unlockCondition": {
-        "type": "totalCoins",
-        "target": 200
-      }
-    },
-    {
-      "id": "honey_potion",
-      "name": "Honey Potion",
-      "description": "Crop yield +25% for 2 hours!",
-      "icon": "\uD83C\uDF6F",
-      "category": "consumables",
       "cost": 200,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "crop_yield_boost": 0.25,
-        "duration": 7200000
-      },
-      "unlockCondition": {
-        "type": "day",
-        "target": 5
-      }
-    },
-    {
-      "id": "pest_control",
-      "name": "Pest Control",
-      "description": "No pests for 5 minutes!",
-      "icon": "\uD83D\uDC1E",
-      "category": "consumables",
-      "cost": 90,
-      "maxLevel": 100,
-      "effects": {
-        "pest_protection": true,
-        "duration": 300000
+        "rhythm_speed_bonus": 30
       },
       "unlockCondition": null
     },
     {
-      "id": "rainbow_fence",
-      "name": "Rainbow Fence",
-      "description": "Increases farm happiness by 10%!",
-      "icon": "\uD83C\uDF08",
-      "category": "decorations",
-      "cost": 250,
+      "id": "metronome_2",
+      "name": "Digital Metronome",
+      "description": "Enhanced rhythm speed bonus of 50%!",
+      "icon": "\ud83c\udfb6",
+      "category": "tools",
+      "cost": 600,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "happiness_bonus": 0.1
+        "rhythm_speed_bonus": 50
       },
       "unlockCondition": {
-        "type": "totalCoins",
-        "target": 1000
+        "type": "upgrade",
+        "target": "metronome_1"
       }
     },
     {
-      "id": "crop_sprinkler",
+      "id": "auto_sprinkler",
       "name": "Auto Sprinkler",
-      "description": "Automatically waters crops!",
-      "icon": "\uD83D\uDCA7",
+      "description": "Automatically waters crops + 20% yield bonus!",
+      "icon": "\ud83d\udca7",
       "category": "tools",
       "cost": 800,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
         "auto_water": true,
-        "crop_yield_bonus": 0.2
+        "crop_yield_bonus": 20
       },
       "unlockCondition": {
         "type": "day",
@@ -270,10 +132,95 @@
       }
     },
     {
+      "id": "golden_cowbell",
+      "name": "Golden Cowbell",
+      "description": "Boosts all cow happiness by 25%!",
+      "icon": "\ud83d\udd14",
+      "category": "tools",
+      "cost": 500,
+      "currency": "milk",
+      "maxLevel": 1,
+      "effects": {
+        "happiness_boost_percent": 25
+      },
+      "unlockCondition": {
+        "type": "totalMilk",
+        "target": 200
+      }
+    },
+    {
+      "id": "lucky_clover",
+      "name": "Lucky Clover",
+      "description": "Unlocks the magical clover crop!",
+      "icon": "\ud83c\udf40",
+      "category": "tools",
+      "cost": 2000,
+      "currency": "coins",
+      "maxLevel": 1,
+      "effects": {
+        "unlock_crop": "clover"
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 1500
+      }
+    },
+    {
+      "id": "barn_1",
+      "name": "Pink Barn",
+      "description": "Doubles milk production!",
+      "icon": "\ud83c\udfe0",
+      "category": "buildings",
+      "cost": 450,
+      "currency": "milk",
+      "maxLevel": 1,
+      "effects": {
+        "milk_production_multiplier": 200
+      },
+      "unlockCondition": {
+        "type": "totalMilk",
+        "target": 100
+      }
+    },
+    {
+      "id": "barn_2",
+      "name": "Starlight Barn",
+      "description": "Triples milk production!",
+      "icon": "\u2b50",
+      "category": "buildings",
+      "cost": 1000,
+      "currency": "milk",
+      "maxLevel": 1,
+      "effects": {
+        "milk_production_multiplier": 300
+      },
+      "unlockCondition": {
+        "type": "upgrade",
+        "target": "barn_1"
+      }
+    },
+    {
+      "id": "barn_3",
+      "name": "Crystal Barn",
+      "description": "Quintuples milk production!",
+      "icon": "\ud83d\udd2e",
+      "category": "buildings",
+      "cost": 2500,
+      "currency": "milk",
+      "maxLevel": 1,
+      "effects": {
+        "milk_production_multiplier": 500
+      },
+      "unlockCondition": {
+        "type": "upgrade",
+        "target": "barn_2"
+      }
+    },
+    {
       "id": "milk_processor",
       "name": "Milk Processor",
-      "description": "Convert milk to bonus coins automatically!",
-      "icon": "\uD83C\uDFED",
+      "description": "Converts 2 milk to 1 coin automatically!",
+      "icon": "\ud83c\udfed",
       "category": "buildings",
       "cost": 800,
       "currency": "milk",
@@ -290,92 +237,345 @@
     {
       "id": "cow_comforter",
       "name": "Cow Comforter",
-      "description": "Barn upgrade that improves milk yield by 15%!",
-      "icon": "\uD83D\uDECF",
+      "description": "Improves milk yield by 15%!",
+      "icon": "\ud83d\udecf",
       "category": "buildings",
       "cost": 600,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "milk_multiplier": 1.15
+        "milk_yield_bonus": 15
       },
-      "unlockCondition": null
+      "unlockCondition": {
+        "type": "day",
+        "target": 5
+      }
     },
     {
-      "id": "lucky_clover",
-      "name": "Lucky Clover",
-      "description": "Purchase to unlock a new crop.",
-      "icon": "\uD83C\uDF40",
-      "category": "tools",
-      "cost": 10000,
+      "id": "greenhouse",
+      "name": "Greenhouse",
+      "description": "Crops grow 25% faster!",
+      "icon": "\ud83c\udf3f",
+      "category": "buildings",
+      "cost": 1200,
+      "currency": "coins",
       "maxLevel": 1,
-      "effects": {},
-      "unlockCondition": null
+      "effects": {
+        "crop_growth_speed": 25
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 10
+      }
     },
     {
-      "id": "berry_mix_smoothie",
-      "name": "Berry Mix Smoothie",
-      "description": "Coin income +5% for 1 hour!",
-      "icon": "\uD83C\uDF53",
+      "id": "super_fertilizer",
+      "name": "Super Fertilizer",
+      "description": "Crops grow 50% faster for 1 hour!",
+      "icon": "\ud83e\uddea",
+      "category": "consumables",
+      "cost": 100,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "crop_growth_speed": 50,
+        "duration_minutes": 60
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 3
+      }
+    },
+    {
+      "id": "energy_drink",
+      "name": "Energy Drink",
+      "description": "All actions 20% faster for 30 minutes!",
+      "icon": "\ud83e\udd64",
+      "category": "consumables",
+      "cost": 50,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "action_speed_boost": 20,
+        "duration_minutes": 30
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 1
+      }
+    },
+    {
+      "id": "lucky_horseshoe",
+      "name": "Lucky Horseshoe",
+      "description": "Coin gain +10% for 2 hours!",
+      "icon": "\ud83e\uddf2",
+      "category": "consumables",
+      "cost": 120,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "coin_bonus_percent": 10,
+        "duration_minutes": 120
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 500
+      }
+    },
+    {
+      "id": "cow_treats",
+      "name": "Cow Treats",
+      "description": "Milk production +1 per click for 1 hour!",
+      "icon": "\ud83c\udf56",
       "category": "consumables",
       "cost": 80,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "extra_milk_per_click": 1,
+        "duration_minutes": 60
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 2
+      }
+    },
+    {
+      "id": "strawberry_snack",
+      "name": "Strawberry Snack",
+      "description": "Happiness +5% for 45 minutes!",
+      "icon": "\ud83c\udf53",
+      "category": "consumables",
+      "cost": 60,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "happiness_boost_percent": 5,
+        "duration_minutes": 45
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 200
+      }
+    },
+    {
+      "id": "honey_potion",
+      "name": "Honey Potion",
+      "description": "Crop yield +25% for 2 hours!",
+      "icon": "\ud83c\udf6f",
+      "category": "consumables",
+      "cost": 200,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "crop_yield_bonus": 25,
+        "duration_minutes": 120
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 5
+      }
+    },
+    {
+      "id": "berry_smoothie",
+      "name": "Berry Smoothie",
+      "description": "Coin income +5% for 1 hour!",
+      "icon": "\ud83e\udd64",
+      "category": "consumables",
+      "cost": 80,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "coin_bonus_percent": 5,
+        "duration_minutes": 60
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 4
+      }
+    },
+    {
+      "id": "pest_control",
+      "name": "Pest Control",
+      "description": "No pests for 5 minutes!",
+      "icon": "\ud83d\udc1e",
+      "category": "consumables",
+      "cost": 90,
+      "currency": "coins",
+      "maxLevel": 20,
+      "effects": {
+        "pest_protection": true,
+        "duration_minutes": 5
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 6
+      }
+    },
+    {
+      "id": "rainbow_fence",
+      "name": "Rainbow Fence",
+      "description": "Increases farm happiness by 10%!",
+      "icon": "\ud83c\udf08",
+      "category": "decorations",
+      "cost": 250,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "coin_bonus": 0.05,
-        "duration": 3600000
+        "happiness_boost_percent": 10
       },
-      "unlockCondition": null
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 1000
+      }
+    },
+    {
+      "id": "flower_garden",
+      "name": "Flower Garden",
+      "description": "Beautiful flowers boost happiness by 8%!",
+      "icon": "\ud83c\udf3a",
+      "category": "decorations",
+      "cost": 300,
+      "currency": "coins",
+      "maxLevel": 1,
+      "effects": {
+        "happiness_boost_percent": 8
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 8
+      }
+    },
+    {
+      "id": "windmill",
+      "name": "Decorative Windmill",
+      "description": "Charming windmill adds 12% happiness!",
+      "icon": "\ud83c\udfed",
+      "category": "decorations",
+      "cost": 500,
+      "currency": "coins",
+      "maxLevel": 1,
+      "effects": {
+        "happiness_boost_percent": 12
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 2000
+      }
     },
     {
       "id": "string_lights",
       "name": "String Lights",
-      "description": "Adds charming lighting to your farm!",
-      "icon": "\uD83D\uDCA1",
+      "description": "Charming lighting adds 5% happiness!",
+      "icon": "\ud83d\udca1",
       "category": "lighting",
       "cost": 150,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "happiness_bonus": 0.05
+        "happiness_boost_percent": 5
       },
       "unlockCondition": null
     },
     {
       "id": "lamp_post",
       "name": "Lamp Post",
-      "description": "Brightens paths for evening chores.",
-      "icon": "\uD83D\uDEA6",
+      "description": "Brightens paths for 7% happiness bonus!",
+      "icon": "\ud83d\udea6",
       "category": "lighting",
       "cost": 200,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "happiness_bonus": 0.07
+        "happiness_boost_percent": 7
       },
-      "unlockCondition": null
+      "unlockCondition": {
+        "type": "day",
+        "target": 3
+      }
+    },
+    {
+      "id": "neon_sign",
+      "name": "Neon Farm Sign",
+      "description": "Glowing sign provides 10% happiness!",
+      "icon": "\ud83c\udf86",
+      "category": "lighting",
+      "cost": 400,
+      "currency": "coins",
+      "maxLevel": 1,
+      "effects": {
+        "happiness_boost_percent": 10
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 1500
+      }
     },
     {
       "id": "farm_bench",
       "name": "Farm Bench",
-      "description": "A cozy place to rest.",
-      "icon": "\uD83E\uDE91",
+      "description": "A cozy place to rest adds 5% happiness!",
+      "icon": "\ud83e\ude91",
       "category": "furniture",
       "cost": 120,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "happiness_bonus": 0.05
+        "happiness_boost_percent": 5
       },
       "unlockCondition": null
     },
     {
-      "id": "cozy_sofa",
-      "name": "Cozy Sofa",
-      "description": "Comfort boosts happiness by 10%!",
-      "icon": "\uD83D\uDECB",
+      "id": "picnic_table",
+      "name": "Picnic Table",
+      "description": "Perfect for farm meals, 8% happiness!",
+      "icon": "\ud83c\udfde",
       "category": "furniture",
-      "cost": 300,
+      "cost": 200,
+      "currency": "coins",
       "maxLevel": 1,
       "effects": {
-        "happiness_bonus": 0.1
+        "happiness_boost_percent": 8
       },
-      "unlockCondition": null
+      "unlockCondition": {
+        "type": "day",
+        "target": 5
+      }
+    },
+    {
+      "id": "cozy_sofa",
+      "name": "Cozy Sofa",
+      "description": "Ultimate comfort provides 12% happiness!",
+      "icon": "\ud83d\udecb",
+      "category": "furniture",
+      "cost": 350,
+      "currency": "coins",
+      "maxLevel": 1,
+      "effects": {
+        "happiness_boost_percent": 12
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 1200
+      }
     }
-  ]
+  ],
+  "effectDescriptions": {
+    "rhythm_tolerance_boost": "Increases timing window for perfect rhythm scores by X%",
+    "rhythm_speed_bonus": "Increases rhythm game speed by X%",
+    "coin_bonus_percent": "Increases coin rewards by X%",
+    "milk_production_multiplier": "Multiplies milk production by X%",
+    "milk_yield_bonus": "Increases milk yield by X%",
+    "crop_growth_speed": "Crops grow X% faster",
+    "crop_yield_bonus": "Increases crop harvest amounts by X%",
+    "action_speed_boost": "All farm actions are X% faster",
+    "happiness_boost_percent": "Increases cow happiness by X%",
+    "extra_milk_per_click": "Adds X milk per cow click",
+    "auto_water": "Automatically waters all crops",
+    "auto_milk_conversion": "Automatically converts milk to coins",
+    "conversion_rate": "X milk converts to 1 coin",
+    "pest_protection": "Prevents pest attacks",
+    "unlock_crop": "Unlocks a new crop type for planting",
+    "duration_minutes": "Effect lasts for X minutes"
+  }
 }

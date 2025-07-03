@@ -34,11 +34,11 @@ body {
 
 .game-header {
     background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
-    border-radius: 25px;
-    padding: 20px;
+    /* border-radius: 25px; */
+    padding: 8px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(139,69,19,0.3);
-    border: 3px solid #8B4513;
+    /* box-shadow: 0 8px 32px rgba(139,69,19,0.3); */
+    /* border: 3px solid #8B4513; */
     position: relative;
     overflow: hidden;
     z-index: 100;
@@ -82,8 +82,8 @@ body {
 .primary-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 15px;
+    gap: 6px;
+    margin-bottom: 10px;
 }
 
 .primary-stat {
@@ -144,7 +144,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 13px;
 }
 
 .secondary-stat {
@@ -1079,12 +1079,12 @@ body {
         letter-spacing: 2px;
     }
     .primary-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        /* grid-template-columns: repeat(2, 1fr); */
+        /* gap: 8px; */
     }
     .secondary-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        /* grid-template-columns: repeat(2, 1fr); */
+        gap: 6px;
     }
     .primary-stat {
         padding: 10px 6px;
@@ -1099,18 +1099,16 @@ body {
 
 @media (max-width: 480px) {
     .game-header {
-        padding: 15px;
-        border-radius: 20px;
     }
     .game-title {
         font-size: 1.4em;
         margin-bottom: 15px;
     }
     .primary-stats {
-        grid-template-columns: 1fr 1fr;
+        /* grid-template-columns: 1fr 1fr; */
     }
     .secondary-stats {
-        grid-template-columns: 1fr;
+        /* grid-template-columns: 1fr; */
     }
     .cows-grid {
         grid-template-columns: repeat(2, 1fr);

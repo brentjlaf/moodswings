@@ -122,26 +122,26 @@
       "name": "Watermelon",
       "emoji": "\ud83c\udf49",
       "cost": 120,
-      "value": 125,
+      "value": 140,
       "growTime": 200000,
       "rarity": "rare",
       "unlockCondition": {
-        "type": "totalMilk",
-        "target": 300
+        "type": "totalCoins",
+        "target": 800
       },
       "description": "Juicy summer favorite!"
     },
     {
       "id": "star_flower",
       "name": "Star Flower",
-      "emoji": "\ud83c\udf1f",
+      "emoji": "\ud83c\udf3a",
       "cost": 350,
       "value": 385,
       "growTime": 450000,
       "rarity": "epic",
       "unlockCondition": {
-        "type": "totalMilk",
-        "target": 500
+        "type": "totalCoins",
+        "target": 2000
       },
       "description": "Blooms with cosmic energy!"
     },
@@ -192,7 +192,7 @@
       "name": "Clover",
       "emoji": "\ud83c\udf40",
       "cost": 80,
-      "value": 85,
+      "value": 95,
       "growTime": 65000,
       "rarity": "rare",
       "unlockCondition": {
@@ -205,8 +205,8 @@
       "id": "cosmic_crop",
       "name": "Cosmic Crop",
       "emoji": "\u2728",
-      "cost": 0,
-      "value": 200,
+      "cost": 100,
+      "value": 150,
       "growTime": 30000,
       "rarity": "cosmic",
       "unlockCondition": null,
