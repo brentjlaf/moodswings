@@ -730,6 +730,20 @@ function updateAllCowHappiness() {
     renderCows();
 }
 
+function applyCowbellThreshold() {
+    if (!gameState.upgrades || !gameState.upgrades.cowbell) return;
+    const cowbellCfg = GAME_CONFIG.UPGRADES && GAME_CONFIG.UPGRADES.cowbell;
+    if (!cowbellCfg) return;
+    const threshold = cowbellCfg.happiness_threshold || 0;
+    const bonus     = cowbellCfg.happiness_bonus || 0;
+    gameState.cows.forEach(cow => {
+        if (Math.random() < threshold) {
+            cow.happinessLevel = Math.max(cow.happinessLevel, bonus);
+            refreshCowMood(cow);
+        }
+    });
+}
+
 function initializeCrops() {
     gameState.crops = [];
     for (let i = 0; i < 12; i++) {
@@ -996,6 +1010,7 @@ function nextDay() {
 
     updateAllCowHappiness();
     generateCows();
+    applyCowbellThreshold();
     
     // Update crop buttons for new unlocks
     generateCropButtons();
@@ -1938,6 +1953,7 @@ function initializeGame() {
 
     // Apply any happiness decay since last session
     updateAllCowHappiness();
+    applyCowbellThreshold();
     
     // Initialize new data-driven systems
     generateCropButtons();
