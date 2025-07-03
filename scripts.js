@@ -211,6 +211,7 @@ function updateWeather(force = false) {
             if (weather.cropGrowthModifier > 1) effectMsg = 'slower crop growth';
             showToast(`${weather.emoji} ${weather.name}! ${effectMsg}!`, 'info');
             updateDisplay();
+            updateWeatherEffects();
         }
     }
 }
@@ -1792,6 +1793,49 @@ function endMeteorShower() {
     generateCropButtons();
 }
 
+// --- Weather Visual Effects ---
+function setupRainOverlay() {
+    const overlay = document.getElementById('rainOverlay');
+    if (!overlay) return;
+    overlay.innerHTML = '';
+    for (let i = 0; i < 40; i++) {
+        const drop = document.createElement('div');
+        drop.className = 'raindrop';
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = (0.5 + Math.random()) + 's';
+        drop.style.animationDelay = (-Math.random() * 2) + 's';
+        overlay.appendChild(drop);
+    }
+}
+
+function setupFireflyOverlay() {
+    const overlay = document.getElementById('fireflyOverlay');
+    if (!overlay) return;
+    overlay.innerHTML = '';
+    for (let i = 0; i < 20; i++) {
+        const fly = document.createElement('div');
+        fly.className = 'firefly';
+        fly.style.left = Math.random() * 100 + '%';
+        fly.style.top = Math.random() * 100 + '%';
+        fly.style.animationDuration = (3 + Math.random() * 2) + 's';
+        fly.style.animationDelay = Math.random() * 3 + 's';
+        overlay.appendChild(fly);
+    }
+}
+
+function updateWeatherEffects() {
+    const rainOverlay = document.getElementById('rainOverlay');
+    const fireflyOverlay = document.getElementById('fireflyOverlay');
+    if (rainOverlay) {
+        const isRain = getCurrentWeather().name === 'Rain Storm';
+        rainOverlay.style.display = isRain ? 'block' : 'none';
+    }
+    if (fireflyOverlay) {
+        const isNight = document.body.classList.contains('night');
+        fireflyOverlay.style.display = isNight ? 'block' : 'none';
+    }
+}
+
 function updateDisplay() {
     const coinsEl = document.getElementById('coins');
     const milkEl  = document.getElementById('milk');
@@ -1813,6 +1857,8 @@ function updateDisplay() {
         const weather = getCurrentWeather();
         weatherEl.textContent = `${weather.emoji} ${weather.name}`.trim();
     }
+
+    updateWeatherEffects();
 
     // → NEW: average happiness across all unlocked cows
     if (moodEl) {
@@ -1961,6 +2007,10 @@ function initializeGame() {
     generateCropButtons();
     renderShop();
 
+    setupRainOverlay();
+    setupFireflyOverlay();
+    updateWeatherEffects();
+
     updateDisplay();
     updateBulletin();
     updateStatsChart();
@@ -2085,6 +2135,8 @@ function updateTimeTheme() {
     if (timeEl) {
         timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
+
+    updateWeatherEffects();
 }
 
 // Apply the theme immediately and update every minute
