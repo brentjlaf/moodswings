@@ -398,9 +398,6 @@ function renderShop() {
         const categoryItems = shopData.items.filter(item => item.category === category.id);
         if (categoryItems.length === 0) return;
 
-        // Only display unlocked items
-        const unlockedItems = categoryItems.filter(item => checkShopUnlockCondition(item));
-
         const section = document.createElement('div');
         section.className = 'shop-category-section';
 
@@ -418,18 +415,11 @@ function renderShop() {
         const itemGrid = document.createElement('div');
         itemGrid.className = 'shop-grid';
 
-        // Add items for this category
-        if (unlockedItems.length === 0) {
-            const empty = document.createElement('div');
-            empty.className = 'shop-empty';
-            empty.textContent = 'No items unlocked yet';
-            itemGrid.appendChild(empty);
-        }
-
-        unlockedItems.forEach(item => {
+        categoryItems.forEach(item => {
+            const unlocked = checkShopUnlockCondition(item);
             const shopItem = document.createElement('div');
-            shopItem.className = 'shop-item';
-            
+            shopItem.className = 'shop-item' + (unlocked ? '' : ' shop-item-locked');
+
             const isOwned = gameState.upgrades[item.id] >= (item.maxLevel || 1);
             const currency = item.currency || 'coins';
             const cost = item.cost;
@@ -438,30 +428,66 @@ function renderShop() {
                 : gameState.milk >= cost;
             const buttonText = isOwned ? 'OWNED' : (canAfford ? 'BUY' : 'TOO EXPENSIVE');
             const buttonClass = isOwned ? 'owned' : (canAfford ? 'available' : 'expensive');
-            
-            shopItem.innerHTML = `
-                <div class="item-icon">${item.icon}</div>
-                <div class="item-info">
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-description">${item.description}</div>
-                    <div class="item-price">
-                        ${currency === 'coins' ? `💰 ${cost} coins` : `🥛 ${cost} milk`}
+
+            if (unlocked) {
+                shopItem.innerHTML = `
+                    <div class="item-icon">${item.icon}</div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-description">${item.description}</div>
+                        <div class="item-price">
+                            ${currency === 'coins' ? `💰 ${cost} coins` : `🥛 ${cost} milk`}
+                        </div>
+                        ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
                     </div>
-                    ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
-                </div>
-                <button class="shop-btn ${buttonClass}" 
-                        onclick="buyUpgrade('${item.id}')" 
-                        ${isOwned || !canAfford ? 'disabled' : ''}>
-                    ${buttonText}
-                </button>
-            `;
-            
+                    <button class="shop-btn ${buttonClass}"
+                            onclick="buyUpgrade('${item.id}')"
+                            ${isOwned || !canAfford ? 'disabled' : ''}>
+                        ${buttonText}
+                    </button>
+                `;
+            } else {
+                const unlockText = getShopUnlockText(item);
+                shopItem.innerHTML = `
+                    <div class="item-icon">${item.icon}</div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-description">${item.description}</div>
+                        <div class="locked-item-text">${unlockText}</div>
+                    </div>
+                    <button class="shop-btn" disabled>LOCKED</button>
+                `;
+            }
+
             itemGrid.appendChild(shopItem);
         });
 
         section.appendChild(itemGrid);
         categoriesContainer.appendChild(section);
     });
+}
+
+// Build human readable text for shop item unlock requirements
+function getShopUnlockText(item) {
+    if (!item.unlockCondition) return '';
+
+    const condition = item.unlockCondition;
+    switch (condition.type) {
+        case 'day':
+            return `Reach day ${condition.target}`;
+        case 'totalMilk':
+            return `Produce ${condition.target} milk`;
+        case 'totalCoins':
+            return `Earn ${condition.target} coins`;
+        case 'perfectScores':
+            return `Get ${condition.target} perfect scores`;
+        case 'upgrade': {
+            const prereq = shopData.items?.find(i => i.id === condition.target);
+            return prereq ? `Requires ${prereq.name}` : `Requires upgrade ${condition.target}`;
+        }
+        default:
+            return '';
+    }
 }
 
 // Flexible upgrade buying system

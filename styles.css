@@ -584,6 +584,11 @@ body {
     border: 2px solid rgba(135,206,235,0.3);
 }
 
+.shop-item-locked {
+    opacity: 0.6;
+    filter: grayscale(80%);
+}
+
 .shop-item:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
@@ -1585,6 +1590,12 @@ body {
 }
 
 .locked-cow-text {
+    font-size: 0.7em;
+    color: #999;
+    margin-top: 5px;
+}
+
+.locked-item-text {
     font-size: 0.7em;
     color: #999;
     margin-top: 5px;
