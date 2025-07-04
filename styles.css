@@ -1580,6 +1580,12 @@ body {
     margin: 2px 0;
 }
 
+.item-effects {
+    font-size: 0.7em;
+    color: #444;
+    margin: 2px 0;
+}
+
 /* Cow Mood Styles */
 .cow-mood-happy {
     color: #32CD32;
