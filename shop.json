@@ -392,6 +392,96 @@
       }
     },
     {
+      "id": "pest_control_10",
+      "name": "Pest Control",
+      "description": "No pests for 10 minutes!",
+      "icon": "🐞",
+      "category": "consumables",
+      "cost": 180,
+      "currency": "coins",
+      "maxLevel": 20,
+      "effects": {
+        "pest_protection": true,
+        "duration_minutes": 10
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 7
+      }
+    },
+    {
+      "id": "pest_control_15",
+      "name": "Pest Control",
+      "description": "No pests for 15 minutes!",
+      "icon": "🐞",
+      "category": "consumables",
+      "cost": 270,
+      "currency": "coins",
+      "maxLevel": 20,
+      "effects": {
+        "pest_protection": true,
+        "duration_minutes": 15
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 8
+      }
+    },
+    {
+      "id": "pest_control_20",
+      "name": "Pest Control",
+      "description": "No pests for 20 minutes!",
+      "icon": "🐞",
+      "category": "consumables",
+      "cost": 360,
+      "currency": "coins",
+      "maxLevel": 20,
+      "effects": {
+        "pest_protection": true,
+        "duration_minutes": 20
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 9
+      }
+    },
+    {
+      "id": "pest_control_25",
+      "name": "Pest Control",
+      "description": "No pests for 25 minutes!",
+      "icon": "🐞",
+      "category": "consumables",
+      "cost": 450,
+      "currency": "coins",
+      "maxLevel": 20,
+      "effects": {
+        "pest_protection": true,
+        "duration_minutes": 25
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 10
+      }
+    },
+    {
+      "id": "pest_control_30",
+      "name": "Pest Control",
+      "description": "No pests for 30 minutes!",
+      "icon": "🐞",
+      "category": "consumables",
+      "cost": 540,
+      "currency": "coins",
+      "maxLevel": 20,
+      "effects": {
+        "pest_protection": true,
+        "duration_minutes": 30
+      },
+      "unlockCondition": {
+        "type": "day",
+        "target": 11
+      }
+    },
+    {
       "id": "super_fertilizer",
       "name": "Super Fertilizer",
       "description": "Crops grow 50% faster for 15 minutes!",
