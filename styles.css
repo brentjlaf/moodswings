@@ -12,7 +12,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #E6A853 0%, #D4941E 100%);
+    background: #E6A853;
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -33,7 +33,7 @@ body {
 }
 
 .game-header {
-    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    background: #F5E6D3;
     /* border-radius: 25px; */
     padding: 8px;
     text-align: center;
@@ -51,9 +51,7 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 2px, transparent 2px),
-        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 2px, transparent 2px);
+    background: rgba(255,255,255,0.1);
     background-size: 30px 30px;
     pointer-events: none;
     z-index: 1;
@@ -71,7 +69,7 @@ body {
     font-weight: 900;
     letter-spacing: 3px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    background: linear-gradient(45deg, #8B4513, #A0522D, #8B4513);
+    background: #8B4513;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -87,7 +85,7 @@ body {
 }
 
 .primary-stat {
-    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    background: #FFF8DC;
     border-radius: 15px;
     padding: 12px 8px;
     text-align: center;
@@ -105,7 +103,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background: transparent;
     transition: left 0.5s ease;
 }
 
@@ -148,7 +146,7 @@ body {
 }
 
 .secondary-stat {
-    background: linear-gradient(145deg, #E8D5B7, #DCC8AA);
+    background: #E8D5B7;
     border-radius: 12px;
     padding: 10px 6px;
     text-align: center;
@@ -184,7 +182,7 @@ body {
 }
 
 .effect-timer {
-    background: linear-gradient(145deg, #FFF3CD, #FFEAA7);
+    background: #FFF3CD;
     border: 2px solid #F0C36D;
     border-radius: 20px;
     padding: 4px 12px;
@@ -235,7 +233,7 @@ body {
 
 .section-tabs {
     display: flex;
-    background: linear-gradient(145deg, #F5E6D3, #E8D5B7);
+    background: #F5E6D3;
     /* border-radius: 18px; */
     margin-bottom: 15px;
     overflow: hidden;
@@ -262,7 +260,7 @@ body {
 }
 
 .tab-btn.active {
-    background: linear-gradient(145deg, #8B4513, #654321);
+    background: #8B4513;
     color: #F5E6D3;
     box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
 }
@@ -318,7 +316,7 @@ body {
 
 
 .cow-card {
-    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    background: #FFF8DC;
     border-radius: 20px;
     padding: 15px;
     text-align: center;
@@ -368,7 +366,7 @@ body {
 }
 
 .mood-button {
-    background: linear-gradient(145deg, #FF6B6B, #FF8E8E);
+    background: #FF6B6B;
     color: white;
     border: none;
     padding: 10px 16px;
@@ -383,7 +381,7 @@ body {
 }
 
 .mood-button:hover {
-    background: linear-gradient(145deg, #FF5252, #FF7979);
+    background: #FF5252;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255,107,107,0.4);
 }
@@ -394,7 +392,7 @@ body {
 }
 
 .mood-button:disabled {
-    background: linear-gradient(145deg, #999, #777);
+    background: #999;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -411,7 +409,7 @@ body {
 
 .crops-grid {
     margin-bottom: 15px;
-    background: linear-gradient(145deg, #8FBC8F, #90EE90);
+    background: #8FBC8F;
     border-radius: 15px;
     padding: 15px;
     border: 2px dashed #228B22;
@@ -443,11 +441,11 @@ body {
 }
 
 .crop-planted {
-    background: linear-gradient(145deg, #90EE90, #98FB98);
+    background: #90EE90;
 }
 
 .crop-ready {
-    background: linear-gradient(145deg, #FFD700, #FFA500);
+    background: #FFD700;
     animation: pulse 1s infinite;
 }
 
@@ -498,7 +496,7 @@ body {
 }
 
 .plant-btn {
-    background: linear-gradient(145deg, #32CD32, #228B22);
+    background: #32CD32;
     color: white;
     border: none;
     padding: 10px 8px;
@@ -513,7 +511,7 @@ body {
 }
 
 .plant-btn:hover {
-    background: linear-gradient(145deg, #228B22, #006400);
+    background: #228B22;
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(50,205,50,0.4);
 }
@@ -541,7 +539,7 @@ body {
 }
 
 .shop-category-section {
-    background: linear-gradient(145deg, #F0F8FF, #E6F3FF);
+    background: #F0F8FF;
     border-radius: 20px;
     padding: 15px;
     margin-bottom: 15px;
@@ -549,7 +547,7 @@ body {
 }
 
 .shop-item {
-    background: linear-gradient(145deg, #F0F8FF, #E6F3FF);
+    background: #F0F8FF;
     border-radius: 15px;
     padding: 15px;
     display: flex;
@@ -595,7 +593,7 @@ body {
 }
 
 .shop-btn {
-    background: linear-gradient(145deg, #32CD32, #228B22);
+    background: #32CD32;
     color: white;
     border: none;
     padding: 8px 12px;
@@ -610,7 +608,7 @@ body {
 }
 
 .shop-btn:hover {
-    background: linear-gradient(145deg, #228B22, #006400);
+    background: #228B22;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(50,205,50,0.4);
 }
@@ -620,7 +618,7 @@ body {
 }
 
 .shop-btn:disabled {
-    background: linear-gradient(145deg, #999, #777);
+    background: #999;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -634,7 +632,7 @@ body {
 }
 
 .action-btn {
-    background: linear-gradient(145deg, #FF6B6B, #FF8E8E);
+    background: #FF6B6B;
     color: white;
     border: none;
     padding: 15px;
@@ -660,7 +658,7 @@ body {
 }
 
 .action-btn.harvest {
-    background: linear-gradient(145deg, #FFA500, #FFD700);
+    background: #FFA500;
 }
 
 .action-btn:active {
@@ -705,7 +703,7 @@ body {
     pointer-events: none;
     display: none;
     z-index: 900;
-    background: radial-gradient(ellipse at bottom, rgba(0,0,20,0.4), rgba(0,0,0,0.6));
+    background: rgba;
     overflow: hidden;
     animation: meteor-bg 5s linear infinite;
 }
@@ -719,7 +717,7 @@ body {
     position: absolute;
     width: 80px;
     height: 2px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    background: rgba;
     transform: rotate(-45deg);
     pointer-events: none;
     animation: comet-trail linear infinite;
@@ -775,7 +773,7 @@ body {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background: linear-gradient(145deg, #E6A853, #D4941E);
+    background: #E6A853;
     color: white;
     border: none;
     border-radius: 50%;
@@ -790,7 +788,7 @@ body {
 }
 
 #scrollTopBtn:hover {
-    background: linear-gradient(145deg, #D4941E, #E6A853);
+    background: #D4941E;
 }
 
 .firefly {
@@ -812,7 +810,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    background: #FFF8DC;
     padding: 20px 15px;
     border-radius: 20px;
     border: 4px solid #8B4513;
@@ -901,7 +899,7 @@ body {
 .rhythm-bar {
     width: 100%;
     height: 80px;
-    background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #FECA57);
+    background: #FF6B6B;
     border-radius: 15px;
     position: relative;
     margin-bottom: 20px;
@@ -940,7 +938,7 @@ body {
 }
 
 .score-area {
-    background: linear-gradient(145deg, #FFF1C1, #F5C58C);
+    background: #FFF1C1;
     border: 2px solid #D4A373;
     border-radius: 15px;
     padding: 15px;
@@ -976,7 +974,7 @@ body {
     left: 0;
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, #4ECDC4, #FF6B6B);
+    background: #4ECDC4;
     transition: width 0.3s ease;
 }
 
@@ -997,7 +995,7 @@ body {
 }
 
 .control-btn {
-    background: linear-gradient(145deg, #4ECDC4, #45B7D1);
+    background: #4ECDC4;
     color: white;
     border: none;
     padding: 20px;
@@ -1014,7 +1012,7 @@ body {
 }
 
 .control-btn:hover {
-    background: linear-gradient(145deg, #45B7D1, #3498DB);
+    background: #45B7D1;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(78,205,196,0.4);
 }
@@ -1025,7 +1023,7 @@ body {
 }
 
 .close-minigame {
-    background: linear-gradient(145deg, #FF6B6B, #FF8E8E);
+    background: #FF6B6B;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -1040,7 +1038,7 @@ body {
 }
 
 .close-minigame:hover {
-    background: linear-gradient(145deg, #FF5252, #FF7979);
+    background: #FF5252;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255,107,107,0.4);
 }
@@ -1056,7 +1054,7 @@ body {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(145deg, #98FB98, #90EE90);
+    background: #98FB98;
     padding: 15px 25px;
     border-radius: 25px;
     font-size: 0.9em;
@@ -1076,7 +1074,7 @@ body {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(145deg, #FFD700, #FFA500);
+    background: #FFD700;
     padding: 15px 20px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -1094,7 +1092,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
+    background: #FFF8DC;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -1132,25 +1130,25 @@ body {
 
 /* Achievement popup rarity styles */
 .achievement-popup-common {
-    background: linear-gradient(145deg, #90EE90, #32CD32);
+    background: #90EE90;
     border: 3px solid #32CD32;
 }
 .achievement-popup-uncommon {
-    background: linear-gradient(145deg, #87CEEB, #4169E1);
+    background: #87CEEB;
     border: 3px solid #4169E1;
 }
 .achievement-popup-rare {
-    background: linear-gradient(145deg, #DDA0DD, #8B008B);
+    background: #DDA0DD;
     border: 3px solid #8B008B;
     box-shadow: 0 0 20px #8B008B, 0 10px 30px rgba(0,0,0,0.3);
 }
 .achievement-popup-epic {
-    background: linear-gradient(145deg, #FFD700, #FF8C00);
+    background: #FFD700;
     border: 3px solid #FF8C00;
     box-shadow: 0 0 20px #FFD700, 0 10px 30px rgba(0,0,0,0.3);
 }
 .achievement-popup-legendary {
-    background: linear-gradient(145deg, #FF69B4, #FF1493);
+    background: #FF69B4;
     border: 3px solid #FF1493;
     box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
     animation: legendary-pulse 2s infinite;
@@ -1198,7 +1196,7 @@ body {
 }
 
 .secret-cow-unlock {
-    background: linear-gradient(145deg, #FFD700, #FFA500);
+    background: #FFD700;
     border: 3px solid #FF6B6B;
     animation: rainbow 2s infinite;
 }
@@ -1367,35 +1365,35 @@ body {
 /* Crop rarity styling */
 .crop-common {
     border: 2px solid #32CD32;
-    background: linear-gradient(145deg, #90EE90, #98FB98);
+    background: #90EE90;
 }
 
 .crop-uncommon {
     border: 2px solid #4169E1;
-    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+    background: #87CEEB;
 }
 
 .crop-rare {
     border: 2px solid #8B008B;
-    background: linear-gradient(145deg, #DDA0DD, #E6E6FA);
+    background: #DDA0DD;
 }
 
 .crop-epic {
     border: 2px solid #FF8C00;
-    background: linear-gradient(145deg, #FFD700, #FFFF00);
+    background: #FFD700;
     box-shadow: 0 0 10px rgba(255,215,0,0.5);
 }
 
 .crop-legendary {
     border: 2px solid #FF1493;
-    background: linear-gradient(145deg, #FF69B4, #FFB6C1);
+    background: #FF69B4;
     box-shadow: 0 0 15px rgba(255,105,180,0.6);
     animation: legendary-glow 2s infinite alternate;
 }
 
 .crop-cosmic {
     border: 2px solid #5F9EA0;
-    background: linear-gradient(145deg, #B0E0E6, #E0FFFF);
+    background: #B0E0E6;
     box-shadow: 0 0 20px rgba(173,216,230,0.8);
     animation: cosmic-glow 3s infinite alternate;
 }
@@ -1429,7 +1427,7 @@ body {
 .shop-category-header {
     grid-column: 1 / -1;
     margin: 10px 0;
-    background: linear-gradient(145deg, #F0F8FF, #E6F3FF);
+    background: #F0F8FF;
     border-radius: 15px;
     padding: 0 15px;
     align-items: center;
@@ -1440,17 +1438,17 @@ body {
 }
 
 .shop-btn.owned {
-    background: linear-gradient(145deg, #32CD32, #228B22);
+    background: #32CD32;
     color: white;
 }
 
 .shop-btn.available {
-    background: linear-gradient(145deg, #4169E1, #0000CD);
+    background: #4169E1;
     color: white;
 }
 
 .shop-btn.expensive {
-    background: linear-gradient(145deg, #999, #777);
+    background: #999;
     color: #ccc;
 }
 
@@ -1489,29 +1487,29 @@ body {
 }
 
 .achievement-common {
-    background: linear-gradient(145deg, #90EE90, #98FB98);
+    background: #90EE90;
     border: 2px solid #32CD32;
 }
 
 .achievement-uncommon {
-    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+    background: #87CEEB;
     border: 2px solid #4169E1;
 }
 
 .achievement-rare {
-    background: linear-gradient(145deg, #DDA0DD, #E6E6FA);
+    background: #DDA0DD;
     border: 2px solid #8B008B;
     box-shadow: 0 0 10px #8B008B;
 }
 
 .achievement-epic {
-    background: linear-gradient(145deg, #FFD700, #FFFF00);
+    background: #FFD700;
     border: 2px solid #FF8C00;
     box-shadow: 0 0 15px #FFD700;
 }
 
 .achievement-legendary {
-    background: linear-gradient(145deg, #FF69B4, #FFB6C1);
+    background: #FF69B4;
     border: 2px solid #FF1493;
     box-shadow: 0 0 20px #FF69B4;
     animation: achievement-glow 2s infinite alternate;
@@ -1618,7 +1616,7 @@ body {
 .unlock-progress-box {
     margin-bottom: 12px;
     padding: 8px;
-    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+    background: #87CEEB;
     border-radius: 8px;
     border: 2px solid #4169E1;
 }
@@ -1641,7 +1639,7 @@ body {
 .cow-of-day-box {
     margin-bottom: 12px;
     padding: 8px;
-    background: linear-gradient(145deg, #D4941E, #B8860B);
+    background: #D4941E;
     border-radius: 8px;
     border: 2px solid #8B4513;
 }
@@ -1663,7 +1661,7 @@ body {
 /* Farm Tip Box */
 .farm-tip-box {
     padding: 8px;
-    background: linear-gradient(145deg, #E6A853, #D4941E);
+    background: #E6A853;
     border-radius: 8px;
     border: 2px solid #8B4513;
 }
@@ -1684,29 +1682,29 @@ body {
 
 /* Achievement Popup Rarity Styles */
 .achievement-common {
-    background: linear-gradient(145deg, #90EE90, #32CD32);
+    background: #90EE90;
     border: 3px solid #32CD32;
 }
 
 .achievement-uncommon {
-    background: linear-gradient(145deg, #87CEEB, #4169E1);
+    background: #87CEEB;
     border: 3px solid #4169E1;
 }
 
 .achievement-rare {
-    background: linear-gradient(145deg, #DDA0DD, #8B008B);
+    background: #DDA0DD;
     border: 3px solid #8B008B;
     box-shadow: 0 0 20px #8B008B, 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .achievement-epic {
-    background: linear-gradient(145deg, #FFD700, #FF8C00);
+    background: #FFD700;
     border: 3px solid #FF8C00;
     box-shadow: 0 0 20px #FFD700, 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .achievement-legendary {
-    background: linear-gradient(145deg, #FF69B4, #FF1493);
+    background: #FF69B4;
     border: 3px solid #FF1493;
     box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
     animation: legendary-pulse 2s infinite;
@@ -1896,17 +1894,17 @@ body {
 
 /* Toast Message Type Styles */
 .toast-success {
-    background: linear-gradient(145deg, #98FB98, #90EE90);
+    background: #98FB98;
     color: #2F5F2F;
 }
 
 .toast-failure {
-    background: linear-gradient(145deg, #FFB6C1, #FFA0B4);
+    background: #FFB6C1;
     color: #8B0000;
 }
 
 .toast-info {
-    background: linear-gradient(145deg, #87CEEB, #ADD8E6);
+    background: #87CEEB;
     color: #191970;
 }
 
@@ -1942,12 +1940,12 @@ body {
 }
 
 .save-button-save {
-    background: linear-gradient(145deg, #32CD32, #228B22);
+    background: #32CD32;
 }
 
 
 .save-button-reset {
-    background: linear-gradient(145deg, #DC143C, #B22222);
+    background: #DC143C;
 }
 
 .save-help-text {
@@ -1974,7 +1972,7 @@ body {
 
 /* Stats Tab Containers */
 .bulletin-board {
-    background: linear-gradient(145deg, #FBE8B6, #EBCFA2);
+    background: #FBE8B6;
     border-radius: 12px;
     padding: 15px;
     border: 2px solid #8B4513;
@@ -2003,7 +2001,7 @@ body {
 }
 
 .achievements-container {
-    background: linear-gradient(145deg, #E6F3FF, #F0F8FF);
+    background: #E6F3FF;
     border-radius: 12px;
     padding: 15px;
     margin-top: 15px;
@@ -2012,7 +2010,7 @@ body {
 }
 
 .save-system-container {
-    background: linear-gradient(145deg, #E8F5E8, #F0FFF0);
+    background: #E8F5E8;
     border-radius: 12px;
     padding: 15px;
     margin-top: 15px;
@@ -2022,7 +2020,7 @@ body {
 
 
 .debug-container {
-    background: linear-gradient(145deg, #FFE4E1, #FFF0F5);
+    background: #FFE4E1;
     border-radius: 12px;
     padding: 15px;
     margin-top: 15px;
@@ -2043,70 +2041,70 @@ body {
 }
 
 .debug-button-pink {
-    background: linear-gradient(145deg, #FF69B4, #FF1493);
+    background: #FF69B4;
     margin-bottom: 10px;
 }
 
 .debug-button-green {
-    background: linear-gradient(145deg, #32CD32, #228B22);
+    background: #32CD32;
 }
 
 /* Time-of-day theme backgrounds */
 body.dawn {
-    background: linear-gradient(135deg, #FFE5B4 0%, #FFD59E 100%);
+    background: #FFE5B4;
 }
 
 body.day {
-    background: linear-gradient(135deg, #E6A853 0%, #D4941E 100%);
+    background: #E6A853;
 }
 
 body.dusk {
-    background: linear-gradient(135deg, #FDB99B 0%, #CF8E80 100%);
+    background: #FDB99B;
 }
 
 body.night {
-    background: linear-gradient(135deg, #2C3E50 0%, #4B79A1 100%);
+    background: #2C3E50;
     color: #FFFFFF;
 }
 
 /* Header gradients for time-of-day themes */
 .game-header.dawn {
-    background: linear-gradient(135deg, #FFE5B4 0%, #FFD59E 100%);
+    background: #FFE5B4;
 }
 
 .game-header.day {
-    background: linear-gradient(135deg, #E6A853 0%, #D4941E 100%);
+    background: #E6A853;
 }
 
 .game-header.dusk {
-    background: linear-gradient(135deg, #FDB99B 0%, #CF8E80 100%);
+    background: #FDB99B;
 }
 
 .game-header.night {
-    background: linear-gradient(135deg, #2C3E50 0%, #4B79A1 100%);
+    background: #2C3E50;
 }
 
 /* Season theme backgrounds */
 body.season-spring {
-    background: linear-gradient(135deg, #d4f7c5 0%, #a5e3c2 100%);
+    background: #d4f7c5;
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }
 
 body.season-summer {
-    background: linear-gradient(135deg, #fff4b7 0%, #ffcc70 100%);
+    background: #fff4b7;
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }
 
 body.season-autumn {
-    background: linear-gradient(135deg, #ffddb0 0%, #ffb085 100%);
+    background: #ffddb0;
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }
 
 body.season-winter {
-    background: linear-gradient(135deg, #e5f0ff 0%, #c1d9ff 100%);
+    background: #e5f0ff;
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }
