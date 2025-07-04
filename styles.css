@@ -608,6 +608,12 @@ body {
     box-shadow: 0 4px 15px rgba(255,107,107,0.3);
 }
 
+.action-btn .btn-icon {
+    margin-right: 6px;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
 .action-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255,107,107,0.4);
