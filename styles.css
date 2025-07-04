@@ -1860,6 +1860,15 @@ body {
     max-height: 200px;
 }
 
+#farmMap {
+    width: 100%;
+    max-height: 200px;
+    border: 2px solid #8B4513;
+    border-radius: 10px;
+    background: #fffaf0;
+    margin-top: 10px;
+}
+
 .achievements-container {
     background: linear-gradient(145deg, #E6F3FF, #F0F8FF);
     border-radius: 12px;
