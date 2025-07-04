@@ -1,13 +1,16 @@
+const COUNTDOWN_TOTAL = 15;
+
 let currentMinigame = {
     cowIndex: -1,
     score: 0,
     target: 100,
     noteInterval: null,
     countdownInterval: null,
-    timeLeft: 15,
+    timeLeft: COUNTDOWN_TOTAL,
     gameActive: false,
     combo: 0,
-    maxCombo: 0
+    maxCombo: 0,
+    ringCircumference: 0
 };
 
 // Default colors for hit feedback. These may be overridden by rhythmPatterns.hitColors
@@ -42,9 +45,11 @@ function getRandomGameType() {
 
 // Reset the countdown display and internal timer
 function resetMinigameTimer() {
-    currentMinigame.timeLeft = 15;
+    currentMinigame.timeLeft = COUNTDOWN_TOTAL;
     const countdownEl = document.getElementById('countdownClock');
+    const ring = document.getElementById('countdownRing');
     if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
+    if (ring) ring.style.strokeDashoffset = 0;
 }
 
 function startRhythmGame(cowIndex) {
@@ -65,6 +70,13 @@ function startRhythmGame(cowIndex) {
     const scoreFill = document.getElementById('scoreFill');
     if (scoreFill) scoreFill.style.width = '0%';
     const countdownEl = document.getElementById('countdownClock');
+    const countdownRing = document.getElementById('countdownRing');
+    if (countdownRing) {
+        const radius = countdownRing.r.baseVal.value;
+        currentMinigame.ringCircumference = 2 * Math.PI * radius;
+        countdownRing.style.strokeDasharray = currentMinigame.ringCircumference;
+        countdownRing.style.strokeDashoffset = 0;
+    }
 
     const speed = getGameSpeed(cow.currentGameType || cow.gameType);
 
@@ -74,6 +86,10 @@ function startRhythmGame(cowIndex) {
     currentMinigame.countdownInterval = setInterval(() => {
         currentMinigame.timeLeft--;
         if (countdownEl) countdownEl.textContent = Math.max(0, currentMinigame.timeLeft);
+        if (countdownRing) {
+            const offset = currentMinigame.ringCircumference * (1 - currentMinigame.timeLeft / COUNTDOWN_TOTAL);
+            countdownRing.style.strokeDashoffset = offset;
+        }
         if (currentMinigame.timeLeft <= 0) {
             clearInterval(currentMinigame.countdownInterval);
         }
@@ -89,7 +105,7 @@ function startRhythmGame(cowIndex) {
         if (currentMinigame.gameActive) {
             endMinigame();
         }
-    }, 15000);
+    }, COUNTDOWN_TOTAL * 1000);
 }
 
 // Enhanced speed calculation using pattern data and effects
