@@ -6,6 +6,7 @@ let currentMinigame = {
     target: 100,
     noteInterval: null,
     countdownInterval: null,
+    gameTimeout: null,
     timeLeft: COUNTDOWN_TOTAL,
     gameActive: false,
     combo: 0,
@@ -82,7 +83,9 @@ function startRhythmGame(cowIndex) {
 
     clearNotes();
 
+    clearInterval(currentMinigame.noteInterval);
     clearInterval(currentMinigame.countdownInterval);
+    clearTimeout(currentMinigame.gameTimeout);
     currentMinigame.countdownInterval = setInterval(() => {
         currentMinigame.timeLeft--;
         if (countdownEl) countdownEl.textContent = formatTime(Math.max(0, currentMinigame.timeLeft));
@@ -101,7 +104,7 @@ function startRhythmGame(cowIndex) {
         }
     }, speed);
     
-    setTimeout(() => {
+    currentMinigame.gameTimeout = setTimeout(() => {
         if (currentMinigame.gameActive) {
             endMinigame();
         }
@@ -326,6 +329,7 @@ function endMinigame() {
     currentMinigame.gameActive = false;
     clearInterval(currentMinigame.noteInterval);
     clearInterval(currentMinigame.countdownInterval);
+    clearTimeout(currentMinigame.gameTimeout);
     clearNotes();
 
     // Reveal the close button now that the game has ended
