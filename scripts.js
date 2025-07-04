@@ -561,6 +561,8 @@ function switchTab(tabName, evt) {
 
     if (tabName === 'stats') {
         updateStatsChart();
+        updateAchievements();
+        clearNewAchievementFlags();
     }
     
     // Reset scroll position for new tab
@@ -1417,6 +1419,7 @@ function checkAchievements() {
         // Check if condition is met
         if (checkAchievementCondition(achievement)) {
             gameState.achievements.push(achievement.id);
+            achievement.new = true; // mark as newly unlocked
             newAchievements.push(achievement);
             awardAchievement(achievement);
         }
@@ -1672,7 +1675,7 @@ function updateAchievements() {
                 <div class="achievement-item achievement-item-${rarity}${earned ? '' : ' achievement-item-locked'}">
                     <div class="achievement-item-icon">${achievement.icon}</div>
                     <div class="achievement-item-info">
-                        <div class="achievement-item-name">${achievement.name}</div>
+                        <div class="achievement-item-name">${achievement.name}${achievement.new ? ' <span class="new-badge">NEW</span>' : ''}</div>
                         <div class="achievement-item-desc">${achievement.description}</div>
                         <div class="achievement-item-reward">${formatAchievementReward(achievement.reward)}</div>
                         <div class="achievement-item-progress">
@@ -1689,6 +1692,15 @@ function updateAchievements() {
     });
 
     achievementsList.innerHTML = html;
+}
+
+function clearNewAchievementFlags() {
+    if (!achievementsData.achievements) return;
+    achievementsData.achievements.forEach(a => {
+        if (a.new) {
+            delete a.new;
+        }
+    });
 }
 
 // Enhanced rhythm game instructions using pattern data
