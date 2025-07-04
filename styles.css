@@ -829,7 +829,7 @@ body {
 
 .minigame-container {
     height: 100%;
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
     padding: 20px 15px;
@@ -840,8 +840,10 @@ body {
 }
 
 .minigame-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -860,6 +862,11 @@ body {
     margin-bottom: 10px;
 }
 
+.header-text {
+    flex: 1;
+    text-align: center;
+}
+
 .countdown-clock {
     position: absolute;
     top: 50%;
@@ -875,11 +882,10 @@ body {
 }
 
 .countdown-wrapper {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: relative;
     width: 70px;
     height: 70px;
+    margin-left: auto;
 }
 
 .countdown-ring {
