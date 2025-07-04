@@ -3,7 +3,7 @@
     {
       "id": "carrot",
       "name": "Carrot",
-      "emoji": "\ud83e\udd55",
+      "emoji": "🥕",
       "cost": 2,
       "value": 3,
       "growTime": 37500,
@@ -14,34 +14,20 @@
     {
       "id": "corn",
       "name": "Corn",
-      "emoji": "\ud83c\udf3d",
+      "emoji": "🌽",
       "cost": 5,
-      "value": 6,
+      "value": 7,
       "growTime": 75000,
       "rarity": "common",
       "unlockCondition": null,
       "description": "Golden kernels of profit!"
     },
     {
-      "id": "strawberry",
-      "name": "Strawberry",
-      "emoji": "\ud83c\udf53",
-      "cost": 30,
-      "value": 33,
-      "growTime": 50000,
-      "rarity": "common",
-      "unlockCondition": {
-        "type": "day",
-        "target": 2
-      },
-      "description": "Sweet and profitable!"
-    },
-    {
       "id": "lettuce",
       "name": "Lettuce",
-      "emoji": "\ud83e\udd6c",
+      "emoji": "🥬",
       "cost": 20,
-      "value": 22,
+      "value": 26,
       "growTime": 25000,
       "rarity": "common",
       "unlockCondition": null,
@@ -50,9 +36,9 @@
     {
       "id": "tomato",
       "name": "Tomato",
-      "emoji": "\ud83c\udf45",
+      "emoji": "🍅",
       "cost": 25,
-      "value": 28,
+      "value": 33,
       "growTime": 43750,
       "rarity": "common",
       "unlockCondition": {
@@ -62,25 +48,25 @@
       "description": "Juicy and versatile!"
     },
     {
-      "id": "sunflower",
-      "name": "Sunflower",
-      "emoji": "\ud83c\udf3b",
-      "cost": 60,
-      "value": 66,
-      "growTime": 90000,
-      "rarity": "uncommon",
+      "id": "strawberry",
+      "name": "Strawberry",
+      "emoji": "🍓",
+      "cost": 30,
+      "value": 39,
+      "growTime": 50000,
+      "rarity": "common",
       "unlockCondition": {
         "type": "day",
-        "target": 4
+        "target": 2
       },
-      "description": "Bright and cheerful profit!"
+      "description": "Sweet and profitable!"
     },
     {
       "id": "blueberry",
       "name": "Blueberry",
-      "emoji": "\ud83e\uded0",
+      "emoji": "🫐",
       "cost": 50,
-      "value": 55,
+      "value": 65,
       "growTime": 75000,
       "rarity": "uncommon",
       "unlockCondition": {
@@ -92,9 +78,9 @@
     {
       "id": "raspberry",
       "name": "Raspberry",
-      "emoji": "\ud83c\udf52",
+      "emoji": "🍒",
       "cost": 55,
-      "value": 61,
+      "value": 72,
       "growTime": 82500,
       "rarity": "uncommon",
       "unlockCondition": {
@@ -104,95 +90,25 @@
       "description": "Tart and vibrant delight!"
     },
     {
-      "id": "pumpkin",
-      "name": "Pumpkin",
-      "emoji": "\ud83c\udf83",
-      "cost": 150,
-      "value": 165,
-      "growTime": 300000,
-      "rarity": "rare",
-      "unlockCondition": {
-        "type": "totalCoins",
-        "target": 1000
-      },
-      "description": "Big investment, bigger returns!"
-    },
-    {
-      "id": "watermelon",
-      "name": "Watermelon",
-      "emoji": "\ud83c\udf49",
-      "cost": 120,
-      "value": 140,
-      "growTime": 200000,
-      "rarity": "rare",
-      "unlockCondition": {
-        "type": "totalCoins",
-        "target": 800
-      },
-      "description": "Juicy summer favorite!"
-    },
-    {
-      "id": "star_flower",
-      "name": "Star Flower",
-      "emoji": "\ud83c\udf3a",
-      "cost": 350,
-      "value": 385,
-      "growTime": 450000,
-      "rarity": "epic",
-      "unlockCondition": {
-        "type": "totalCoins",
-        "target": 2000
-      },
-      "description": "Blooms with cosmic energy!"
-    },
-    {
-      "id": "moonflower",
-      "name": "Moonflower",
-      "emoji": "\ud83c\udf19",
-      "cost": 400,
-      "value": 440,
-      "growTime": 500000,
-      "rarity": "epic",
+      "id": "sunflower",
+      "name": "Sunflower",
+      "emoji": "🌻",
+      "cost": 60,
+      "value": 78,
+      "growTime": 90000,
+      "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 10
+        "target": 4
       },
-      "description": "Blooms under moonlight!"
-    },
-    {
-      "id": "crystal_fruit",
-      "name": "Crystal Fruit",
-      "emoji": "\ud83d\udd2e",
-      "cost": 600,
-      "value": 660,
-      "growTime": 720000,
-      "rarity": "legendary",
-      "unlockCondition": {
-        "type": "perfectScores",
-        "target": 10
-      },
-      "description": "Crystallized perfection!"
-    },
-    {
-      "id": "golden_apple",
-      "name": "Golden Apple",
-      "emoji": "\ud83c\udf4f",
-      "cost": 1500,
-      "value": 1650,
-      "growTime": 900000,
-      "rarity": "legendary",
-      "unlockCondition": {
-        "type": "perfectScores",
-        "target": 20
-      },
-      "description": "Legendary orchard treasure!"
+      "description": "Bright and cheerful profit!"
     },
     {
       "id": "clover",
       "name": "Clover",
-      "emoji": "\ud83c\udf40",
+      "emoji": "🍀",
       "cost": 80,
-      "value": 95,
+      "value": 104,
       "growTime": 65000,
       "rarity": "rare",
       "unlockCondition": {
@@ -204,14 +120,98 @@
     {
       "id": "cosmic_crop",
       "name": "Cosmic Crop",
-      "emoji": "\u2728",
+      "emoji": "✨",
       "cost": 100,
-      "value": 150,
+      "value": 130,
       "growTime": 30000,
       "rarity": "cosmic",
       "unlockCondition": null,
       "eventOnly": "meteor_shower",
       "description": "A gift from the stars!"
+    },
+    {
+      "id": "watermelon",
+      "name": "Watermelon",
+      "emoji": "🍉",
+      "cost": 120,
+      "value": 156,
+      "growTime": 200000,
+      "rarity": "rare",
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 800
+      },
+      "description": "Juicy summer favorite!"
+    },
+    {
+      "id": "pumpkin",
+      "name": "Pumpkin",
+      "emoji": "🎃",
+      "cost": 150,
+      "value": 195,
+      "growTime": 300000,
+      "rarity": "rare",
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 1000
+      },
+      "description": "Big investment, bigger returns!"
+    },
+    {
+      "id": "star_flower",
+      "name": "Star Flower",
+      "emoji": "🌺",
+      "cost": 350,
+      "value": 455,
+      "growTime": 450000,
+      "rarity": "epic",
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 2000
+      },
+      "description": "Blooms with cosmic energy!"
+    },
+    {
+      "id": "moonflower",
+      "name": "Moonflower",
+      "emoji": "🌙",
+      "cost": 400,
+      "value": 520,
+      "growTime": 500000,
+      "rarity": "epic",
+      "unlockCondition": {
+        "type": "day",
+        "target": 10
+      },
+      "description": "Blooms under moonlight!"
+    },
+    {
+      "id": "crystal_fruit",
+      "name": "Crystal Fruit",
+      "emoji": "🔮",
+      "cost": 600,
+      "value": 780,
+      "growTime": 720000,
+      "rarity": "legendary",
+      "unlockCondition": {
+        "type": "perfectScores",
+        "target": 10
+      },
+      "description": "Crystallized perfection!"
+    },
+    {
+      "id": "golden_apple",
+      "name": "Golden Apple",
+      "emoji": "🍏",
+      "cost": 1500,
+      "value": 1950,
+      "growTime": 900000,
+      "rarity": "legendary",
+      "unlockCondition": {
+        "type": "perfectScores",
+        "target": 20
+      },
+      "description": "Legendary orchard treasure!"
     }
   ],
   "cropCategories": {
