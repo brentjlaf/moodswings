@@ -707,6 +707,8 @@ function renderCows() {
         `;
         grid.appendChild(cowCard);
     });
+
+    renderFarmMap();
 }
 
 // Reduce each cow's happiness over time
@@ -824,6 +826,8 @@ function renderCrops() {
 
         grid.appendChild(cropSlot);
     });
+
+    renderFarmMap();
 }
 
 function handleCropClick(index) {
@@ -1239,6 +1243,56 @@ function updateStatsChart() {
         statsChart.data.datasets[1].data = gameState.dailyCoinTotals;
         statsChart.update();
     }
+}
+
+function renderFarmMap() {
+    const canvas = document.getElementById('farmMap');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const cols = 4;
+    const rows = 3;
+    const padding = 8;
+    const cellW = (width - padding * 2) / cols;
+    const cellH = (height - padding * 2) / rows;
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const x = padding + c * cellW;
+            const y = padding + r * cellH;
+            ctx.fillStyle = '#A0522D';
+            ctx.fillRect(x, y, cellW - 2, cellH - 2);
+            ctx.strokeStyle = '#8B4513';
+            ctx.strokeRect(x, y, cellW - 2, cellH - 2);
+
+            const index = r * cols + c;
+            const crop = gameState.crops[index];
+            if (crop && crop.type) {
+                const emoji = crop.isReady ? cropTypes[crop.type].emoji : '🌱';
+                ctx.font = Math.floor(Math.min(cellW, cellH) * 0.6) + 'px serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(emoji, x + cellW / 2, y + cellH / 2);
+            }
+        }
+    }
+
+    const cowSpacing = width / (gameState.cows.length + 1);
+    ctx.font = Math.floor(cellH * 0.7) + 'px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    gameState.cows.forEach((cow, i) => {
+        const x = cowSpacing * (i + 1);
+        const y = height - padding - cellH * 0.3;
+        ctx.fillText(cow.emoji, x, y);
+    });
 }
 
 // FIXED: Combined unlock check function that handles both regular and secret cows
