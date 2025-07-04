@@ -259,6 +259,11 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
+/* Added for smoother tab switching */
+.tab-transition {
+    animation: tabFadeSlide 0.3s ease;
+}
+
 .tab-content-wrapper { width:96%; margin:0 auto;}
 .tab-content.active {
     display: block;
@@ -272,6 +277,18 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Animation for tab transitions */
+@keyframes tabFadeSlide {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
