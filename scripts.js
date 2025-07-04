@@ -7,6 +7,8 @@ let cowData = [];
 let secretCows = [];
 let statsChart;
 let autoWaterTimerId = null;
+let dayCountdownTimerId = null;
+let dayCountdownRemaining = 0;
 
 // Data loading system
 async function loadGameData() {
@@ -997,6 +999,7 @@ function harvestAll() {
 }
 
 function nextDay() {
+    if (dayCountdownTimerId) clearInterval(dayCountdownTimerId);
     // Record the day's totals before resetting
     gameState.dailyMilkTotals.push(gameState.dailyStats.milkProduced);
     gameState.dailyCoinTotals.push(gameState.dailyStats.coinsEarned);
@@ -1040,6 +1043,7 @@ function nextDay() {
     if (navigator.vibrate) {
         navigator.vibrate([300, 100, 300]);
     }
+    startDayCountdown();
 }
 
 function updateBulletin() {
@@ -1173,6 +1177,21 @@ function startAutoWater() {
     if (!gameState.effects.autoWater) return;
     autoWaterTimerId = setInterval(autoWaterCrops, 3600000); // hourly
     autoWaterCrops();
+}
+
+function startDayCountdown(seconds = 60) {
+    clearInterval(dayCountdownTimerId);
+    dayCountdownRemaining = seconds;
+    const el = document.getElementById('nextDayCountdown');
+    if (el) el.textContent = `${dayCountdownRemaining}s`;
+    dayCountdownTimerId = setInterval(() => {
+        dayCountdownRemaining--;
+        if (el) el.textContent = `${Math.max(dayCountdownRemaining, 0)}s`;
+        if (dayCountdownRemaining <= 0) {
+            clearInterval(dayCountdownTimerId);
+            nextDay();
+        }
+    }, 1000);
 }
 
 function convertMilkToCoins() {
@@ -2054,6 +2073,7 @@ function showAchievement(title, description) {
 loadGameData().then(() => {
     initializeGame();
     startPestChecks();
+    startDayCountdown();
 });
 
 

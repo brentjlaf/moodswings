@@ -629,6 +629,17 @@ body {
 
 .next-day-bar .action-btn {
     width: 100%;
+    font-size: 1.3em;
+    padding: 20px;
+}
+
+#nextDayCountdown {
+    display: block;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 8px;
+    color: #333;
 }
 
 
