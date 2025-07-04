@@ -312,6 +312,10 @@ body {
     gap: 8px;
 }
 
+.cows-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 
 .cow-card {
     background: linear-gradient(145deg, #FFF8DC, #F5DEB3);
@@ -411,6 +415,7 @@ body {
     padding: 15px;
     border: 2px dashed #228B22;
     box-shadow: inset 0 2px 8px rgba(34,139,34,0.2);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .crop-slot {
