@@ -195,6 +195,19 @@ body {
     animation: pulse 2s infinite;
 }
 
+.effect-icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 4px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.effect-icon::before {
+    content: attr(data-icon);
+    font-size: 1em;
+}
+
 @keyframes shimmer {
     0%, 100% { filter: brightness(1); }
     50% { filter: brightness(1.2); }
