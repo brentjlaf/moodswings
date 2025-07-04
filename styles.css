@@ -1750,6 +1750,28 @@ body {
     filter: grayscale(80%);
 }
 
+/* Progress bar for locked cows and shop items */
+.unlock-progress {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.unlock-progress .bar {
+    height: 100%;
+    background: #32CD32;
+    width: 0;
+}
+
+.shop-item-locked {
+    opacity: 0.6;
+    filter: grayscale(80%);
+    pointer-events: none;
+}
+
 /* Floating Text Styles */
 .floating-text {
     position: fixed;

@@ -290,6 +290,48 @@ function checkShopUnlockCondition(item) {
     }
 }
 
+// NEW: Returns percent progress toward unlocking cows or shop items
+function getUnlockProgress(entity) {
+    if (!entity.unlockCondition) return 100;
+
+    let condition, target, type;
+    if (typeof entity.unlockCondition === 'object') {
+        condition = entity.unlockCondition;
+        target = condition.target;
+        type = condition.type;
+    } else {
+        condition = null;
+        target = entity.unlockTarget;
+        type = entity.unlockCondition;
+    }
+
+    let current = 0;
+
+    switch (type) {
+        case 'day':
+            current = gameState.day;
+            break;
+        case 'totalMilk':
+            current = gameState.stats.totalMilkProduced;
+            break;
+        case 'totalCoins':
+            current = gameState.stats.totalCoinsEarned;
+            break;
+        case 'perfectScores':
+            current = gameState.stats.totalPerfectScores;
+            break;
+        case 'upgrade':
+            return gameState.upgrades[target] ? 100 : 0;
+        case 'achievement':
+            return gameState.achievements.includes(target) ? 100 : 0;
+        default:
+            return 0;
+    }
+
+    if (!target || target === 0) return 100;
+    return Math.min(100, Math.floor((current / target) * 100));
+}
+
 // Dynamic shop rendering with categories
 function renderShop() {
     const categoriesContainer = document.querySelector('#shopCategories');
@@ -301,9 +343,6 @@ function renderShop() {
         // Get all items for this category
         const categoryItems = shopData.items.filter(item => item.category === category.id);
         if (categoryItems.length === 0) return;
-
-        // Only display unlocked items
-        const unlockedItems = categoryItems.filter(item => checkShopUnlockCondition(item));
 
         const section = document.createElement('div');
         section.className = 'shop-category-section';
@@ -323,42 +362,49 @@ function renderShop() {
         itemGrid.className = 'shop-grid';
 
         // Add items for this category
-        if (unlockedItems.length === 0) {
-            const empty = document.createElement('div');
-            empty.className = 'shop-empty';
-            empty.textContent = 'No items unlocked yet';
-            itemGrid.appendChild(empty);
-        }
-
-        unlockedItems.forEach(item => {
+        categoryItems.forEach(item => {
+            const unlocked = checkShopUnlockCondition(item);
             const shopItem = document.createElement('div');
             shopItem.className = 'shop-item';
+            if (!unlocked) shopItem.classList.add('shop-item-locked');
             
-            const isOwned = gameState.upgrades[item.id] >= (item.maxLevel || 1);
-            const currency = item.currency || 'coins';
-            const cost = item.cost;
-            const canAfford = currency === 'coins'
-                ? gameState.coins >= cost
-                : gameState.milk >= cost;
-            const buttonText = isOwned ? 'OWNED' : (canAfford ? 'BUY' : 'TOO EXPENSIVE');
-            const buttonClass = isOwned ? 'owned' : (canAfford ? 'available' : 'expensive');
-            
-            shopItem.innerHTML = `
-                <div class="item-icon">${item.icon}</div>
-                <div class="item-info">
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-description">${item.description}</div>
-                    <div class="item-price">
-                        ${currency === 'coins' ? `💰 ${cost} coins` : `🥛 ${cost} milk`}
+            if (unlocked) {
+                const isOwned = gameState.upgrades[item.id] >= (item.maxLevel || 1);
+                const currency = item.currency || 'coins';
+                const cost = item.cost;
+                const canAfford = currency === 'coins'
+                    ? gameState.coins >= cost
+                    : gameState.milk >= cost;
+                const buttonText = isOwned ? 'OWNED' : (canAfford ? 'BUY' : 'TOO EXPENSIVE');
+                const buttonClass = isOwned ? 'owned' : (canAfford ? 'available' : 'expensive');
+
+                shopItem.innerHTML = `
+                    <div class="item-icon">${item.icon}</div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-description">${item.description}</div>
+                        <div class="item-price">
+                            ${currency === 'coins' ? `💰 ${cost} coins` : `🥛 ${cost} milk`}
+                        </div>
+                        ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
                     </div>
-                    ${item.maxLevel > 1 ? `<div class="item-level">Owned: ${gameState.upgrades[item.id] || 0}/${item.maxLevel}</div>` : ''}
-                </div>
-                <button class="shop-btn ${buttonClass}" 
-                        onclick="buyUpgrade('${item.id}')" 
-                        ${isOwned || !canAfford ? 'disabled' : ''}>
-                    ${buttonText}
-                </button>
-            `;
+                    <button class="shop-btn ${buttonClass}"
+                            onclick="buyUpgrade('${item.id}')"
+                            ${isOwned || !canAfford ? 'disabled' : ''}>
+                        ${buttonText}
+                    </button>
+                `;
+            } else {
+                const progress = getUnlockProgress(item);
+                shopItem.innerHTML = `
+                    <div class="item-icon">${item.icon}</div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name} - Locked</div>
+                        <div class="item-description">${item.description}</div>
+                        <div class="unlock-progress"><div class="bar" style="width:${progress}%"></div></div>
+                    </div>
+                `;
+            }
             
             itemGrid.appendChild(shopItem);
         });
@@ -690,6 +736,7 @@ function renderCows() {
         const cowCard = document.createElement('div');
         cowCard.className = 'cow-card locked-cow';
         const unlockText = getUnlockText(cow);
+        const progress = getUnlockProgress(cow);
 
         cowCard.title = unlockText;
         cowCard.innerHTML = `
@@ -698,6 +745,7 @@ function renderCows() {
             <div class="locked-cow-text">
                 ${unlockText}
             </div>
+            <div class="unlock-progress"><div class="bar" style="width:${progress}%"></div></div>
         `;
         grid.appendChild(cowCard);
     });
