@@ -522,21 +522,40 @@ function applyUpgradeEffects(item) {
     Object.keys(item.effects).forEach(effectType => {
         if (effectType === 'duration' || effectType === 'duration_minutes') return;
         const effectValue = item.effects[effectType];
+        let appliedValue = effectValue;
         
         switch (effectType) {
             case 'rhythm_tolerance':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.rhythmTolerance = (gameState.effects.rhythmTolerance || 0) + effectValue;
                 break;
+
+            case 'rhythm_tolerance_boost':
+                if (!gameState.effects) gameState.effects = {};
+                appliedValue = effectValue / 100;
+                gameState.effects.rhythmTolerance = (gameState.effects.rhythmTolerance || 0) + appliedValue;
+                break;
                 
             case 'milk_multiplier':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.milkMultiplier = effectValue;
                 break;
+
+            case 'milk_production_multiplier':
+                if (!gameState.effects) gameState.effects = {};
+                appliedValue = effectValue / 100;
+                gameState.effects.milkProductionMultiplier = (gameState.effects.milkProductionMultiplier || 1) * appliedValue;
+                break;
                 
             case 'coin_bonus':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.coinBonus = (gameState.effects.coinBonus || 0) + effectValue;
+                break;
+
+            case 'coin_bonus_percent':
+                if (!gameState.effects) gameState.effects = {};
+                appliedValue = effectValue / 100;
+                gameState.effects.coinBonusPercent = (gameState.effects.coinBonusPercent || 0) + appliedValue;
                 break;
                 
             case 'happiness_boost':
@@ -563,6 +582,19 @@ function applyUpgradeEffects(item) {
                     refreshCowMood(cow);
                 });
                 break;
+
+            case 'happiness_boost_percent':
+                if (!gameState.effects) gameState.effects = {};
+                appliedValue = effectValue / 100;
+                gameState.effects.happinessBoostPercent = (gameState.effects.happinessBoostPercent || 0) + appliedValue;
+                gameState.cows.forEach(cow => {
+                    cow.happinessLevel = Math.min(
+                        GAME_CONFIG.HAPPINESS.level_max,
+                        cow.happinessLevel * (1 + appliedValue)
+                    );
+                    refreshCowMood(cow);
+                });
+                break;
                 
             case 'rhythm_speed_bonus':
                 if (!gameState.effects) gameState.effects = {};
@@ -572,6 +604,12 @@ function applyUpgradeEffects(item) {
             case 'crop_speed_boost':
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.cropSpeedBoost = effectValue;
+                break;
+
+            case 'crop_growth_speed':
+                if (!gameState.effects) gameState.effects = {};
+                appliedValue = effectValue / 100;
+                gameState.effects.cropGrowthSpeed = (gameState.effects.cropGrowthSpeed || 0) + appliedValue;
                 break;
 
             case 'action_speed_boost':
@@ -584,6 +622,12 @@ function applyUpgradeEffects(item) {
                 gameState.effects.extraMilkPerClick = (gameState.effects.extraMilkPerClick || 0) + effectValue;
                 break;
 
+            case 'milk_yield_bonus':
+                if (!gameState.effects) gameState.effects = {};
+                appliedValue = effectValue / 100;
+                gameState.effects.milkYieldBonus = (gameState.effects.milkYieldBonus || 0) + appliedValue;
+                break;
+
             case 'crop_yield_boost':
             case 'crop_yield_bonus': // alias used by some items
                 if (!gameState.effects) gameState.effects = {};
@@ -594,6 +638,11 @@ function applyUpgradeEffects(item) {
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.autoWater = true;
                 startAutoWater();
+                break;
+
+            case 'unlock_crop':
+                if (!gameState.unlockedCrops) gameState.unlockedCrops = {};
+                gameState.unlockedCrops[effectValue] = true;
                 break;
 
             case 'auto_milk_conversion':
@@ -617,7 +666,7 @@ function applyUpgradeEffects(item) {
         }
 
         if (duration) {
-            startTimedEffect(item, effectType, effectValue, duration);
+            startTimedEffect(item, effectType, appliedValue, duration);
         }
     });
 }
@@ -1885,8 +1934,14 @@ function removeTimedEffect(effectId) {
         case 'coin_bonus':
             gameState.effects.coinBonus = (gameState.effects.coinBonus || 0) - effect.value;
             break;
+        case 'coin_bonus_percent':
+            gameState.effects.coinBonusPercent = (gameState.effects.coinBonusPercent || 0) - effect.value;
+            break;
         case 'crop_speed_boost':
             gameState.effects.cropSpeedBoost = 0;
+            break;
+        case 'crop_growth_speed':
+            gameState.effects.cropGrowthSpeed = (gameState.effects.cropGrowthSpeed || 0) - effect.value;
             break;
         case 'action_speed_boost':
             gameState.effects.actionSpeedBoost = (gameState.effects.actionSpeedBoost || 0) - effect.value;
@@ -1894,11 +1949,26 @@ function removeTimedEffect(effectId) {
         case 'extra_milk_per_click':
             gameState.effects.extraMilkPerClick = (gameState.effects.extraMilkPerClick || 0) - effect.value;
             break;
+        case 'milk_yield_bonus':
+            gameState.effects.milkYieldBonus = (gameState.effects.milkYieldBonus || 0) - effect.value;
+            break;
         case 'happiness_boost':
             gameState.effects.happinessBoost = 0;
             break;
+        case 'happiness_boost_percent':
+            gameState.effects.happinessBoostPercent = (gameState.effects.happinessBoostPercent || 0) - effect.value;
+            break;
         case 'crop_yield_boost':
             gameState.effects.cropYieldBoost = (gameState.effects.cropYieldBoost || 0) - effect.value;
+            break;
+        case 'milk_production_multiplier':
+            gameState.effects.milkProductionMultiplier = (gameState.effects.milkProductionMultiplier || 1) / effect.value;
+            break;
+        case 'rhythm_tolerance_boost':
+            gameState.effects.rhythmTolerance = (gameState.effects.rhythmTolerance || 0) - effect.value;
+            break;
+        case 'unlock_crop':
+            if (gameState.unlockedCrops) delete gameState.unlockedCrops[effect.value];
             break;
         case 'pest_protection':
             gameState.effects.pestProtection = false;
