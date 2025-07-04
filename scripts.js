@@ -337,9 +337,10 @@ function generateCropButtons() {
     container.innerHTML = availableCrops.map(cropId => {
         const crop = cropTypes[cropId];
         const rarityClass = crop.rarity ? `crop-${crop.rarity}` : '';
-        
+        const titleText = `${crop.description ? crop.description + ' - ' : ''}Reward: ${crop.value} coins`;
+
         return `
-            <button class="plant-btn ${rarityClass}" onclick="plantCrop('${cropId}')" title="${crop.description || ''}">
+            <button class="plant-btn ${rarityClass}" onclick="plantCrop('${cropId}')" title="${titleText}">
                 ${crop.emoji}<br />${crop.name}<br>
                 <span class="crop-cost">${crop.cost} coins</span>
                 ${crop.rarity ? `<span class="crop-rarity">${crop.rarity}</span>` : ''}
