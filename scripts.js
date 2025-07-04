@@ -548,10 +548,16 @@ function switchTab(tabName, evt) {
     // Update tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     evt.target.classList.add('active');
-    
+
     // Update tab content
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    document.getElementById(tabName + 'Tab').classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active', 'tab-transition');
+    });
+    const newTab = document.getElementById(tabName + 'Tab');
+    newTab.classList.add('active');
+    // Force reflow to restart animation
+    void newTab.offsetWidth;
+    newTab.classList.add('tab-transition');
 
     if (tabName === 'stats') {
         updateStatsChart();
