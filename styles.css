@@ -1678,6 +1678,15 @@ body {
     font-size: 0.9em;
 }
 
+.new-badge {
+    background: #FFD700;
+    color: #000;
+    font-size: 0.65em;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-left: 4px;
+}
+
 .achievement-item-desc {
     font-size: 0.75em;
     color: #666;
