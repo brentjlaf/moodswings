@@ -252,6 +252,23 @@
       }
     },
     {
+      "id": "crop_slot",
+      "name": "Crop Field Expansion",
+      "description": "Adds an extra crop slot to your farm!",
+      "icon": "🌾",
+      "category": "buildings",
+      "cost": 10000,
+      "currency": "coins",
+      "maxLevel": 99,
+      "effects": {
+        "extra_crop_slots": 1
+      },
+      "unlockCondition": {
+        "type": "totalCoins",
+        "target": 0
+      }
+    },
+    {
       "id": "barn_3",
       "name": "Crystal Barn",
       "description": "Quintuples milk production!",
@@ -665,6 +682,7 @@
     "auto_milk_conversion": "Automatically converts milk to coins",
     "conversion_rate": "X milk converts to 1 coin",
     "pest_protection": "Prevents pest attacks",
+    "extra_crop_slots": "Adds X more crop slots",
     "unlock_crop": "Unlocks a new crop type for planting",
     "duration_minutes": "Effect lasts for X minutes"
   }
