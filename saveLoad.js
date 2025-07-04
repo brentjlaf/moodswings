@@ -42,6 +42,7 @@ function saveGameState() {
       crops: gameState.crops.map(c => ({ ...c, timerId: null, pestTimerId: null })),
       activeEffects: gameState.activeEffects.map(e => ({
         id: e.id,
+        itemId: e.itemId,
         itemName: e.itemName,
         effectType: e.effectType,
         value: e.value,
