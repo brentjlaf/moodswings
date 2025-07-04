@@ -163,6 +163,33 @@ function clearAllCropTimers() {
     });
 }
 
+function addCropSlots(amount) {
+    for (let i = 0; i < amount; i++) {
+        const id = gameState.crops.length;
+        gameState.crops.push({
+            id: id,
+            type: null,
+            plantedAt: null,
+            readyAt: null,
+            isReady: false,
+            timerId: null,
+            hasPest: false,
+            pestTimerId: null,
+            pestExpiresAt: null,
+            pestPenalty: false
+        });
+    }
+    renderCrops();
+}
+
+function getItemCost(item) {
+    if (item.id === 'crop_slot') {
+        const level = gameState.upgrades[item.id] || 0;
+        return 10000 + Math.floor(level / 3) * 5000;
+    }
+    return item.cost;
+}
+
 function randomBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -425,7 +452,7 @@ function renderShop() {
 
             const isOwned = gameState.upgrades[item.id] >= (item.maxLevel || 1);
             const currency = item.currency || 'coins';
-            const cost = item.cost;
+            const cost = getItemCost(item);
             const canAfford = currency === 'coins'
                 ? gameState.coins >= cost
                 : gameState.milk >= cost;
@@ -550,9 +577,10 @@ function buyUpgrade(itemId) {
     }
     
     const currency = item.currency || 'coins';
+    const cost = getItemCost(item);
     const paid = currency === 'coins'
-        ? deductCoins(item.cost, item.name)
-        : deductMilk(item.cost, item.name);
+        ? deductCoins(cost, item.name)
+        : deductMilk(cost, item.name);
     if (!paid) {
         return;
     }
@@ -703,6 +731,10 @@ function applyUpgradeEffects(item) {
             case 'crop_yield_bonus': // alias used by some items
                 if (!gameState.effects) gameState.effects = {};
                 gameState.effects.cropYieldBoost = (gameState.effects.cropYieldBoost || 0) + effectValue;
+                break;
+
+            case 'extra_crop_slots':
+                addCropSlots(effectValue);
                 break;
 
             case 'auto_water':
@@ -980,7 +1012,7 @@ function applyCowbellThreshold() {
 
 function initializeCrops() {
     gameState.crops = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < GAME_CONFIG.CROP_SLOTS; i++) {
         gameState.crops.push({
             id: i,
             type: null,
