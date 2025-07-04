@@ -108,6 +108,7 @@ let gameState = {
     isMeteorShower: false,
     currentSeasonIndex: 0,
     currentWeatherIndex: 0,
+    currentTemperature: 0,
     playerID: null,
     lastSaved: null,
     gameVersion: "2.1" // Updated version for achievement system
@@ -159,6 +160,58 @@ function clearAllCropTimers() {
     });
 }
 
+function randomBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function weightedRandomIndex(options) {
+    const total = options.reduce((sum, o) => sum + o.weight, 0);
+    let r = Math.random() * total;
+    for (const opt of options) {
+        if (r < opt.weight) return opt.index;
+        r -= opt.weight;
+    }
+    return options[0].index;
+}
+
+function getBaseTemperature(hour) {
+    if (hour >= 5 && hour < 8) {
+        return randomBetween(10, 15);
+    } else if (hour >= 8 && hour < 18) {
+        return randomBetween(20, 30);
+    } else if (hour >= 18 && hour < 21) {
+        return randomBetween(15, 22);
+    }
+    return randomBetween(5, 10);
+}
+
+function chooseWeatherForHour(hour) {
+    if (hour >= 8 && hour < 18) {
+        return weightedRandomIndex([
+            { index: 0, weight: 0.6 },
+            { index: 1, weight: 0.2 },
+            { index: 2, weight: 0.2 }
+        ]);
+    } else if (hour >= 5 && hour < 8) {
+        return weightedRandomIndex([
+            { index: 0, weight: 0.5 },
+            { index: 1, weight: 0.4 },
+            { index: 2, weight: 0.1 }
+        ]);
+    } else if (hour >= 18 && hour < 21) {
+        return weightedRandomIndex([
+            { index: 0, weight: 0.5 },
+            { index: 1, weight: 0.3 },
+            { index: 2, weight: 0.2 }
+        ]);
+    }
+    return weightedRandomIndex([
+        { index: 0, weight: 0.4 },
+        { index: 1, weight: 0.5 },
+        { index: 2, weight: 0.1 }
+    ]);
+}
+
 function getCurrentSeason() {
     if (!GAME_CONFIG.SEASONS) {
         // Seasons were removed from the config; return neutral defaults
@@ -169,11 +222,21 @@ function getCurrentSeason() {
 
 function updateSeason() {
     // If seasons are not defined, skip all seasonal logic
-    if (!GAME_CONFIG.SEASONS || !GAME_CONFIG.SEASON_LENGTH) {
+    if (!GAME_CONFIG.SEASONS) {
         return;
     }
 
-    const index = Math.floor((gameState.day - 1) / GAME_CONFIG.SEASON_LENGTH) % GAME_CONFIG.SEASONS.length;
+    const month = new Date().getMonth() + 1; // 1-12
+    let index;
+    if (month >= 3 && month <= 5) {
+        index = 0; // Spring
+    } else if (month >= 6 && month <= 8) {
+        index = 1; // Summer
+    } else if (month >= 9 && month <= 11) {
+        index = 2; // Autumn
+    } else {
+        index = 3; // Winter
+    }
     const seasonChanged = index !== gameState.currentSeasonIndex;
     if (seasonChanged) {
         gameState.currentSeasonIndex = index;
@@ -211,18 +274,24 @@ function getCurrentWeather() {
 function updateWeather(force = false) {
     if (!GAME_CONFIG.WEATHER_TYPES) return;
 
+    const hour = new Date().getHours();
+
     if (force || Math.random() < (GAME_CONFIG.WEATHER_CHANGE_CHANCE || 0)) {
-        const index = Math.floor(Math.random() * GAME_CONFIG.WEATHER_TYPES.length);
+        const index = chooseWeatherForHour(hour);
         if (force || index !== gameState.currentWeatherIndex) {
             gameState.currentWeatherIndex = index;
             const weather = getCurrentWeather();
+            gameState.currentTemperature = getBaseTemperature(hour) + (weather.tempOffset || 0);
             let effectMsg = 'normal crop growth';
             if (weather.cropGrowthModifier < 1) effectMsg = 'faster crop growth';
             if (weather.cropGrowthModifier > 1) effectMsg = 'slower crop growth';
-            showToast(`${weather.emoji} ${weather.name}! ${effectMsg}!`, 'info');
+            showToast(`${weather.emoji} ${weather.name}! ${gameState.currentTemperature}°C ${effectMsg}!`, 'info');
             updateDisplay();
             updateWeatherEffects();
         }
+    } else if (gameState.currentTemperature === 0) {
+        const weather = getCurrentWeather();
+        gameState.currentTemperature = getBaseTemperature(hour) + (weather.tempOffset || 0);
     }
 }
 
@@ -1945,7 +2014,7 @@ function updateDisplay() {
     }
     if (weatherEl) {
         const weather = getCurrentWeather();
-        weatherEl.textContent = `${weather.emoji} ${weather.name}`.trim();
+        weatherEl.textContent = `${weather.emoji} ${weather.name} ${gameState.currentTemperature}°C`.trim();
     }
 
     updateWeatherEffects();
@@ -2225,7 +2294,7 @@ function updateTimeTheme() {
     if (timeEl) {
         timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
-
+    updateWeather();
     updateWeatherEffects();
 }
 

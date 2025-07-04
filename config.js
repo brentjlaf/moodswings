@@ -18,9 +18,9 @@ const GAME_CONFIG = {
 
     // Daily weather settings
     WEATHER_TYPES: [
-        { name: 'Clear', emoji: '☀️', cropGrowthModifier: 1 },
-        { name: 'Rain Storm', emoji: '🌧️', cropGrowthModifier: 0.8 },
-        { name: 'Drought', emoji: '🔥', cropGrowthModifier: 1.3 }
+        { name: 'Clear', emoji: '☀️', cropGrowthModifier: 1, tempOffset: 0 },
+        { name: 'Rain Storm', emoji: '🌧️', cropGrowthModifier: 0.8, tempOffset: -4 },
+        { name: 'Drought', emoji: '🔥', cropGrowthModifier: 1.3, tempOffset: 5 }
     ],
     WEATHER_CHANGE_CHANCE: 0.3,
 

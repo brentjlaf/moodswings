@@ -29,8 +29,8 @@ Modify the JSON files to add new cows, crops, shop items or rhythm patterns. Ref
 - Plant and harvest crops for additional income.
 - Spend coins or milk on upgrades in the shop.
 - Unlock more content as you progress through the days.
-- Seasons rotate every 10 days, changing crop growth speed and cow mood.
-- Daily weather like rain or drought also affects crop growth speed.
+ - Seasons follow the real-world date, changing crop growth speed and cow mood.
+ - Weather shifts throughout the day and displays the current temperature.
 - The header displays the current local time so you know what part of the day the farm is themed for.
 
 ### Automation Upgrades
