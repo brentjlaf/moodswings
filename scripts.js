@@ -174,6 +174,22 @@ function weightedRandomIndex(options) {
     return options[0].index;
 }
 
+// Format a duration in seconds as "1h 3m 25s" / "3m 25s" / "25s"
+function formatTime(seconds) {
+    seconds = Math.max(0, Math.ceil(seconds));
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    const parts = [];
+    if (h > 0) parts.push(`${h}h`);
+    if (m > 0 || h > 0) parts.push(`${m}m`);
+    parts.push(`${s}s`);
+    return parts.join(' ');
+}
+
+// Expose globally for use in other scripts
+window.formatTime = formatTime;
+
 function getBaseTemperature(hour) {
     if (hour >= 5 && hour < 8) {
         return randomBetween(10, 15);
@@ -900,7 +916,7 @@ function renderCrops() {
                 const seconds = Math.ceil(timeLeft / 1000);
                 cropSlot.innerHTML = `
                     <div class="crop-emoji">🌱</div>
-                    <div class="growth-timer">${seconds}s</div>
+                    <div class="growth-timer">${formatTime(seconds)}</div>
                     <div class="growth-progress"><div class="growth-bar" style="width:${progress}%;"></div></div>
                 `;
             }
@@ -910,7 +926,7 @@ function renderCrops() {
                 pest.className = 'pest-icon';
                 const timeLeftPest = Math.max(0, crop.pestExpiresAt - Date.now());
                 const secondsPest = Math.ceil(timeLeftPest / 1000);
-                pest.innerHTML = `🐛 <span class="pest-timer">${secondsPest}</span>`;
+                pest.innerHTML = `🐛 <span class="pest-timer">${formatTime(secondsPest)}</span>`;
                 pest.onclick = (e) => { e.stopPropagation(); clearPest(index); };
                 cropSlot.appendChild(pest);
             }
@@ -1921,7 +1937,7 @@ function renderEffectTimers() {
         iconEl.alt = effect.itemName;
         div.appendChild(iconEl);
 
-        div.appendChild(document.createTextNode(` ${effect.itemName} ${Math.ceil(remaining / 1000)}s`));
+        div.appendChild(document.createTextNode(` ${effect.itemName} ${formatTime(Math.ceil(remaining / 1000))}`));
         container.appendChild(div);
     });
 }
@@ -2283,12 +2299,12 @@ setInterval(() => {
             const slot = cropSlots[index];
             if (slot) {
                 const timerEl = slot.querySelector('.growth-timer');
-                if (timerEl) timerEl.textContent = `${Math.ceil(Math.max(0, timeLeft) / 1000)}s`;
+                if (timerEl) timerEl.textContent = formatTime(Math.ceil(Math.max(0, timeLeft) / 1000));
                 const barEl = slot.querySelector('.growth-bar');
                 if (barEl) barEl.style.width = `${progress}%`;
                 if (crop.hasPest) {
                     const pestTimer = slot.querySelector('.pest-timer');
-                    if (pestTimer) pestTimer.textContent = Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000);
+                    if (pestTimer) pestTimer.textContent = formatTime(Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000));
                 }
             }
         } else {
@@ -2298,7 +2314,7 @@ setInterval(() => {
                 if (barEl) barEl.style.width = '100%';
                 if (crop.hasPest) {
                     const pestTimer = slot.querySelector('.pest-timer');
-                    if (pestTimer) pestTimer.textContent = Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000);
+                    if (pestTimer) pestTimer.textContent = formatTime(Math.ceil(Math.max(0, crop.pestExpiresAt - Date.now()) / 1000));
                 }
             }
         }
