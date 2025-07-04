@@ -12,6 +12,10 @@ cows.json             Cow data
 crops.json            Crop data
 shop.json             Shop items
 rhythm-patterns.json  Rhythm game patterns
+environment.json      Seasons and weather
+upgrades.json         Upgrade tuning and rhythm tolerances
+farm-tips.json        Bulletin tips
+rhythm-defaults.json  Fallback speeds and instructions
 ```
 
 ## Quick Start
@@ -23,7 +27,7 @@ rhythm-patterns.json  Rhythm game patterns
 3. Open `http://localhost:8000` in your browser and play.
 
 ## Editing Content
-Modify the JSON files to add new cows, crops, shop items or rhythm patterns. Refresh the page to load your changes.
+Modify the JSON files to add new cows, crops, shop items or rhythm patterns. You can also tweak the environment, upgrade values and rhythm defaults without touching the code. Refresh the page to load your changes.
 ## Basic Gameplay
 - Tap a cow to play a randomly selected rhythm game and earn rewards.
 - Plant and harvest crops for additional income.

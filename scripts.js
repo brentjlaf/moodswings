@@ -12,7 +12,10 @@ let autoWaterTimerId = null;
 async function loadGameData() {
     try {
         console.log('Loading game data...');
-        
+
+        // Load configuration overrides first
+        await loadConfigData();
+
         // Load all JSON data files
         const [cowsResponse, cropsResponse, shopResponse, rhythmResponse, achievementsResponse] = await Promise.all([
             fetch('cows.json?v=moo3.5'),
@@ -1923,19 +1926,8 @@ function getGameInstructions(gameType) {
         return rhythmPatterns.rhythmTypes[gameType].instructions;
     }
     
-    // Fallback to default instructions
-    const defaultInstructions = {
-        pitch: "Tap when notes cross the center! Match the diva's perfect pitch!",
-        rapid: "Rapid TAP to rev the engine! Don't let it stall!",
-        smooth: "Gentle taps for a smooth serenade!",
-        battle: "TAP to parry grass attacks! Defend the pasture!",
-        slow: "Slow, deliberate taps for melancholy mood!",
-        rock: "Rock out with the rhythm! Feel the groove!",
-        cosmic: "TAP in cosmic harmony with the universe!",
-        pop: "Hit those pop beats with perfect timing!",
-        electronic: "Drop the bass with electronic beats!"
-    };
-    return defaultInstructions[gameType] || "Follow the rhythm and make your cow happy!";
+    // Fallback to instructions loaded from rhythm-defaults.json
+    return DEFAULT_INSTRUCTIONS[gameType] || "Follow the rhythm and make your cow happy!";
 }
 
 
