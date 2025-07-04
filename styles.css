@@ -724,7 +724,7 @@ body {
     pointer-events: none;
     display: none;
     z-index: 900;
-    background: radial-gradient(ellipse at bottom, rgba(0,0,20,0.8), rgba(0,0,0,0.95));
+    background: radial-gradient(ellipse at bottom, rgba(0,0,20,0.4), rgba(0,0,0,0.6));
     overflow: hidden;
     animation: meteor-bg 5s linear infinite;
 }
@@ -732,6 +732,21 @@ body {
 @keyframes meteor-bg {
     from { background-position: 0 0; }
     to { background-position: -1000px 500px; }
+}
+
+.comet {
+    position: absolute;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    transform: rotate(-45deg);
+    pointer-events: none;
+    animation: comet-trail linear infinite;
+}
+
+@keyframes comet-trail {
+    from { opacity: 1; transform: translate(0,0) rotate(-45deg); }
+    to { opacity: 0; transform: translate(-100vw, 100vh) rotate(-45deg); }
 }
 
 /* Rain overlay */

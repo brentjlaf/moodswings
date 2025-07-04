@@ -1945,7 +1945,10 @@ function startMeteorShower() {
     if (gameState.isMeteorShower) return;
     gameState.isMeteorShower = true;
     const overlay = document.getElementById('meteorShowerOverlay');
-    if (overlay) overlay.style.display = 'block';
+    if (overlay) {
+        setupMeteorOverlay();
+        overlay.style.display = 'block';
+    }
     const audio = document.getElementById('meteorSound');
     if (audio) {
         audio.currentTime = 0;
@@ -1953,14 +1956,17 @@ function startMeteorShower() {
     }
     generateCropButtons();
     showToast('🌠 Meteor shower! Cosmic crops available!', 'info');
-    setTimeout(endMeteorShower, 60000); // lasts 1 minute
+    setTimeout(endMeteorShower, 30000); // lasts 30 seconds
 }
 
 function endMeteorShower() {
     if (!gameState.isMeteorShower) return;
     gameState.isMeteorShower = false;
     const overlay = document.getElementById('meteorShowerOverlay');
-    if (overlay) overlay.style.display = 'none';
+    if (overlay) {
+        overlay.style.display = 'none';
+        overlay.innerHTML = '';
+    }
     generateCropButtons();
 }
 
@@ -1991,6 +1997,21 @@ function setupFireflyOverlay() {
         fly.style.animationDuration = (3 + Math.random() * 2) + 's';
         fly.style.animationDelay = Math.random() * 3 + 's';
         overlay.appendChild(fly);
+    }
+}
+
+function setupMeteorOverlay() {
+    const overlay = document.getElementById('meteorShowerOverlay');
+    if (!overlay) return;
+    overlay.innerHTML = '';
+    for (let i = 0; i < 6; i++) {
+        const comet = document.createElement('div');
+        comet.className = 'comet';
+        comet.style.left = Math.random() * 100 + '%';
+        comet.style.top = Math.random() * 100 + '%';
+        comet.style.animationDuration = (1 + Math.random()).toFixed(2) + 's';
+        comet.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+        overlay.appendChild(comet);
     }
 }
 
@@ -2180,6 +2201,7 @@ function initializeGame() {
 
     setupRainOverlay();
     setupFireflyOverlay();
+    setupMeteorOverlay();
     updateWeatherEffects();
 
     updateDisplay();
