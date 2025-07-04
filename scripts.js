@@ -826,6 +826,18 @@ function updateAllCowHappiness() {
     renderCows();
 }
 
+// Return cows sorted from saddest to happiest
+function getCowMoodRanking() {
+    return [...gameState.cows].sort((a, b) => a.moodValue - b.moodValue);
+}
+
+// Display the current cow mood order in a toast message
+function showCowMoodRanking() {
+    const ranking = getCowMoodRanking();
+    const names = ranking.map(c => c.name).join(' -> ');
+    showToast(`Mood order: ${names}`, 'info');
+}
+
 function applyCowbellThreshold() {
     if (!gameState.upgrades || !gameState.upgrades.cowbell) return;
     const cowbellCfg = GAME_CONFIG.UPGRADES && GAME_CONFIG.UPGRADES.cowbell;

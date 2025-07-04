@@ -40,3 +40,7 @@ Certain shop upgrades provide automation:
 - **Pest Control** keeps pests away from your fields for five minutes. You can stock up to 100 of them.
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
+
+## Mood Ranking
+Use the **Sort by Mood** button on the Cows tab to display cows from saddest to happiest.
+You can also call `getCowMoodRanking()` in the browser console to retrieve the current order programmatically.
