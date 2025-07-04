@@ -41,6 +41,3 @@ Certain shop upgrades provide automation:
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
 
-## Mood Ranking
-Use the **Sort by Mood** button on the Cows tab to display cows from saddest to happiest.
-You can also call `getCowMoodRanking()` in the browser console to retrieve the current order programmatically.
