@@ -345,6 +345,58 @@ body {
     grid-template-columns: repeat(2, 1fr);
 }
 
+/* Slide-out menu */
+.menu-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: var(--barn-red);
+    color: white;
+    border: none;
+    font-size: 1.5em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 1002;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 250px;
+    height: 100%;
+    background: var(--dark-teal);
+    color: white;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 1001;
+    padding: 20px;
+}
+.side-menu.open {
+    left: 0;
+}
+.close-menu {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.side-menu .menu-section {
+    margin-bottom: 20px;
+}
+.side-menu .menu-section h3 {
+    margin-bottom: 10px;
+}
+.toggle-sound {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 
 .cow-card {
     background: #FFF8DC;
@@ -2000,6 +2052,7 @@ body {
 .section-title-blue { color: #4169E1; }
 .section-title-green { color: #228B22; }
 .section-title-purple { color: #8B008B; }
+.section-title-yellow { color: var(--sunflower-yellow); }
 
 /* Stats Tab Containers */
 .bulletin-board {
