@@ -1,0 +1,23 @@
+{
+  "upgrades": {
+    "pitchfork": {
+      "tolerance_bonus_per_level": 0.3,
+      "coin_bonus_per_level": 10
+    },
+    "metronome": {
+      "speed_bonus_per_level": 0.3
+    },
+    "barn": {
+      "milk_multiplier_per_level": 1
+    },
+    "cowbell": {
+      "happiness_threshold": 0.2,
+      "happiness_bonus": 40
+    }
+  },
+  "rhythmTolerances": {
+    "perfect": 30,
+    "good": 80,
+    "okay": 120
+  }
+}

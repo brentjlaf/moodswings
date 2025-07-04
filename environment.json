@@ -1,0 +1,13 @@
+{
+  "seasons": [
+    { "name": "Spring", "emoji": "\ud83c\udf31", "cropGrowthMultiplier": 1.1, "happinessMultiplier": 1 },
+    { "name": "Summer", "emoji": "\u2600\ufe0f", "cropGrowthMultiplier": 1.0, "happinessMultiplier": 1.1 },
+    { "name": "Autumn", "emoji": "\ud83c\udf42", "cropGrowthMultiplier": 0.9, "happinessMultiplier": 1 },
+    { "name": "Winter", "emoji": "\u2744\ufe0f", "cropGrowthMultiplier": 0.8, "happinessMultiplier": 0.9 }
+  ],
+  "weatherTypes": [
+    { "name": "Clear", "emoji": "\u2600\ufe0f", "cropGrowthModifier": 1, "tempOffset": 0 },
+    { "name": "Rain Storm", "emoji": "\ud83c\udf27\ufe0f", "cropGrowthModifier": 0.8, "tempOffset": -4 },
+    { "name": "Drought", "emoji": "\ud83d\udd25", "cropGrowthModifier": 1.3, "tempOffset": 5 }
+  ]
+}

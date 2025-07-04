@@ -1,0 +1,24 @@
+{
+  "fallbackSpeeds": {
+    "pitch": 1500,
+    "rapid": 800,
+    "smooth": 2000,
+    "battle": 1000,
+    "slow": 2500,
+    "rock": 1200,
+    "cosmic": 1800,
+    "pop": 1100,
+    "electronic": 900
+  },
+  "instructions": {
+    "pitch": "Tap when notes cross the center! Match the diva's perfect pitch!",
+    "rapid": "Rapid TAP to rev the engine! Don't let it stall!",
+    "smooth": "Gentle taps for a smooth serenade!",
+    "battle": "TAP to parry grass attacks! Defend the pasture!",
+    "slow": "Slow, deliberate taps for melancholy mood!",
+    "rock": "Rock out with the rhythm! Feel the groove!",
+    "cosmic": "TAP in cosmic harmony with the universe!",
+    "pop": "Hit those pop beats with perfect timing!",
+    "electronic": "Drop the bass with electronic beats!"
+  }
+}

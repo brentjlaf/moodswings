@@ -9,6 +9,7 @@ const GAME_CONFIG = {
 
     // Season settings
     SEASON_LENGTH: 10,
+    // These arrays will be overridden by environment.json
     SEASONS: [
         { name: 'Spring', emoji: '🌱', cropGrowthMultiplier: 1.1, happinessMultiplier: 1 },
         { name: 'Summer', emoji: '☀️', cropGrowthMultiplier: 1.0, happinessMultiplier: 1.1 },
@@ -17,7 +18,7 @@ const GAME_CONFIG = {
     ],
 
     // Daily weather settings
-    WEATHER_TYPES: [
+    WEATHER_TYPES: [ // overridden by environment.json
         { name: 'Clear', emoji: '☀️', cropGrowthModifier: 1, tempOffset: 0 },
         { name: 'Rain Storm', emoji: '🌧️', cropGrowthModifier: 0.8, tempOffset: -4 },
         { name: 'Drought', emoji: '🔥', cropGrowthModifier: 1.3, tempOffset: 5 }
@@ -56,6 +57,7 @@ const GAME_CONFIG = {
     },
 
     // Upgrade settings
+    // Defaults overridden by upgrades.json
     UPGRADES: {
         pitchfork: {
             tolerance_bonus_per_level: 0.3,
@@ -74,7 +76,7 @@ const GAME_CONFIG = {
     },
 
     // Timing tolerances for rhythm game
-    RHYTHM_TOLERANCES: {
+    RHYTHM_TOLERANCES: { // overridden by upgrades.json
         perfect: 30, // pixels
         good: 80,
         okay: 120
@@ -148,28 +150,81 @@ const GAME_CONFIG = {
     }
 };
 
-// Speeds and instructions were previously defined here but now come from
-// rhythm-patterns.json, so these constants have been removed.
+// Data loaded from external JSON files
+let FARM_TIPS = [];
+let FALLBACK_SPEEDS = {};
+let DEFAULT_INSTRUCTIONS = {};
 
-// Farm tips that appear in the bulletin
-const FARM_TIPS = [
-    "Plant rainbow crops for maximum profit!",
-    "Keep all your cows happy for bonus rewards!",
-    "Upgrades make rhythm games easier to win!",
-    "Perfect scores unlock secret cows!",
-    "Harvest crops regularly to keep earning!",
-    "Each cow has their own rhythm style!",
-    "The neon pink barn doubles milk production!",
-    "Golden cowbell makes cows start happier each day!",
-    "Build combos in rhythm games for bonus points!",
-    "Secret cows have special unlock conditions!",
-    "Auto-save keeps your progress safe!",
-    "Watch the unlock progress in the stats tab!",
-    "Try different rhythm strategies for each cow!",
-    "Timing gets easier with pitchfork upgrades!"
-];
+async function loadConfigData() {
+    try {
+        const [envRes, upRes, tipsRes, rhythmRes] = await Promise.all([
+            fetch('environment.json'),
+            fetch('upgrades.json'),
+            fetch('farm-tips.json'),
+            fetch('rhythm-defaults.json')
+        ]);
+
+        const envData = await envRes.json();
+        const upgradeData = await upRes.json();
+        const tipsData = await tipsRes.json();
+        const rhythmData = await rhythmRes.json();
+
+        if (envData.seasons) GAME_CONFIG.SEASONS = envData.seasons;
+        if (envData.weatherTypes) GAME_CONFIG.WEATHER_TYPES = envData.weatherTypes;
+
+        if (upgradeData.upgrades) GAME_CONFIG.UPGRADES = upgradeData.upgrades;
+        if (upgradeData.rhythmTolerances) GAME_CONFIG.RHYTHM_TOLERANCES = upgradeData.rhythmTolerances;
+
+        FARM_TIPS = tipsData.tips || [];
+        FALLBACK_SPEEDS = rhythmData.fallbackSpeeds || {};
+        DEFAULT_INSTRUCTIONS = rhythmData.instructions || {};
+
+        return true;
+    } catch (err) {
+        console.error('Failed to load config files:', err);
+        // Use existing defaults already defined above
+        FARM_TIPS = [
+            "Plant rainbow crops for maximum profit!",
+            "Keep all your cows happy for bonus rewards!",
+            "Upgrades make rhythm games easier to win!",
+            "Perfect scores unlock secret cows!",
+            "Harvest crops regularly to keep earning!",
+            "Each cow has their own rhythm style!",
+            "The neon pink barn doubles milk production!",
+            "Golden cowbell makes cows start happier each day!",
+            "Build combos in rhythm games for bonus points!",
+            "Secret cows have special unlock conditions!",
+            "Auto-save keeps your progress safe!",
+            "Watch the unlock progress in the stats tab!",
+            "Try different rhythm strategies for each cow!",
+            "Timing gets easier with pitchfork upgrades!"
+        ];
+        FALLBACK_SPEEDS = {
+            pitch: 1500, rapid: 800, smooth: 2000, battle: 1000,
+            slow: 2500, rock: 1200, cosmic: 1800, pop: 1100, electronic: 900
+        };
+        DEFAULT_INSTRUCTIONS = {
+            pitch: "Tap when notes cross the center! Match the diva's perfect pitch!",
+            rapid: "Rapid TAP to rev the engine! Don't let it stall!",
+            smooth: "Gentle taps for a smooth serenade!",
+            battle: "TAP to parry grass attacks! Defend the pasture!",
+            slow: "Slow, deliberate taps for melancholy mood!",
+            rock: "Rock out with the rhythm! Feel the groove!",
+            cosmic: "TAP in cosmic harmony with the universe!",
+            pop: "Hit those pop beats with perfect timing!",
+            electronic: "Drop the bass with electronic beats!"
+        };
+        return false;
+    }
+}
 
 // Export config for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { GAME_CONFIG, FARM_TIPS };
+    module.exports = {
+        GAME_CONFIG,
+        FARM_TIPS,
+        FALLBACK_SPEEDS,
+        DEFAULT_INSTRUCTIONS,
+        loadConfigData
+    };
 }

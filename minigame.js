@@ -116,12 +116,8 @@ function getGameSpeed(gameType) {
     if (rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[gameType]) {
         baseSpeed = rhythmPatterns.rhythmTypes[gameType].baseSpeed;
     } else {
-        // Fallback speeds
-        const fallbackSpeeds = {
-            pitch: 1500, rapid: 800, smooth: 2000, battle: 1000,
-            slow: 2500, rock: 1200, cosmic: 1800, pop: 1100, electronic: 900
-        };
-        baseSpeed = fallbackSpeeds[gameType] || 1200;
+        // Fallback speeds loaded from rhythm-defaults.json
+        baseSpeed = FALLBACK_SPEEDS[gameType] || 1200;
     }
     
     // Apply upgrade effects
