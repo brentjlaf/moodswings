@@ -435,6 +435,7 @@ function renderShop() {
                     <div class="item-info">
                         <div class="item-name">${item.name}</div>
                         <div class="item-description">${item.description}</div>
+                        ${getItemEffectText(item) ? `<div class="item-effects">${getItemEffectText(item)}</div>` : ''}
                         <div class="item-price">
                             ${currency === 'coins' ? `💰 ${cost} coins` : `🥛 ${cost} milk`}
                         </div>
@@ -453,6 +454,7 @@ function renderShop() {
                     <div class="item-info">
                         <div class="item-name">${item.name}</div>
                         <div class="item-description">${item.description}</div>
+                        ${getItemEffectText(item) ? `<div class="item-effects">${getItemEffectText(item)}</div>` : ''}
                         <div class="locked-item-text">${unlockText}</div>
                     </div>
                     <button class="shop-btn" disabled>LOCKED</button>
@@ -488,6 +490,46 @@ function getShopUnlockText(item) {
         default:
             return '';
     }
+}
+
+// Build descriptive text from an item's effects using shopData.effectDescriptions
+function getItemEffectText(item) {
+    if (!item.effects || !shopData.effectDescriptions) return '';
+
+    const descs = shopData.effectDescriptions;
+    const lines = [];
+
+    Object.keys(item.effects).forEach(type => {
+        if (type === 'duration' || type === 'duration_minutes') return;
+        let template = descs[type];
+        if (!template) return;
+
+        const value = item.effects[type];
+
+        if (type === 'unlock_crop' && typeof value === 'string') {
+            lines.push(`Unlocks ${value} for planting`);
+            return;
+        }
+
+        if (template.includes('X')) {
+            template = template.replace('X', value);
+        }
+
+        lines.push(template);
+    });
+
+    if (item.effects.duration_minutes) {
+        let template = descs['duration_minutes'] || 'Effect lasts for X minutes';
+        template = template.replace('X', item.effects.duration_minutes);
+        lines.push(template);
+    } else if (item.effects.duration) {
+        let minutes = Math.round(item.effects.duration / 60000);
+        let template = descs['duration_minutes'] || 'Effect lasts for X minutes';
+        template = template.replace('X', minutes);
+        lines.push(template);
+    }
+
+    return lines.join('<br>');
 }
 
 // Flexible upgrade buying system
