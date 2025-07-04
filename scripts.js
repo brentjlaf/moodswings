@@ -7,6 +7,8 @@ let cowData = [];
 let secretCows = [];
 let statsChart;
 let autoWaterTimerId = null;
+let dayTimerIntervalId = null;
+let dayTimeRemaining = GAME_CONFIG.DAY_DURATION;
 
 // Data loading system
 async function loadGameData() {
@@ -1001,6 +1003,7 @@ function nextDay() {
     gameState.dailyMilkTotals.push(gameState.dailyStats.milkProduced);
     gameState.dailyCoinTotals.push(gameState.dailyStats.coinsEarned);
     gameState.day++;
+    startDayTimer();
     updateSeason();
     updateWeather();
     gameState.dailyStats = {
@@ -1188,6 +1191,28 @@ function convertMilkToCoins() {
     gameState.stats.totalCoinsEarned += coins;
     showToast(`Processed milk into ${Math.floor(coins)} coins!`, 'success');
     updateDisplay();
+}
+
+function updateDayTimerDisplay() {
+    const timerEl = document.getElementById('dayTimer');
+    if (timerEl) {
+        timerEl.textContent = `${dayTimeRemaining}s`;
+    }
+}
+
+function startDayTimer() {
+    if (dayTimerIntervalId) clearInterval(dayTimerIntervalId);
+    dayTimeRemaining = GAME_CONFIG.DAY_DURATION;
+    updateDayTimerDisplay();
+    dayTimerIntervalId = setInterval(() => {
+        dayTimeRemaining--;
+        if (dayTimeRemaining <= 0) {
+            clearInterval(dayTimerIntervalId);
+            dayTimerIntervalId = null;
+            nextDay();
+        }
+        updateDayTimerDisplay();
+    }, 1000);
 }
 
 function updateStatsChart() {
@@ -2032,6 +2057,8 @@ function initializeGame() {
     // Check for meteor showers at night
     maybeTriggerMeteorShower();
     setInterval(maybeTriggerMeteorShower, 60000);
+
+    startDayTimer();
 
     console.log('Game initialized with data-driven systems and achievements!');
 }

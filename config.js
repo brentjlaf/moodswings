@@ -6,6 +6,8 @@ const GAME_CONFIG = {
     STARTING_COINS: 100,
     STARTING_MILK: 0,
     STARTING_DAY: 1,
+    // Duration of a single day in seconds
+    DAY_DURATION: 60,
 
     // Season settings
     SEASON_LENGTH: 10,
