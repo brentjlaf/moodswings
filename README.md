@@ -45,3 +45,11 @@ Certain shop upgrades provide automation:
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
 
+## Color Palette
+The game uses a 20-color palette optimized for a mobile cow theme:
+
+- **Neutrals:** Cow White `#FFFFFF`, Cow Black `#000000`, Cream `#FFF5E5`, Cloud Gray `#D3D3D3`, Dirt Brown `#8B5E3C`
+- **Farm Environment:** Pasture Green `#6A994E`, Hay Yellow `#E1C699`, Barn Red `#B23A48`, Sky Blue `#87CEEB`, Earth Brown `#A65E2E`
+- **Accents & Highlights:** Primary Teal `#2D7D7D`, Dark Teal `#1E5A5A`, Light Teal `#4A9999`, Accent Pink `#E91E63`, Sunflower Yellow `#FFD700`, Wildflower Purple `#8A2BE2`, Orange Accent `#FFA500`
+- **UI & HUD:** Soft Beige `#F5F5DC`, Muted Blue `#5D8CAE`, Grass Green `#A3D977`, Pastel Mint `#98FF98`
+

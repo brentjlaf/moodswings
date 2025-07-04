@@ -216,28 +216,28 @@
   ],
   "cropCategories": {
     "common": {
-      "color": "#90EE90",
-      "borderColor": "#32CD32"
+      "color": "#6A994E",
+      "borderColor": "#A3D977"
     },
     "uncommon": {
       "color": "#87CEEB",
-      "borderColor": "#4169E1"
+      "borderColor": "#5D8CAE"
     },
     "rare": {
-      "color": "#DDA0DD",
-      "borderColor": "#8B008B"
+      "color": "#8A2BE2",
+      "borderColor": "#4A9999"
     },
     "epic": {
       "color": "#FFD700",
-      "borderColor": "#FF8C00"
+      "borderColor": "#FFA500"
     },
     "legendary": {
-      "color": "#FF69B4",
-      "borderColor": "#FF1493"
+      "color": "#E91E63",
+      "borderColor": "#FFA500"
     },
     "cosmic": {
-      "color": "#B0E0E6",
-      "borderColor": "#5F9EA0"
+      "color": "#4A9999",
+      "borderColor": "#1E5A5A"
     }
   }
 }

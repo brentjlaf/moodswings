@@ -15,18 +15,18 @@ let currentMinigame = {
 
 // Default colors for hit feedback. These may be overridden by rhythmPatterns.hitColors
 const DEFAULT_HIT_COLORS = {
-    perfect: '#00FF00',
-    good: '#FFFF00',
-    okay: '#FF8C00',
-    miss: '#FF0000'
+    perfect: '#98FF98',
+    good: '#FFD700',
+    okay: '#FFA500',
+    miss: '#E91E63'
 };
 
 // Colors for hit feedback.
 const HIT_COLORS = {
-    perfect: '#00FF00',
-    good: '#FFFF00',
-    okay: '#FF8C00',
-    miss: '#FF0000'
+    perfect: '#98FF98',
+    good: '#FFD700',
+    okay: '#FFA500',
+    miss: '#E91E63'
 };
 
 function getHitColor(type) {
@@ -178,7 +178,7 @@ function spawnNote() {
     } else {
         // Fallback styling
         if (noteType === 'special') {
-            note.style.background = '#FF69B4';
+            note.style.background = '#E91E63';
             note.classList.add('special-note');
         }
     }

@@ -883,7 +883,7 @@ function renderCows() {
             cowCard.classList.add('secret-cow-unlock');
         }
 
-        const happinessColor    = cow.isHappy ? '#32CD32' : '#FF6B6B';
+        const happinessColor    = cow.isHappy ? '#A3D977' : '#E91E63';
         const heartIcon         = cow.isHappy ? '💚' : '💔';
         const moodClass         = cow.isHappy ? 'cow-mood cow-mood-happy' : 'cow-mood cow-mood-sad';
         const moodValueDisplay  = Math.floor(cow.moodValue);
@@ -1433,15 +1433,15 @@ function updateStatsChart() {
                     {
                         label: 'Milk',
                         data: gameState.dailyMilkTotals,
-                        borderColor: '#4169E1',
-                        backgroundColor: 'rgba(65,105,225,0.2)',
+                        borderColor: '#5D8CAE',
+                        backgroundColor: 'rgba(93,140,174,0.2)',
                         tension: 0.2
                     },
                     {
                         label: 'Coins',
                         data: gameState.dailyCoinTotals,
-                        borderColor: '#DAA520',
-                        backgroundColor: 'rgba(218,165,32,0.2)',
+                        borderColor: '#FFD700',
+                        backgroundColor: 'rgba(255,215,0,0.2)',
                         tension: 0.2
                     }
                 ]
@@ -1486,9 +1486,9 @@ function renderFarmMap() {
         for (let c = 0; c < cols; c++) {
             const x = padding + c * cellW;
             const y = padding + r * cellH;
-            ctx.fillStyle = '#A0522D';
+            ctx.fillStyle = '#A65E2E';
             ctx.fillRect(x, y, cellW - 2, cellH - 2);
-            ctx.strokeStyle = '#8B4513';
+            ctx.strokeStyle = '#A65E2E';
             ctx.strokeRect(x, y, cellW - 2, cellH - 2);
 
             const index = r * cols + c;

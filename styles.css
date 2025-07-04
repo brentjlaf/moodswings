@@ -1,5 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
 
+:root {
+    /* Neutrals */
+    --cow-white: #FFFFFF;
+    --cow-black: #000000;
+    --cream: #FFF5E5;
+    --cloud-gray: #D3D3D3;
+    --dirt-brown: #8B5E3C;
+
+    /* Farm Environment */
+    --pasture-green: #6A994E;
+    --hay-yellow: #E1C699;
+    --barn-red: #B23A48;
+    --sky-blue: #87CEEB;
+    --earth-brown: #A65E2E;
+
+    /* Accents & Highlights */
+    --primary-teal: #2D7D7D;
+    --dark-teal: #1E5A5A;
+    --light-teal: #4A9999;
+    --accent-pink: #E91E63;
+    --sunflower-yellow: #FFD700;
+    --wildflower-purple: #8A2BE2;
+    --orange-accent: #FFA500;
+
+    /* UI & HUD */
+    --soft-beige: #F5F5DC;
+    --muted-blue: #5D8CAE;
+    --grass-green: #A3D977;
+    --pastel-mint: #98FF98;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,7 +43,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #E6A853;
+    background: var(--soft-beige);
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -33,12 +64,12 @@ body {
 }
 
 .game-header {
-    background: #F5E6D3;
+    background: var(--cream);
     /* border-radius: 25px; */
     padding: 8px;
     text-align: center;
     /* box-shadow: 0 8px 32px rgba(139,69,19,0.3); */
-    /* border: 3px solid #8B4513; */
+    /* border: 3px solid var(--earth-brown); */
     position: relative;
     overflow: hidden;
     z-index: 100;
@@ -69,7 +100,7 @@ body {
     font-weight: 900;
     letter-spacing: 3px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    background: #8B4513;
+    background: var(--earth-brown);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -125,14 +156,14 @@ body {
 .stat-value {
     font-size: 1.3em;
     font-weight: 900;
-    color: #8B4513;
+    color: var(--earth-brown);
     display: block;
     margin-bottom: 2px;
 }
 
 .stat-label {
     font-size: 0.7em;
-    color: #654321;
+    color: var(--dirt-brown);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -188,7 +219,7 @@ body {
     padding: 4px 12px;
     font-size: 0.7em;
     font-weight: bold;
-    color: #8B4513;
+    color: var(--earth-brown);
     box-shadow: 0 2px 6px rgba(240,195,109,0.3);
     animation: pulse 2s infinite;
 }
@@ -233,12 +264,12 @@ body {
 
 .section-tabs {
     display: flex;
-    background: #F5E6D3;
+    background: var(--cream);
     /* border-radius: 18px; */
     margin-bottom: 15px;
     overflow: hidden;
     /* box-shadow: 0 6px 20px rgba(139,69,19,0.3); */
-    /* border: 3px solid #8B4513; */
+    /* border: 3px solid var(--earth-brown); */
 }
 
 .tab-btn {
@@ -251,17 +282,17 @@ body {
     font-size: 0.8em;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #8B4513;
+    color: var(--earth-brown);
     position: relative;
 }
 
 .tab-btn:hover {
-    background: rgba(139,69,19,0.1);
+    background: rgba(166,94,46,0.1);
 }
 
 .tab-btn.active {
-    background: #8B4513;
-    color: #F5E6D3;
+    background: var(--earth-brown);
+    color: var(--cream);
     box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
 }
 
@@ -339,13 +370,13 @@ body {
 .cow-icon {
     font-size: 2.5em;
     margin-bottom: 8px;
-    color: #8B4513;
+    color: var(--earth-brown);
 }
 
 .cow-name {
     font-family: 'Montserrat', sans-serif;
     font-size: 1em;
-    color: #8B4513;
+    color: var(--earth-brown);
     margin-bottom: 5px;
     font-weight: 800;
 }
@@ -427,7 +458,7 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid #8B4513;
+    border: 2px solid var(--earth-brown);
     position: relative;
     touch-action: manipulation;
 }
@@ -451,7 +482,7 @@ body {
 
 .crop-emoji {
     font-size: 1.5em;
-    color: #8B4513;
+    color: var(--earth-brown);
 }
 
 .growth-timer {
@@ -587,7 +618,7 @@ body {
 }
 
 .item-price {
-    color: #8B4513;
+    color: var(--earth-brown);
     font-weight: bold;
     font-size: 0.8em;
 }
@@ -773,7 +804,7 @@ body {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background: #E6A853;
+    background: var(--orange-accent);
     color: white;
     border: none;
     border-radius: 50%;
@@ -813,7 +844,7 @@ body {
     background: #FFF8DC;
     padding: 20px 15px;
     border-radius: 20px;
-    border: 4px solid #8B4513;
+    border: 4px solid var(--earth-brown);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     margin: 40px 10px;
 }
@@ -828,7 +859,7 @@ body {
 
 .minigame-title {
     font-size: 1.5em;
-    color: #8B4513;
+    color: var(--earth-brown);
     font-weight: 900;
     letter-spacing: 1px;
     text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
@@ -853,7 +884,7 @@ body {
     transform: translate(-50%, -50%);
     font-size: 2em;
     font-weight: 800;
-    color: #8B4513;
+    color: var(--earth-brown);
     background: none;
     border: none;
     padding: 0;
@@ -881,7 +912,7 @@ body {
 
 .ring-progress {
     fill: none;
-    stroke: #8B4513;
+    stroke: var(--earth-brown);
     stroke-width: 6;
     stroke-dasharray: 201;
     stroke-dashoffset: 0;
@@ -1101,7 +1132,7 @@ body {
     text-align: center;
     display: none;
     touch-action: none;
-    border: 3px solid #8B4513;
+    border: 3px solid var(--earth-brown);
 }
 
 .result-text {
@@ -1122,7 +1153,7 @@ body {
 
 .achievement-title {
     font-family: 'Montserrat', sans-serif;
-    color: #8B4513;
+    color: var(--earth-brown);
     margin-bottom: 5px;
     font-size: 1em;
     font-weight: 800;
@@ -1410,7 +1441,7 @@ body {
 
 .crop-cost {
     font-size: 0.7em;
-    color: #8B4513;
+    color: var(--earth-brown);
     font-weight: bold;
 }
 
@@ -1579,7 +1610,7 @@ body {
 
 /* Crop Slot Empty Plus Sign */
 .crop-slot-empty {
-    color: #8B4513;
+    color: var(--earth-brown);
     font-size: 1.5em;
 }
 
@@ -1589,7 +1620,7 @@ body {
 }
 
 .bulletin-title {
-    color: #8B4513;
+    color: var(--earth-brown);
     margin-bottom: 6px;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.1em;
@@ -1641,11 +1672,11 @@ body {
     padding: 8px;
     background: #D4941E;
     border-radius: 8px;
-    border: 2px solid #8B4513;
+    border: 2px solid var(--earth-brown);
 }
 
 .cow-of-day-title {
-    color: #F5E6D3;
+    color: var(--cream);
     margin-bottom: 4px;
     font-weight: 800;
     font-size: 0.9em;
@@ -1653,7 +1684,7 @@ body {
 }
 
 .cow-of-day-text {
-    color: #F5E6D3;
+    color: var(--cream);
     font-weight: 700;
     font-size: 0.8em;
 }
@@ -1661,13 +1692,13 @@ body {
 /* Farm Tip Box */
 .farm-tip-box {
     padding: 8px;
-    background: #E6A853;
+    background: var(--hay-yellow);
     border-radius: 8px;
-    border: 2px solid #8B4513;
+    border: 2px solid var(--earth-brown);
 }
 
 .farm-tip-title {
-    color: #F5E6D3;
+    color: var(--cream);
     margin-bottom: 4px;
     font-weight: 800;
     font-size: 0.9em;
@@ -1675,7 +1706,7 @@ body {
 }
 
 .farm-tip-text {
-    color: #F5E6D3;
+    color: var(--cream);
     font-weight: 700;
     font-size: 0.8em;
 }
@@ -1712,7 +1743,7 @@ body {
 
 /* Achievement Popup Content Styles */
 .achievement-title {
-    color: #8B4513;
+    color: var(--earth-brown);
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     margin-bottom: 5px;
@@ -1965,7 +1996,7 @@ body {
     font-weight: 800;
 }
 
-.section-title-brown { color: #8B4513; }
+.section-title-brown { color: var(--earth-brown); }
 .section-title-blue { color: #4169E1; }
 .section-title-green { color: #228B22; }
 .section-title-purple { color: #8B008B; }
@@ -1975,7 +2006,7 @@ body {
     background: #FBE8B6;
     border-radius: 12px;
     padding: 15px;
-    border: 2px solid #8B4513;
+    border: 2px solid var(--earth-brown);
     box-shadow: 0 4px 15px rgba(139,69,19,0.3);
     display: flex;
     flex-direction: column;
@@ -1994,7 +2025,7 @@ body {
 #farmMap {
     width: 100%;
     max-height: 200px;
-    border: 2px solid #8B4513;
+    border: 2px solid var(--earth-brown);
     border-radius: 10px;
     background: #fffaf0;
     margin-top: 10px;
@@ -2051,60 +2082,60 @@ body {
 
 /* Time-of-day theme backgrounds */
 body.dawn {
-    background: #FFE5B4;
+    background: var(--pastel-mint);
 }
 
 body.day {
-    background: #E6A853;
+    background: var(--hay-yellow);
 }
 
 body.dusk {
-    background: #FDB99B;
+    background: var(--orange-accent);
 }
 
 body.night {
-    background: #2C3E50;
-    color: #FFFFFF;
+    background: var(--dark-teal);
+    color: var(--cow-white);
 }
 
 /* Header gradients for time-of-day themes */
 .game-header.dawn {
-    background: #FFE5B4;
+    background: var(--pastel-mint);
 }
 
 .game-header.day {
-    background: #E6A853;
+    background: var(--hay-yellow);
 }
 
 .game-header.dusk {
-    background: #FDB99B;
+    background: var(--orange-accent);
 }
 
 .game-header.night {
-    background: #2C3E50;
+    background: var(--dark-teal);
 }
 
 /* Season theme backgrounds */
 body.season-spring {
-    background: #d4f7c5;
+    background: var(--grass-green);
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }
 
 body.season-summer {
-    background: #fff4b7;
+    background: var(--hay-yellow);
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }
 
 body.season-autumn {
-    background: #ffddb0;
+    background: var(--orange-accent);
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }
 
 body.season-winter {
-    background: #e5f0ff;
+    background: var(--muted-blue);
     background-size: 200% 200%;
     animation: seasonShift 15s ease infinite;
 }

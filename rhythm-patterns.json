@@ -129,59 +129,59 @@
       "effect": null
     },
     "long": {
-      "color": "#98FB98",
-      "border": "#32CD32",
+      "color": "#98FF98",
+      "border": "#6A994E",
       "points": 35,
       "effect": "hold",
       "duration": 1200
     },
     "rapid": {
-      "color": "#FF69B4",
-      "border": "#FF1493",
+      "color": "#E91E63",
+      "border": "#B23A48",
       "points": 15,
       "effect": "multi_hit"
     },
     "shield": {
       "color": "#87CEEB",
-      "border": "#4169E1",
+      "border": "#5D8CAE",
       "points": 30,
       "effect": "defense"
     },
     "attack": {
-      "color": "#FF6347",
-      "border": "#DC143C",
+      "color": "#FFA500",
+      "border": "#B23A48",
       "points": 40,
       "effect": "offense"
     },
     "star": {
-      "color": "#DDA0DD",
-      "border": "#8B008B",
+      "color": "#8A2BE2",
+      "border": "#4A9999",
       "points": 50,
       "effect": "cosmic_bonus"
     },
     "void": {
-      "color": "#2F2F2F",
+      "color": "#000000",
       "border": "#000000",
       "points": -10,
       "effect": "avoid"
     },
     "bass": {
-      "color": "#FF4500",
-      "border": "#8B0000",
+      "color": "#B23A48",
+      "border": "#8B5E3C",
       "points": 30,
       "effect": "bass_boost"
     },
     "synth": {
-      "color": "#00CED1",
-      "border": "#008B8B",
+      "color": "#2D7D7D",
+      "border": "#1E5A5A",
       "points": 25,
       "effect": "synth_wave"
     }
   },
   "hitColors": {
-    "perfect": "#00FF00",
-    "good": "#FFFF00",
-    "okay": "#FF8C00",
-    "miss": "#FF0000"
+    "perfect": "#98FF98",
+    "good": "#FFD700",
+    "okay": "#FFA500",
+    "miss": "#E91E63"
   }
 }
