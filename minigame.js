@@ -48,7 +48,7 @@ function resetMinigameTimer() {
     currentMinigame.timeLeft = COUNTDOWN_TOTAL;
     const countdownEl = document.getElementById('countdownClock');
     const ring = document.getElementById('countdownRing');
-    if (countdownEl) countdownEl.textContent = currentMinigame.timeLeft;
+    if (countdownEl) countdownEl.textContent = formatTime(currentMinigame.timeLeft);
     if (ring) ring.style.strokeDashoffset = 0;
 }
 
@@ -85,7 +85,7 @@ function startRhythmGame(cowIndex) {
     clearInterval(currentMinigame.countdownInterval);
     currentMinigame.countdownInterval = setInterval(() => {
         currentMinigame.timeLeft--;
-        if (countdownEl) countdownEl.textContent = Math.max(0, currentMinigame.timeLeft);
+        if (countdownEl) countdownEl.textContent = formatTime(Math.max(0, currentMinigame.timeLeft));
         if (countdownRing) {
             const offset = currentMinigame.ringCircumference * (1 - currentMinigame.timeLeft / COUNTDOWN_TOTAL);
             countdownRing.style.strokeDashoffset = offset;
