@@ -10,6 +10,10 @@ let autoWaterTimerId = null;
 
 // Data loading system
 async function loadGameData() {
+    const spinner = document.getElementById('loadingSpinner');
+    if (spinner) {
+        spinner.style.display = 'flex';
+    }
     try {
         console.log('Loading game data...');
         
@@ -64,6 +68,10 @@ async function loadGameData() {
         rhythmPatterns = { rhythmTypes: {} };
         achievementsData = { categories: [], achievements: [] };
         return false;
+    } finally {
+        if (spinner) {
+            spinner.style.display = 'none';
+        }
     }
 }
 
