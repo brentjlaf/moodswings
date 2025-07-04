@@ -1684,6 +1684,7 @@ function startTimedEffect(item, effectType, value, duration) {
     gameState.activeEffects.push({
         id: effectId,
         itemName: item.name,
+        icon: item.icon || '',
         effectType,
         value,
         expiresAt,
@@ -1726,7 +1727,7 @@ function removeTimedEffect(effectId) {
 }
 
 function renderEffectTimers() {
-    const container = document.getElementById('effectTimers');
+    const container = document.getElementById('activeEffectsPanel') || document.getElementById('effectTimers');
     if (!container) return;
     const now = Date.now();
     container.innerHTML = '';
@@ -1738,7 +1739,7 @@ function renderEffectTimers() {
         }
         const div = document.createElement('div');
         div.className = 'effect-timer';
-        div.textContent = `${effect.itemName} ${Math.ceil(remaining / 1000)}s`;
+        div.textContent = `${effect.icon ? effect.icon + ' ' : ''}${effect.itemName} ${Math.ceil(remaining / 1000)}s`;
         container.appendChild(div);
     });
 }
