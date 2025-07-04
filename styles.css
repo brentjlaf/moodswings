@@ -726,6 +726,29 @@ body {
     z-index: 850;
 }
 
+/* Scroll to Top Button */
+#scrollTopBtn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(145deg, #E6A853, #D4941E);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: none;
+    z-index: 1001;
+}
+
+#scrollTopBtn:hover {
+    background: linear-gradient(145deg, #D4941E, #E6A853);
+}
+
 .firefly {
     position: absolute;
     width: 4px;
