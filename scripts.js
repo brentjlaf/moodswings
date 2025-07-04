@@ -1840,13 +1840,17 @@ function showToast(text, type) {
 }
 
 function startTimedEffect(item, effectType, value, duration) {
+    const maxDuration = 30 * 60 * 1000; // 30 minutes cap
+    const finalDuration = Math.min(duration, maxDuration);
+
     const effectId = `${item.id}_${effectType}`;
-    const expiresAt = Date.now() + duration;
+    const expiresAt = Date.now() + finalDuration;
     const timerId = setTimeout(() => {
         removeTimedEffect(effectId);
-    }, duration);
+    }, finalDuration);
     gameState.activeEffects.push({
         id: effectId,
+        itemId: item.id,
         itemName: item.name,
         icon: item.icon,
         effectType,
@@ -1886,6 +1890,13 @@ function removeTimedEffect(effectId) {
     }
     clearTimeout(effect.timerId);
     gameState.activeEffects.splice(index, 1);
+
+    if (effect.itemId && gameState.upgrades[effect.itemId] > 0) {
+        gameState.upgrades[effect.itemId]--;
+        if (gameState.upgrades[effect.itemId] < 0) gameState.upgrades[effect.itemId] = 0;
+        renderShop();
+    }
+
     showToast(`${effect.itemName} effect has worn off!`, 'info');
     renderEffectTimers();
 }

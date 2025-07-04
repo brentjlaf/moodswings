@@ -448,7 +448,7 @@
     {
       "id": "honey_potion",
       "name": "Honey Potion",
-      "description": "Crop yield +25% for 1 hour!",
+      "description": "Crop yield +25% for 30 minutes!",
       "icon": "🍯",
       "category": "consumables",
       "cost": 500,
@@ -456,7 +456,7 @@
       "maxLevel": 99,
       "effects": {
         "crop_yield_bonus": 25,
-        "duration_minutes": 60
+        "duration_minutes": 30
       },
       "unlockCondition": {
         "type": "day",
