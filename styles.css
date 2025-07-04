@@ -2045,3 +2045,44 @@ body.night {
 .game-header.night {
     background: linear-gradient(135deg, #2C3E50 0%, #4B79A1 100%);
 }
+
+/* Season theme backgrounds */
+body.season-spring {
+    background: linear-gradient(135deg, #d4f7c5 0%, #a5e3c2 100%);
+    background-size: 200% 200%;
+    animation: seasonShift 15s ease infinite;
+}
+
+body.season-summer {
+    background: linear-gradient(135deg, #fff4b7 0%, #ffcc70 100%);
+    background-size: 200% 200%;
+    animation: seasonShift 15s ease infinite;
+}
+
+body.season-autumn {
+    background: linear-gradient(135deg, #ffddb0 0%, #ffb085 100%);
+    background-size: 200% 200%;
+    animation: seasonShift 15s ease infinite;
+}
+
+body.season-winter {
+    background: linear-gradient(135deg, #e5f0ff 0%, #c1d9ff 100%);
+    background-size: 200% 200%;
+    animation: seasonShift 15s ease infinite;
+}
+
+@keyframes seasonShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Fallback for browsers with no animation support */
+@media (prefers-reduced-motion: reduce) {
+    body.season-spring,
+    body.season-summer,
+    body.season-autumn,
+    body.season-winter {
+        animation: none;
+    }
+}

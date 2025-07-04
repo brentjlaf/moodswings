@@ -174,7 +174,8 @@ function updateSeason() {
     }
 
     const index = Math.floor((gameState.day - 1) / GAME_CONFIG.SEASON_LENGTH) % GAME_CONFIG.SEASONS.length;
-    if (index !== gameState.currentSeasonIndex) {
+    const seasonChanged = index !== gameState.currentSeasonIndex;
+    if (seasonChanged) {
         gameState.currentSeasonIndex = index;
         const season = getCurrentSeason();
         gameState.cows.forEach(cow => {
@@ -188,6 +189,15 @@ function updateSeason() {
             showToast(`${season.emoji} ${season.name} begins!`, 'info');
         }
         updateDisplay();
+    }
+
+    const body = document.body;
+    if (body && GAME_CONFIG.SEASONS) {
+        const current = GAME_CONFIG.SEASONS[index];
+        body.classList.remove('season-spring', 'season-summer', 'season-autumn', 'season-winter');
+        if (current && current.name) {
+            body.classList.add('season-' + current.name.toLowerCase());
+        }
     }
 }
 
