@@ -21,6 +21,13 @@ body {
     touch-action: manipulation;
 }
 
+/* Base button styling */
+.btn {
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
 .mobile-container {
     min-height: 100vh;
     display: flex;
@@ -343,7 +350,6 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(255,107,107,0.3);
-    width: 100%;
 }
 
 .mood-button:hover {
@@ -627,9 +633,6 @@ body {
     width: calc(100% - 40px);
 }
 
-.next-day-bar .action-btn {
-    width: 100%;
-}
 
 
 
@@ -886,7 +889,6 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 6px 20px rgba(78,205,196,0.3);
     touch-action: manipulation;
-    min-height: 70px;
     /* width: 100%; */
 }
 
@@ -913,7 +915,6 @@ body {
     margin-top: 0;
     box-shadow: 0 4px 15px rgba(255,107,107,0.3);
     transition: all 0.3s ease;
-    width: 100%;
 }
 
 .close-minigame:hover {
@@ -1897,7 +1898,6 @@ body {
     font-weight: bold;
     font-size: 0.9em;
     cursor: pointer;
-    width: 100%;
 }
 
 .debug-button-pink {
