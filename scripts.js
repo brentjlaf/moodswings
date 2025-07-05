@@ -885,7 +885,8 @@ function buildCow(cow) {
         isHappy: base.moodValue >= 70, // happy threshold at 70
         lastPlayed: null,
         happinessLevel: base.moodValue, // mirror moodValue
-        lastHappinessUpdate: Date.now()
+        lastHappinessUpdate: Date.now(),
+        fullHappySince: base.moodValue >= GAME_CONFIG.HAPPINESS.level_max ? Date.now() : null
     };
 }
 
@@ -1012,6 +1013,16 @@ function refreshCowMood(cow) {
     cow.currentMood = cow.moods[moodIndex];
     cow.isHappy = cow.moodValue >= 70;
     cow.lastHappinessUpdate = Date.now();
+
+    if (cow.happinessLevel >= GAME_CONFIG.HAPPINESS.level_max) {
+        if (!cow.fullHappySince) {
+            cow.fullHappySince = Date.now();
+        }
+    } else {
+        cow.fullHappySince = null;
+    }
+
+    checkCowLevelUp(cow);
 }
 
 function updateCowHappiness(cow) {
@@ -1030,6 +1041,26 @@ function updateCowHappiness(cow) {
 function updateAllCowHappiness() {
     gameState.cows.forEach(updateCowHappiness);
     renderCows();
+}
+
+function checkCowLevelUp(cow) {
+    if (!cow.fullHappySince) return;
+
+    const elapsed = Date.now() - cow.fullHappySince;
+    const hoursRequired = 12 * 3600000;
+    if (elapsed < hoursRequired) return;
+
+    const type = cow.currentGameType || cow.gameType;
+    const data = rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[type];
+    if (!data || !data.patterns) return;
+
+    const maxLevel = data.patterns.length;
+    const prevLevel = cow.level || 1;
+    if (prevLevel >= maxLevel) return;
+
+    cow.level = prevLevel + 1;
+    cow.fullHappySince = null;
+    showToast(`🐮 ${cow.name} reached Lv ${cow.level}!`, 'success');
 }
 
 

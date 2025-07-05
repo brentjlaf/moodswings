@@ -473,16 +473,9 @@ function endMinigame() {
         cow.isHappy = true;
         cow.happinessLevel = Math.min(100, cow.happinessLevel + 20);
 
-        // Level up the cow based on available patterns
-        const type = cow.currentGameType || cow.gameType;
-        const data = rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[type];
-        if (data && data.patterns) {
-            const maxLevel = data.patterns.length;
-            const prevLevel = cow.level || 1;
-            if (prevLevel < maxLevel) {
-                cow.level = prevLevel + 1;
-                resultMessage += `<br>Level Up! ${cow.name} is now Lv ${cow.level}!`;
-            }
+        // Track time at full happiness for potential level ups
+        if (cow.happinessLevel >= 100 && !cow.fullHappySince) {
+            cow.fullHappySince = Date.now();
         }
 
     } else {
