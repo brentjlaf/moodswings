@@ -63,6 +63,18 @@ body {
     margin: 0 auto;
 }
 
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream);
+    padding: 8px;
+}
+
+.logo {
+    font-size: 1.5em;
+}
+
 .game-header {
     background: var(--cream);
     /* border-radius: 25px; */
@@ -347,9 +359,6 @@ body {
 
 /* Slide-out menu */
 .menu-button {
-    position: absolute;
-    left: 10px;
-    top: 10px;
     background: var(--barn-red);
     color: white;
     border: none;
@@ -362,18 +371,18 @@ body {
 .side-menu {
     position: fixed;
     top: 0;
-    left: -260px;
+    right: -260px;
     width: 250px;
     height: 100%;
     background: var(--dark-teal);
     color: white;
     overflow-y: auto;
-    transition: left 0.3s ease;
+    transition: right 0.3s ease;
     z-index: 1001;
     padding: 20px;
 }
 .side-menu.open {
-    left: 0;
+    right: 0;
 }
 .close-menu {
     background: none;
