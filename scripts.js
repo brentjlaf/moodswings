@@ -89,6 +89,8 @@ let gameState = {
         totalGames: 0
     },
     achievements: [], // Array of earned achievement IDs
+    claimedAchievements: [], // Rewards already collected
+    unclaimedAchievements: [], // Earned achievements awaiting reward
     // Enhanced achievement tracking
     stats: {
         totalMilkProduced: 0,
@@ -1729,7 +1731,11 @@ function checkAchievements() {
             gameState.achievements.push(achievement.id);
             achievement.new = true; // mark as newly unlocked
             newAchievements.push(achievement);
-            awardAchievement(achievement);
+            if (achievement.reward) {
+                if (!gameState.unclaimedAchievements.includes(achievement.id)) {
+                    gameState.unclaimedAchievements.push(achievement.id);
+                }
+            }
         }
     });
     
@@ -1766,6 +1772,24 @@ function awardAchievement(achievement) {
 
     console.log(`Achievement unlocked: ${achievement.name}`);
     checkAllCowUnlocks();
+}
+
+function claimAchievementReward(achievementId) {
+    const achievement = achievementsData.achievements.find(a => a.id === achievementId);
+    if (!achievement) return;
+    if (!gameState.achievements.includes(achievementId)) return;
+    if (gameState.claimedAchievements.includes(achievementId)) return;
+
+    awardAchievement(achievement);
+    gameState.claimedAchievements.push(achievementId);
+
+    const idx = gameState.unclaimedAchievements.indexOf(achievementId);
+    if (idx !== -1) gameState.unclaimedAchievements.splice(idx, 1);
+
+    updateDisplay();
+    updateAchievements();
+    saveGameState();
+    showToast(`Reward collected for ${achievement.name}!`, 'success');
 }
 
 function applyAchievementEffect(effectType) {
@@ -1978,6 +2002,7 @@ function updateAchievements() {
             const rarity = achievement.rarity || 'common';
             const progress = getAchievementProgress(achievement);
             const earned = gameState.achievements.includes(achievement.id);
+            const claimable = earned && achievement.reward && !gameState.claimedAchievements.includes(achievement.id);
 
             html += `
                 <div class="achievement-item achievement-item-${rarity}${earned ? '' : ' achievement-item-locked'}">
@@ -1990,6 +2015,7 @@ function updateAchievements() {
                             <div class="achievement-progress-bar" style="width:${progress.percent}%"></div>
                         </div>
                         <div class="achievement-progress-text">${progress.current}/${progress.target} (${progress.percent}%)</div>
+                        ${claimable ? `<button class="claim-reward-btn" onclick="claimAchievementReward('${achievement.id}')">Collect</button>` : ''}
                     </div>
                     <div class="achievement-item-rarity">${rarity}${earned ? '' : ' (Locked)'}</div>
                 </div>
@@ -2336,6 +2362,13 @@ function migrateGameState() {
     }
     if (!gameState.dailyCoinTotals) {
         gameState.dailyCoinTotals = [];
+    }
+
+    if (!gameState.claimedAchievements) {
+        gameState.claimedAchievements = [];
+    }
+    if (!gameState.unclaimedAchievements) {
+        gameState.unclaimedAchievements = [];
     }
 
     if (gameState.currentSeasonIndex === undefined) {
