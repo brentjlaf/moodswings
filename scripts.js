@@ -2634,9 +2634,25 @@ function updateTimeTheme() {
     updateWeatherEffects();
 }
 
-// Apply the theme immediately and update every minute
+// Apply the theme immediately and then align updates to the start of each minute
 updateTimeTheme();
-setInterval(updateTimeTheme, 60 * 1000);
+const now = new Date();
+const delay = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+setTimeout(() => {
+    updateTimeTheme();
+    setInterval(updateTimeTheme, 60 * 1000);
+}, delay);
+
+// Keep the time display in sync with the device clock
+function updateClock() {
+    const timeEl = document.getElementById('timeDisplay');
+    if (timeEl) {
+        const current = new Date();
+        timeEl.textContent = current.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+}
+updateClock();
+setInterval(updateClock, 1000);
 
 // Scroll to top button functionality
 const scrollTopBtn = document.getElementById('scrollTopBtn');
