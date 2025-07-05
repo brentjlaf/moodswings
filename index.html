@@ -148,6 +148,7 @@
     <h3 class="section-title section-title-green">&#x1F4BE; SAVE SYSTEM &#x1F4BE;</h3>
     <div class="save-info-text">
       Player ID: <span id="playerID" class="save-info-label"></span><br>
+      Username: <span id="playerNameLabel" class="save-info-label"></span><br>
       Last Saved: <span id="lastSaved" class="save-info-label">Never</span>
     </div>
     <div class="save-button-grid">
@@ -175,6 +176,10 @@
 
   <div class="menu-section settings-container">
     <h3 class="section-title section-title-brown">&#9881;&#xFE0F; SETTINGS</h3>
+    <div class="username-setting">
+      <input id="usernameInput" type="text" placeholder="Your name">
+      <button class="save-button save-button-save" onclick="updateUsername()">Set Name</button>
+    </div>
   </div>
 </div>
 
