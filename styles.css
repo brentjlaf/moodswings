@@ -450,7 +450,7 @@ body {
 
 .cow-mood {
     font-size: 0.85em;
-    color: #2F5F2F;
+    color: var(--pasture-green);
     margin-bottom: 8px;
     font-weight: bold;
 }
@@ -464,7 +464,7 @@ body {
 }
 
 .mood-button {
-    background: #FF6B6B;
+    background: var(--accent-pink);
     color: white;
     border: none;
     padding: 10px 16px;
@@ -474,19 +474,19 @@ body {
     font-size: 0.9em;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+    box-shadow: 0 4px 15px rgba(233,30,99,0.3);
     width: 100%;
 }
 
 .mood-button:hover {
-    background: #FF5252;
+    background: var(--accent-pink);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+    box-shadow: 0 6px 20px rgba(233,30,99,0.4);
 }
 
 .mood-button:active {
     transform: scale(0.95);
-    box-shadow: 0 2px 8px rgba(255,107,107,0.4);
+    box-shadow: 0 2px 8px rgba(233,30,99,0.4);
 }
 
 .mood-button:disabled {
@@ -507,11 +507,11 @@ body {
 
 .crops-grid {
     margin-bottom: 15px;
-    background: #8FBC8F;
+    background: var(--pastel-mint);
     border-radius: 15px;
     padding: 15px;
-    border: 2px dashed #228B22;
-    box-shadow: inset 0 2px 8px rgba(34,139,34,0.2);
+    border: 2px dashed var(--pasture-green);
+    box-shadow: inset 0 2px 8px rgba(106,153,78,0.2);
     grid-template-columns: repeat(4, 1fr);
 }
 
@@ -539,7 +539,7 @@ body {
 }
 
 .crop-planted {
-    background: #90EE90;
+    background: var(--pastel-mint);
 }
 
 .crop-ready {
@@ -554,7 +554,7 @@ body {
 
 .growth-timer {
     font-size: 0.6em;
-    color: #2F5F2F;
+    color: var(--pasture-green);
     font-weight: bold;
     margin-top: 2px;
 }
@@ -570,7 +570,7 @@ body {
 
 .growth-bar {
     height: 100%;
-    background: #32CD32;
+    background: var(--grass-green);
     width: 0;
     transition: width 0.3s linear;
 }
@@ -594,7 +594,7 @@ body {
 }
 
 .plant-btn {
-    background: #32CD32;
+    background: var(--grass-green);
     color: white;
     border: none;
     padding: 10px 8px;
@@ -609,9 +609,9 @@ body {
 }
 
 .plant-btn:hover {
-    background: #228B22;
+    background: var(--pasture-green);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(50,205,50,0.4);
+    box-shadow: 0 6px 15px rgba(106,153,78,0.4);
 }
 
 .plant-btn:active {
@@ -687,7 +687,7 @@ body {
     font-size: 2em;
     min-width: 50px;
     text-align: center;
-    color: #4169E1;
+    color: var(--muted-blue);
 }
 
 .item-info {
@@ -696,7 +696,7 @@ body {
 
 .item-name {
     font-weight: bold;
-    color: #2F5F2F;
+    color: var(--pasture-green);
     margin-bottom: 2px;
     font-size: 0.9em;
 }
@@ -708,7 +708,7 @@ body {
 }
 
 .shop-btn {
-    background: #32CD32;
+    background: var(--grass-green);
     color: white;
     border: none;
     padding: 8px 12px;
@@ -723,9 +723,9 @@ body {
 }
 
 .shop-btn:hover {
-    background: #228B22;
+    background: var(--pasture-green);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(50,205,50,0.4);
+    box-shadow: 0 4px 12px rgba(106,153,78,0.4);
 }
 
 .shop-btn:active {
@@ -747,7 +747,7 @@ body {
 }
 
 .action-btn {
-    background: #FF6B6B;
+    background: var(--accent-pink);
     color: white;
     border: none;
     padding: 15px;
@@ -758,7 +758,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     touch-action: manipulation;
-    box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+    box-shadow: 0 4px 15px rgba(233,30,99,0.3);
 }
 
 .action-btn .btn-icon {
@@ -769,7 +769,7 @@ body {
 
 .action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+    box-shadow: 0 6px 20px rgba(233,30,99,0.4);
 }
 
 .action-btn.harvest {
@@ -1014,7 +1014,7 @@ body {
 .rhythm-bar {
     width: 100%;
     height: 80px;
-    background: #FF6B6B;
+    background: var(--accent-pink);
     border-radius: 15px;
     position: relative;
     margin-bottom: 20px;
@@ -1069,7 +1069,7 @@ body {
 .score-display {
     font-size: 1em;
     font-weight: bold;
-    color: #2F5F2F;
+    color: var(--pasture-green);
     margin: 0 5px;
 }
 
@@ -1138,7 +1138,7 @@ body {
 }
 
 .close-minigame {
-    background: #FF6B6B;
+    background: var(--accent-pink);
     color: white;
     border: none;
     padding: 12px 20px;
@@ -1147,15 +1147,15 @@ body {
     font-weight: 800;
     cursor: pointer;
     margin-top: 0;
-    box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+    box-shadow: 0 4px 15px rgba(233,30,99,0.3);
     transition: all 0.3s ease;
     width: 100%;
 }
 
 .close-minigame:hover {
-    background: #FF5252;
+    background: var(--accent-pink);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+    box-shadow: 0 6px 20px rgba(233,30,99,0.4);
 }
 
 .close-minigame:active {
@@ -1169,12 +1169,12 @@ body {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: #98FB98;
+    background: var(--pastel-mint);
     padding: 15px 25px;
     border-radius: 25px;
     font-size: 0.9em;
     font-weight: bold;
-    color: #2F5F2F;
+    color: var(--pasture-green);
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     z-index: 1001;
     display: none;
@@ -1198,7 +1198,7 @@ body {
     text-align: center;
     display: none;
     touch-action: none;
-    border: 3px solid #FF6B6B;
+    border: 3px solid var(--accent-pink);
     animation: achievementPulse 2s infinite;
 }
 
@@ -1245,39 +1245,39 @@ body {
 
 /* Achievement popup rarity styles */
 .achievement-popup-common {
-    background: #90EE90;
-    border: 3px solid #32CD32;
+    background: var(--pastel-mint);
+    border: 3px solid var(--grass-green);
 }
 .achievement-popup-uncommon {
-    background: #87CEEB;
-    border: 3px solid #4169E1;
+    background: var(--sky-blue);
+    border: 3px solid var(--muted-blue);
 }
 .achievement-popup-rare {
-    background: #DDA0DD;
-    border: 3px solid #8B008B;
-    box-shadow: 0 0 20px #8B008B, 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--wildflower-purple);
+    border: 3px solid var(--wildflower-purple);
+    box-shadow: 0 0 20px var(--wildflower-purple), 0 10px 30px rgba(0,0,0,0.3);
 }
 .achievement-popup-epic {
-    background: #FFD700;
-    border: 3px solid #FF8C00;
-    box-shadow: 0 0 20px #FFD700, 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--sunflower-yellow);
+    border: 3px solid var(--orange-accent);
+    box-shadow: 0 0 20px var(--sunflower-yellow), 0 10px 30px rgba(0,0,0,0.3);
 }
 .achievement-popup-legendary {
-    background: #FF69B4;
-    border: 3px solid #FF1493;
-    box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--accent-pink);
+    border: 3px solid var(--accent-pink);
+    box-shadow: 0 0 20px var(--accent-pink), 0 10px 30px rgba(0,0,0,0.3);
     animation: legendary-pulse 2s infinite;
 }
 .achievement-popup-common .achievement-title,
-.achievement-popup-common .achievement-reward { color: #32CD32; }
+.achievement-popup-common .achievement-reward { color: var(--grass-green); }
 .achievement-popup-uncommon .achievement-title,
-.achievement-popup-uncommon .achievement-reward { color: #4169E1; }
+.achievement-popup-uncommon .achievement-reward { color: var(--muted-blue); }
 .achievement-popup-rare .achievement-title,
-.achievement-popup-rare .achievement-reward { color: #8B008B; }
+.achievement-popup-rare .achievement-reward { color: var(--wildflower-purple); }
 .achievement-popup-epic .achievement-title,
-.achievement-popup-epic .achievement-reward { color: #FF8C00; }
+.achievement-popup-epic .achievement-reward { color: var(--orange-accent); }
 .achievement-popup-legendary .achievement-title,
-.achievement-popup-legendary .achievement-reward { color: #FF1493; }
+.achievement-popup-legendary .achievement-reward { color: var(--accent-pink); }
 
 @keyframes achievementPulse {
     0%, 100% {
@@ -1311,8 +1311,8 @@ body {
 }
 
 .secret-cow-unlock {
-    background: #FFD700;
-    border: 3px solid #FF6B6B;
+    background: var(--sunflower-yellow);
+    border: 3px solid var(--accent-pink);
     animation: rainbow 2s infinite;
 }
 
@@ -1325,19 +1325,19 @@ body {
 
 @keyframes rainbow {
     0% {
-        border-color: #FF6B6B;
+        border-color: var(--accent-pink);
     }
     25% {
-        border-color: #4ECDC4;
+        border-color: var(--light-teal);
     }
     50% {
-        border-color: #45B7D1;
+        border-color: var(--sky-blue);
     }
     75% {
-        border-color: #96CEB4;
+        border-color: var(--pasture-green);
     }
     100% {
-        border-color: #FF6B6B;
+        border-color: var(--accent-pink);
     }
 }
 
@@ -1479,36 +1479,36 @@ body {
 
 /* Crop rarity styling */
 .crop-common {
-    border: 2px solid #32CD32;
-    background: #90EE90;
+    border: 2px solid var(--grass-green);
+    background: var(--pastel-mint);
 }
 
 .crop-uncommon {
-    border: 2px solid #4169E1;
-    background: #87CEEB;
+    border: 2px solid var(--muted-blue);
+    background: var(--sky-blue);
 }
 
 .crop-rare {
-    border: 2px solid #8B008B;
-    background: #DDA0DD;
+    border: 2px solid var(--wildflower-purple);
+    background: var(--wildflower-purple);
 }
 
 .crop-epic {
-    border: 2px solid #FF8C00;
-    background: #FFD700;
+    border: 2px solid var(--orange-accent);
+    background: var(--sunflower-yellow);
     box-shadow: 0 0 10px rgba(255,215,0,0.5);
 }
 
 .crop-legendary {
-    border: 2px solid #FF1493;
-    background: #FF69B4;
+    border: 2px solid var(--accent-pink);
+    background: var(--accent-pink);
     box-shadow: 0 0 15px rgba(255,105,180,0.6);
     animation: legendary-glow 2s infinite alternate;
 }
 
 .crop-cosmic {
-    border: 2px solid #5F9EA0;
-    background: #B0E0E6;
+    border: 2px solid var(--muted-blue);
+    background: var(--sky-blue);
     box-shadow: 0 0 20px rgba(173,216,230,0.8);
     animation: cosmic-glow 3s infinite alternate;
 }
@@ -1553,12 +1553,12 @@ body {
 }
 
 .shop-btn.owned {
-    background: #32CD32;
+    background: var(--grass-green);
     color: white;
 }
 
 .shop-btn.available {
-    background: #4169E1;
+    background: var(--muted-blue);
     color: white;
 }
 
@@ -1577,11 +1577,11 @@ body {
 @keyframes legendary-pulse {
     0%, 100% {
         transform: translateX(-50%) scale(1);
-        box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
+        box-shadow: 0 0 20px var(--accent-pink), 0 10px 30px rgba(0,0,0,0.3);
     }
     50% {
         transform: translateX(-50%) scale(1.05);
-        box-shadow: 0 0 30px #FF69B4, 0 15px 40px rgba(0,0,0,0.4);
+        box-shadow: 0 0 30px var(--accent-pink), 0 15px 40px rgba(0,0,0,0.4);
     }
 }
 
@@ -1602,37 +1602,37 @@ body {
 }
 
 .achievement-common {
-    background: #90EE90;
-    border: 2px solid #32CD32;
+    background: var(--pastel-mint);
+    border: 2px solid var(--grass-green);
 }
 
 .achievement-uncommon {
-    background: #87CEEB;
-    border: 2px solid #4169E1;
+    background: var(--sky-blue);
+    border: 2px solid var(--muted-blue);
 }
 
 .achievement-rare {
-    background: #DDA0DD;
-    border: 2px solid #8B008B;
-    box-shadow: 0 0 10px #8B008B;
+    background: var(--wildflower-purple);
+    border: 2px solid var(--wildflower-purple);
+    box-shadow: 0 0 10px var(--wildflower-purple);
 }
 
 .achievement-epic {
-    background: #FFD700;
-    border: 2px solid #FF8C00;
-    box-shadow: 0 0 15px #FFD700;
+    background: var(--sunflower-yellow);
+    border: 2px solid var(--orange-accent);
+    box-shadow: 0 0 15px var(--sunflower-yellow);
 }
 
 .achievement-legendary {
-    background: #FF69B4;
-    border: 2px solid #FF1493;
-    box-shadow: 0 0 20px #FF69B4;
+    background: var(--accent-pink);
+    border: 2px solid var(--accent-pink);
+    box-shadow: 0 0 20px var(--accent-pink);
     animation: achievement-glow 2s infinite alternate;
 }
 
 @keyframes achievement-glow {
-    from { box-shadow: 0 0 20px #FF69B4; }
-    to { box-shadow: 0 0 30px #FF69B4, 0 0 40px #FF1493; }
+    from { box-shadow: 0 0 20px var(--accent-pink); }
+    to { box-shadow: 0 0 30px var(--accent-pink), 0 0 40px var(--accent-pink); }
 }
 
 /* Floating animation for hit feedback */
@@ -1645,7 +1645,7 @@ body {
 
 /* Shop Category Styles */
 .shop-category-title {
-    color: #4169E1;
+    color: var(--muted-blue);
     margin: 15px 0 10px 0;
     font-family: 'Montserrat', sans-serif;
     font-size: 1em;
@@ -1673,11 +1673,11 @@ body {
 
 /* Cow Mood Styles */
 .cow-mood-happy {
-    color: #32CD32;
+    color: var(--grass-green);
 }
 
 .cow-mood-sad {
-    color: #FF6B6B;
+    color: var(--accent-pink);
 }
 
 .locked-cow-text {
@@ -1731,9 +1731,9 @@ body {
 .unlock-progress-box {
     margin-bottom: 12px;
     padding: 8px;
-    background: #87CEEB;
+    background: var(--sky-blue);
     border-radius: 8px;
-    border: 2px solid #4169E1;
+    border: 2px solid var(--muted-blue);
 }
 
 .unlock-progress-title {
@@ -1797,31 +1797,31 @@ body {
 
 /* Achievement Popup Rarity Styles */
 .achievement-common {
-    background: #90EE90;
-    border: 3px solid #32CD32;
+    background: var(--pastel-mint);
+    border: 3px solid var(--grass-green);
 }
 
 .achievement-uncommon {
-    background: #87CEEB;
-    border: 3px solid #4169E1;
+    background: var(--sky-blue);
+    border: 3px solid var(--muted-blue);
 }
 
 .achievement-rare {
-    background: #DDA0DD;
-    border: 3px solid #8B008B;
-    box-shadow: 0 0 20px #8B008B, 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--wildflower-purple);
+    border: 3px solid var(--wildflower-purple);
+    box-shadow: 0 0 20px var(--wildflower-purple), 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .achievement-epic {
-    background: #FFD700;
-    border: 3px solid #FF8C00;
-    box-shadow: 0 0 20px #FFD700, 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--sunflower-yellow);
+    border: 3px solid var(--orange-accent);
+    box-shadow: 0 0 20px var(--sunflower-yellow), 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .achievement-legendary {
-    background: #FF69B4;
-    border: 3px solid #FF1493;
-    box-shadow: 0 0 20px #FF69B4, 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--accent-pink);
+    border: 3px solid var(--accent-pink);
+    box-shadow: 0 0 20px var(--accent-pink), 0 10px 30px rgba(0,0,0,0.3);
     animation: legendary-pulse 2s infinite;
 }
 
@@ -1861,7 +1861,7 @@ body {
 }
 
 .achievement-category-title {
-    color: #4169E1;
+    color: var(--muted-blue);
     margin-bottom: 8px;
     font-size: 0.9em;
     font-weight: 800;
@@ -1877,29 +1877,29 @@ body {
 }
 
 .achievement-item-common {
-     background: #fff; 
-    border: 2px solid #32CD32;
+     background: #fff;
+    border: 2px solid var(--grass-green);
 }
 
 .achievement-item-uncommon {
-     background: #fff; 
-    border: 2px solid #4169E1;
+     background: #fff;
+    border: 2px solid var(--muted-blue);
 }
 
 .achievement-item-rare {
-     background: #fff; 
-    border: 2px solid #8B008B;
-    /* box-shadow: 0 0 10px #8B008B; */
+     background: #fff;
+    border: 2px solid var(--wildflower-purple);
+    /* box-shadow: 0 0 10px var(--wildflower-purple); */
 }
 
 .achievement-item-epic {
-     background: #fff; 
-    border: 2px solid #FF8C00;
+     background: #fff;
+    border: 2px solid var(--orange-accent);
 }
 
 .achievement-item-legendary {
-     background: #fff; 
-    border: 2px solid #FF1493;
+     background: #fff;
+    border: 2px solid var(--accent-pink);
 }
 
 .achievement-item-icon {
@@ -1945,27 +1945,27 @@ body {
 /* Dynamic rarity colors for achievement items */
 .achievement-item-common .achievement-item-name,
 .achievement-item-common .achievement-item-rarity {
-    color: #32CD32;
+    color: var(--grass-green);
 }
 
 .achievement-item-uncommon .achievement-item-name,
 .achievement-item-uncommon .achievement-item-rarity {
-    color: #4169E1;
+    color: var(--muted-blue);
 }
 
 .achievement-item-rare .achievement-item-name,
 .achievement-item-rare .achievement-item-rarity {
-    color: #8B008B;
+    color: var(--wildflower-purple);
 }
 
 .achievement-item-epic .achievement-item-name,
 .achievement-item-epic .achievement-item-rarity {
-    color: #FF8C00;
+    color: var(--orange-accent);
 }
 
 .achievement-item-legendary .achievement-item-name,
 .achievement-item-legendary .achievement-item-rarity {
-    color: #FF1493;
+    color: var(--accent-pink);
 }
 
 /* Progress bar styles for achievements */
@@ -1980,7 +1980,7 @@ body {
 
 .achievement-progress-bar {
     height: 100%;
-    background: #32CD32;
+    background: var(--grass-green);
     width: 0;
 }
 
@@ -2009,8 +2009,8 @@ body {
 
 /* Toast Message Type Styles */
 .toast-success {
-    background: #98FB98;
-    color: #2F5F2F;
+    background: var(--pastel-mint);
+    color: var(--pasture-green);
 }
 
 .toast-failure {
@@ -2033,7 +2033,7 @@ body {
 
 .save-info-label {
     font-weight: bold;
-    color: #228B22;
+    color: var(--pasture-green);
 }
 
 .save-button-grid {
@@ -2055,7 +2055,7 @@ body {
 }
 
 .save-button-save {
-    background: #32CD32;
+    background: var(--grass-green);
 }
 
 
@@ -2081,9 +2081,9 @@ body {
 }
 
 .section-title-brown { color: var(--earth-brown); }
-.section-title-blue { color: #4169E1; }
-.section-title-green { color: #228B22; }
-.section-title-purple { color: #8B008B; }
+.section-title-blue { color: var(--muted-blue); }
+.section-title-green { color: var(--pasture-green); }
+.section-title-purple { color: var(--wildflower-purple); }
 .section-title-yellow { color: var(--sunflower-yellow); }
 
 /* Stats Tab Containers */
@@ -2126,22 +2126,22 @@ body {
 }
 
 .save-system-container {
-    background: #E8F5E8;
+    background: var(--pastel-mint);
     border-radius: 12px;
     padding: 15px;
     margin-top: 15px;
-    border: 2px solid #32CD32;
-    box-shadow: 0 4px 15px rgba(50,205,50,0.3);
+    border: 2px solid var(--grass-green);
+    box-shadow: 0 4px 15px rgba(163,217,119,0.3);
 }
 
 
 .debug-container {
-    background: #FFE4E1;
+    background: var(--cream);
     border-radius: 12px;
     padding: 15px;
     margin-top: 15px;
-    border: 2px solid #FF69B4;
-    box-shadow: 0 4px 15px rgba(255,105,180,0.3);
+    border: 2px solid var(--accent-pink);
+    box-shadow: 0 4px 15px rgba(233,30,99,0.3);
 }
 
 .debug-button {
@@ -2157,12 +2157,12 @@ body {
 }
 
 .debug-button-pink {
-    background: #FF69B4;
+    background: var(--accent-pink);
     margin-bottom: 10px;
 }
 
 .debug-button-green {
-    background: #32CD32;
+    background: var(--grass-green);
 }
 
 /* Time-of-day theme backgrounds */
