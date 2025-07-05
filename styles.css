@@ -415,12 +415,29 @@ body {
 }
 
 .about-link {
-    background: var(--barn-red);
+    display: inline-block;
+    background: var(--accent-pink);
     color: white;
-    padding: 5px 10px;
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
     font-size: 1em;
-    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    box-shadow: 0 4px 15px rgba(233,30,99,0.3);
     text-decoration: none;
+}
+
+.about-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233,30,99,0.4);
+}
+
+.about-link:active {
+    transform: scale(0.95);
 }
 
 .side-menu {

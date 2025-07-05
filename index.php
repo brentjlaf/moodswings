@@ -159,10 +159,10 @@ window.SERVER_WEATHER = <?php echo $weatherIndex; ?>;
   <button id="closeMenu" class="close-menu">&times;</button>
 
   <div class="menu-section leaderboard-container">
-    <a href="leaderboard.php" class="about-link">View Leaderboard</a>
+    <a href="leaderboard.php" class="about-link action-btn">View Leaderboard</a>
   </div>
   <div class="menu-section about-container">
-    <a href="about.php" class="about-link">About &amp; FAQ</a>
+    <a href="about.php" class="about-link action-btn">About &amp; FAQ</a>
   </div>
   <div class="menu-section save-system-container">
     <h3 class="section-title section-title-green">&#x1F4BE; SAVE SYSTEM &#x1F4BE;</h3>
