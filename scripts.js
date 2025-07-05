@@ -2074,6 +2074,23 @@ function startTimedEffect(item, effectType, value, duration) {
     const maxDuration = 30 * 60 * 1000; // 30 minutes cap
     const finalDuration = Math.min(duration, maxDuration);
 
+    // Only allow a single pest protection effect. If one is already
+    // active, extend its duration instead of creating a second timer.
+    if (effectType === 'pest_protection') {
+        const existing = gameState.activeEffects.find(e => e.effectType === 'pest_protection');
+        if (existing) {
+            const remaining = Math.max(0, existing.expiresAt - Date.now());
+            const newDuration = Math.min(remaining + finalDuration, maxDuration);
+            clearTimeout(existing.timerId);
+            existing.expiresAt = Date.now() + newDuration;
+            existing.timerId = setTimeout(() => {
+                removeTimedEffect(existing.id);
+            }, newDuration);
+            renderEffectTimers();
+            return;
+        }
+    }
+
     const effectId = `${item.id}_${effectType}`;
     const expiresAt = Date.now() + finalDuration;
     const timerId = setTimeout(() => {
@@ -2137,7 +2154,12 @@ function removeTimedEffect(effectId) {
             if (gameState.unlockedCrops) delete gameState.unlockedCrops[effect.value];
             break;
         case 'pest_protection':
-            gameState.effects.pestProtection = false;
+            // Only disable pest protection if no other active effects remain
+            const stillActive = gameState.activeEffects.some(e =>
+                e.effectType === 'pest_protection' && e.id !== effect.id);
+            if (!stillActive) {
+                gameState.effects.pestProtection = false;
+            }
             break;
     }
     clearTimeout(effect.timerId);
@@ -2180,6 +2202,15 @@ function renderEffectTimers() {
 
 function restartEffectTimers() {
     const now = Date.now();
+
+    // Merge any duplicate pest protection effects on load
+    const pestEffects = gameState.activeEffects.filter(e => e.effectType === 'pest_protection');
+    if (pestEffects.length > 1) {
+        const longest = pestEffects.reduce((a, b) => a.expiresAt > b.expiresAt ? a : b);
+        gameState.activeEffects = gameState.activeEffects.filter(e => e.effectType !== 'pest_protection');
+        gameState.activeEffects.push(longest);
+    }
+
     gameState.activeEffects.forEach(effect => {
         const remaining = effect.expiresAt - now;
         if (remaining > 0) {
