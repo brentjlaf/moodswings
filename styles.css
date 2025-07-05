@@ -871,6 +871,63 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Username Overlay */
+.username-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    touch-action: manipulation;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.username-container {
+    background: #FFF8DC;
+    border: 4px solid var(--earth-brown);
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    margin: 40px 15px;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: var(--earth-brown);
+}
+
+.username-title {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.username-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid var(--earth-brown);
+    border-radius: 10px;
+}
+
+.username-submit {
+    background: var(--accent-pink);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.username-submit:active {
+    transform: scale(0.98);
+}
+
 /* Meteor shower overlay */
 .meteor-overlay {
     position: fixed;

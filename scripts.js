@@ -916,27 +916,29 @@ function updateUsername() {
     const input = document.getElementById('usernameInput');
     if (!input) return;
     const name = input.value.trim();
-    gameState.username = name;
-    gameState.playerID = name;
-    saveGameState();
-    updateSaveInfo();
-    showToast('Username updated!', 'success');
-}
-
-function promptForUsername() {
-    let name = '';
-    while (!name) {
-        name = prompt('Enter your name (letters and numbers only):', '') || '';
-        name = name.trim();
-        if (name && !/^[A-Za-z0-9]+$/.test(name)) {
-            alert('Name must contain only letters and numbers.');
-            name = '';
-        }
+    if (!name || !/^[A-Za-z0-9]+$/.test(name)) {
+        showToast('Name must contain only letters and numbers.', 'error');
+        return;
     }
     gameState.username = name;
     gameState.playerID = name;
     saveGameState();
     updateSaveInfo();
+    showToast('Username updated!', 'success');
+    const overlay = document.getElementById('usernameOverlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+function promptForUsername() {
+    const overlay = document.getElementById('usernameOverlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+        const input = document.getElementById('usernameInput');
+        if (input) {
+            input.value = '';
+            input.focus();
+        }
+    }
 }
 
 
