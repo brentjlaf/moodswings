@@ -2098,6 +2098,20 @@ body {
     line-height: 1.2;
 }
 
+.claim-reward-btn {
+    margin-top: 4px;
+    padding: 4px 8px;
+    font-size: 0.7em;
+    background: var(--accent-pink);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.claim-reward-btn:hover {
+    opacity: 0.9;
+}
+
 /* Section Heading Styles */
 .section-title {
     text-align: center;

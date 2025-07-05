@@ -178,6 +178,8 @@ function resetGameData() {
                 totalGames: 0
             },
             achievements: [],
+            claimedAchievements: [],
+            unclaimedAchievements: [],
             stats: {
                 totalMilkProduced: 0,
                 totalCoinsEarned: 0,
