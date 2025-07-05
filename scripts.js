@@ -2545,12 +2545,12 @@ function migrateGameState() {
 }
 
 // Mobile-optimized game functions
-function initializeGame() {
+async function initializeGame() {
     // Migrate old save data to new format
     migrateGameState();
     
     // Try to load saved game first
-    const loadedSave = loadGameState();
+    const loadedSave = await loadGameState();
     migrateGameState();
 
     if (!loadedSave) {
