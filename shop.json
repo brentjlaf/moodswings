@@ -344,7 +344,7 @@
       "category": "consumables",
       "cost": 50,
       "currency": "coins",
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "action_speed_boost": 20,
         "duration_minutes": 15
@@ -362,7 +362,7 @@
       "category": "consumables",
       "cost": 60,
       "currency": "coins",
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "happiness_boost_percent": 5,
         "duration_minutes": 15
@@ -380,7 +380,7 @@
       "category": "consumables",
       "cost": 80,
       "currency": "coins",
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "extra_milk_per_click": 1,
         "duration_minutes": 15
@@ -398,7 +398,7 @@
       "category": "consumables",
       "cost": 90,
       "currency": "coins",
-      "maxLevel": 20,
+      "maxLevel": 1,
       "effects": {
         "pest_protection": true,
         "duration_minutes": 5
@@ -416,7 +416,7 @@
       "category": "consumables",
       "cost": 180,
       "currency": "coins",
-      "maxLevel": 20,
+      "maxLevel": 1,
       "effects": {
         "pest_protection": true,
         "duration_minutes": 10
@@ -434,7 +434,7 @@
       "category": "consumables",
       "cost": 270,
       "currency": "coins",
-      "maxLevel": 20,
+      "maxLevel": 1,
       "effects": {
         "pest_protection": true,
         "duration_minutes": 15
@@ -452,7 +452,7 @@
       "category": "consumables",
       "cost": 360,
       "currency": "coins",
-      "maxLevel": 20,
+      "maxLevel": 1,
       "effects": {
         "pest_protection": true,
         "duration_minutes": 20
@@ -470,7 +470,7 @@
       "category": "consumables",
       "cost": 450,
       "currency": "coins",
-      "maxLevel": 20,
+      "maxLevel": 1,
       "effects": {
         "pest_protection": true,
         "duration_minutes": 25
@@ -488,7 +488,7 @@
       "category": "consumables",
       "cost": 540,
       "currency": "coins",
-      "maxLevel": 20,
+      "maxLevel": 1,
       "effects": {
         "pest_protection": true,
         "duration_minutes": 30
@@ -506,7 +506,7 @@
       "category": "consumables",
       "cost": 100,
       "currency": "coins",
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "crop_growth_speed": 50,
         "duration_minutes": 15
@@ -524,7 +524,7 @@
       "category": "consumables",
       "cost": 100,
       "currency": "coins",
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "coin_bonus_percent": 5,
         "duration_minutes": 30
@@ -542,7 +542,7 @@
       "category": "consumables",
       "cost": 120,
       "currency": "coins",
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "coin_bonus_percent": 10,
         "duration_minutes": 30
@@ -560,7 +560,7 @@
       "category": "consumables",
       "cost": 500,
       "currency": "coins",
-      "maxLevel": 99,
+      "maxLevel": 1,
       "effects": {
         "crop_yield_bonus": 25,
         "duration_minutes": 30
