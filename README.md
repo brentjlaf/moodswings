@@ -53,10 +53,36 @@ Activate them when needed, and improved versions offer stronger or longer effect
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
 
 ## Color Palette
-The game uses a 20-color palette optimized for a mobile cow theme:
+Below is the full palette used throughout the game. Each color has a specific purpose and mood to help keep the visuals cohesive.
 
-- **Neutrals:** Cow White `#FFFFFF`, Cow Black `#000000`, Cream `#FFF5E5`, Cloud Gray `#D3D3D3`, Dirt Brown `#8B5E3C`
-- **Farm Environment:** Pasture Green `#6A994E`, Hay Yellow `#E1C699`, Barn Red `#B23A48`, Sky Blue `#87CEEB`, Earth Brown `#A65E2E`
-- **Accents & Highlights:** Primary Teal `#2D7D7D`, Dark Teal `#1E5A5A`, Light Teal `#4A9999`, Accent Pink `#E91E63`, Sunflower Yellow `#FFD700`, Wildflower Purple `#8A2BE2`, Orange Accent `#FFA500`
-- **UI & HUD:** Soft Beige `#F5F5DC`, Muted Blue `#5D8CAE`, Grass Green `#A3D977`, Pastel Mint `#98FF98`
+### Neutrals (Cow Patterns & Backgrounds)
+- **Cow White** `#FFFFFF` – pure white for cow bodies and clean UI areas.
+- **Cow Black** `#000000` – deep black for spots and bold outlines.
+- **Cream** `#FFF5E5` – warm off‑white for soft backgrounds and Jersey cows.
+- **Cloud Gray** `#D3D3D3` – neutral gray for subtle UI elements and shadows.
+- **Dirt Brown** `#8B5E3C` – earthy tone for soil, wood and grounding accents.
+
+### Farm Environment
+- **Pasture Green** `#6A994E` – lush grass for fields and meadows.
+- **Hay Yellow** `#E1C699` – golden hay bales and autumn warmth.
+- **Barn Red** `#B23A48` – classic barns and farm buildings.
+- **Sky Blue** `#87CEEB` – bright daytime skies and cool highlights.
+- **Earth Brown** `#A65E2E` – sturdy fence posts and tree bark.
+
+### Accents & Highlights
+- **Primary Teal** `#2D7D7D` – main call‑to‑action buttons and highlights.
+- **Dark Teal** `#1E5A5A` – hover states and deep shadows.
+- **Light Teal** `#4A9999` – subtle highlights and secondary buttons.
+- **Accent Pink** `#E91E63` – celebratory moments and rewards.
+- **Sunflower Yellow** `#FFD700` – coins, stars and achievements.
+- **Wildflower Purple** `#8A2BE2` – rare items and magical effects.
+- **Orange Accent** `#FFA500` – energetic warnings and action cues.
+
+### UI & HUD
+- **Soft Beige** `#F5F5DC` – comfortable menu backgrounds and panels.
+- **Muted Blue** `#5D8CAE` – secondary buttons and borders.
+- **Grass Green** `#A3D977` – success messages and health bars.
+- **Pastel Mint** `#98FF98` – gentle highlights and selected states.
+
+These colors were chosen to feel playful and pastoral while remaining readable on small screens.
 
