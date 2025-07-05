@@ -2200,6 +2200,13 @@ body.night {
     background: var(--dark-teal);
 }
 
+/* Ensure header text remains visible on dark background */
+.game-header.night .stat-icon,
+.game-header.night .stat-value,
+.game-header.night .stat-label {
+    color: var(--cow-white);
+}
+
 /* Season theme backgrounds */
 body.season-spring {
     background: var(--grass-green);
