@@ -6,7 +6,6 @@ let achievementsData = {};
 let cowData = [];
 let secretCows = [];
 let statsChart;
-let autoWaterTimerId = null;
 
 // Data loading system
 async function loadGameData() {
@@ -774,11 +773,6 @@ function applyUpgradeEffects(item) {
                 addCropSlots(effectValue);
                 break;
 
-            case 'auto_water':
-                if (!gameState.effects) gameState.effects = {};
-                gameState.effects.autoWater = true;
-                startAutoWater();
-                break;
 
             case 'unlock_crop':
                 if (!gameState.unlockedCrops) gameState.unlockedCrops = {};
@@ -1366,7 +1360,6 @@ function nextDay() {
 
     // Automation effects
     convertMilkToCoins();
-    if (gameState.effects.autoWater) autoWaterCrops();
 
     updateAllCowHappiness();
     generateCows();
@@ -1501,32 +1494,6 @@ function startPestChecks() {
     }, GAME_CONFIG.PESTS.check_interval);
 }
 
-function autoWaterCrops() {
-    let watered = 0;
-    gameState.crops.forEach(crop => {
-        if (crop.type && !crop.isReady) {
-            if (crop.timerId) {
-                clearTimeout(crop.timerId);
-                const idx = gameState.activeCropTimers.indexOf(crop.timerId);
-                if (idx > -1) gameState.activeCropTimers.splice(idx, 1);
-                crop.timerId = null;
-            }
-            crop.isReady = true;
-            watered++;
-        }
-    });
-    if (watered > 0) {
-        renderCrops();
-        showToast(`Sprinkler finished ${watered} crop${watered>1?'s':''}!`, 'success');
-    }
-}
-
-function startAutoWater() {
-    if (autoWaterTimerId) clearInterval(autoWaterTimerId);
-    if (!gameState.effects.autoWater) return;
-    autoWaterTimerId = setInterval(autoWaterCrops, 3600000); // hourly
-    autoWaterCrops();
-}
 
 function convertMilkToCoins() {
     if (!gameState.effects.autoMilkConversion) return;
@@ -2472,7 +2439,6 @@ function initializeGame() {
     }
 
     restartEffectTimers();
-    if (gameState.effects.autoWater) startAutoWater();
 
     // Apply any happiness decay since last session
     updateAllCowHappiness();
