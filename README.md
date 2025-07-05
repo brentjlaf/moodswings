@@ -54,6 +54,10 @@ Activate them when needed, and improved versions offer stronger or longer effect
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
 
+## Local Leaderboard
+Each save also updates a `leaderboardData` record in your browser's localStorage.
+Visit `leaderboard.html` to see the highest XP totals from saves on your device.
+
 ## Color Palette
 Below is the full palette used throughout the game. Each color has a specific purpose and mood to help keep the visuals cohesive.
 
