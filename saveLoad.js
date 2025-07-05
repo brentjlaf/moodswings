@@ -79,7 +79,8 @@ function loadGameState() {
       gameState.activeEffects.forEach(e => e.timerId = null);
 
       console.log('Game loaded from localStorage');
-      showToast(`Welcome back, ${gameState.playerID}!`, 'success');
+      const name = gameState.username || gameState.playerID;
+      showToast(`Welcome back, ${name}!`, 'success');
       updateSaveInfo();
       return true;
     }
@@ -200,6 +201,7 @@ function resetGameData() {
             activeEffects: [],
             currentSeasonIndex: 0,
             currentWeatherIndex: 0,
+            username: '',
             playerID: generateDeviceID(),
             lastSaved: null,
             gameVersion: "2.1"

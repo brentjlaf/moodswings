@@ -114,6 +114,7 @@ let gameState = {
     currentSeasonIndex: 0,
     currentWeatherIndex: 0,
     currentTemperature: 0,
+    username: '',
     playerID: null,
     lastSaved: null,
     gameVersion: "2.1" // Updated version for achievement system
@@ -812,9 +813,19 @@ function applyUpgradeEffects(item) {
 function updateSaveInfo() {
     const playerIDEl = document.getElementById('playerID');
     const lastSavedEl = document.getElementById('lastSaved');
+    const playerNameEl = document.getElementById('playerNameLabel');
+    const usernameInput = document.getElementById('usernameInput');
     
     if (playerIDEl) {
         playerIDEl.textContent = gameState.playerID || 'Not set';
+    }
+
+    if (playerNameEl) {
+        playerNameEl.textContent = gameState.username || 'Unnamed';
+    }
+
+    if (usernameInput) {
+        usernameInput.value = gameState.username || '';
     }
     
     if (lastSavedEl) {
@@ -888,6 +899,16 @@ function buildCow(cow) {
         lastHappinessUpdate: Date.now(),
         fullHappySince: base.moodValue >= GAME_CONFIG.HAPPINESS.level_max ? Date.now() : null
     };
+}
+
+function updateUsername() {
+    const input = document.getElementById('usernameInput');
+    if (!input) return;
+    const name = input.value.trim();
+    gameState.username = name;
+    saveGameState();
+    updateSaveInfo();
+    showToast('Username updated!', 'success');
 }
 
 
