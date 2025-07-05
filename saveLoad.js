@@ -52,6 +52,8 @@ function saveGameState() {
 
     localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
     console.log('Game saved to localStorage');
+    // Update local leaderboard with latest stats
+    updateLocalLeaderboard(saveData);
     updateSaveInfo();
     return saveData;
   } catch (err) {
@@ -213,6 +215,30 @@ function resetGameData() {
         // Restart the game
         initializeGame();
         showToast('Game reset! Starting fresh.', 'success');
+    }
+}
+
+// Update leaderboard stored in localStorage with latest save info
+function updateLocalLeaderboard(state) {
+    try {
+        const key = 'leaderboardData';
+        const raw = localStorage.getItem(key);
+        const data = raw ? JSON.parse(raw) : { players: [] };
+
+        const name = state.username || state.playerID;
+        let entry = data.players.find(p => p.id === state.playerID);
+        if (entry) {
+            entry.name = name;
+            entry.xp = state.xp;
+            entry.days = state.day;
+        } else {
+            data.players.push({ id: state.playerID, name, xp: state.xp, days: state.day });
+        }
+
+        data.players.sort((a, b) => b.xp - a.xp);
+        localStorage.setItem(key, JSON.stringify(data));
+    } catch (err) {
+        console.error('Error updating leaderboard', err);
     }
 }
 
