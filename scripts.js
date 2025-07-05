@@ -2625,9 +2625,3 @@ if (menuButton && sideMenu && closeMenu) {
     closeMenu.addEventListener('click', () => sideMenu.classList.remove('open'));
 }
 
-const soundToggle = document.getElementById('soundToggle');
-if (soundToggle) {
-    soundToggle.addEventListener('change', (e) => {
-        gameState.soundOn = e.target.checked;
-    });
-}
