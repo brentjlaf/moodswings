@@ -376,13 +376,16 @@ function endMinigame() {
     const cow = gameState.cows[currentMinigame.cowIndex];
     const success = currentMinigame.score >= currentMinigame.target;
     let resultMessage = '';
+    const wasMaxHappy = cow.happinessLevel >= 100;
     
   // Adjust mood based on how well or poorly the minigame went
   const resultDelta = currentMinigame.score - currentMinigame.target;
   // Translate score difference into a mood change, capped to keep swings reasonable
   let moodDelta = Math.round(resultDelta / 5);
   moodDelta = Math.max(-20, Math.min(20, moodDelta));
-  cow.moodValue = Math.max(0, Math.min(100, cow.moodValue + moodDelta));
+  if (!wasMaxHappy) {
+    cow.moodValue = Math.max(0, Math.min(100, cow.moodValue + moodDelta));
+  }
 
   // Recompute currentMood & happiness flags
   const segmentSize = 100 / cow.moods.length;
@@ -395,6 +398,11 @@ function endMinigame() {
   cow.currentMood    = cow.moods[moodIndex];
   cow.happinessLevel = cow.moodValue;
   cow.isHappy        = cow.moodValue >= 70;
+  if (wasMaxHappy) {
+    cow.happinessLevel = 100;
+    cow.moodValue = 100;
+    cow.isHappy = true;
+  }
   // ---------------------------------------------------------
 
     gameState.dailyStats.totalGames++;
@@ -471,7 +479,11 @@ function endMinigame() {
         gameState.stats.totalMilkProduced += milkReward;
         gameState.stats.totalCoinsEarned += coinReward;
         cow.isHappy = true;
-        cow.happinessLevel = Math.min(100, cow.happinessLevel + 20);
+        if (!wasMaxHappy) {
+            cow.happinessLevel = Math.min(100, cow.happinessLevel + 20);
+        } else {
+            cow.happinessLevel = 100;
+        }
 
         // Track time at full happiness for potential level ups
         if (cow.happinessLevel >= 100 && !cow.fullHappySince) {
@@ -482,8 +494,13 @@ function endMinigame() {
         gameState.stats.currentPerfectStreak = 0; // Reset streak on failure
         const coinLoss = Math.floor(Math.random() * 8) + 3;
         gameState.coins = Math.max(0, gameState.coins - coinLoss);
-        cow.isHappy = false;
-        cow.happinessLevel = Math.max(1, cow.happinessLevel - 10);
+        if (!wasMaxHappy) {
+            cow.isHappy = false;
+            cow.happinessLevel = Math.max(1, cow.happinessLevel - 10);
+        } else {
+            cow.isHappy = true;
+            cow.happinessLevel = 100;
+        }
 
         resultMessage = `😤 ${cow.name} is not impressed!<br>-${coinLoss} coins.<br>Max Combo: ${currentMinigame.maxCombo}`;
         if (navigator.vibrate) navigator.vibrate(300);

@@ -288,10 +288,12 @@ function updateSeason() {
         gameState.currentSeasonIndex = index;
         const season = getCurrentSeason();
         gameState.cows.forEach(cow => {
-            cow.happinessLevel = Math.min(
-                GAME_CONFIG.HAPPINESS.level_max,
-                cow.happinessLevel * (season.happinessMultiplier || 1)
-            );
+            if (cow.happinessLevel < GAME_CONFIG.HAPPINESS.level_max) {
+                cow.happinessLevel = Math.min(
+                    GAME_CONFIG.HAPPINESS.level_max,
+                    cow.happinessLevel * (season.happinessMultiplier || 1)
+                );
+            }
             refreshCowMood(cow);
         });
         if (season.name) {
@@ -1039,6 +1041,10 @@ function refreshCowMood(cow) {
 
 function updateCowHappiness(cow) {
     const now = Date.now();
+    if (cow.happinessLevel >= GAME_CONFIG.HAPPINESS.level_max) {
+        cow.lastHappinessUpdate = now;
+        return;
+    }
     const hours = (now - (cow.lastHappinessUpdate || now)) / 3600000;
     if (hours <= 0) return;
     const graceMs = (GAME_CONFIG.HAPPINESS.full_happy_grace_minutes || 0) * 60000;
