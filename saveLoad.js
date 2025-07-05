@@ -204,7 +204,8 @@ function resetGameData() {
                 currentPerfectStreak: 0,
                 upgradesPurchased: 0,
                 secretCowsUnlocked: 0,
-                playedAtMidnight: false
+                playedAtMidnight: false,
+                harvestTimestamps: []
             },
             perfectStreakRecord: 0,
             activeCropTimers: [],

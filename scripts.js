@@ -2444,8 +2444,13 @@ function migrateGameState() {
             currentPerfectStreak: 0,
             upgradesPurchased: 0,
             secretCowsUnlocked: 0,
-        playedAtMidnight: false
+            playedAtMidnight: false,
+            harvestTimestamps: []
     };
+    }
+    // Ensure new fields exist when migrating older saves
+    if (!gameState.stats.harvestTimestamps) {
+        gameState.stats.harvestTimestamps = [];
     }
 
     if (!gameState.dailyMilkTotals) {
