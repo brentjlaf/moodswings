@@ -363,6 +363,23 @@ body {
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
+    background: var(--cream);
+    border-radius: 12px;
+    border: 2px solid var(--earth-brown);
+    box-shadow: 0 4px 15px rgba(139,69,19,0.2);
+}
+
+.about-main h1,
+.about-main h2 {
+    text-align: center;
+    color: var(--earth-brown);
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 10px;
+}
+
+.about-main p {
+    margin-bottom: 15px;
+    color: var(--earth-brown);
 }
 .faq-item {
     margin-bottom: 15px;
@@ -2466,15 +2483,25 @@ body.season-winter {
 .leaderboard-table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px;
+    background: #FFF8DC;
+    border: 2px solid var(--earth-brown);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .leaderboard-table th,
 .leaderboard-table td {
     border: 1px solid #ccc;
-    padding: 6px;
+    padding: 8px;
     text-align: left;
 }
 .leaderboard-table th {
     background: var(--pasture-green);
     color: #fff;
+    font-weight: 800;
+}
+.leaderboard-table tbody tr:nth-child(even) {
+    background: rgba(0,0,0,0.05);
 }
 
