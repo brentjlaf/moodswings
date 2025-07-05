@@ -358,12 +358,26 @@ body {
 }
 
 /* About/FAQ page */
+.about-main {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
 .faq-item {
     margin-bottom: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .faq-item h3 {
     margin-bottom: 5px;
+    color: var(--barn-red);
+}
+.faq-section {
+    margin-top: 20px;
 }
 
 /* Slide-out menu */
