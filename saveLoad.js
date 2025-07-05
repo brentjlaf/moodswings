@@ -159,9 +159,27 @@ function importGameData() {
 }
 
 function resetGameData() {
-    if (confirm('Are you sure you want to reset all game data? This cannot be undone!')) {
-        const oldId = gameState.playerID;
-        clearAllCropTimers();
+    const overlay = document.getElementById('resetOverlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+    } else if (confirm('Are you sure you want to reset all game data? This cannot be undone!')) {
+        performResetGameData();
+    }
+}
+
+function hideResetOverlay() {
+    const overlay = document.getElementById('resetOverlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+function confirmResetGameData() {
+    hideResetOverlay();
+    performResetGameData();
+}
+
+function performResetGameData() {
+    const oldId = gameState.playerID;
+    clearAllCropTimers();
 
         // Remove player entry from leaderboard
         try {
