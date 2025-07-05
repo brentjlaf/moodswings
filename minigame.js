@@ -79,11 +79,12 @@ function startRhythmGame(cowIndex) {
         countdownRing.style.strokeDashoffset = 0;
     }
 
-    const speed = getGameSpeed(cow.currentGameType || cow.gameType);
+    const gameType = cow.currentGameType || cow.gameType;
+    const speed = getGameSpeed(gameType);
 
     clearNotes();
 
-    clearInterval(currentMinigame.noteInterval);
+    clearTimeout(currentMinigame.noteInterval);
     clearInterval(currentMinigame.countdownInterval);
     clearTimeout(currentMinigame.gameTimeout);
     currentMinigame.countdownInterval = setInterval(() => {
@@ -98,11 +99,44 @@ function startRhythmGame(cowIndex) {
         }
     }, 1000);
 
-    currentMinigame.noteInterval = setInterval(() => {
-        if (currentMinigame.gameActive) {
+    // Dynamic pattern-based note scheduling
+    const patternData = rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[gameType];
+    const speedScale = patternData ? speed / patternData.baseSpeed : 1;
+    const level = cow.level || 1;
+    let patternIndex = 0;
+    let noteIndex = 0;
+    let pattern = null;
+    if (patternData && patternData.patterns && patternData.patterns.length > 0) {
+        patternIndex = Math.min(level - 1, patternData.patterns.length - 1);
+        pattern = patternData.patterns[patternIndex];
+    }
+
+    const scheduleNext = (delay) => {
+        currentMinigame.noteInterval = setTimeout(() => {
+            if (!currentMinigame.gameActive) return;
             spawnNote();
-        }
-    }, speed);
+
+            let nextDelay = speed;
+            if (pattern) {
+                nextDelay = pattern.timing[noteIndex] || pattern.timing[pattern.timing.length - 1];
+                nextDelay *= speedScale;
+                noteIndex++;
+                if (noteIndex >= pattern.timing.length) {
+                    if (pattern.repeat) {
+                        noteIndex = 0;
+                    } else {
+                        patternIndex = Math.floor(Math.random() * patternData.patterns.length);
+                        pattern = patternData.patterns[patternIndex];
+                        noteIndex = 0;
+                    }
+                }
+            }
+
+            scheduleNext(nextDelay);
+        }, delay);
+    };
+
+    scheduleNext(0);
     
     currentMinigame.gameTimeout = setTimeout(() => {
         if (currentMinigame.gameActive) {
@@ -327,7 +361,7 @@ function showComboPopup(combo) {
 
 function endMinigame() {
     currentMinigame.gameActive = false;
-    clearInterval(currentMinigame.noteInterval);
+    clearTimeout(currentMinigame.noteInterval);
     clearInterval(currentMinigame.countdownInterval);
     clearTimeout(currentMinigame.gameTimeout);
     clearNotes();
@@ -438,6 +472,18 @@ function endMinigame() {
         gameState.stats.totalCoinsEarned += coinReward;
         cow.isHappy = true;
         cow.happinessLevel = Math.min(100, cow.happinessLevel + 20);
+
+        // Level up the cow based on available patterns
+        const type = cow.currentGameType || cow.gameType;
+        const data = rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[type];
+        if (data && data.patterns) {
+            const maxLevel = data.patterns.length;
+            const prevLevel = cow.level || 1;
+            if (prevLevel < maxLevel) {
+                cow.level = prevLevel + 1;
+                resultMessage += `<br>Level Up! ${cow.name} is now Lv ${cow.level}!`;
+            }
+        }
 
     } else {
         gameState.stats.currentPerfectStreak = 0; // Reset streak on failure

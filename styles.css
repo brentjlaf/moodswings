@@ -433,6 +433,12 @@ body {
     font-weight: 800;
 }
 
+.cow-level {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 4px;
+}
+
 .cow-mood {
     font-size: 0.85em;
     color: #2F5F2F;

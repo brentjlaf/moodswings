@@ -844,6 +844,7 @@ function buildCow(cow) {
     return {
         ...base,
         locked: false,               // always start unlocked
+        level: base.level || 1,
         currentMood,
         moodValue: base.moodValue,   // preserve the original value
         isHappy: base.moodValue >= 70, // happy threshold at 70
@@ -931,6 +932,7 @@ function renderCows() {
         cowCard.innerHTML = `
             <div class="cow-icon">${cow.emoji}</div>
             <div class="cow-name">${cow.name}</div>
+            <div class="cow-level">Lv ${cow.level || 1}</div>
             <div class="${moodClass}">
                 ${heartIcon} ${cow.currentMood} (${moodValueDisplay})
             </div>
@@ -2300,6 +2302,18 @@ function migrateGameState() {
     if (gameState.totalPerfectScores !== undefined) {
         gameState.stats.totalPerfectScores = gameState.totalPerfectScores;
         delete gameState.totalPerfectScores;
+    }
+
+    // Ensure cows have level property
+    if (Array.isArray(gameState.cows)) {
+        gameState.cows.forEach(c => {
+            if (c.level === undefined) c.level = 1;
+        });
+    }
+    if (Array.isArray(gameState.lockedCows)) {
+        gameState.lockedCows.forEach(c => {
+            if (c.level === undefined) c.level = 1;
+        });
     }
     
     // Initialize effects object if it doesn't exist
