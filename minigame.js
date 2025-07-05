@@ -575,6 +575,9 @@ function startMinigame(cowIndex) {
     title.innerHTML = `${cow.emoji} ${cow.name}'s ${cow.currentGameType.toUpperCase()} Challenge!`;
     instructions.textContent = getGameInstructions(cow.currentGameType);
 
+    gameState.xp++;
+    updateDisplay();
+
 
     // Hide the close button until the game is finished
     const closeBtn = document.querySelector('.close-minigame');

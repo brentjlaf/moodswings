@@ -72,6 +72,7 @@ async function loadGameData() {
 let gameState = {
     coins: 100,
     milk: 0,
+    xp: 0,
     day: 1,
     totalScore: 0,
     cows: [],
@@ -631,7 +632,8 @@ function buyUpgrade(itemId) {
     
     // Apply effects
     applyUpgradeEffects(item);
-    
+
+    gameState.xp++;
     updateDisplay();
     renderShop();
     showToast(`Purchased: ${item.name}!`, 'success');
@@ -1219,6 +1221,7 @@ function plantCrop(type) {
     
     gameState.activeCropTimers.push(emptySlot.timerId);
     
+    gameState.xp++;
     updateDisplay();
     renderCrops();
     showToast(`Planted ${cropData.name}!`, 'success');
@@ -1272,6 +1275,7 @@ function harvestCrop(index) {
     crop.pestExpiresAt = null;
     crop.pestPenalty = false;
     
+    gameState.xp++;
     updateDisplay();
     renderCrops();
     checkAchievements(); // Check for new achievements
@@ -1302,6 +1306,8 @@ function harvestAll() {
                 gameState.stats.cropTypesHarvested[crop.type] = 0;
             }
             gameState.stats.cropTypesHarvested[crop.type]++;
+
+            gameState.xp++;
             
             // FIX: Clear timer if it exists
             if (crop.timerId) {
@@ -2326,6 +2332,7 @@ function updateWeatherEffects() {
 function updateDisplay() {
     const coinsEl = document.getElementById('coins');
     const milkEl  = document.getElementById('milk');
+    const xpEl    = document.getElementById('xp');
     const dayEl   = document.getElementById('day');
     const moodEl  = document.getElementById('happiness');
     const seasonEl = document.getElementById('seasonDisplay');
@@ -2334,6 +2341,7 @@ function updateDisplay() {
     // Update header stats
     if (coinsEl) coinsEl.textContent = Math.floor(gameState.coins);
     if (milkEl)  milkEl.textContent  = gameState.milk;
+    if (xpEl)    xpEl.textContent    = gameState.xp;
     if (dayEl)   dayEl.textContent   = gameState.day;
 
     if (seasonEl) {
@@ -2400,6 +2408,10 @@ function migrateGameState() {
     }
     if (!gameState.unclaimedAchievements) {
         gameState.unclaimedAchievements = [];
+    }
+
+    if (gameState.xp === undefined) {
+        gameState.xp = 0;
     }
 
     if (gameState.currentSeasonIndex === undefined) {
