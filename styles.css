@@ -2341,3 +2341,20 @@ body.season-winter {
 .cows-grid {
     grid-template-columns: repeat(2, 1fr);
 }
+
+/* Leaderboard Styles */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.leaderboard-table th,
+.leaderboard-table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-align: left;
+}
+.leaderboard-table th {
+    background: var(--pasture-green);
+    color: #fff;
+}
+
