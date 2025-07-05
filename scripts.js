@@ -917,9 +917,26 @@ function updateUsername() {
     if (!input) return;
     const name = input.value.trim();
     gameState.username = name;
+    gameState.playerID = name;
     saveGameState();
     updateSaveInfo();
     showToast('Username updated!', 'success');
+}
+
+function promptForUsername() {
+    let name = '';
+    while (!name) {
+        name = prompt('Enter your name (letters and numbers only):', '') || '';
+        name = name.trim();
+        if (name && !/^[A-Za-z0-9]+$/.test(name)) {
+            alert('Name must contain only letters and numbers.');
+            name = '';
+        }
+    }
+    gameState.username = name;
+    gameState.playerID = name;
+    saveGameState();
+    updateSaveInfo();
 }
 
 
@@ -2533,14 +2550,19 @@ function initializeGame() {
     // Try to load saved game first
     const loadedSave = loadGameState();
     migrateGameState();
-    
+
     if (!loadedSave) {
-        // New game - initialize everything
+        // New game - ask for username and initialize everything
+        promptForUsername();
         generateCows();
         initializeCrops();
         updateSeason();
         updateWeather(true);
     } else {
+        // Loaded game - ask for username if missing and reinitialize display elements
+        if (!gameState.username || !gameState.playerID) {
+            promptForUsername();
+        }
         // Loaded game - reinitialize display elements
         generateCows(); // This will use existing cow data
         renderCrops(); // This will use existing crop data
