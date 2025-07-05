@@ -41,7 +41,14 @@ Modify the JSON files to add new cows, crops, shop items or rhythm patterns. You
 Certain shop upgrades provide automation:
 - **Auto Sprinkler** instantly waters planted crops each hour, finishing their growth.
 - **Milk Processor** converts all stored milk into coins at the start of each day using its conversion rate.
-- **Pest Control** keeps pests away from your fields for five minutes. You can stock up to 100 of them.
+
+- **Pest Control** keeps pests away from your fields. The basic version lasts five minutes and
+  upgraded ones extend the duration up to thirty minutes. Each use consumes one item and you can
+  stockpile up to 100.
+
+### Consumables
+Single-use boosts like Energy Drinks or Super Fertilizer can be bought in bulk. You decide when to
+activate them and improved versions offer stronger or longer effects.
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
 
