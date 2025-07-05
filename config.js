@@ -122,7 +122,8 @@ const GAME_CONFIG = {
         // When a cow is at max happiness, pause decay for this many minutes
         full_happy_grace_minutes: 10,
         // How many hours of full happiness are required to level up a cow
-        level_up_hours: 2
+        // 10 minutes expressed in hours
+        level_up_hours: 10 / 60
     },
 
     HAPPINESS_UPDATE_INTERVAL: 3600000, // 1 hour
