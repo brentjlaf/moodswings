@@ -363,14 +363,11 @@ function checkCropUnlockCondition(crop) {
 }
 
 // Get available crops based on unlock conditions
-function getAvailableCrops() {
-    return Object.keys(cropTypes).filter(cropId => {
-        const crop = cropTypes[cropId];
-        if (crop.eventOnly && crop.eventOnly === 'meteor_shower' && !gameState.isMeteorShower) {
-            return false;
-        }
-        return checkCropUnlockCondition(crop);
-    });
+function isCropUnlocked(crop) {
+    if (crop.eventOnly && crop.eventOnly === 'meteor_shower' && !gameState.isMeteorShower) {
+        return false;
+    }
+    return checkCropUnlockCondition(crop);
 }
 
 // Dynamic crop button generation with rarity styling
@@ -378,17 +375,29 @@ function generateCropButtons() {
     const container = document.querySelector('.plant-controls');
     if (!container) return;
     
-    const availableCrops = getAvailableCrops();
-    
-    container.innerHTML = availableCrops.map(cropId => {
-        const crop = cropTypes[cropId];
-        const rarityClass = crop.rarity ? `crop-${crop.rarity}` : '';
-        const titleText = `${crop.description ? crop.description + ' - ' : ''}Reward: ${crop.value} coins`;
+    const allCrops = Object.keys(cropTypes);
 
+    container.innerHTML = allCrops.map(cropId => {
+        const crop = cropTypes[cropId];
+        const unlocked = isCropUnlocked(crop);
+        const rarityClass = crop.rarity ? `crop-${crop.rarity}` : '';
+        const titleText = unlocked
+            ? `${crop.description ? crop.description + ' - ' : ''}Reward: ${crop.value} coins`
+            : getCropUnlockText(crop);
+
+        if (unlocked) {
+            return `
+                <button class="plant-btn ${rarityClass}" onclick="plantCrop('${cropId}')" title="${titleText}">
+                    ${crop.emoji}<br />${crop.name}<br>
+                    <span class="crop-cost">${crop.cost} coins</span>
+                    ${crop.rarity ? `<span class="crop-rarity">${crop.rarity}</span>` : ''}
+                </button>
+            `;
+        }
         return `
-            <button class="plant-btn ${rarityClass}" onclick="plantCrop('${cropId}')" title="${titleText}">
-                ${crop.emoji}<br />${crop.name}<br>
-                <span class="crop-cost">${crop.cost} coins</span>
+            <button class="plant-btn locked-crop ${rarityClass}" disabled title="${titleText}">
+                🔒<br />${crop.name}<br>
+                <span class="locked-crop-info">${getCropUnlockText(crop)}</span>
                 ${crop.rarity ? `<span class="crop-rarity">${crop.rarity}</span>` : ''}
             </button>
         `;
@@ -504,6 +513,32 @@ function getShopUnlockText(item) {
     if (!item.unlockCondition) return '';
 
     const condition = item.unlockCondition;
+    switch (condition.type) {
+        case 'day':
+            return `Reach day ${condition.target}`;
+        case 'totalMilk':
+            return `Produce ${condition.target} milk`;
+        case 'totalCoins':
+            return `Earn ${condition.target} coins`;
+        case 'perfectScores':
+            return `Get ${condition.target} perfect scores`;
+        case 'upgrade': {
+            const prereq = shopData.items?.find(i => i.id === condition.target);
+            return prereq ? `Requires ${prereq.name}` : `Requires upgrade ${condition.target}`;
+        }
+        default:
+            return '';
+    }
+}
+
+// Build human readable text for crop unlock requirements
+function getCropUnlockText(crop) {
+    if (crop.eventOnly && crop.eventOnly === 'meteor_shower') {
+        return 'Available during meteor showers';
+    }
+    if (!crop.unlockCondition) return 'Unlocked by default';
+
+    const condition = crop.unlockCondition;
     switch (condition.type) {
         case 'day':
             return `Reach day ${condition.target}`;
