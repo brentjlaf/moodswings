@@ -374,7 +374,7 @@
     },
     {
       "id": "pest_control",
-      "name": "Pest Control",
+      "name": "Pest Control 5m",
       "description": "No pests for 5 minutes!",
       "icon": "🐞",
       "category": "consumables",
@@ -392,7 +392,7 @@
     },
     {
       "id": "pest_control_10",
-      "name": "Pest Control",
+      "name": "Pest Control 10m",
       "description": "No pests for 10 minutes!",
       "icon": "🐞",
       "category": "consumables",
@@ -410,7 +410,7 @@
     },
     {
       "id": "pest_control_15",
-      "name": "Pest Control",
+      "name": "Pest Control 15m",
       "description": "No pests for 15 minutes!",
       "icon": "🐞",
       "category": "consumables",
@@ -428,7 +428,7 @@
     },
     {
       "id": "pest_control_20",
-      "name": "Pest Control",
+      "name": "Pest Control 20m",
       "description": "No pests for 20 minutes!",
       "icon": "🐞",
       "category": "consumables",
@@ -446,7 +446,7 @@
     },
     {
       "id": "pest_control_25",
-      "name": "Pest Control",
+      "name": "Pest Control 25m",
       "description": "No pests for 25 minutes!",
       "icon": "🐞",
       "category": "consumables",
@@ -464,7 +464,7 @@
     },
     {
       "id": "pest_control_30",
-      "name": "Pest Control",
+      "name": "Pest Control 30m",
       "description": "No pests for 30 minutes!",
       "icon": "🐞",
       "category": "consumables",
