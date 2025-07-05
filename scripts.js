@@ -105,8 +105,10 @@ let gameState = {
         currentPerfectStreak: 0,
         upgradesPurchased: 0,
         secretCowsUnlocked: 0,
-        playedAtMidnight: false
-    },
+        playedAtMidnight: false,
+        // NEW: Track timestamps of recent harvests for speedHarvest achievements
+        harvestTimestamps: []
+      },
     perfectStreakRecord: 0,
     activeCropTimers: [],
     activeEffects: [],
@@ -147,6 +149,15 @@ function deductMilk(amount, context = 'purchase') {
     }
     gameState.milk = Math.max(0, gameState.milk - amount);
     return true;
+}
+
+// NEW: Helper to record harvest timestamps (keeps last 5 minutes)
+function recordHarvestTimestamp() {
+    const now = Date.now();
+    const timestamps = gameState.stats.harvestTimestamps;
+    timestamps.push(now);
+    const cutoff = now - 300000; // 5 minutes
+    gameState.stats.harvestTimestamps = timestamps.filter(ts => ts >= cutoff);
 }
 
 // FIX: Clear all crop timers to prevent memory leaks
@@ -1274,6 +1285,7 @@ function harvestCrop(index) {
         gameState.stats.cropTypesHarvested[crop.type] = 0;
     }
     gameState.stats.cropTypesHarvested[crop.type]++;
+    recordHarvestTimestamp();
     
     // FIX: Clear timer if it exists
     if (crop.timerId) {
@@ -1330,6 +1342,7 @@ function harvestAll() {
                 gameState.stats.cropTypesHarvested[crop.type] = 0;
             }
             gameState.stats.cropTypesHarvested[crop.type]++;
+            recordHarvestTimestamp();
 
             gameState.xp++;
             
@@ -1733,14 +1746,23 @@ function checkAchievementCondition(achievement) {
             
         case 'upgradesPurchased':
             return stats.upgradesPurchased >= condition.target;
-            
+
         case 'timeOfDay':
             if (condition.target === 'midnight') {
                 const hour = new Date().getHours();
                 return hour >= 0 && hour < 6;
             }
             return false;
-            
+
+        case 'speedHarvest': {
+            const cutoff = Date.now() - (condition.timeLimit * 1000);
+            const count = stats.harvestTimestamps.filter(ts => ts >= cutoff).length;
+            return count >= condition.target;
+        }
+
+        case 'achievementsCompleted':
+            return gameState.achievements.length >= condition.target;
+
         default:
             console.warn(`Unknown achievement condition: ${condition.type}`);
             return false;
@@ -1983,6 +2005,12 @@ function getAchievementProgress(achievement) {
         case 'timeOfDay':
             current = stats.playedAtMidnight ? 1 : 0;
             target = 1;
+            break;
+        case 'speedHarvest':
+            current = stats.harvestTimestamps.filter(ts => ts >= Date.now() - (condition.timeLimit * 1000)).length;
+            break;
+        case 'achievementsCompleted':
+            current = gameState.achievements.length;
             break;
         default:
             current = 0;
