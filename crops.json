@@ -43,7 +43,7 @@
       "rarity": "common",
       "unlockCondition": {
         "type": "day",
-        "target": 3
+        "target": 5
       },
       "description": "Juicy and versatile!"
     },
@@ -57,7 +57,7 @@
       "rarity": "common",
       "unlockCondition": {
         "type": "day",
-        "target": 2
+        "target": 10
       },
       "description": "Sweet and profitable!"
     },
@@ -71,7 +71,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 5
+        "target": 15
       },
       "description": "Small but packed with flavor!"
     },
@@ -99,7 +99,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 4
+        "target": 20
       },
       "description": "Bright and cheerful profit!"
     },
@@ -181,7 +181,7 @@
       "rarity": "epic",
       "unlockCondition": {
         "type": "day",
-        "target": 10
+        "target": 25
       },
       "description": "Blooms under moonlight!"
     },
@@ -223,7 +223,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 6
+        "target": 30
       },
       "description": "Sweet and fuzzy!"
     },
@@ -237,7 +237,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 7
+        "target": 35
       },
       "description": "Tiny bunch, big returns!"
     },
@@ -265,7 +265,7 @@
       "rarity": "rare",
       "unlockCondition": {
         "type": "day",
-        "target": 12
+        "target": 40
       },
       "description": "Tropical treat with tough shell!"
     },
