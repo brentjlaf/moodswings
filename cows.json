@@ -263,6 +263,76 @@
         "Sad",
         "Angry"
       ]
+    },
+    {
+      "name": "Snoop Cow",
+      "emoji": "\ud83c\udf99\ufe0f",
+      "gameType": "rapid",
+      "moodValue": 50,
+      "unlockCondition": "totalCoins",
+      "unlockTarget": 5000,
+      "moods": [
+        "Happy",
+        "Calm",
+        "Sad",
+        "Angry"
+      ]
+    },
+    {
+      "name": "Cowvin Harris",
+      "emoji": "\ud83c\udf9a\ufe0f",
+      "gameType": "electronic",
+      "moodValue": 50,
+      "unlockCondition": "perfectScores",
+      "unlockTarget": 80,
+      "moods": [
+        "Happy",
+        "Calm",
+        "Sad",
+        "Angry"
+      ]
+    },
+    {
+      "name": "Moo Fighters",
+      "emoji": "\ud83e\udd41",
+      "gameType": "rock",
+      "moodValue": 50,
+      "unlockCondition": "achievement",
+      "unlockTarget": "cosmic_collector",
+      "moods": [
+        "Happy",
+        "Calm",
+        "Sad",
+        "Angry"
+      ]
+    },
+    {
+      "name": "Cowlin Minogue",
+      "emoji": "\ud83d\udc83",
+      "gameType": "pop",
+      "moodValue": 50,
+      "unlockCondition": "totalMilk",
+      "unlockTarget": 1600,
+      "moods": [
+        "Happy",
+        "Calm",
+        "Sad",
+        "Angry"
+      ]
+    },
+    {
+      "name": "Moo Diddley",
+      "emoji": "\ud83c\udfba",
+      "gameType": "smooth",
+      "moodValue": 50,
+      "unlockCondition": "achievement",
+      "unlockTarget": "harvest_hero",
+      "moods": [
+        "Happy",
+        "Calm",
+        "Sad",
+        "Angry"
+      ]
     }
   ],
   "secretCows": [
