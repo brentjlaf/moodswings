@@ -1029,6 +1029,12 @@ function updateCowHappiness(cow) {
     const now = Date.now();
     const hours = (now - (cow.lastHappinessUpdate || now)) / 3600000;
     if (hours <= 0) return;
+    const graceMs = (GAME_CONFIG.HAPPINESS.full_happy_grace_minutes || 0) * 60000;
+    if (cow.fullHappySince && (now - cow.fullHappySince) < graceMs) {
+        cow.lastHappinessUpdate = now;
+        return;
+    }
+
     const rate = GAME_CONFIG.HAPPINESS.decay_rate_percent;
     const decayAmount = cow.happinessLevel * rate * hours;
     cow.happinessLevel = Math.max(
@@ -1047,7 +1053,7 @@ function checkCowLevelUp(cow) {
     if (!cow.fullHappySince) return;
 
     const elapsed = Date.now() - cow.fullHappySince;
-    const hoursRequired = 12 * 3600000;
+    const hoursRequired = (GAME_CONFIG.HAPPINESS.level_up_hours || 12) * 3600000;
     if (elapsed < hoursRequired) return;
 
     const type = cow.currentGameType || cow.gameType;

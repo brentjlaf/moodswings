@@ -118,7 +118,11 @@ const GAME_CONFIG = {
         success_bonus: 20,
         failure_penalty: 10,
         // Mood decreases by about 3% of the current value every hour
-        decay_rate_percent: 0.03
+        decay_rate_percent: 0.03,
+        // When a cow is at max happiness, pause decay for this many minutes
+        full_happy_grace_minutes: 10,
+        // How many hours of full happiness are required to level up a cow
+        level_up_hours: 2
     },
 
     HAPPINESS_UPDATE_INTERVAL: 3600000, // 1 hour
