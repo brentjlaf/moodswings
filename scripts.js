@@ -2649,6 +2649,7 @@ setInterval(renderEffectTimers, 1000);
 function updateCowLevelTimers() {
     const cards = document.querySelectorAll('#cowsGrid .cow-card');
     const levelHours = (GAME_CONFIG.HAPPINESS.level_up_hours || 12) * 3600000;
+    let leveledUp = false;
     gameState.cows.forEach((cow, idx) => {
         const card = cards[idx];
         if (!card) return;
@@ -2661,12 +2662,24 @@ function updateCowLevelTimers() {
                 const progress = Math.min(100, (elapsed / levelHours) * 100);
                 barEl.style.width = `${progress}%`;
                 timerEl.textContent = formatTime(Math.ceil(remaining / 1000));
+
+                if (elapsed >= levelHours) {
+                    const prevLevel = cow.level;
+                    checkCowLevelUp(cow);
+                    if (cow.level !== prevLevel) {
+                        leveledUp = true;
+                    }
+                }
             } else {
                 barEl.style.width = '0%';
                 timerEl.textContent = '';
             }
         }
     });
+
+    if (leveledUp) {
+        renderCows();
+    }
 }
 
 setInterval(updateCowLevelTimers, 1000);
