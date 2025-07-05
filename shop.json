@@ -113,24 +113,6 @@
       }
     },
     {
-      "id": "auto_sprinkler",
-      "name": "Auto Sprinkler",
-      "description": "Automatically waters crops + 20% yield bonus!",
-      "icon": "💧",
-      "category": "tools",
-      "cost": 800,
-      "currency": "coins",
-      "maxLevel": 1,
-      "effects": {
-        "auto_water": true,
-        "crop_yield_bonus": 20
-      },
-      "unlockCondition": {
-        "type": "day",
-        "target": 7
-      }
-    },
-    {
       "id": "pitchfork_3",
       "name": "Master Pitchfork",
       "description": "Ultimate timing assistance + 25% coin bonus!",
@@ -678,7 +660,6 @@
     "action_speed_boost": "All farm actions are X% faster",
     "happiness_boost_percent": "Increases cow happiness by X%",
     "extra_milk_per_click": "Adds X milk per cow click",
-    "auto_water": "Automatically waters all crops",
     "auto_milk_conversion": "Automatically converts milk to coins",
     "conversion_rate": "X milk converts to 1 coin",
     "pest_protection": "Prevents pest attacks",
