@@ -16,7 +16,7 @@ $players = $data['players'] ?? [];
     <header class="page-header">
       <span class="logo">&#x1F404; MOO-D SWINGS</span>
       <div class="header-buttons">
-        <a href="index.php" class="about-link">Back</a>
+        <a href="index.php" class="about-link action-btn">Back</a>
       </div>
     </header>
     <main class="about-main">
