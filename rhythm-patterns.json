@@ -125,57 +125,48 @@
     "normal": {
       "color": "#FFD700",
       "border": "#FFA500",
-      "points": 25,
-      "effect": null
+      "points": 25
     },
     "long": {
       "color": "#98FF98",
       "border": "#6A994E",
       "points": 35,
-      "effect": "hold",
       "duration": 1200
     },
     "rapid": {
       "color": "#E91E63",
       "border": "#B23A48",
-      "points": 15,
-      "effect": "multi_hit"
+      "points": 15
     },
     "shield": {
       "color": "#87CEEB",
       "border": "#5D8CAE",
-      "points": 30,
-      "effect": "defense"
+      "points": 30
     },
     "attack": {
       "color": "#FFA500",
       "border": "#B23A48",
-      "points": 40,
-      "effect": "offense"
+      "points": 40
     },
     "star": {
       "color": "#8A2BE2",
       "border": "#4A9999",
-      "points": 50,
-      "effect": "cosmic_bonus"
+      "points": 50
     },
     "void": {
       "color": "#000000",
       "border": "#000000",
-      "points": -10,
-      "effect": "avoid"
+      "points": -10
     },
     "bass": {
       "color": "#B23A48",
       "border": "#8B5E3C",
-      "points": 30,
-      "effect": "bass_boost"
+      "points": 30
     },
     "synth": {
       "color": "#2D7D7D",
       "border": "#1E5A5A",
-      "points": 25,
-      "effect": "synth_wave"
+      "points": 25
     }
   },
   "hitColors": {

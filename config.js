@@ -126,20 +126,6 @@ const GAME_CONFIG = {
     // UI settings
     TOAST_DURATION: 3000, // 3 seconds
     ACHIEVEMENT_POPUP_DURATION: 4000, // 4 seconds
-    
-    // Vibration patterns (if supported)
-    VIBRATION: {
-        tap: 50,
-        success: [100, 50, 100],
-        perfect: [200, 100, 200, 100, 200],
-        failure: 300,
-        achievement: [500, 200, 500, 200, 500],
-        plant: 50,
-        harvest: [200, 100, 200],
-        harvest_all: [100, 50, 100, 50, 100],
-        day_advance: [300, 100, 300],
-        upgrade: [200, 100, 200]
-    },
 
     // Debug settings
     DEBUG: {
