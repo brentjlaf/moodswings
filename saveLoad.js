@@ -1,11 +1,18 @@
 // Generate unique device fingerprint for save identification
+const PLAYER_ID_KEY = 'farmGamePlayerID';
+
 function generateDeviceID() {
+    const existing = localStorage.getItem(PLAYER_ID_KEY);
+    if (existing) {
+        return existing;
+    }
+
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     ctx.textBaseline = 'top';
     ctx.font = '14px Arial';
     ctx.fillText('Device fingerprint', 2, 2);
-    
+
     const fingerprint = [
         navigator.userAgent,
         navigator.language,
@@ -14,16 +21,17 @@ function generateDeviceID() {
         navigator.hardwareConcurrency || 'unknown',
         canvas.toDataURL()
     ].join('|');
-    
-    // Simple hash function
+
     let hash = 0;
     for (let i = 0; i < fingerprint.length; i++) {
         const char = fingerprint.charCodeAt(i);
         hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32-bit integer
+        hash = hash & hash;
     }
-    
-    return 'player_' + Math.abs(hash).toString(36);
+
+    const id = 'player_' + Math.abs(hash).toString(36);
+    localStorage.setItem(PLAYER_ID_KEY, id);
+    return id;
 }
 
 // Save/Load System
