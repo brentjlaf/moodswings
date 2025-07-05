@@ -965,10 +965,22 @@ function renderCows() {
                 : 'Keep Happy!';
         const disabledAttr = isMaxHappy ? 'disabled' : '';
 
+        const levelHours = (GAME_CONFIG.HAPPINESS.level_up_hours || 12) * 3600000;
+        let levelProgress = 0;
+        let levelTimer = '';
+        if (cow.fullHappySince) {
+            const elapsed = Date.now() - cow.fullHappySince;
+            levelProgress = Math.min(100, Math.round((elapsed / levelHours) * 100));
+            const remaining = Math.max(0, levelHours - elapsed);
+            levelTimer = formatTime(Math.ceil(remaining / 1000));
+        }
+
         cowCard.innerHTML = `
             <div class="cow-icon">${cow.emoji}</div>
             <div class="cow-name">${cow.name}</div>
             <div class="cow-level">Lv ${cow.level || 1}</div>
+            <div class="level-timer">${levelTimer}</div>
+            <div class="level-progress"><div class="level-progress-bar" style="width:${levelProgress}%;"></div></div>
             <div class="${moodClass}">
                 ${heartIcon} ${cow.currentMood} (${moodValueDisplay})
             </div>
@@ -2564,6 +2576,31 @@ setInterval(() => {
 
 // Update active effect timers every second
 setInterval(renderEffectTimers, 1000);
+
+function updateCowLevelTimers() {
+    const cards = document.querySelectorAll('#cowsGrid .cow-card');
+    const levelHours = (GAME_CONFIG.HAPPINESS.level_up_hours || 12) * 3600000;
+    gameState.cows.forEach((cow, idx) => {
+        const card = cards[idx];
+        if (!card) return;
+        const barEl = card.querySelector('.level-progress-bar');
+        const timerEl = card.querySelector('.level-timer');
+        if (barEl && timerEl) {
+            if (cow.fullHappySince) {
+                const elapsed = Date.now() - cow.fullHappySince;
+                const remaining = Math.max(0, levelHours - elapsed);
+                const progress = Math.min(100, (elapsed / levelHours) * 100);
+                barEl.style.width = `${progress}%`;
+                timerEl.textContent = formatTime(Math.ceil(remaining / 1000));
+            } else {
+                barEl.style.width = '0%';
+                timerEl.textContent = '';
+            }
+        }
+    });
+}
+
+setInterval(updateCowLevelTimers, 1000);
 
 // Update time-of-day theme based on real-world time
 function updateTimeTheme() {
