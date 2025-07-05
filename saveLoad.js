@@ -256,7 +256,6 @@ function performResetGameData() {
         // Restart the game
         initializeGame();
         showToast('Game reset! Starting fresh.', 'success');
-    }
 }
 
 // Update leaderboard stored in localStorage with latest save info
