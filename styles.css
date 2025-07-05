@@ -448,6 +448,28 @@ body {
     margin-bottom: 4px;
 }
 
+.level-timer {
+    font-size: 0.7em;
+    color: #555;
+    margin-bottom: 2px;
+}
+
+.level-progress {
+    width: 80%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 auto 4px;
+}
+
+.level-progress-bar {
+    height: 100%;
+    background: #FFD700;
+    width: 0;
+    transition: width 0.3s linear;
+}
+
 .cow-mood {
     font-size: 0.85em;
     color: #2F5F2F;
