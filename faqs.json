@@ -2,15 +2,404 @@
   "faqs": [
     {
       "question": "How do I start playing?",
-      "answer": "Tap on a cow to begin a rhythm challenge and earn coins." 
+      "answer": "Tap on a cow to begin a rhythm challenge and earn coins."
     },
     {
       "question": "What do coins do?",
-      "answer": "Coins let you purchase crops and upgrades from the shop." 
+      "answer": "Coins let you purchase crops and upgrades from the shop."
     },
     {
       "question": "How can I save my progress?",
-      "answer": "Use the save option in the menu; the game also auto-saves periodically." 
+      "answer": "Use the save option in the menu; the game also auto-saves periodically."
+    },
+    {
+      "question": "Sample question 4",
+      "answer": "This is the answer to question 4."
+    },
+    {
+      "question": "Sample question 5",
+      "answer": "This is the answer to question 5."
+    },
+    {
+      "question": "Sample question 6",
+      "answer": "This is the answer to question 6."
+    },
+    {
+      "question": "Sample question 7",
+      "answer": "This is the answer to question 7."
+    },
+    {
+      "question": "Sample question 8",
+      "answer": "This is the answer to question 8."
+    },
+    {
+      "question": "Sample question 9",
+      "answer": "This is the answer to question 9."
+    },
+    {
+      "question": "Sample question 10",
+      "answer": "This is the answer to question 10."
+    },
+    {
+      "question": "Sample question 11",
+      "answer": "This is the answer to question 11."
+    },
+    {
+      "question": "Sample question 12",
+      "answer": "This is the answer to question 12."
+    },
+    {
+      "question": "Sample question 13",
+      "answer": "This is the answer to question 13."
+    },
+    {
+      "question": "Sample question 14",
+      "answer": "This is the answer to question 14."
+    },
+    {
+      "question": "Sample question 15",
+      "answer": "This is the answer to question 15."
+    },
+    {
+      "question": "Sample question 16",
+      "answer": "This is the answer to question 16."
+    },
+    {
+      "question": "Sample question 17",
+      "answer": "This is the answer to question 17."
+    },
+    {
+      "question": "Sample question 18",
+      "answer": "This is the answer to question 18."
+    },
+    {
+      "question": "Sample question 19",
+      "answer": "This is the answer to question 19."
+    },
+    {
+      "question": "Sample question 20",
+      "answer": "This is the answer to question 20."
+    },
+    {
+      "question": "Sample question 21",
+      "answer": "This is the answer to question 21."
+    },
+    {
+      "question": "Sample question 22",
+      "answer": "This is the answer to question 22."
+    },
+    {
+      "question": "Sample question 23",
+      "answer": "This is the answer to question 23."
+    },
+    {
+      "question": "Sample question 24",
+      "answer": "This is the answer to question 24."
+    },
+    {
+      "question": "Sample question 25",
+      "answer": "This is the answer to question 25."
+    },
+    {
+      "question": "Sample question 26",
+      "answer": "This is the answer to question 26."
+    },
+    {
+      "question": "Sample question 27",
+      "answer": "This is the answer to question 27."
+    },
+    {
+      "question": "Sample question 28",
+      "answer": "This is the answer to question 28."
+    },
+    {
+      "question": "Sample question 29",
+      "answer": "This is the answer to question 29."
+    },
+    {
+      "question": "Sample question 30",
+      "answer": "This is the answer to question 30."
+    },
+    {
+      "question": "Sample question 31",
+      "answer": "This is the answer to question 31."
+    },
+    {
+      "question": "Sample question 32",
+      "answer": "This is the answer to question 32."
+    },
+    {
+      "question": "Sample question 33",
+      "answer": "This is the answer to question 33."
+    },
+    {
+      "question": "Sample question 34",
+      "answer": "This is the answer to question 34."
+    },
+    {
+      "question": "Sample question 35",
+      "answer": "This is the answer to question 35."
+    },
+    {
+      "question": "Sample question 36",
+      "answer": "This is the answer to question 36."
+    },
+    {
+      "question": "Sample question 37",
+      "answer": "This is the answer to question 37."
+    },
+    {
+      "question": "Sample question 38",
+      "answer": "This is the answer to question 38."
+    },
+    {
+      "question": "Sample question 39",
+      "answer": "This is the answer to question 39."
+    },
+    {
+      "question": "Sample question 40",
+      "answer": "This is the answer to question 40."
+    },
+    {
+      "question": "Sample question 41",
+      "answer": "This is the answer to question 41."
+    },
+    {
+      "question": "Sample question 42",
+      "answer": "This is the answer to question 42."
+    },
+    {
+      "question": "Sample question 43",
+      "answer": "This is the answer to question 43."
+    },
+    {
+      "question": "Sample question 44",
+      "answer": "This is the answer to question 44."
+    },
+    {
+      "question": "Sample question 45",
+      "answer": "This is the answer to question 45."
+    },
+    {
+      "question": "Sample question 46",
+      "answer": "This is the answer to question 46."
+    },
+    {
+      "question": "Sample question 47",
+      "answer": "This is the answer to question 47."
+    },
+    {
+      "question": "Sample question 48",
+      "answer": "This is the answer to question 48."
+    },
+    {
+      "question": "Sample question 49",
+      "answer": "This is the answer to question 49."
+    },
+    {
+      "question": "Sample question 50",
+      "answer": "This is the answer to question 50."
+    },
+    {
+      "question": "Sample question 51",
+      "answer": "This is the answer to question 51."
+    },
+    {
+      "question": "Sample question 52",
+      "answer": "This is the answer to question 52."
+    },
+    {
+      "question": "Sample question 53",
+      "answer": "This is the answer to question 53."
+    },
+    {
+      "question": "Sample question 54",
+      "answer": "This is the answer to question 54."
+    },
+    {
+      "question": "Sample question 55",
+      "answer": "This is the answer to question 55."
+    },
+    {
+      "question": "Sample question 56",
+      "answer": "This is the answer to question 56."
+    },
+    {
+      "question": "Sample question 57",
+      "answer": "This is the answer to question 57."
+    },
+    {
+      "question": "Sample question 58",
+      "answer": "This is the answer to question 58."
+    },
+    {
+      "question": "Sample question 59",
+      "answer": "This is the answer to question 59."
+    },
+    {
+      "question": "Sample question 60",
+      "answer": "This is the answer to question 60."
+    },
+    {
+      "question": "Sample question 61",
+      "answer": "This is the answer to question 61."
+    },
+    {
+      "question": "Sample question 62",
+      "answer": "This is the answer to question 62."
+    },
+    {
+      "question": "Sample question 63",
+      "answer": "This is the answer to question 63."
+    },
+    {
+      "question": "Sample question 64",
+      "answer": "This is the answer to question 64."
+    },
+    {
+      "question": "Sample question 65",
+      "answer": "This is the answer to question 65."
+    },
+    {
+      "question": "Sample question 66",
+      "answer": "This is the answer to question 66."
+    },
+    {
+      "question": "Sample question 67",
+      "answer": "This is the answer to question 67."
+    },
+    {
+      "question": "Sample question 68",
+      "answer": "This is the answer to question 68."
+    },
+    {
+      "question": "Sample question 69",
+      "answer": "This is the answer to question 69."
+    },
+    {
+      "question": "Sample question 70",
+      "answer": "This is the answer to question 70."
+    },
+    {
+      "question": "Sample question 71",
+      "answer": "This is the answer to question 71."
+    },
+    {
+      "question": "Sample question 72",
+      "answer": "This is the answer to question 72."
+    },
+    {
+      "question": "Sample question 73",
+      "answer": "This is the answer to question 73."
+    },
+    {
+      "question": "Sample question 74",
+      "answer": "This is the answer to question 74."
+    },
+    {
+      "question": "Sample question 75",
+      "answer": "This is the answer to question 75."
+    },
+    {
+      "question": "Sample question 76",
+      "answer": "This is the answer to question 76."
+    },
+    {
+      "question": "Sample question 77",
+      "answer": "This is the answer to question 77."
+    },
+    {
+      "question": "Sample question 78",
+      "answer": "This is the answer to question 78."
+    },
+    {
+      "question": "Sample question 79",
+      "answer": "This is the answer to question 79."
+    },
+    {
+      "question": "Sample question 80",
+      "answer": "This is the answer to question 80."
+    },
+    {
+      "question": "Sample question 81",
+      "answer": "This is the answer to question 81."
+    },
+    {
+      "question": "Sample question 82",
+      "answer": "This is the answer to question 82."
+    },
+    {
+      "question": "Sample question 83",
+      "answer": "This is the answer to question 83."
+    },
+    {
+      "question": "Sample question 84",
+      "answer": "This is the answer to question 84."
+    },
+    {
+      "question": "Sample question 85",
+      "answer": "This is the answer to question 85."
+    },
+    {
+      "question": "Sample question 86",
+      "answer": "This is the answer to question 86."
+    },
+    {
+      "question": "Sample question 87",
+      "answer": "This is the answer to question 87."
+    },
+    {
+      "question": "Sample question 88",
+      "answer": "This is the answer to question 88."
+    },
+    {
+      "question": "Sample question 89",
+      "answer": "This is the answer to question 89."
+    },
+    {
+      "question": "Sample question 90",
+      "answer": "This is the answer to question 90."
+    },
+    {
+      "question": "Sample question 91",
+      "answer": "This is the answer to question 91."
+    },
+    {
+      "question": "Sample question 92",
+      "answer": "This is the answer to question 92."
+    },
+    {
+      "question": "Sample question 93",
+      "answer": "This is the answer to question 93."
+    },
+    {
+      "question": "Sample question 94",
+      "answer": "This is the answer to question 94."
+    },
+    {
+      "question": "Sample question 95",
+      "answer": "This is the answer to question 95."
+    },
+    {
+      "question": "Sample question 96",
+      "answer": "This is the answer to question 96."
+    },
+    {
+      "question": "Sample question 97",
+      "answer": "This is the answer to question 97."
+    },
+    {
+      "question": "Sample question 98",
+      "answer": "This is the answer to question 98."
+    },
+    {
+      "question": "Sample question 99",
+      "answer": "This is the answer to question 99."
+    },
+    {
+      "question": "Sample question 100",
+      "answer": "This is the answer to question 100."
     }
   ]
 }
+
