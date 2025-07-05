@@ -1,3 +1,7 @@
+<?php
+$data = json_decode(file_get_contents(__DIR__ . '/data/leaderboard.json'), true);
+$players = $data['players'] ?? [];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +16,7 @@
     <header class="page-header">
       <span class="logo">&#x1F404; MOO-D SWINGS</span>
       <div class="header-buttons">
-        <a href="index.html" class="about-link">Back</a>
+        <a href="index.php" class="about-link">Back</a>
       </div>
     </header>
     <main class="about-main">
@@ -21,10 +25,13 @@
         <thead>
           <tr><th>Player</th><th>XP</th><th>Farm Age (Days)</th></tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <?php foreach ($players as $p): ?>
+            <tr><td><?php echo htmlspecialchars($p['name']); ?></td><td><?php echo $p['xp']; ?></td><td><?php echo $p['days']; ?></td></tr>
+          <?php endforeach; ?>
+        </tbody>
       </table>
     </main>
   </div>
-  <script src="leaderboard.js?v=1.0"></script>
 </body>
 </html>

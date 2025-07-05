@@ -1,3 +1,4 @@
+<?php $serverTime=time(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,17 @@
     gtag('js', new Date());
     gtag('config', 'G-1RGGXKCNB6');
   </script>
+<?php
+$env = json_decode(file_get_contents(__DIR__ . "/environment.json"), true);
+$month = date("n");
+$seasonIndex = intval(floor(($month % 12) / 3));
+$weatherIndex = rand(0, count($env["weatherTypes"]) - 1);
+?>
+<script>
+window.SERVER_TIME = <?php echo $serverTime * 1000; ?>;
+window.SERVER_SEASON = <?php echo $seasonIndex; ?>;
+window.SERVER_WEATHER = <?php echo $weatherIndex; ?>;
+</script>
 </head>
 <body>
 <div class="mobile-container"> 
@@ -148,12 +160,12 @@
 
   <div class="menu-section leaderboard-container">
     <h3 class="section-title section-title-green">&#x1F3C6; LEADERBOARD</h3>
-    <a href="leaderboard.html" class="about-link">View Leaderboard</a>
+    <a href="leaderboard.php" class="about-link">View Leaderboard</a>
   </div>
   <div class="menu-section about-container">
     <h3 class="section-title section-title-yellow">&#x2139;&#xFE0F; ABOUT</h3>
     <p>Moo-d Swings is a light rhythm farming game built for fun!</p>
-    <a href="about.html" class="about-link">About &amp; FAQ</a>
+    <a href="about.php" class="about-link">About &amp; FAQ</a>
   </div>
   <div class="menu-section save-system-container">
     <h3 class="section-title section-title-green">&#x1F4BE; SAVE SYSTEM &#x1F4BE;</h3>

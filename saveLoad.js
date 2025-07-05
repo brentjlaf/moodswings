@@ -38,7 +38,7 @@ function generateDeviceID() {
 // key under which we’ll store everything in localStorage
 const SAVE_KEY = 'farmGameSave';
 
-function saveGameState() {
+async function saveGameState() {
   try {
     gameState.playerID = gameState.playerID || generateDeviceID();
     gameState.lastSaved = new Date().toISOString();
@@ -60,8 +60,16 @@ function saveGameState() {
 
     localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
     console.log('Game saved to localStorage');
-    // Update local leaderboard with latest stats
-    updateLocalLeaderboard(saveData);
+    // Send to server
+    try {
+      await fetch('api/save.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(saveData)
+      });
+    } catch(e) {
+      console.error('Server save failed', e);
+    }
     updateSaveInfo();
     return saveData;
   } catch (err) {
@@ -71,11 +79,25 @@ function saveGameState() {
   }
 }
 
-function loadGameState() {
+async function loadGameState() {
   try {
+    let saved = null;
     const raw = localStorage.getItem(SAVE_KEY);
-    if (!raw) throw 'no save found';
-    const saved = JSON.parse(raw);
+    if (raw) saved = JSON.parse(raw);
+    if (!saved) {
+      const id = localStorage.getItem(PLAYER_ID_KEY);
+      if (id) {
+        try {
+          const res = await fetch('api/load.php?id=' + id);
+          if (res.ok) {
+            saved = await res.json();
+          }
+        } catch(e) {
+          console.error('Server load failed', e);
+        }
+      }
+    }
+    if (!saved) throw 'no save found';
 
     if (saved.gameVersion && saved.playerID) {
       // Merge saved into current state

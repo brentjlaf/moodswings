@@ -4,7 +4,7 @@ Moo-d Swings is a lightweight rhythm and farming game designed for touch devices
 
 ## File Structure
 ```
-index.html            Main page
+index.php             Main page
 styles.css            Styling and animations
 scripts.js            Core game logic
 config.js             Game configuration
@@ -20,9 +20,9 @@ rhythm-defaults.json  Fallback speeds and instructions
 
 ## Quick Start
 1. Clone or download this repository.
-2. Run a static server in the project directory:
+2. Run the PHP built-in server in the project directory:
    ```bash
-   python3 -m http.server
+   php -S localhost:8000
    ```
 3. Open `http://localhost:8000` in your browser and play.
 
@@ -54,9 +54,9 @@ Activate them when needed, and improved versions offer stronger or longer effect
 
 The game automatically saves progress and works in modern browsers with JavaScript enabled.
 
-## Local Leaderboard
-Each save also updates a `leaderboardData` record in your browser's localStorage.
-Visit `leaderboard.html` to see the highest XP totals from saves on your device.
+## Server Leaderboard
+Saves are sent to the server and stored centrally. Visit `leaderboard.php` to see
+the highest XP totals from all players.
 
 ## Color Palette
 Below is the full palette used throughout the game. Each color has a specific purpose and mood to help keep the visuals cohesive.

@@ -1,14 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    let data;
-    const stored = localStorage.getItem('leaderboardData');
-    if (stored) {
-      data = JSON.parse(stored);
-    } else {
-      const res = await fetch('leaderboard.json');
-      data = await res.json();
-    }
-
+    const res = await fetch('api/leaderboard.php');
+    const data = await res.json();
     data.players.sort((a, b) => b.xp - a.xp);
     const tbody = document.querySelector('#leaderboardTable tbody');
     tbody.innerHTML = '';
