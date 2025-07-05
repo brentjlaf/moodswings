@@ -160,7 +160,21 @@ function importGameData() {
 
 function resetGameData() {
     if (confirm('Are you sure you want to reset all game data? This cannot be undone!')) {
+        const oldId = gameState.playerID;
         clearAllCropTimers();
+
+        // Remove player entry from leaderboard
+        try {
+            const key = 'leaderboardData';
+            const raw = localStorage.getItem(key);
+            if (raw) {
+                const data = JSON.parse(raw);
+                data.players = data.players.filter(p => p.id !== oldId);
+                localStorage.setItem(key, JSON.stringify(data));
+            }
+        } catch (err) {
+            console.error('Error removing from leaderboard', err);
+        }
 
         // Remove any saved data so a fresh game starts on reload
         localStorage.removeItem(SAVE_KEY);
@@ -213,7 +227,7 @@ function resetGameData() {
             currentSeasonIndex: 0,
             currentWeatherIndex: 0,
             username: '',
-            playerID: generateDeviceID(),
+            playerID: '',
             lastSaved: null,
             gameVersion: "2.1"
         });
