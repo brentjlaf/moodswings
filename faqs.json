@@ -1,0 +1,16 @@
+{
+  "faqs": [
+    {
+      "question": "How do I start playing?",
+      "answer": "Tap on a cow to begin a rhythm challenge and earn coins." 
+    },
+    {
+      "question": "What do coins do?",
+      "answer": "Coins let you purchase crops and upgrades from the shop." 
+    },
+    {
+      "question": "How can I save my progress?",
+      "answer": "Use the save option in the menu; the game also auto-saves periodically." 
+    }
+  ]
+}
