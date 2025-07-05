@@ -159,12 +159,9 @@ window.SERVER_WEATHER = <?php echo $weatherIndex; ?>;
   <button id="closeMenu" class="close-menu">&times;</button>
 
   <div class="menu-section leaderboard-container">
-    <h3 class="section-title section-title-green">&#x1F3C6; LEADERBOARD</h3>
     <a href="leaderboard.php" class="about-link">View Leaderboard</a>
   </div>
   <div class="menu-section about-container">
-    <h3 class="section-title section-title-yellow">&#x2139;&#xFE0F; ABOUT</h3>
-    <p>Moo-d Swings is a light rhythm farming game built for fun!</p>
     <a href="about.php" class="about-link">About &amp; FAQ</a>
   </div>
   <div class="menu-section save-system-container">
@@ -175,27 +172,20 @@ window.SERVER_WEATHER = <?php echo $weatherIndex; ?>;
       Last Saved: <span id="lastSaved" class="save-info-label">Never</span>
     </div>
     <div class="save-button-grid">
-      <button onclick="saveGameState(); showToast('Game saved!', 'success'); updateSaveInfo();" class="save-button save-button-save">&#x1F4BE; Save</button>
-      <button onclick="resetGameData()" class="save-button save-button-reset">&#x1F5D1;&#xFE0F; Reset</button>
+      <button onclick="saveGameState(); showToast('Game saved!', 'success'); updateSaveInfo();" class="action-btn save-button-save">&#x1F4BE; Save</button>
+      <button onclick="resetGameData()" class="action-btn save-button-reset">&#x1F5D1;&#xFE0F; Reset</button>
     </div>
     <div class="save-help-text">Auto-saves every 2 minutes and when you leave.</div>
   </div>
 
   <div class="menu-section debug-container">
     <h3 class="section-title section-title-purple">&#x1F527; DEBUG TOOLS &#x1F527;</h3>
-    <button onclick="debugUnlockSystem()" class="debug-button debug-button-pink">&#x1F50D; Check Unlock Status</button>
-    <button onclick="forceUnlockCheck()" class="debug-button debug-button-green">&#x1F513; Force Unlock Check</button>
+    <button onclick="debugUnlockSystem()" class="action-btn debug-button-pink">&#x1F50D; Check Unlock Status</button>
+    <button onclick="forceUnlockCheck()" class="action-btn debug-button-green">&#x1F513; Force Unlock Check</button>
   </div>
 
 
-  <div class="menu-section help-container">
-    <h3 class="section-title section-title-blue">&#x2753; HELP</h3>
-    <p>Tap cows for rhythm challenges and plant crops to earn coins.</p>
-  </div>
 
-  <div class="menu-section settings-container">
-    <h3 class="section-title section-title-brown">&#9881;&#xFE0F; SETTINGS</h3>
-  </div>
 </div>
 
 <!-- Mobile Minigame Overlay -->
