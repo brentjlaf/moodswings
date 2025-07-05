@@ -44,7 +44,9 @@ Certain shop upgrades provide automation:
 - **Milk Processor** converts all stored milk into coins at the start of each day using its conversion rate.
 
 - **Pest Control** keeps pests away from your fields. The basic version lasts five minutes and
-  upgraded ones extend the duration up to thirty minutes. Each use consumes one item.
+  upgraded ones extend the duration up to thirty minutes. Activating another
+  while one is already running extends the remaining time rather than starting
+  a separate timer.
 
 ### Consumables
 Single-use boosts like Energy Drinks or Super Fertilizer can only be purchased one at a time.
