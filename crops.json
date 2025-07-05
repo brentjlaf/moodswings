@@ -43,7 +43,7 @@
       "rarity": "common",
       "unlockCondition": {
         "type": "day",
-        "target": 5
+        "target": 10
       },
       "description": "Juicy and versatile!"
     },
@@ -57,7 +57,7 @@
       "rarity": "common",
       "unlockCondition": {
         "type": "day",
-        "target": 10
+        "target": 20
       },
       "description": "Sweet and profitable!"
     },
@@ -71,7 +71,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 15
+        "target": 30
       },
       "description": "Small but packed with flavor!"
     },
@@ -85,7 +85,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "totalCoins",
-        "target": 500
+        "target": 1000
       },
       "description": "Tart and vibrant delight!"
     },
@@ -99,7 +99,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 20
+        "target": 40
       },
       "description": "Bright and cheerful profit!"
     },
@@ -139,7 +139,7 @@
       "rarity": "rare",
       "unlockCondition": {
         "type": "totalCoins",
-        "target": 800
+        "target": 1600
       },
       "description": "Juicy summer favorite!"
     },
@@ -153,7 +153,7 @@
       "rarity": "rare",
       "unlockCondition": {
         "type": "totalCoins",
-        "target": 1000
+        "target": 2000
       },
       "description": "Big investment, bigger returns!"
     },
@@ -167,7 +167,7 @@
       "rarity": "epic",
       "unlockCondition": {
         "type": "totalCoins",
-        "target": 2000
+        "target": 4000
       },
       "description": "Blooms with cosmic energy!"
     },
@@ -181,7 +181,7 @@
       "rarity": "epic",
       "unlockCondition": {
         "type": "day",
-        "target": 25
+        "target": 50
       },
       "description": "Blooms under moonlight!"
     },
@@ -195,7 +195,7 @@
       "rarity": "legendary",
       "unlockCondition": {
         "type": "perfectScores",
-        "target": 10
+        "target": 20
       },
       "description": "Crystallized perfection!"
     },
@@ -209,7 +209,7 @@
       "rarity": "legendary",
       "unlockCondition": {
         "type": "perfectScores",
-        "target": 20
+        "target": 40
       },
       "description": "Legendary orchard treasure!"
     },
@@ -223,7 +223,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 30
+        "target": 60
       },
       "description": "Sweet and fuzzy!"
     },
@@ -237,7 +237,7 @@
       "rarity": "uncommon",
       "unlockCondition": {
         "type": "day",
-        "target": 35
+        "target": 70
       },
       "description": "Tiny bunch, big returns!"
     },
@@ -251,7 +251,7 @@
       "rarity": "rare",
       "unlockCondition": {
         "type": "totalCoins",
-        "target": 1200
+        "target": 2400
       },
       "description": "A-peeling profits!"
     },
@@ -265,7 +265,7 @@
       "rarity": "rare",
       "unlockCondition": {
         "type": "day",
-        "target": 40
+        "target": 80
       },
       "description": "Tropical treat with tough shell!"
     },
@@ -279,7 +279,7 @@
       "rarity": "epic",
       "unlockCondition": {
         "type": "totalCoins",
-        "target": 2500
+        "target": 5000
       },
       "description": "Perk up your income!"
     }
