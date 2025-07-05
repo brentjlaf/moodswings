@@ -1103,6 +1103,9 @@ function checkCowLevelUp(cow) {
 
     cow.level = prevLevel + 1;
     cow.fullHappySince = null;
+    // Reset mood after leveling up so players must cheer the cow again
+    cow.happinessLevel = 25;
+    refreshCowMood(cow);
     showToast(`🐮 ${cow.name} reached Lv ${cow.level}!`, 'success');
 }
 
