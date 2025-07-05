@@ -161,6 +161,7 @@ function resetGameData() {
         Object.assign(gameState, {
             coins: 100,
             milk: 0,
+            xp: 0,
             day: 1,
             totalScore: 0,
             cows: [],
