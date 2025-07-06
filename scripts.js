@@ -69,6 +69,13 @@ async function loadGameData() {
     }
 }
 
+const BANNED_WORDS = ['badword', 'curse', 'darn', 'poop'];
+
+function containsBadWord(name) {
+    const lowered = name.toLowerCase();
+    return BANNED_WORDS.some(w => lowered.includes(w));
+}
+
 let gameState = {
     coins: 100,
     milk: 0,
@@ -918,8 +925,20 @@ function updateUsername() {
     const input = document.getElementById('usernameInput');
     if (!input) return;
     const name = input.value.trim();
-    if (!name || !/^[A-Za-z0-9]+$/.test(name)) {
+    if (!name) {
+        showToast('Username is required.', 'error');
+        return;
+    }
+    if (name.length < 3) {
+        showToast('Name must be at least 3 characters.', 'error');
+        return;
+    }
+    if (!/^[A-Za-z0-9]+$/.test(name)) {
         showToast('Name must contain only letters and numbers.', 'error');
+        return;
+    }
+    if (containsBadWord(name)) {
+        showToast('Please choose a different name.', 'error');
         return;
     }
     gameState.username = name;
