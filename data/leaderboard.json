@@ -1,8 +1,3 @@
 {
-  "players": [
-    { "name": "Farmer Joe", "xp": 1500, "days": 12 },
-    { "name": "Farmer Jane", "xp": 2100, "days": 15 },
-    { "name": "Cowboy Carl", "xp": 750, "days": 8 },
-    { "name": "Rancher Rick", "xp": 3200, "days": 22 }
-  ]
+  "players": []
 }
