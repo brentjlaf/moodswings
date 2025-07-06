@@ -12,6 +12,26 @@ if (!isset($data['playerID'])) {
     echo json_encode(['error' => 'Missing playerID']);
     exit;
 }
+$banned = ['badword','curse','darn','poop'];
+if (!isset($data['username']) || trim($data['username']) === '') {
+    http_response_code(400);
+    echo json_encode(['error' => 'Missing username']);
+    exit;
+}
+$name = preg_replace('/[^a-zA-Z0-9]/', '', $data['username']);
+if (strlen($name) < 3) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Username too short']);
+    exit;
+}
+foreach ($banned as $bw) {
+    if (stripos($name, $bw) !== false) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Inappropriate username']);
+        exit;
+    }
+}
+$data['username'] = $name;
 $id = preg_replace('/[^a-zA-Z0-9_\-]/', '', $data['playerID']);
 $file = __DIR__ . '/../data/saves/' . $id . '.json';
 if (!file_exists(dirname($file))) {
