@@ -77,6 +77,7 @@ let gameState = {
     totalScore: 0,
     cows: [],
     lockedCows: [],
+    retiredCows: [],
     crops: [],
     upgrades: {},
     effects: {}, // Effect system for upgrades
@@ -902,6 +903,7 @@ function buildCow(cow) {
         ...base,
         locked: false,               // always start unlocked
         level: base.level || 1,
+        retired: false,
         currentMood,
         moodValue: base.moodValue,   // preserve the original value
         isHappy: base.moodValue >= 70, // happy threshold at 70
@@ -1117,19 +1119,18 @@ function updateAllCowHappiness() {
 }
 
 function checkCowLevelUp(cow) {
-    if (!cow.fullHappySince) return;
+    if (!cow.fullHappySince || cow.retired) return;
 
     const elapsed = Date.now() - cow.fullHappySince;
     const hoursRequired = (GAME_CONFIG.HAPPINESS.level_up_hours || 12) * 3600000;
     if (elapsed < hoursRequired) return;
 
-    const type = cow.currentGameType || cow.gameType;
-    const data = rhythmPatterns.rhythmTypes && rhythmPatterns.rhythmTypes[type];
-    if (!data || !data.patterns) return;
-
-    const maxLevel = data.patterns.length;
     const prevLevel = cow.level || 1;
-    if (prevLevel >= maxLevel) return;
+    const maxLevel = GAME_CONFIG.MAX_COW_LEVEL || 10;
+    if (prevLevel >= maxLevel) {
+        retireCow(cow);
+        return;
+    }
 
     cow.level = prevLevel + 1;
     cow.fullHappySince = null;
@@ -1137,6 +1138,23 @@ function checkCowLevelUp(cow) {
     cow.happinessLevel = 25;
     refreshCowMood(cow);
     showToast(`🐮 ${cow.name} reached Lv ${cow.level}!`, 'success');
+
+    if (cow.level >= maxLevel) {
+        retireCow(cow);
+    }
+}
+
+function retireCow(cow) {
+    if (cow.retired) return;
+    cow.retired = true;
+    const index = gameState.cows.indexOf(cow);
+    if (index !== -1) {
+        gameState.cows.splice(index, 1);
+        gameState.retiredCows.push(cow);
+        renderCows();
+    }
+    showToast(`🏆 ${cow.name} retired at level ${cow.level}!`, 'info');
+    checkAllCowUnlocks();
 }
 
 
@@ -2513,16 +2531,22 @@ function migrateGameState() {
         delete gameState.totalPerfectScores;
     }
 
-    // Ensure cows have level property
+    // Ensure cows have level and retired property
     if (Array.isArray(gameState.cows)) {
         gameState.cows.forEach(c => {
             if (c.level === undefined) c.level = 1;
+            if (c.retired === undefined) c.retired = false;
         });
     }
     if (Array.isArray(gameState.lockedCows)) {
         gameState.lockedCows.forEach(c => {
             if (c.level === undefined) c.level = 1;
+            if (c.retired === undefined) c.retired = false;
         });
+    }
+
+    if (!Array.isArray(gameState.retiredCows)) {
+        gameState.retiredCows = [];
     }
     
     // Initialize effects object if it doesn't exist

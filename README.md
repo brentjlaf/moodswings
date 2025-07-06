@@ -33,8 +33,9 @@ Modify the JSON files to add new cows, crops, shop items or rhythm patterns. You
 - Plant and harvest crops for additional income.
 - Spend coins or milk on upgrades in the shop.
 - Unlock more content as you progress through the days.
- - Keeping cows at full happiness for a while will level them up.
- - Seasons follow the real-world date, changing crop growth speed and cow mood.
+- Keeping cows at full happiness for a while will level them up.
+- Cows retire once they reach level 10.
+- Seasons follow the real-world date, changing crop growth speed and cow mood.
  - Weather shifts throughout the day and displays the current temperature.
 - The header displays the current local time so you know what part of the day the farm is themed for.
 

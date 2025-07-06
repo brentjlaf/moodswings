@@ -565,6 +565,10 @@ function startMinigame(cowIndex) {
     if (cowIndex >= gameState.cows.length) return; // FIX: Safety check
 
     const cow = gameState.cows[cowIndex];
+    if (cow.retired) {
+        showToast(`${cow.name} is retired!`, 'info');
+        return;
+    }
     cow.currentGameType = getRandomGameType();
     const overlay = document.getElementById('minigameOverlay');
     const title = document.getElementById('minigameTitle');
