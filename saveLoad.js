@@ -231,6 +231,7 @@ function performResetGameData() {
             totalScore: 0,
             cows: [],
             lockedCows: [],
+            retiredCows: [],
             crops: [],
             upgrades: {},
             effects: {},

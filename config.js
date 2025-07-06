@@ -126,6 +126,9 @@ const GAME_CONFIG = {
         level_up_hours: 10 / 60
     },
 
+    // Maximum cow level before retirement
+    MAX_COW_LEVEL: 10,
+
     HAPPINESS_UPDATE_INTERVAL: 3600000, // 1 hour
 
     // UI settings
