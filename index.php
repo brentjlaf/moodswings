@@ -254,11 +254,11 @@ window.SERVER_WEATHER = <?php echo $weatherIndex; ?>;
 <!-- Scroll to Top Button -->
 <button id="scrollTopBtn">&#x25B2;</button>
 
-<script src="config.js?v=moo1.01"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="saveLoad.js?v=moo1.01"></script>
-<script src="scripts.js?v=moo1.01"></script>
-<script src="minigame.js?v=moo1.01"></script>
-<script src="debug.js?v=moo1.01"></script>
+  <script src="js/config.js?v=moo1.01"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/saveLoad.js?v=moo1.01"></script>
+  <script type="module" src="js/main.js?v=moo1.01"></script>
+  <script src="js/rhythm.js?v=moo1.01"></script>
+  <script src="js/debug.js?v=moo1.01"></script>
 </body>
 </html>

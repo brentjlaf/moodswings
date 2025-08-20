@@ -4,10 +4,14 @@ Moo-d Swings is a lightweight rhythm and farming game designed for touch devices
 
 ## File Structure
 ```
-index.php             Main page
-styles.css            Styling and animations
-scripts.js            Core game logic
-config.js             Game configuration
+ index.php             Main page
+ styles.css            Styling and animations
+ js/                   JavaScript modules
+   data.js            Data loading and state management
+   ui.js              UI rendering and game flow
+   achievements.js    Achievement system
+   rhythm.js          Rhythm gameplay
+   config.js          Game configuration
 cows.json             Cow data
 crops.json            Crop data
 shop.json             Shop items
